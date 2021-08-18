@@ -5,10 +5,12 @@
     "engines": {
         "node": ">=14.17"
     },
+    "type": "module",
     "scripts": {
         "dev": "npx parcel static/index.html",
         "build": "npx parcel build static/index.html",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node src/server.js"
     },
     "repository": {
         "type": "git",
