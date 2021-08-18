@@ -11,6 +11,16 @@
         "url": "git+https://github.com/Verisana/middle.messenger.praktikum.yandex.git"
     },
     "devDependencies": {
-        "parcel": "^2.0.0-rc.0"
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "parcel": "^2.0.0-rc.0",
+        "prettier": "^2.3.2"
+    },
+    "prettier": {
+        "trailingComma": "none",
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": false
     }
 }
