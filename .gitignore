@@ -1,0 +1,5 @@
+dist/
+sensitive/
+.env
+node_modules
+.parcel-cache
