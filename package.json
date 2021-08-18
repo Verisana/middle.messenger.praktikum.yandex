@@ -1,0 +1,12 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Учебный проект мессенджера в Яндекс Практикуме",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Verisana/middle.messenger.praktikum.yandex.git"
+  }
+}
