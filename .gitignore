@@ -3,3 +3,4 @@ sensitive/
 .env
 node_modules
 .parcel-cache
+.cache
