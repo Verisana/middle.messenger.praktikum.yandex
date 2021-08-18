@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "Учебный проект мессенджера в Яндекс Практикуме",
     "scripts": {
-        "dev": "npx parcel src/index.html",
-        "build": "npx parcel build src/index.html",
+        "dev": "npx parcel static/index.html",
+        "build": "npx parcel build static/index.html",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
