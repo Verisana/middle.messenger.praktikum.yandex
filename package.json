@@ -2,6 +2,9 @@
     "name": "messenger",
     "version": "1.0.0",
     "description": "Учебный проект мессенджера в Яндекс Практикуме",
+    "engines": {
+        "node": ">=14.17"
+    },
     "scripts": {
         "dev": "npx parcel static/index.html",
         "build": "npx parcel build static/index.html",
