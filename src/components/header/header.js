@@ -1,6 +1,6 @@
 import headerTemplate from "./header.hbs"
+import { string2DomElement } from "../../utils/utils.js"
 
-const header = new DOMParser().parseFromString(headerTemplate(), "text/html")
-    .body.firstChild
+const header = string2DomElement(headerTemplate())
 
 export { header }
