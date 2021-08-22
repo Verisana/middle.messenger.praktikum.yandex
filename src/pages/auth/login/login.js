@@ -6,13 +6,11 @@ import { linkButtons } from "../../../router/tempButtons"
 import Handlebars from "handlebars/runtime"
 import buttonTemplate from "../../../components/button/button.hbs"
 
-console.log(buttonTemplate({ buttonName: "Test button" }))
-Handlebars.registerPartial(
-    "testPartial",
-    buttonTemplate({buttonName: "Test button"})
-)
-console.log(Handlebars.partials)
+const testTemplate = `<button type="button" class="{{classStyles}}">{{buttonName}}</button>`
 
+console.log(testTemplate)
+Handlebars.registerPartial("testPartial", testTemplate)
+console.log(Handlebars.partials)
 
 const loginContent = () => {
     const params = {
