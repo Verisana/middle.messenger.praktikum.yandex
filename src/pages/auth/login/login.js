@@ -3,6 +3,17 @@ import loginTemplate from "./login.hbs"
 import { string2DomElement } from "../../../utils/utils.js"
 import { linkButtons } from "../../../router/tempButtons"
 
+import Handlebars from "handlebars/runtime"
+import buttonTemplate from "../../../components/button/button.hbs"
+
+console.log(buttonTemplate({ buttonName: "Test button" }))
+Handlebars.registerPartial(
+    "testPartial",
+    buttonTemplate({buttonName: "Test button"})
+)
+console.log(Handlebars.partials)
+
+
 const loginContent = () => {
     const params = {
         inputPlace: "login-input",
