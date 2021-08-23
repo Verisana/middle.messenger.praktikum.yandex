@@ -4,8 +4,11 @@ import { string2DomElement } from "../../../utils/utils.js"
 import { linkButtons } from "../../../router/tempButtons.js"
 
 const errorContent = () => {
-    const content = string2DomElement(errorTemplate())
-    const buttonPlace = content.querySelector("#linkToHome")
+    const params = {
+        linkToHome: "linkToHome"
+    }
+    const content = string2DomElement(errorTemplate(params))
+    const buttonPlace = content.querySelector(`#${params.linkToHome}`)
     buttonPlace.appendChild(linkButtons.home)
     return content
 }
