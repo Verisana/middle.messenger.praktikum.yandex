@@ -5,8 +5,8 @@ import { renderContent } from "../layout/layout.js"
 // меня печалят, решил использовать эту заглушку, чтобы отображать страницы
 
 const DESTINATIONS = {
-    404: pages.errorContent,
-    500: pages.serverErrorContent,
+    error: pages.errorContent,
+    serverError: pages.serverErrorContent,
     home: pages.homeContent,
     login: pages.loginContent,
     register: pages.registerContent,
