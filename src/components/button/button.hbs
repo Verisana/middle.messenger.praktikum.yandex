@@ -1,3 +1,5 @@
-<button type="button" class={{classStyles}}>
-    {{buttonName}}
+<button
+    type={{#if type_}}{{type_}}{{else}}"button"{{/if}}
+    {{#if class_}}class={{class_}}{{/if}}>
+        {{text}}
 </button>
