@@ -14,7 +14,7 @@ const loginContent = () => {
     const buttonPlace = content.querySelector(`#${params.buttonToHome}`)
 
     // inputPlace.appendChild()
-    buttonPlace.appendChild(linkButtons.register)
+    buttonPlace.appendChild(linkButtons.register())
     return content
 }
 

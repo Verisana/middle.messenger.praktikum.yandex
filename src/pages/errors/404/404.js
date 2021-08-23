@@ -9,7 +9,7 @@ const errorContent = () => {
     }
     const content = string2DomElement(errorTemplate(params))
     const buttonPlace = content.querySelector(`#${params.linkToHome}`)
-    buttonPlace.appendChild(linkButtons.home)
+    buttonPlace.appendChild(linkButtons.home())
     return content
 }
 
