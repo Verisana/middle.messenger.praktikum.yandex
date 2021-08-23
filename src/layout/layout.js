@@ -10,7 +10,7 @@ const clearBodyContent = () => {
 }
 
 export const renderContent = (content) => {
-    if (typeof content === "string") {
+    if (typeof content !== "function") {
         throw new Error("Check renderNewPage passed arguments")
     }
 
@@ -21,7 +21,7 @@ export const renderContent = (content) => {
     }
 
     clearBodyContent()
-    document.body.appendChild(header)
-    document.body.appendChild(content)
-    document.body.appendChild(footer)
+    document.body.appendChild(header())
+    document.body.appendChild(content())
+    document.body.appendChild(footer())
 }

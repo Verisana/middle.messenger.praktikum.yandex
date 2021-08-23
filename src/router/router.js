@@ -18,5 +18,5 @@ export const switchContent = (location) => {
     if (content === undefined) {
         throw new Error("Passed wrong destination. Check your code")
     }
-    renderContent(content())
+    renderContent(content)
 }
