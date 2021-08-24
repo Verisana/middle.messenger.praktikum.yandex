@@ -28,3 +28,9 @@ export const onSubmitMock = (event) => {
     event.preventDefault()
     console.log("Form submitted!")
 }
+
+export const capitalizeFirstSymbol = (text) => {
+    if (typeof text === "string") {
+        return text.charAt(0).toUpperCase() + text.slice(1)
+    }
+}
