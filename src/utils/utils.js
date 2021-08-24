@@ -21,3 +21,10 @@ export const convertStyles2Strings = (classMappings, classList) => {
               })
               .reduce((acc, classValue) => acc + ` ${classValue}`)
 }
+
+// Заглушка, которая вызывается во всех сабмитах, чтобы показать
+// работоспособность
+export const onSubmitMock = (event) => {
+    event.preventDefault()
+    console.log("Form submitted!")
+}
