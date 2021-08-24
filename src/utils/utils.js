@@ -8,14 +8,16 @@ export const string2DomElement = (toParse) => {
 
 // Преобразуем список со стилями в строку для проброса в шаблон
 export const convertStyles2Strings = (classMappings, classList) => {
-    return classList === undefined ? "" : classList
-        .map((el) => {
-            const mapping = classMappings[el]
-            if (mapping === undefined)
-                throw new Error(
-                    `Can not map class to converted style class. Check arguments`
-                )
-            return mapping
-        })
-        .reduce((acc, classValue) => acc + ` ${classValue}`)
+    return classList === undefined
+        ? ""
+        : classList
+              .map((el) => {
+                  const mapping = classMappings[el]
+                  if (mapping === undefined)
+                      throw new Error(
+                          `Can not map class to converted style class. Check arguments`
+                      )
+                  return mapping
+              })
+              .reduce((acc, classValue) => acc + ` ${classValue}`)
 }
