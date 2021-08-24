@@ -9,7 +9,7 @@ const clearBodyContent = () => {
     }
 }
 
-export const renderContent = (content) => {
+export const renderContent = (content, isLogged = false) => {
     if (typeof content !== "function") {
         throw new Error("Check renderNewPage passed arguments")
     }
@@ -19,9 +19,8 @@ export const renderContent = (content) => {
             document.body.classList.add(modifiedClassName)
         }
     }
-
     clearBodyContent()
-    document.body.appendChild(header())
+    document.body.appendChild(header(isLogged))
     document.body.appendChild(content())
     document.body.appendChild(footer())
 }
