@@ -1,6 +1,6 @@
-import classes from "./login.css"
+import styles from "./login.css"
 import loginTemplate from "./login.hbs"
-import { string2DomElement } from "../../../utils/utils.js"
+import { string2DomElement, onSubmitMock } from "../../../utils/utils.js"
 import { linkButtons } from "../../../router/tempButtons"
 import { submitForm } from "../../../components/submitForm/index"
 import { inputField } from "../../../components/inputField/index"
@@ -9,33 +9,42 @@ import { button } from "../../../components/button/index"
 const buildLoginForm = () => {
     const inputBuilders = [
         inputField.bind(null, {
-            label_: { text: "testName" },
-            input_: { type: "text" },
+            input_: { type: "text", placeholder: "Логин", name: "login" },
             br_: true
         }),
         inputField.bind(null, {
-            label_: { text: "testName2" },
-            input_: { type: "text" },
+            input_: {
+                type: "password",
+                placeholder: "Пароль",
+                name: "password"
+            },
             br_: true
         })
     ]
-    const submitBuilder = button.bind(null, { text: "Submit", type_: "submit" })
-    return submitForm({ inputBuilders, submitBuilder })
+    const submitBuilder = button.bind(null, { text: "Войти", type_: "submit" })
+    return submitForm({
+        inputBuilders,
+        submitBuilder,
+        onSubmitFunc: onSubmitMock
+    })
 }
 
-const loginContent = () => {
+export const loginContent = () => {
+    const placeholders = {
+        formPlace: "login-input",
+        buttonToRegister: "login-no-account-button"
+    }
     const params = {
-        inputPlace: "login-input",
-        buttonToHome: "login-no-account-button"
+        ...placeholders
     }
 
     const content = string2DomElement(loginTemplate(params))
-    const inputPlace = content.querySelector(`#${params.inputPlace}`)
-    const buttonPlace = content.querySelector(`#${params.buttonToHome}`)
+    const formPlace = content.querySelector(`#${placeholders.formPlace}`)
+    const buttonPlace = content.querySelector(
+        `#${placeholders.buttonToRegister}`
+    )
 
-    inputPlace.appendChild(buildLoginForm())
-    buttonPlace.appendChild(linkButtons.register())
+    formPlace.appendChild(buildLoginForm())
+    buttonPlace.appendChild(linkButtons.register({ text: "Нет аккаунта?" }))
     return content
 }
-
-export { loginContent }
