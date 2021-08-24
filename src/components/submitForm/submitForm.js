@@ -2,7 +2,7 @@ import styles from "./submitForm.css"
 import submitFormTemplate from "./submitForm.hbs"
 import { string2DomElement, convertStyles2Strings } from "../../utils/utils.js"
 
-export const submitForm = ({ class_, inputBuilders, submitBuilder } = {}) => {
+export const submitForm = ({ class_, inputBuilders, submitBuilder, onSubmitFunc } = {}) => {
     const placeholders = {
         submitButton: "submitButtonPlaceholder",
         inputsPlace: "inputsPlaceholder"
@@ -23,6 +23,6 @@ export const submitForm = ({ class_, inputBuilders, submitBuilder } = {}) => {
     for (const inputBuilder of inputBuilders) {
         inputsDiv.appendChild(inputBuilder())
     }
-
+    if(onSubmitFunc) content.addEventListener("submit", onSubmitFunc)
     return content
 }
