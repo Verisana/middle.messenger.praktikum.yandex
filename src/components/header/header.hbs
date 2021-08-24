@@ -1,8 +1,13 @@
-<div>
-    <p>
-        Header
-    </p>
-    <p>
-        One more header text
-    </p>
-</div>
+<nav>
+    {{#if isLogged}}<div id={{menuButton}}></div>{{/if}}
+
+    <p>Random Voice Companion</p>
+
+    {{#if isLogged}}<div id={{settingsButton}}></div>{{/if}}
+
+    {{#if isLogged}}
+    {{else}}
+        <div id={{buttonToLogin}}></div>
+        <div id={{buttonToRegister}}></div>
+    {{/if}}
+</nav>
