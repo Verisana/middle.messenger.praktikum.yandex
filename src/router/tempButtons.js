@@ -21,7 +21,7 @@ const createButtonBuilder = (contentRoute, styles) => {
 }
 
 const linkButtons = {
-    home: createButtonBuilder("home", ["button__submit_red"]),
+    home: createButtonBuilder("home"),
     login: createButtonBuilder("login"),
     register: createButtonBuilder("register"),
     error: createButtonBuilder("error"),
