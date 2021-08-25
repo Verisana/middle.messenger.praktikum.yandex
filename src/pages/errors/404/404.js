@@ -1,4 +1,4 @@
-import classes from "./404.css"
+import "./404.css"
 import errorTemplate from "./404.hbs"
 import { string2DomElement } from "../../../utils/utils.js"
 import { linkButtons } from "../../../router/tempButtons.js"
