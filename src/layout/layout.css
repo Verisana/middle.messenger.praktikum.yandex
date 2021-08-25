@@ -1,3 +1,26 @@
-.main {
-    color: green;
+body {
+    font-family: "Roboto";
+    background-color: #F5F5F6;
+    text-align:center;
+    margin: auto;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.content {
+    max-width: 1140px;
+    margin: auto;
+}
+
+main {
+    max-width: 1140px;
+    margin: auto;
+}
+
+img {
+    width: 1140px;
+    height: auto;
+    margin: 10px;
+    border-radius: 15px;
 }
