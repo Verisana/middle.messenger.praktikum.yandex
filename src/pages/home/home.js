@@ -1,4 +1,4 @@
-import styles from "./home.css"
+import "./home.css"
 import homeTemplate from "./home.hbs"
 import { string2DomElement, onSubmitMock } from "../../utils/utils.js"
 import { inputField } from "../../components/inputField/index.js"
