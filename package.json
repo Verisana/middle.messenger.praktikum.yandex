@@ -25,6 +25,7 @@
         "prettier": "^2.3.2"
     },
     "dependencies": {
+        "@fontsource/roboto": "^4.5.0",
         "@parcel/logger": "^2.0.0-alpha.3",
         "autoprefixer": "^9.8.6",
         "express": "^4.17.1",
