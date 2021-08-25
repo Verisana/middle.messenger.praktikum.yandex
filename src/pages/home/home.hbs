@@ -1,8 +1,10 @@
 <main>
-    {{#each listContacts}}
-        <div id={{this}}></div>
-    {{/each}}
-    <p>
-        Home!
-    </p>
+    {{#if isLogged}}
+        <div id={{chatSideBarPlace}}></div>
+        <div id={{messagesPlace}}></div>
+        <div id={{textInputPlace}}></div>
+    {{else}}
+        <div id={{buttonToLogin}}></div>
+        <div id={{buttonToRegister}}></div>
+    {{/if}}
 </main>
