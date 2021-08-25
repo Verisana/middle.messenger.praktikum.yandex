@@ -1,4 +1,4 @@
-import classes from "./layout.css"
+import "./layout.css"
 import { header } from "../components/header/index.js"
 import { footer } from "../components/footer/index.js"
 
@@ -14,11 +14,6 @@ export const renderContent = (content) => {
         throw new Error("Check renderNewPage passed arguments")
     }
 
-    for (const [, modifiedClassName] of Object.entries(classes)) {
-        if (!document.body.classList.contains(modifiedClassName)) {
-            document.body.classList.add(modifiedClassName)
-        }
-    }
     clearBodyContent()
     document.body.appendChild(header())
     document.body.appendChild(content())
