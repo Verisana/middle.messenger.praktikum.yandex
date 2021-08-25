@@ -1,3 +1,4 @@
+import "./header.css"
 import headerTemplate from "./header.hbs"
 import { string2DomElement } from "../../utils/utils.js"
 import { linkButtons } from "../../router/tempButtons.js"
