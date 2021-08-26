@@ -6,12 +6,13 @@ import { capitalizeFirstSymbol } from "../utils/utils.js"
 // для перехода
 
 const createButtonBuilder = (contentRoute, styles) => {
-    return ({ text, imgSrc } = {}) => {
+    return ({ text, imgSrc, class_, imgStyle } = {}) => {
         const buttonElement = button({
             text:
                 text === undefined ? capitalizeFirstSymbol(contentRoute) : text,
-            class_: styles,
-            imgSrc
+            class_: class_ === undefined ? styles : class_,
+            imgSrc,
+            imgStyle
         })
         buttonElement.addEventListener("click", () => {
             switchContent(contentRoute)
