@@ -1,6 +1,7 @@
-import styles from "./settings.css"
+import "./settings.css"
+import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
-import { string2DomElement, onSubmitMock } from "../../utils/utils.js"
+import { string2DomElement, onSubmitMock, convertStyles2Strings } from "../../utils/utils.js"
 import { linkButtons } from "../../router/tempButtons"
 import { submitForm } from "../../components/submitForm/index"
 import { inputField } from "../../components/inputField/index"
@@ -13,44 +14,58 @@ const buildSettingsForm = () => {
         inputField.bind(null, {
             input_: {
                 type: "tel",
-                placeholder: "Телефон",
                 name: "phone",
                 required: true
+            },
+            label_: {
+                text: "Телефон"
             },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "text",
-                placeholder: "Логин",
                 name: "login",
                 required: true
+            },
+            label_: {
+                text: "Логин"
             },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "password",
-                placeholder: "Пароль",
                 name: "password",
                 required: true
+            },
+            label_: {
+                text: "Пароль"
             },
             br_: true
         }),
         inputField.bind(null, {
-            input_: { type: "text", placeholder: "Имя", name: "first_name" },
+            input_: { type: "text", name: "first_name" },
+            label_: {
+                text: "Имя"
+            },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "text",
-                placeholder: "Фамилия",
                 name: "second_name"
+            },
+            label_: {
+                text: "Фамилия"
             },
             br_: true
         }),
         inputField.bind(null, {
-            input_: { type: "email", placeholder: "Email", name: "email" },
+            input_: { type: "email", name: "email" },
+            label_: {
+                text: "Email"
+            },
             br_: true
         })
     ]
@@ -61,6 +76,7 @@ const buildSettingsForm = () => {
     return submitForm({
         inputBuilders,
         submitBuilder,
+        formHeaderText: "Данные для редактирования",
         onSubmitFunc: onSubmitMock
     })
 }
@@ -75,6 +91,7 @@ export const settingsContent = () => {
         // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
         linkToImage:
             "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
+        avatarStyle: convertStyles2Strings(layoutStyles, ["img__avatar_default"]),
         ...placeholders
     }
 
