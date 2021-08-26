@@ -1,0 +1,9 @@
+form {
+    border: 5px solid #003300;
+    padding: 30px;
+    margin: 10px;
+}
+
+.form_no_border {
+    border: 0px;
+}
