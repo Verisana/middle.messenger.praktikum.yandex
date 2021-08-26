@@ -1,8 +1,10 @@
 <div
     data-message-is-read={{messageIsRead}}
     data-contact-id={{contactId}}
-    {{#if class}}class={{class_}}{{/if}}>
-        <img src={{avatarSrc}}>
-        <p>{{contactName}}</p>
-        <div id={{messagePlace}}></div>
+    {{#if class_}}class="{{class_}}"{{/if}}>
+        <img class="{{imgStyles}}" src={{avatarSrc}}>
+        <div>
+            <p>{{contactName}}</p>
+            <div id={{messagePlace}}></div>
+        </div>
 </div>

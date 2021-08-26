@@ -1,4 +1,5 @@
 import styles from "./chatSideBar.css"
+import layoutStyles from "../../layout/layout.css"
 import chatSideBarTemplate from "./chatSideBar.hbs"
 import { string2DomElement, convertStyles2Strings } from "../../utils/utils.js"
 import { defaultAvatar } from "../../consts"
@@ -16,12 +17,15 @@ export const chatSideBar = ({
     contactId,
     messageElement
 } = {}) => {
+    classList = classList === undefined ? [] : classList
+    classList.push("chatSideBar_main")
     const params = {
         class_: convertStyles2Strings(styles, classList),
         avatarSrc: avatarSrc === undefined ? defaultAvatar : avatarSrc,
         messageIsRead,
         contactName,
         contactId,
+        imgStyles: convertStyles2Strings(layoutStyles, ["img__avatar_small"]),
         ...placeholders
     }
     const element = string2DomElement(chatSideBarTemplate(params))
