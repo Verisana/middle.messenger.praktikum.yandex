@@ -1,6 +1,6 @@
-import "./home.css"
+import styles from "./home.css"
 import homeTemplate from "./home.hbs"
-import { string2DomElement, onSubmitMock } from "../../utils/utils.js"
+import { string2DomElement, onSubmitMock, convertStyles2Strings } from "../../utils/utils.js"
 import { inputField } from "../../components/inputField/index.js"
 import { submitForm } from "../../components/submitForm/index.js"
 import { button } from "../../components/button/index.js"
@@ -15,7 +15,7 @@ const chatSideBarList = [
         contactName: "Contact",
         contactId: "1",
         messageElement: message({
-            sender: "Owner",
+            sender: "owner",
             text: "Текст сообщения",
             timeMachine: "12:45:01.235",
             timeHuman: "12:45",
@@ -27,7 +27,7 @@ const chatSideBarList = [
         contactName: "Contact_2",
         contactId: "2",
         messageElement: message({
-            sender: "Owner",
+            sender: "owner",
             text: "Текст сообщения 2",
             timeMachine: "12:45:01.235",
             timeHuman: "12:45",
@@ -39,7 +39,7 @@ const chatSideBarList = [
         contactName: "Contact_3",
         contactId: "3",
         messageElement: message({
-            sender: "Companion",
+            sender: "companion",
             text: "Текст сообщения 3",
             timeMachine: "12:45:01.235",
             timeHuman: "12:45",
@@ -50,46 +50,52 @@ const chatSideBarList = [
 
 const messages = [
     message({
-        sender: "Owner",
+        sender: "owner",
         text: "Привет!",
         timeMachine: "12:45:01.235",
         timeHuman: "12:45",
-        messageId: "1"
+        messageId: "1",
+        classList: ["message_right"]
     }),
     message({
-        sender: "Companion",
+        sender: "companion",
         text: "Прив",
         timeMachine: "12:46:02.23",
         timeHuman: "12:46",
-        messageId: "2"
+        messageId: "2",
+        classList: ["message_left"]
     }),
     message({
-        sender: "Owner",
+        sender: "owner",
         text: "Ты будешь завтра на вебинаре?",
         timeMachine: "12:47:01:68",
         timeHuman: "12:47",
-        messageId: "3"
+        messageId: "3",
+        classList: ["message_right"]
     }),
     message({
-        sender: "Companion",
+        sender: "companion",
         text: "Да, планирую",
         timeMachine: "12:48:03.39",
         timeHuman: "12:48",
-        messageId: "4"
+        messageId: "4",
+        classList: ["message_left"]
     }),
     message({
-        sender: "Companion",
+        sender: "companion",
         text: "А ты?",
         timeMachine: "12:48:45.355",
         timeHuman: "12:48",
-        messageId: "5"
+        messageId: "5",
+        classList: ["message_left"]
     }),
     message({
-        sender: "Owner",
+        sender: "owner",
         text: "Ага, тоже",
         timeMachine: "12:49:25.355",
         timeHuman: "12:49",
-        messageId: "6"
+        messageId: "6",
+        classList: ["message_right"]
     })
 ]
 
@@ -98,9 +104,11 @@ const buildMessageInputForm = () => {
         inputField.bind(null, {
             input_: {
                 type: "text",
-                placeholder: "Сообщение",
                 name: "message",
                 required: true
+            },
+            label_: {
+                text: "Сообщение"
             }
         })
     ]
@@ -111,6 +119,7 @@ const buildMessageInputForm = () => {
     return submitForm({
         inputBuilders,
         submitBuilder,
+        isNoBorder: true,
         onSubmitFunc: onSubmitMock
     })
 }
@@ -126,6 +135,7 @@ export const placeholders = {
 export const homeContent = () => {
     const params = {
         isLogged,
+        class_: convertStyles2Strings(styles, ["main_home"]),
         ...placeholders
     }
     const content = string2DomElement(homeTemplate(params))
