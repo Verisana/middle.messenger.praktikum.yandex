@@ -9,14 +9,20 @@ import { button } from "../../../components/button/index"
 const buildLoginForm = () => {
     const inputBuilders = [
         inputField.bind(null, {
-            input_: { type: "text", placeholder: "Логин", name: "login" },
+            input_: { type: "text", name: "login", required: true },
+            label_: {
+                text: "Логин"
+            },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "password",
-                placeholder: "Пароль",
-                name: "password"
+                name: "password",
+                required: true
+            },
+            label_: {
+                text: "Пароль"
             },
             br_: true
         })
@@ -25,6 +31,7 @@ const buildLoginForm = () => {
     return submitForm({
         inputBuilders,
         submitBuilder,
+        formHeaderText: "Введите для авторизации",
         onSubmitFunc: onSubmitMock
     })
 }
