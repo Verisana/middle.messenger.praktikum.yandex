@@ -1,7 +1,11 @@
 import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
-import { string2DomElement, onSubmitMock, convertStyles2Strings } from "../../utils/utils.js"
+import {
+    string2DomElement,
+    onSubmitMock,
+    convertStyles2Strings
+} from "../../utils/utils.js"
 import { linkButtons } from "../../router/tempButtons"
 import { submitForm } from "../../components/submitForm/index"
 import { inputField } from "../../components/inputField/index"
@@ -13,9 +17,29 @@ const buildSettingsForm = () => {
     const inputBuilders = [
         inputField.bind(null, {
             input_: {
-                type: "tel",
-                name: "phone",
+                type: "password",
+                name: "oldPassword",
                 required: true
+            },
+            label_: {
+                text: "Текущий пароль"
+            },
+            br_: true
+        }),
+        inputField.bind(null, {
+            input_: {
+                type: "password",
+                name: "newPassword"
+            },
+            label_: {
+                text: "Новый пароль"
+            },
+            br_: true
+        }),
+        inputField.bind(null, {
+            input_: {
+                type: "tel",
+                name: "phone"
             },
             label_: {
                 text: "Телефон"
@@ -25,22 +49,10 @@ const buildSettingsForm = () => {
         inputField.bind(null, {
             input_: {
                 type: "text",
-                name: "login",
-                required: true
+                name: "login"
             },
             label_: {
                 text: "Логин"
-            },
-            br_: true
-        }),
-        inputField.bind(null, {
-            input_: {
-                type: "password",
-                name: "password",
-                required: true
-            },
-            label_: {
-                text: "Пароль"
             },
             br_: true
         }),
@@ -91,7 +103,9 @@ export const settingsContent = () => {
         // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
         linkToImage:
             "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-        avatarStyle: convertStyles2Strings(layoutStyles, ["img__avatar_default"]),
+        avatarStyle: convertStyles2Strings(layoutStyles, [
+            "img__avatar_default"
+        ]),
         ...placeholders
     }
 
