@@ -1,24 +1,16 @@
-<div>
+<div {{#if divClass}}class="{{divClass}}"{{/if}}>
+    <input
+        {{#if input_.class_}}class="{{input_.class_}}"{{/if}}
+        {{#if input_.type}}type={{input_.type}}{{/if}}
+        {{#if input_.required}}required={{input_.required}}{{/if}}
+        {{#if input_.pattern}}pattern={{input_.pattern}}{{/if}}
+        {{#if input_.placeholder}}placeholder="{{input_.placeholder}}"{{/if}}
+        {{#if input_.name}}name={{input_.name}}{{/if}}
+    />
+    <span class="{{barClass}}"></span>
     {{#if label_.text}}
-        <label{{#if label_.class_}} class={{label_.class_}}{{/if}}>
+        <label{{#if label_.class_}} class="{{label_.class_}}"{{/if}}>
             {{label_.text}}
-            <input
-                {{#if input_.class_}}class={{input_.class_}}{{/if}}
-                {{#if input_.type}}type={{input_.type}}{{/if}}
-                {{#if input_.required}}required={{input_.required}}{{/if}}
-                {{#if input_.pattern}}pattern={{input_.pattern}}{{/if}}
-                {{#if input_.placeholder}}placeholder={{input_.placeholder}}{{/if}}
-                {{#if input_.name}}name={{input_.name}}{{/if}}
-            />
         </label>
-    {{else}}
-        <input
-            {{#if input_.class_}}class={{input_.class_}}{{/if}}
-            {{#if input_.type}}type={{input_.type}}{{/if}}
-            {{#if input_.required}}required={{input_.required}}{{/if}}
-            {{#if input_.pattern}}pattern={{input_.pattern}}{{/if}}
-            {{#if input_.placeholder}}placeholder={{input_.placeholder}}{{/if}}
-            {{#if input_.name}}name={{input_.name}}{{/if}}
-        />
     {{/if}}
 </div>

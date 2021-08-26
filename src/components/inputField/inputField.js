@@ -21,7 +21,9 @@ export const inputField = ({ label_, input_, br_ } = {}) => {
                   pattern: input_.pattern,
                   placeholder: input_.placeholder,
                   name: input_.name
-              }
+        }
+    params.barClass = styles.bar
+    params.divClass = styles.inputDiv_default
     const content = string2DomElement(inputFieldTemplate(params))
     if (br_) content.append(document.createElement("br"))
     return content
