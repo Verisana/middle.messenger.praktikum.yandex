@@ -8,7 +8,7 @@ export const string2DomElement = (toParse) => {
 
 // Преобразуем список со стилями в строку для проброса в шаблон
 export const convertStyles2Strings = (classMappings, classList) => {
-    return classList === undefined
+    return classList === undefined || classList.length === 0
         ? ""
         : classList
               .map((el) => {
