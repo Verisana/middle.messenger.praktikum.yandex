@@ -1,5 +1,5 @@
 .btn {
-  margin: 5px 5px auto;
+  margin: 5px;
   padding: 5px;
 
   overflow: hidden;
@@ -17,4 +17,11 @@
 
 .btn:hover, .btn:focus {
   background-color: #4c8c4a;
+}
+
+.btn__navbar_default {
+  width: 40px;
+  height: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
