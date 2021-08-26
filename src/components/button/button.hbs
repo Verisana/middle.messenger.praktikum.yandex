@@ -1,5 +1,5 @@
 <button
-    type={{#if type_}}{{type_}}{{else}}"button"{{/if}}
-    {{#if class_}}class={{class_}}{{/if}}>
-    {{#if imgSrc}}<img src={{imgSrc}}>{{else}}{{text}}{{/if}}
+    type={{#if type_}}"{{type_}}"{{else}}"button"{{/if}}
+    {{#if class_}}class="{{class_}}"{{/if}}>
+    {{#if imgSrc}}<img src={{imgSrc}} {{#if imgStyle}}class="{{imgStyle}}"{{/if}}>{{else}}{{text}}{{/if}}
 </button>
