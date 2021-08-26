@@ -11,44 +11,58 @@ const buildRegisterForm = () => {
         inputField.bind(null, {
             input_: {
                 type: "tel",
-                placeholder: "Телефон",
                 name: "phone",
                 required: true
+            },
+            label_: {
+                text: "Телефон"
             },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "text",
-                placeholder: "Логин",
                 name: "login",
                 required: true
+            },
+            label_: {
+                text: "Логин"
             },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "password",
-                placeholder: "Пароль",
                 name: "password",
                 required: true
+            },
+            label_: {
+                text: "Пароль"
             },
             br_: true
         }),
         inputField.bind(null, {
-            input_: { type: "text", placeholder: "Имя", name: "first_name" },
+            input_: { type: "text", name: "first_name" },
+            label_: {
+                text: "Имя"
+            },
             br_: true
         }),
         inputField.bind(null, {
             input_: {
                 type: "text",
-                placeholder: "Фамилия",
                 name: "second_name"
+            },
+            label_: {
+                text: "Фамилия"
             },
             br_: true
         }),
         inputField.bind(null, {
-            input_: { type: "email", placeholder: "Email", name: "email" },
+            input_: { type: "email", name: "email" },
+            label_: {
+                text: "Email"
+            },
             br_: true
         })
     ]
@@ -59,6 +73,7 @@ const buildRegisterForm = () => {
     return submitForm({
         inputBuilders,
         submitBuilder,
+        formHeaderText: "Введите для регистрации",
         onSubmitFunc: onSubmitMock
     })
 }
