@@ -7,8 +7,8 @@
     },
     "type": "module",
     "scripts": {
-        "dev": "npx parcel static/*",
-        "build": "npx parcel build static/*",
+        "dev": "parcel static/*",
+        "build": "parcel build static/*",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node src/server.js"
     },
