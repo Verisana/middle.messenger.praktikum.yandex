@@ -6,7 +6,7 @@ const button = ({ text, class_, type_, imgSrc, imgStyle } = {}) => {
     const params = {
         class_: convertStyles2Strings([styles], "btn", class_),
         text,
-        type_,
+        type_: type_ === undefined ? "button" : type_,
         imgSrc,
         imgStyle: convertStyles2Strings([styles], imgStyle)
     }
