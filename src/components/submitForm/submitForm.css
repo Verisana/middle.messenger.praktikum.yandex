@@ -1,0 +1,9 @@
+form {
+    border: 5px solid $secondary-object-dark-color;
+    padding: 30px;
+    margin: 10px;
+}
+
+.form_no_border {
+    border: 0px;
+}

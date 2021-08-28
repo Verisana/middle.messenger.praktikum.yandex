@@ -3,6 +3,19 @@
   "plugins": {
     "autoprefixer": {
       "grid": true
+    },
+    "postcss-advanced-variables": {
+      variables: {
+        "content-max-width": "1140px",
+        "main-background-color": "#f5f5f6",
+        "primary-object-color": "#1b5e20",
+        "secondary-object-light-color": "#4c8c4a",
+        "secondary-object-dark-color": "#003300",
+        "light-text-color": "#FFFFFF",
+        "dark-text-color": "#000000",
+        "input-text-color": "#999",
+        "footer-background-color": "#E1E2E1",
+      }
     }
   }
 }
