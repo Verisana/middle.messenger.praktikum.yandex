@@ -1,5 +1,5 @@
 form {
-    border: 5px solid #003300;
+    border: 5px solid $secondary-object-dark-color;
     padding: 30px;
     margin: 10px;
 }

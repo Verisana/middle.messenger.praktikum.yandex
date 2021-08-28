@@ -1,6 +1,6 @@
 header {
-    background-color: #1b5e20;
-    color: #ecf0f1;
+    background-color: $primary-object-color;
+    color: $light-text-color;
 }
 
 nav {

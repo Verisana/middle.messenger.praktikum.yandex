@@ -6,13 +6,13 @@
   outline: none;
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  background-color: #003300;
-  color: #ecf0f1;
+  background-color: $secondary-object-dark-color;
+  color: $light-text-color;
   transition: background-color .3s;
 }
 
 .btn:hover, .btn:focus {
-  background-color: #4c8c4a;
+  background-color: $secondary-object-light-color;
 }
 
 .btn__navbar_default {
