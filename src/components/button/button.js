@@ -3,13 +3,12 @@ import buttonTemplate from "./button.hbs"
 import { string2DomElement, convertStyles2Strings } from "../../utils/utils.js"
 
 const button = ({ text, class_, type_, imgSrc, imgStyle } = {}) => {
-    const newClass_ = class_ === undefined ? ["btn"] : ["btn", ...class_]
     const params = {
-        class_: convertStyles2Strings(styles, newClass_),
+        class_: convertStyles2Strings([styles], "btn", class_),
         text,
         type_,
         imgSrc,
-        imgStyle: convertStyles2Strings(styles, imgStyle)
+        imgStyle: convertStyles2Strings([styles], imgStyle)
     }
     return string2DomElement(buttonTemplate(params))
 }

@@ -17,15 +17,13 @@ export const chatSideBar = ({
     contactId,
     messageElement
 } = {}) => {
-    classList = classList === undefined ? [] : classList
-    classList.push("chatSideBar_main")
     const params = {
-        class_: convertStyles2Strings(styles, classList),
+        class_: convertStyles2Strings([styles], "chatSideBar_main", classList),
         avatarSrc: avatarSrc === undefined ? defaultAvatar : avatarSrc,
         messageIsRead,
         contactName,
         contactId,
-        imgStyles: convertStyles2Strings(layoutStyles, ["img__avatar_small"]),
+        imgStyles: convertStyles2Strings([layoutStyles], "img__avatar_small"),
         ...placeholders
     }
     const element = string2DomElement(chatSideBarTemplate(params))

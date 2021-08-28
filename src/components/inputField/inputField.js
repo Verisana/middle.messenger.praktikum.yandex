@@ -9,13 +9,13 @@ export const inputField = ({ label_, input_, br_ } = {}) => {
             ? undefined
             : {
                   text: label_.text,
-                  class_: convertStyles2Strings(styles, label_.class_)
+                  class_: convertStyles2Strings([styles], label_.class_)
               }
     params.input_ =
         input_ === undefined
             ? undefined
             : {
-                  class_: convertStyles2Strings(styles, input_.class_),
+                  class_: convertStyles2Strings([styles], input_.class_),
                   type: input_.type,
                   required: input_.required,
                   pattern: input_.pattern,

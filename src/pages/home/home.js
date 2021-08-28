@@ -135,7 +135,7 @@ export const placeholders = {
 export const homeContent = () => {
     const params = {
         isLogged,
-        class_: convertStyles2Strings(styles, ["main_home"]),
+        class_: convertStyles2Strings([styles], "main_home"),
         ...placeholders
     }
     const content = string2DomElement(homeTemplate(params))

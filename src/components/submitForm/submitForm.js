@@ -14,10 +14,8 @@ export const submitForm = ({
         submitButton: "submitButtonPlaceholder",
         inputsPlace: "inputsPlaceholder"
     }
-    class_ = class_ === undefined ? [] : class_
-    if (isNoBorder) class_.push("form_no_border")
     const params = {
-        class_: convertStyles2Strings(styles, class_),
+        class_: convertStyles2Strings([styles], isNoBorder ? "form_no_border" : undefined, class_),
         formHeaderText,
         ...placeholders
     }
