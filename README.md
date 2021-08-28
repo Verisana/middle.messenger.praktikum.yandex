@@ -2,6 +2,8 @@
 
 [Pull request из `sprint_1`](https://github.com/Verisana/middle.messenger.praktikum.yandex/pull/3)
 
+[Сайт на Netlify](https://pedantic-bhaskara-cd46dc.netlify.app/)
+
 ## Установка
 
 Для работы вам нужно установить `node.js >=14.17`. Сделать можно, например, [по инструкции NVM](https://github.com/nvm-sh/nvm).
