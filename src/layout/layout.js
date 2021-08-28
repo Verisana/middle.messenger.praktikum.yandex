@@ -2,19 +2,12 @@ import "./layout.css"
 import { header } from "../components/header/index.js"
 import { footer } from "../components/footer/index.js"
 
-const clearBodyContent = () => {
-    const body = document.body
-    while (body.firstChild) {
-        body.removeChild(body.lastChild)
-    }
-}
-
 export const renderContent = (content) => {
     if (typeof content !== "function") {
         throw new Error("Check renderNewPage passed arguments")
     }
 
-    clearBodyContent()
+    document.body.innerHTML = ""
     document.body.appendChild(header())
     document.body.appendChild(content())
     document.body.appendChild(footer())
