@@ -3,13 +3,15 @@
         "autoprefixer",
         "consts",
         "corejs",
+        "fontsource",
         "postcss",
         "precompile",
+        "roboto",
         "Прив",
         "сабмитах"
     ],
-    "[markdown]":{
+    "[markdown]": {
         "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 80,
+        "editor.wordWrapColumn": 80
     }
 }
