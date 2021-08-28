@@ -1,11 +1,11 @@
 <div class="{{divClass}}">
     <input
         class="{{input_.class_}}"
-        {{#if input_.type}}type={{input_.type}}{{/if}}
-        {{#if input_.required}}required={{input_.required}}{{/if}}
-        {{#if input_.pattern}}pattern={{input_.pattern}}{{/if}}
-        {{#if input_.placeholder}}placeholder="{{input_.placeholder}}"{{/if}}
-        {{#if input_.name}}name={{input_.name}}{{/if}}
+        type={{input_.type}}
+        required={{input_.required}}
+        pattern={{input_.pattern}}
+        placeholder="{{input_.placeholder}}"
+        name={{input_.name}}
     />
     <span class="{{barClass}}"></span>
     {{#if label_.text}}

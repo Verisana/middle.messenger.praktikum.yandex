@@ -16,12 +16,13 @@ export const inputField = ({ label_, input_, br_ } = {}) => {
             ? undefined
             : {
                   class_: convertStyles2Strings([styles], input_.class_),
-                  type: input_.type,
-                  required: input_.required,
+                  type: input_.type === undefined ? "text" : input_.type,
+                  required:
+                      input_.required === undefined ? false : input_.required,
                   pattern: input_.pattern,
                   placeholder: input_.placeholder,
                   name: input_.name
-        }
+              }
     params.barClass = styles.bar
     params.divClass = styles.inputDiv_default
     const content = string2DomElement(inputFieldTemplate(params))
