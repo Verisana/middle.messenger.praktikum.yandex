@@ -2,7 +2,7 @@ import styles from "./inputField.css"
 import inputFieldTemplate from "./inputField.hbs"
 import { string2DomElement, convertStyles2Strings } from "../../utils/utils.js"
 
-export const inputField = ({ label_, input_, br_ } = {}) => {
+export const inputField = ({ label_, input_, br_ = false} = {}) => {
     const params = {}
     params.label_ =
         label_ === undefined
@@ -25,7 +25,7 @@ export const inputField = ({ label_, input_, br_ } = {}) => {
               }
     params.barClass = styles.bar
     params.divClass = styles.inputDiv_default
+    params.br_ = br_
     const content = string2DomElement(inputFieldTemplate(params))
-    if (br_) content.append(document.createElement("br"))
     return content
 }
