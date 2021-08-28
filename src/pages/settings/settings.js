@@ -7,9 +7,9 @@ import {
     convertStyles2Strings
 } from "../../utils/utils.js"
 import { linkButtons } from "../../router/tempButtons"
-import { submitForm } from "../../components/submitForm/index"
-import { inputField } from "../../components/inputField/index"
-import { button } from "../../components/button/index"
+import { submitForm } from "../../components/submitForm"
+import { inputField } from "../../components/inputField"
+import { button } from "../../components/button"
 
 // Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
 // автоматом подставлялись

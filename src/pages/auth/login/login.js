@@ -2,9 +2,9 @@ import styles from "./login.css"
 import loginTemplate from "./login.hbs"
 import { string2DomElement, onSubmitMock } from "../../../utils/utils.js"
 import { linkButtons } from "../../../router/tempButtons"
-import { submitForm } from "../../../components/submitForm/index"
-import { inputField } from "../../../components/inputField/index"
-import { button } from "../../../components/button/index"
+import { submitForm } from "../../../components/submitForm"
+import { inputField } from "../../../components/inputField"
+import { button } from "../../../components/button"
 
 const buildLoginForm = () => {
     const inputBuilders = [

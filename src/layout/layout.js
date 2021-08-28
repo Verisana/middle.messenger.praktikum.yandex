@@ -1,6 +1,6 @@
 import "./layout.css"
-import { header } from "../components/header/index.js"
-import { footer } from "../components/footer/index.js"
+import { header } from "../components/header/"
+import { footer } from "../components/footer/"
 
 export const renderContent = (content) => {
     if (typeof content !== "function") {

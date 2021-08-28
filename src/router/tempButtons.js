@@ -1,4 +1,4 @@
-import { button } from "../components/button/index.js"
+import { button } from "../components/button"
 import { switchContent } from "./router.js"
 import { capitalizeFirstSymbol } from "../utils/utils.js"
 

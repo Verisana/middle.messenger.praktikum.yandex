@@ -2,7 +2,7 @@ import styles from "./header.css"
 import headerTemplate from "./header.hbs"
 import { string2DomElement } from "../../utils/utils.js"
 import { linkButtons } from "../../router/tempButtons.js"
-import { button } from "../button/index.js"
+import { button } from "../button"
 import { isLogged } from "../../consts.js"
 
 export const placeholders = {

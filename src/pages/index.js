@@ -1,9 +1,9 @@
-import { homeContent } from "./home/index.js"
-import { errorContent } from "./errors/404/index.js"
-import { serverErrorContent } from "./errors/500/index.js"
-import { loginContent } from "./auth/login/index.js"
-import { registerContent } from "./auth/register/index.js"
-import { settingsContent } from "./settings/index.js"
+import { homeContent } from "./home"
+import { errorContent } from "./errors/404"
+import { serverErrorContent } from "./errors/500"
+import { loginContent } from "./auth/login"
+import { registerContent } from "./auth/register"
+import { settingsContent } from "./settings"
 
 const pages = {
     homeContent: homeContent,

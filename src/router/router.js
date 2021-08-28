@@ -1,4 +1,4 @@
-import { pages } from "../pages/index.js"
+import { pages } from "../pages"
 import { renderContent } from "../layout/layout.js"
 
 // Пока мы не дошли до роутинга, чтобы не плодить лишние html файлы, которые
