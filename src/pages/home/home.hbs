@@ -1,0 +1,13 @@
+<main class="{{class_}}">
+    {{#if isLogged}}
+        <div id={{chatSideBarPlace}}></div>
+        <div>
+            <div id={{messagesPlace}}></div>
+            <div id={{textInputPlace}}></div>
+        </div>
+    {{else}}
+        <p>Войдите или зарегистрируйте новый аккаунт</p>
+        <div id={{buttonToLogin}}></div>
+        <div id={{buttonToRegister}}></div>
+    {{/if}}
+</main>

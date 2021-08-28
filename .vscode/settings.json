@@ -1,0 +1,20 @@
+{
+    "cSpell.words": [
+        "Figma",
+        "autoprefixer",
+        "consts",
+        "corejs",
+        "fontsource",
+        "postcss",
+        "praktikum",
+        "precompile",
+        "roboto",
+        "Прив",
+        "роутинга",
+        "сабмитах"
+    ],
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 80
+    }
+}

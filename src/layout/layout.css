@@ -1,0 +1,40 @@
+body {
+    font-family: "Roboto";
+    background-color: $main-background-color;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    max-width: $content-max-width;
+    margin: auto;
+}
+
+main {
+    max-width: $content-max-width;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: $content-max-width;
+    height: inherit;
+    width: inherit;
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.img__avatar_default {
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+}
+
+.img__avatar_small {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
