@@ -1,17 +1,13 @@
 .btn {
   margin: 5px;
   padding: 5px;
-
   overflow: hidden;
-
   border-width: 0;
   outline: none;
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-
   background-color: #003300;
   color: #ecf0f1;
-
   transition: background-color .3s;
 }
 
