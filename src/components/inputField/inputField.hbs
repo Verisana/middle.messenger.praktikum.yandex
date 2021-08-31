@@ -3,7 +3,7 @@
         class="{{input_.class_}}"
         type={{input_.type}}
         required={{input_.required}}
-        pattern={{input_.pattern}}
+        {{#if input_.pattern}}pattern={{input_.pattern}}{{/if}}
         placeholder="{{input_.placeholder}}"
         name={{input_.name}}
     />
