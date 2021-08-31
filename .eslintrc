@@ -4,13 +4,10 @@
         "prettier",
         "eslint:recommended"
     ],
-    "plugins": ["prettier"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["prettier", "@typescript-eslint"],
     "rules": {
         "prettier/prettier": "error"
-    },
-    "parserOptions": {
-        "sourceType": "module",
-        "ecmaVersion": 2015
     },
     "browser": true
 }
