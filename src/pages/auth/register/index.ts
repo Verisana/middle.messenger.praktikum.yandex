@@ -1,0 +1,1 @@
+export { registerContent } from "./register"
