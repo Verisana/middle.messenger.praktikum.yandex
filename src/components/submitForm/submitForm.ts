@@ -1,8 +1,10 @@
 import styles from "./submitForm.css"
 import submitFormTemplate from "./submitForm.hbs"
-import { string2DomElement, convertStyles2Strings, selectPlaceholder } from "../../utils/utils"
-import { IInputField } from "../inputField"
-import { IButton } from "../button"
+import {
+    string2DomElement,
+    convertStyles2Strings,
+    selectPlaceholder
+} from "../../utils/utils"
 
 export interface ISubmitForm {
     inputBuilders: { (): Element }[]
@@ -36,7 +38,10 @@ export const submitForm = ({
         ...placeholders
     }
     const content = string2DomElement(submitFormTemplate(params))
-    const submitButtonsDiv = selectPlaceholder(content, placeholders.submitButton)
+    const submitButtonsDiv = selectPlaceholder(
+        content,
+        placeholders.submitButton
+    )
     submitButtonsDiv.appendChild(submitBuilder())
 
     const inputsDiv = selectPlaceholder(content, placeholders.inputsPlace)

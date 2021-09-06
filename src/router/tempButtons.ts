@@ -7,10 +7,10 @@ import { capitalizeFirstSymbol } from "../utils/utils"
 
 type ButtonBuilder = ({ text, imgSrc, class_, imgStyle }: IButton) => Element
 
-const createButtonBuilder = function(
+const createButtonBuilder = (
     contentRoute: string,
     styles?: string | string[]
-): ButtonBuilder {
+): ButtonBuilder => {
     return ({ text, imgSrc, class_, imgStyle }: IButton): Element => {
         const buttonElement = button({
             text:

@@ -1,4 +1,6 @@
-interface IStyle { [key: string]: string }
+interface IStyle {
+    [key: string]: string
+}
 
 declare module "*.css" {
     const styles: IStyle
@@ -6,6 +8,7 @@ declare module "*.css" {
 }
 
 declare module "*.hbs" {
-    import { Template } from 'handlebars'
+    import { Template } from "handlebars"
+
     export default Template<string>()
 }

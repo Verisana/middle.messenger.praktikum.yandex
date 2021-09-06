@@ -1,19 +1,19 @@
 <div class="{{divClass}}">
     <input
-        class="{{input_.class_}}"
-        type={{input_.type}}
-        required={{input_.required}}
-        {{#if input_.pattern}}pattern={{input_.pattern}}{{/if}}
-        placeholder="{{input_.placeholder}}"
-        name={{input_.name}}
+        class="{{inputPart.class}}"
+        type={{inputPart.type}}
+        required={{inputPart.required}}
+        {{#if inputPart.pattern}}pattern={{inputPart.pattern}}{{/if}}
+        placeholder="{{inputPart.placeholder}}"
+        name={{inputPart.name}}
     />
     <span class="{{barClass}}"></span>
-    {{#if label_.text}}
-        <label class="{{label_.class_}}">
-            {{label_.text}}
+    {{#if label.text}}
+        <label class="{{label.class}}">
+            {{label.text}}
         </label>
     {{/if}}
-    {{#if br_}}
+    {{#if br}}
         <br>
     {{/if}}
 </div>

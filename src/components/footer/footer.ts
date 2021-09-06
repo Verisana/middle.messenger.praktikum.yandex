@@ -4,7 +4,7 @@ import footerTemplate from "./footer.hbs"
 import { string2DomElement } from "../../utils/utils"
 import { linkButtons } from "../../router/tempButtons"
 
-const footer = () => {
+export const footer = () => {
     const params = {
         contentClass: layoutStyles.content
     }
@@ -18,5 +18,3 @@ const footer = () => {
     }
     return element
 }
-
-export { footer }

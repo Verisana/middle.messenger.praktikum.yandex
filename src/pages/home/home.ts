@@ -107,18 +107,18 @@ const messages = [
 const buildMessageInputForm = () => {
     const inputBuilders = [
         inputField.bind(null, {
-            input_: {
+            inputPart: {
                 type: "text",
                 name: "message",
                 required: true
             },
-            label_: {
+            label: {
                 text: "Сообщение"
             }
         })
     ]
     const submitBuilder = button.bind(null, {
-        text: "Отправить",
+        text: "От   править",
         type_: "submit"
     })
     return submitForm({
@@ -150,16 +150,16 @@ export const homeContent = () => {
             content,
             placeholders.chatSideBarPlace
         )
-        for (const chatSideBar of chatSideBarList) {
-            chatSideBarDiv.appendChild(chatSideBar)
+        for (const chatSideBarElement of chatSideBarList) {
+            chatSideBarDiv.appendChild(chatSideBarElement)
         }
 
         const messagesDiv = selectPlaceholder(
             content,
             placeholders.messagesPlace
         )
-        for (const message of messages) {
-            messagesDiv.appendChild(message)
+        for (const messageElement of messages) {
+            messagesDiv.appendChild(messageElement)
         }
 
         const textInputDiv = selectPlaceholder(

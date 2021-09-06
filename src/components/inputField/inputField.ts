@@ -5,51 +5,53 @@ import { string2DomElement, convertStyles2Strings } from "../../utils/utils"
 export interface IInputField {
     barClass?: string
     divClass?: string
-    label_?: {
+    label?: {
         text: string
-        class_?: string | string[]
+        class?: string | string[]
     }
-    input_?: {
+    inputPart?: {
         type: string
-        class_?: string | string[]
+        class?: string | string[]
         required?: boolean
         pattern?: string
         placeholder?: string
         name?: string
     }
-    br_?: boolean
+    br?: boolean
 }
 
 export const inputField = ({
-    label_,
-    input_,
-    br_ = false,
+    label,
+    inputPart,
+    br = false,
     barClass = styles.bar,
     divClass = styles.inputDiv_default
 }: IInputField) => {
     const params: IInputField = {
         barClass,
         divClass,
-        br_
+        br
     }
-    params.label_ =
-        label_ === undefined
+    params.label =
+        label === undefined
             ? undefined
             : {
-                  text: label_.text,
-                  class_: convertStyles2Strings([styles], label_.class_)
+                  text: label.text,
+                  class: convertStyles2Strings([styles], label.class)
               }
-    params.input_ =
-        input_ === undefined
+    params.inputPart =
+        inputPart === undefined
             ? undefined
             : {
-                  class_: convertStyles2Strings([styles], input_.class_),
-                  type: input_.type === undefined ? "text" : input_.type,
+                  class: convertStyles2Strings([styles], inputPart.class),
+                  type: inputPart.type === undefined ? "text" : inputPart.type,
                   required:
-                      input_.required === undefined ? false : input_.required,
-                  pattern: input_.pattern,
-                  placeholder: input_.placeholder,
-                  name: input_.name
+                      inputPart.required === undefined
+                          ? false
+                          : inputPart.required,
+                  pattern: inputPart.pattern,
+                  placeholder: inputPart.placeholder,
+                  name: inputPart.name
               }
     return string2DomElement(inputFieldTemplate(params))
 }

@@ -16,10 +16,13 @@ export const header = () => {
         logoStyles: styles.logo__style_default,
         ...placeholders
     }
-    const header_ = string2DomElement(headerTemplate(params))
+    const headerElement = string2DomElement(headerTemplate(params))
 
     if (isLogged) {
-        const menuButtonDiv = selectPlaceholder(header_, placeholders.menuButton)
+        const menuButtonDiv = selectPlaceholder(
+            headerElement,
+            placeholders.menuButton
+        )
         menuButtonDiv.appendChild(
             button({
                 imgSrc: "menu_white_48dp.svg",
@@ -27,7 +30,10 @@ export const header = () => {
                 imgStyle: ["btn__image_default"]
             })
         )
-        const settingsButtonDiv = selectPlaceholder(header_, placeholders.settingsButton)
+        const settingsButtonDiv = selectPlaceholder(
+            headerElement,
+            placeholders.settingsButton
+        )
         settingsButtonDiv.appendChild(
             linkButtons.profileSettings({
                 imgSrc: "settings_white_48dp.svg",
@@ -37,5 +43,5 @@ export const header = () => {
         )
     }
 
-    return header_
+    return headerElement
 }

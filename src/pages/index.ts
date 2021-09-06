@@ -6,12 +6,12 @@ import { registerContent } from "./auth/register"
 import { settingsContent } from "./settings"
 
 const pages = {
-    homeContent: homeContent,
-    loginContent: loginContent,
-    registerContent: registerContent,
-    settingsContent: settingsContent,
-    errorContent: errorContent,
-    serverErrorContent: serverErrorContent
+    homeContent,
+    loginContent,
+    registerContent,
+    settingsContent,
+    errorContent,
+    serverErrorContent
 }
 
 export { pages }

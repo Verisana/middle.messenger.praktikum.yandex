@@ -13,7 +13,14 @@ export interface IMessage {
     classList?: string | string[]
 }
 
-export const message = ({ messageId, text, sender, timeMachine, timeHuman, classList }: IMessage) => {
+export const message = ({
+    messageId,
+    text,
+    sender,
+    timeMachine,
+    timeHuman,
+    classList
+}: IMessage) => {
     const params = {
         class_: convertStyles2Strings([styles], "message", classList),
         timeMachine,

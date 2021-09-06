@@ -1,9 +1,12 @@
 import styles from "./chatSideBar.css"
 import layoutStyles from "../../layout/layout.css"
 import chatSideBarTemplate from "./chatSideBar.hbs"
-import { string2DomElement, convertStyles2Strings, selectPlaceholder } from "../../utils/utils"
-import { defaultAvatar } from "../../consts"
-import { maxMessageLength } from "../../consts"
+import {
+    string2DomElement,
+    convertStyles2Strings,
+    selectPlaceholder
+} from "../../utils/utils"
+import { defaultAvatar, maxMessageLength } from "../../consts"
 
 export const placeholders = {
     messagePlace: "chat-sidebar-contact-last-message"
@@ -40,7 +43,7 @@ export const chatSideBar = ({
         element,
         placeholders.messagePlace
     )
-    const textContent = messageElement.textContent
+    const { textContent } = messageElement
     messageElement.textContent =
         textContent !== null ? textContent.slice(0, maxMessageLength) : null
 

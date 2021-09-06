@@ -1,6 +1,10 @@
-import styles from "./register.css"
+import "./register.css"
 import registerTemplate from "./register.hbs"
-import { string2DomElement, onSubmitMock, selectPlaceholder } from "../../../utils/utils"
+import {
+    string2DomElement,
+    onSubmitMock,
+    selectPlaceholder
+} from "../../../utils/utils"
 import { linkButtons } from "../../../router/tempButtons"
 import { submitForm } from "../../../components/submitForm"
 import { inputField } from "../../../components/inputField"
@@ -9,61 +13,61 @@ import { button } from "../../../components/button"
 const buildRegisterForm = () => {
     const inputBuilders = [
         inputField.bind(null, {
-            input_: {
+            inputPart: {
                 type: "tel",
                 name: "phone",
                 required: true
             },
-            label_: {
+            label: {
                 text: "Телефон"
             },
-            br_: true
+            br: true
         }),
         inputField.bind(null, {
-            input_: {
+            inputPart: {
                 type: "text",
                 name: "login",
                 required: true
             },
-            label_: {
+            label: {
                 text: "Логин"
             },
-            br_: true
+            br: true
         }),
         inputField.bind(null, {
-            input_: {
+            inputPart: {
                 type: "password",
                 name: "password",
                 required: true
             },
-            label_: {
+            label: {
                 text: "Пароль"
             },
-            br_: true
+            br: true
         }),
         inputField.bind(null, {
-            input_: { type: "text", name: "first_name" },
-            label_: {
+            inputPart: { type: "text", name: "first_name" },
+            label: {
                 text: "Имя"
             },
-            br_: true
+            br: true
         }),
         inputField.bind(null, {
-            input_: {
+            inputPart: {
                 type: "text",
                 name: "second_name"
             },
-            label_: {
+            label: {
                 text: "Фамилия"
             },
-            br_: true
+            br: true
         }),
         inputField.bind(null, {
-            input_: { type: "email", name: "email" },
-            label_: {
+            inputPart: { type: "email", name: "email" },
+            label: {
                 text: "Email"
             },
-            br_: true
+            br: true
         })
     ]
     const submitBuilder = button.bind(null, {
