@@ -9,6 +9,7 @@ import { linkButtons } from "../../../router/tempButtons"
 import { submitForm } from "../../../components/submitForm"
 import { inputField } from "../../../components/inputField"
 import { button } from "../../../components/button"
+import { registerContent } from "../register"
 
 const buildLoginForm = () => {
     const inputBuilders = [
@@ -58,6 +59,8 @@ export const loginContent = () => {
     )
 
     formPlace.appendChild(buildLoginForm())
-    buttonPlace.appendChild(linkButtons.register({ text: "Нет аккаунта?" }))
+    buttonPlace.appendChild(
+        linkButtons.register({ text: "Нет аккаунта?" }, registerContent)
+    )
     return content
 }

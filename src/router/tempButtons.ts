@@ -5,13 +5,23 @@ import { capitalizeFirstSymbol } from "../utils/utils"
 // Это тоже временный файл на первый спринт. Отсюда раздаю себе кнопки
 // для перехода
 
-type ButtonBuilder = ({ text, imgSrc, class_, imgStyle }: IButton) => Element
+// Чтобы избежать циклический импорт, пришлось повозиться и некоторые вещи
+// сделать криво, но сейчас линтер не ругается. Когда будет нормальный роутинг
+// уберу это безобразие
+
+type ButtonBuilder = (
+    { text, imgSrc, class_, imgStyle }: IButton,
+    content: () => Element
+) => Element
 
 const createButtonBuilder = (
     contentRoute: string,
     styles?: string | string[]
 ): ButtonBuilder => {
-    return ({ text, imgSrc, class_, imgStyle }: IButton): Element => {
+    return (
+        { text, imgSrc, class_, imgStyle }: IButton,
+        content: () => Element
+    ): Element => {
         const buttonElement = button({
             text:
                 text === undefined ? capitalizeFirstSymbol(contentRoute) : text,
@@ -20,7 +30,7 @@ const createButtonBuilder = (
             imgStyle
         })
         buttonElement.addEventListener("click", () => {
-            switchContent(contentRoute)
+            switchContent(content)
         })
         return buttonElement
     }

@@ -11,6 +11,7 @@ import { linkButtons } from "../../router/tempButtons"
 import { submitForm } from "../../components/submitForm"
 import { inputField } from "../../components/inputField"
 import { button } from "../../components/button"
+import { homeContent } from "../home"
 
 // Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
 // автоматом подставлялись
@@ -116,7 +117,9 @@ export const settingsContent = () => {
     const buttonPlace = selectPlaceholder(content, placeholders.buttonToHome)
 
     formPlace.appendChild(buildSettingsForm())
-    buttonPlace.appendChild(linkButtons.home({ text: "Вернуться к чатам" }))
+    buttonPlace.appendChild(
+        linkButtons.home({ text: "Вернуться к чатам" }, homeContent)
+    )
 
     return content
 }

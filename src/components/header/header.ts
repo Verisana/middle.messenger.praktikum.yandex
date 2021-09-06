@@ -4,6 +4,7 @@ import { string2DomElement, selectPlaceholder } from "../../utils/utils"
 import { linkButtons } from "../../router/tempButtons"
 import { button } from "../button"
 import { isLogged } from "../../consts"
+import { settingsContent } from "../../pages/settings"
 
 export const placeholders = {
     menuButton: "header-menu-button",
@@ -35,11 +36,14 @@ export const header = () => {
             placeholders.settingsButton
         )
         settingsButtonDiv.appendChild(
-            linkButtons.profileSettings({
-                imgSrc: "settings_white_48dp.svg",
-                class_: ["btn__navbar_default"],
-                imgStyle: ["btn__image_default"]
-            })
+            linkButtons.profileSettings(
+                {
+                    imgSrc: "settings_white_48dp.svg",
+                    class_: ["btn__navbar_default"],
+                    imgStyle: ["btn__image_default"]
+                },
+                settingsContent
+            )
         )
     }
 

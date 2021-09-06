@@ -13,6 +13,8 @@ import { message } from "../../components/message"
 import { chatSideBar } from "../../components/chatSideBar"
 import { linkButtons } from "../../router/tempButtons"
 import { isLogged } from "../../consts"
+import { loginContent } from "../auth/login"
+import { registerContent } from "../auth/register"
 
 const chatSideBarList = [
     chatSideBar({
@@ -118,7 +120,7 @@ const buildMessageInputForm = () => {
         })
     ]
     const submitBuilder = button.bind(null, {
-        text: "От   править",
+        text: "Отправить",
         type_: "submit"
     })
     return submitForm({
@@ -173,7 +175,7 @@ export const homeContent = () => {
             placeholders.buttonToLogin
         )
         buttonToLoginDiv.appendChild(
-            linkButtons.login({ text: "Залогиниться" })
+            linkButtons.login({ text: "Залогиниться" }, loginContent)
         )
 
         const buttonToRegisterDiv = selectPlaceholder(
@@ -181,7 +183,10 @@ export const homeContent = () => {
             placeholders.buttonToRegister
         )
         buttonToRegisterDiv.appendChild(
-            linkButtons.register({ text: "Зарегистрироваться" })
+            linkButtons.register(
+                { text: "Зарегистрироваться" },
+                registerContent
+            )
         )
     }
     return content
