@@ -7,9 +7,12 @@
     },
     "scripts": {
         "dev": "parcel static/*",
-        "build": "npx tsc && parcel build static/*",
+        "build": "npm run lint && npx tsc && parcel build static/*",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "ts-node src/server.ts"
+        "start": "ts-node src/server.ts",
+        "lint:p": "npx prettier --write './src/**/*.{ts,test.ts,json}'",
+        "lint:e": "npx eslint \"src/**/*.ts\" --fix",
+        "lint": "npm run lint:p && npm run lint:e"
     },
     "repository": {
         "type": "git",
