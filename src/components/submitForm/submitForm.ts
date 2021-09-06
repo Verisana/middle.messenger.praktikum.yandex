@@ -5,15 +5,7 @@ import {
     convertStyles2Strings,
     selectPlaceholder
 } from "../../utils/utils"
-
-export interface ISubmitForm {
-    inputBuilders: { (): Element }[]
-    submitBuilder: () => Element
-    formHeaderText?: string
-    class_?: string | string[]
-    isNoBorder?: boolean
-    onSubmitFunc?: (event: Event) => void
-}
+import { ISubmitForm } from "./types"
 
 export const placeholders = {
     submitButton: "submitButtonPlaceholder",

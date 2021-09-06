@@ -1,1 +1,2 @@
-export { submitForm, ISubmitForm, placeholders } from "./submitForm"
+export { submitForm, placeholders } from "./submitForm"
+export { ISubmitForm } from "./types"

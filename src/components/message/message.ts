@@ -1,17 +1,7 @@
 import styles from "./message.css"
 import messageTemplate from "./message.hbs"
 import { string2DomElement, convertStyles2Strings } from "../../utils/utils"
-
-export interface IMessage {
-    messageId: number
-    text: string
-
-    // Временно. Вероятнее всего здесь должен быть какой-то Sender объект
-    sender: string
-    timeMachine: string
-    timeHuman?: string
-    classList?: string | string[]
-}
+import { IMessage } from "./types"
 
 export const message = ({
     messageId,

@@ -7,18 +7,10 @@ import {
     selectPlaceholder
 } from "../../utils/utils"
 import { defaultAvatar, maxMessageLength } from "../../consts"
+import { IChatSideBar } from "./types"
 
 export const placeholders = {
     messagePlace: "chat-sidebar-contact-last-message"
-}
-
-export interface IChatSideBar {
-    messageElement: Element
-    classList?: string | string[]
-    messageIsRead?: boolean
-    avatarSrc?: string
-    contactName?: string
-    contactId?: number
 }
 
 export const chatSideBar = ({

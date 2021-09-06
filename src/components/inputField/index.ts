@@ -1,1 +1,2 @@
-export { inputField, IInputField } from "./inputField"
+export { inputField } from "./inputField"
+export { IInputField } from "./types"

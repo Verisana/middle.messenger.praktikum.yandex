@@ -1,16 +1,9 @@
 import styles from "./button.css"
 import buttonTemplate from "./button.hbs"
 import { string2DomElement, convertStyles2Strings } from "../../utils/utils"
+import { IButton } from "./types"
 
-export interface IButton {
-    text?: string
-    class_?: string | string[]
-    type_?: string
-    imgSrc?: string
-    imgStyle?: string | string[]
-}
-
-const button = ({
+export const button = ({
     text,
     class_,
     type_ = "button",
@@ -29,5 +22,3 @@ const button = ({
     }
     return string2DomElement(buttonTemplate(params))
 }
-
-export { button }

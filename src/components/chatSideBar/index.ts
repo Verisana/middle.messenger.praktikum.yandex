@@ -1,1 +1,2 @@
-export { chatSideBar, IChatSideBar, placeholders } from "./chatSideBar"
+export { chatSideBar, placeholders } from "./chatSideBar"
+export { IChatSideBar } from "./types"

@@ -1,1 +1,2 @@
-export { button, IButton } from "./button"
+export { button } from "./button"
+export { IButton } from "./types"

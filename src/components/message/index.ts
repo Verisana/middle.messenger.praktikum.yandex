@@ -1,1 +1,2 @@
-export { message, IMessage } from "./message"
+export { message } from "./message"
+export { IMessage } from "./types"
