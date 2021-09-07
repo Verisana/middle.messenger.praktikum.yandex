@@ -93,17 +93,11 @@ export abstract class Block {
     protected _render() {
         const block = this.render()
         this._removeEvents()
-
-        // Этот небезопасный метод для упрощения логики
-        // Используйте шаблонизатор из npm или напиши свой безопасный
-        // Нужно не в строку компилировать (или делать это правильно),
-        // либо сразу в DOM-элементы превращать из возвращать из compile DOM-ноду
-        this._element.innerHTML = block
-
+        this.element.outerHTML = block
         this._addEvents()
     }
 
-    abstract render(): {}
+    abstract render(): string
 
     _makePropsProxy(props: Props): Props {
         const that = this
