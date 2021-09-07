@@ -1,4 +1,5 @@
 import classNames from "classnames"
+import { Block } from "../block"
 
 export const string2DomElement = (toParse: string): Element => {
     const parsed = new DOMParser().parseFromString(toParse, "text/html")
@@ -63,4 +64,12 @@ export const selectPlaceholder = (element: Element, id_: string): Element => {
     if (placeholder === null)
         throw new Error(`Element with ${id_} can not be found`)
     return placeholder
+}
+
+export const render = (query: string, block: Block): Element => {
+    const root = document.querySelector(query)
+    if (root === null) throw new Error("Check your query")
+
+    root.appendChild(block.element)
+    return root
 }
