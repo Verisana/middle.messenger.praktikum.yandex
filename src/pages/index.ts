@@ -5,7 +5,7 @@ import { loginContent } from "./auth/login"
 import { registerContent } from "./auth/register"
 import { settingsContent } from "./settings"
 
-const pages = {
+export const pages = {
     homeContent,
     loginContent,
     registerContent,
@@ -13,5 +13,3 @@ const pages = {
     errorContent,
     serverErrorContent
 }
-
-export { pages }
