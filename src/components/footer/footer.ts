@@ -5,7 +5,8 @@ import { linkButtons } from "../../router/tempButtons"
 import { DESTINATIONS } from "../../router/destinations"
 import { Block } from "../../block"
 import { Button } from "../button"
-import { IFooterParams, IFooterProps } from "./types"
+import { IFooterParams } from "./types"
+import { compile2Dom } from "../../utils/utils"
 
 export class Footer extends Block {
     constructor() {
@@ -21,18 +22,10 @@ export class Footer extends Block {
             }
         }
 
-        super("footer", params)
+        super(params)
     }
 
-    render(): string {
-        const renderedButtons: string[] = []
-        const props = this.props as IFooterProps
-        for (const button of props.linkButtons) {
-            renderedButtons.push(button.render())
-        }
-        return footerTemplate({
-            ...this.props,
-            linkButtons: renderedButtons
-        })
+    render(): HTMLElement {
+        return compile2Dom(footerTemplate, this.props)
     }
 }
