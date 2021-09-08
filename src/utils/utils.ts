@@ -1,5 +1,7 @@
+import { v4 as uuidv4 } from "uuid"
+
 import classNames from "classnames"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 
 export const string2DomElement = (toParse: string): HTMLElement => {
     const parsed = new DOMParser().parseFromString(toParse, "text/html")
@@ -72,4 +74,52 @@ export const render = (query: string, block: Block): Element => {
 
     root.appendChild(block.element)
     return root
+}
+
+const fillComponentId = (
+    components: Record<string, Block>,
+    key: string,
+    value: unknown,
+    context: Props
+) => {
+    if (value instanceof Block) {
+        const id = uuidv4()
+
+        const mockDomString = `<div data-content-id="${id}"></div>` // делаем заглушку
+        components[id] = value // сохраняем компонент
+        const contextValue = context[key]
+        if (Array.isArray(contextValue)) {
+            contextValue.push(mockDomString)
+        } else {
+            context[key] = mockDomString
+        }
+    }
+}
+
+export const compile2Dom = (
+    templateFunc: (context: Props) => string,
+    context: Props
+): HTMLElement => {
+    const fragment = document.createElement("template")
+    const components: Record<string, Block> = {}
+
+    for (const [key, value] of Object.entries(context)) {
+        // Определяем, какие из переменных контекста — компоненты.
+
+        if (Array.isArray(value)) {
+            for (const arrayValue of value) {
+                fillComponentId(components, key, arrayValue, context)
+            }
+        } else fillComponentId(components, key, value, context)
+    }
+
+    fragment.innerHTML = templateFunc(context)
+
+    for (const [id, component] of Object.entries(components)) {
+        const stub = fragment.content.querySelector(`[data-content-id="${id}"]`)
+        if (stub === null)
+            throw new Error("You must find that Id. Something is missing")
+        stub.replaceWith(component.render())
+    }
+    return fragment.content.firstChild as HTMLElement
 }
