@@ -1,7 +1,6 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
 import footerTemplate from "./footer.hbs"
-import { string2DomElement } from "../../utils/utils"
 import { linkButtons } from "../../router/tempButtons"
 import { DESTINATIONS } from "../../router/destinations"
 import { Block } from "../../block"
@@ -37,4 +36,3 @@ export class Footer extends Block {
         })
     }
 }
-
