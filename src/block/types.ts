@@ -18,7 +18,6 @@ export type BlockParams = {
 }
 
 export interface IMeta {
-    tagName: string
     params: BlockParams
     id?: string
 }
