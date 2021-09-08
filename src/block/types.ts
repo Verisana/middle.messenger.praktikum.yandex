@@ -12,7 +12,6 @@ export type Props = {
 export type TemplateCreator = (props: Props) => string
 
 export type BlockParams = {
-    templateFunc: TemplateCreator
     events?: Events
     settings?: IBlockSettings
     props?: Props
