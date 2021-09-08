@@ -1,6 +1,7 @@
-import { button, IButton } from "../components/button"
+import { Button, IButtonParams, IButtonProps } from "../components/button"
 import { switchContent } from "./router"
 import { capitalizeFirstSymbol } from "../utils/utils"
+import { Block } from "../block"
 
 // Это тоже временный файл на первый спринт. Отсюда раздаю себе кнопки
 // для перехода
@@ -10,29 +11,33 @@ import { capitalizeFirstSymbol } from "../utils/utils"
 // уберу это безобразие
 
 type ButtonBuilder = (
-    { text, imgSrc, class_, imgStyle }: IButton,
+    { text, imgSrc, class_, imgStyle }: IButtonProps,
     content: () => Element
-) => Element
+) => Button
 
 const createButtonBuilder = (
     contentRoute: string,
     styles?: string | string[]
 ): ButtonBuilder => {
     return (
-        { text, imgSrc, class_, imgStyle }: IButton,
+        { text, imgSrc, class_, imgStyle }: IButtonProps,
         content: () => Element
-    ): Element => {
-        const buttonElement = button({
-            text:
-                text === undefined ? capitalizeFirstSymbol(contentRoute) : text,
-            class_: class_ === undefined ? styles : class_,
-            imgSrc,
-            imgStyle
-        })
-        buttonElement.addEventListener("click", () => {
-            switchContent(content)
-        })
-        return buttonElement
+    ): Block => {
+        const params: IButtonParams = {
+            events: {
+                click: switchContent.bind(null, content)
+            },
+            props: {
+                text:
+                    text === undefined
+                        ? capitalizeFirstSymbol(contentRoute)
+                        : text,
+                class_: class_ === undefined ? styles : class_,
+                imgSrc,
+                imgStyle
+            }
+        }
+        return new Button(params)
     }
 }
 
