@@ -1,9 +1,9 @@
 import classNames from "classnames"
 import { Block } from "../block"
 
-export const string2DomElement = (toParse: string): Element => {
+export const string2DomElement = (toParse: string): HTMLElement => {
     const parsed = new DOMParser().parseFromString(toParse, "text/html")
-    return parsed.body.firstChild as Element
+    return parsed.body.firstChild as HTMLElement
 }
 
 export const findPropertyInListOfObj = (
