@@ -1,1 +1,2 @@
-export { footer } from "./footer"
+export { Footer } from "./footer"
+export { IFooterProps, IFooterParams } from "./types"
