@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { Props, IMeta, BlockParams } from "./types"
 import { EventBus } from "../utils/event_bus"
+import { string2DomElement } from "../utils/utils"
 
 export abstract class Block {
     static EVENTS = {
@@ -92,8 +93,16 @@ export abstract class Block {
 
     protected _render() {
         const block = this.render()
+        const element = string2DomElement(block)
+
+        // Нужно, чтобы самый верхний тэг из шаблонизатора совпадал с
+        // переданным в аргумент тэгом
+        const rootTag = block.slice(1).match(/^\w*/i)
+        if (rootTag === null || rootTag[0] !== this._meta.tagName)
+            throw new Error("Tags are not equivalent!")
+
         this._removeEvents()
-        this.element.outerHTML = block
+        this._element = element
         this._addEvents()
     }
 
