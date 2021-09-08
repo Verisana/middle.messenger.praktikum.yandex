@@ -1,6 +1,6 @@
 import styles from "./button.css"
 import buttonTemplate from "./button.hbs"
-import { convertStyles2Strings } from "../../utils/utils"
+import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
 import { IButtonParams } from "./types"
 import { Block } from "../../block"
 
@@ -13,10 +13,10 @@ export class Button extends Block {
             props.imgStyle === undefined
                 ? convertStyles2Strings([styles], props.imgStyle)
                 : undefined
-        super("button", params)
+        super(params)
     }
 
-    render(): string {
-        return buttonTemplate(this.props)
+    render(): HTMLElement {
+        return compile2Dom(buttonTemplate, this.props)
     }
 }
