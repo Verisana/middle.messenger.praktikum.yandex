@@ -72,12 +72,14 @@ const buildRegisterForm = () => {
         })
     ]
     const submitBuilder = () => {
-        return new Button({
+        const content = new Button({
             props: {
                 text: "Зарегистрироваться",
                 type_: "submit"
             }
-        }).element
+        }).getContent()
+        if (content === null) throw new Error("Content can not be empty")
+        return content
     }
     return submitForm({
         inputBuilders,
