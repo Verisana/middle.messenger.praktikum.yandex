@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid"
 
 import { Props, IMeta, BlockParams } from "./types"
 import { EventBus } from "../utils/event_bus"
-import { string2DomElement } from "../utils/utils"
 
 export abstract class Block {
     static EVENTS = {
@@ -12,7 +11,7 @@ export abstract class Block {
         FLOW_RENDER: "flow:render"
     }
 
-    private _element: HTMLElement | null
+    private _element: DocumentFragment | null
 
     private _meta: IMeta
 
@@ -20,11 +19,10 @@ export abstract class Block {
 
     eventBus: () => EventBus
 
-    constructor(tagName: string = "div", params: BlockParams) {
+    constructor(params: BlockParams) {
         const eventBus = new EventBus()
         const { settings = { withInternalID: false }, props = {} } = params
         this._meta = {
-            tagName,
             params
         }
 
@@ -47,8 +45,7 @@ export abstract class Block {
     }
 
     protected _createResources() {
-        const { tagName } = this._meta
-        this._element = Block._createDocumentElement(tagName)
+        this._element = Block._createFragmentElement()
     }
 
     init() {
@@ -86,27 +83,33 @@ export abstract class Block {
         Object.assign(this.props, nextProps)
     }
 
-    get element(): HTMLElement {
+    get element(): DocumentFragment {
         if (this._element === null) throw new Error("Element was not created")
         return this._element
     }
 
+    getContent(): HTMLElement | null {
+        if (this._element === null) throw new Error("Element was not created")
+        const children = this._element?.children
+
+        if (children.length === 1) return children[0] as HTMLElement
+        if (children.length === 0) return null
+
+        throw new Error("Something wrong. There should be only one child")
+    }
+
     protected _render() {
         const block = this.render()
-        const element = string2DomElement(block)
-
-        // Нужно, чтобы самый верхний тэг из шаблонизатора совпадал с
-        // переданным в аргумент тэгом
-        const rootTag = block.slice(1).match(/^\w*/i)
-        if (rootTag === null || rootTag[0] !== this._meta.tagName)
-            throw new Error("Tags are not equivalent!")
+        if (this._meta.params.settings?.withInternalID) {
+            block.dataset.blockId = this.props.__id
+        }
 
         this._removeEvents()
-        this._element = element
+        this.element.replaceChildren(block)
         this._addEvents()
     }
 
-    abstract render(): string
+    abstract render(): HTMLElement
 
     _makePropsProxy(props: Props): Props {
         const that = this
@@ -132,29 +135,35 @@ export abstract class Block {
         })
     }
 
-    protected static _createDocumentElement(tagName: string): HTMLElement {
-        return document.createElement(tagName)
+    protected static _createFragmentElement(): DocumentFragment {
+        return document.createDocumentFragment()
     }
 
     show() {
-        this.element.style.display = "block"
+        const content = this.getContent()
+        if (content !== null) {
+            content.style.display = "block"
+        }
     }
 
     hide() {
-        this.element.style.display = "none"
+        const content = this.getContent()
+        if (content !== null) {
+            content.style.display = "none"
+        }
     }
 
     _addEvents() {
         const { events = {} } = this._meta.params
         Object.keys(events).forEach((eventName) => {
-            this.element.addEventListener(eventName, events[eventName])
+            this.getContent()?.addEventListener(eventName, events[eventName])
         })
     }
 
     _removeEvents() {
         const { events = {} } = this._meta.params
         Object.keys(events).forEach((eventName) => {
-            this.element.removeEventListener(eventName, events[eventName])
+            this.getContent()?.removeEventListener(eventName, events[eventName])
         })
     }
 }
