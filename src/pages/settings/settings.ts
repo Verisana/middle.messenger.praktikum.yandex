@@ -10,8 +10,8 @@ import {
 import { linkButtons } from "../../router/tempButtons"
 import { submitForm } from "../../components/submitForm"
 import { inputField } from "../../components/inputField"
-import { button } from "../../components/button"
 import { homeContent } from "../home"
+import { Button } from "../../components/button"
 
 // Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
 // автоматом подставлялись
@@ -83,10 +83,14 @@ const buildSettingsForm = () => {
             br: true
         })
     ]
-    const submitBuilder = button.bind(null, {
-        text: "Сохранить",
-        type_: "submit"
-    })
+    const submitBuilder = () => {
+        return new Button({
+            props: {
+                text: "Сохранить",
+                type_: "submit"
+            }
+        }).element
+    }
     return submitForm({
         inputBuilders,
         submitBuilder,
@@ -118,7 +122,7 @@ export const settingsContent = () => {
 
     formPlace.appendChild(buildSettingsForm())
     buttonPlace.appendChild(
-        linkButtons.home({ text: "Вернуться к чатам" }, homeContent)
+        linkButtons.home({ text: "Вернуться к чатам" }, homeContent).element
     )
 
     return content

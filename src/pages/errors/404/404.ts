@@ -10,7 +10,7 @@ const errorContent = () => {
     }
     const content = string2DomElement(errorTemplate(params))
     const buttonPlace = selectPlaceholder(content, params.linkToHome)
-    buttonPlace.appendChild(linkButtons.home({}, homeContent))
+    buttonPlace.appendChild(linkButtons.home({}, homeContent).element)
     return content
 }
 

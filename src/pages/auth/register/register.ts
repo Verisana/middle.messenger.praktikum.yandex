@@ -8,8 +8,8 @@ import {
 import { linkButtons } from "../../../router/tempButtons"
 import { submitForm } from "../../../components/submitForm"
 import { inputField } from "../../../components/inputField"
-import { button } from "../../../components/button"
 import { loginContent } from "../login"
+import { Button } from "../../../components/button"
 
 const buildRegisterForm = () => {
     const inputBuilders = [
@@ -71,10 +71,14 @@ const buildRegisterForm = () => {
             br: true
         })
     ]
-    const submitBuilder = button.bind(null, {
-        text: "Зарегистрироваться",
-        type_: "submit"
-    })
+    const submitBuilder = () => {
+        return new Button({
+            props: {
+                text: "Зарегистрироваться",
+                type_: "submit"
+            }
+        }).element
+    }
     return submitForm({
         inputBuilders,
         submitBuilder,
@@ -99,7 +103,7 @@ export const registerContent = () => {
 
     formPlace.appendChild(buildRegisterForm())
     buttonPlace.appendChild(
-        linkButtons.login({ text: "Уже есть аккаунт?" }, loginContent)
+        linkButtons.login({ text: "Уже есть аккаунт?" }, loginContent).element
     )
 
     return content

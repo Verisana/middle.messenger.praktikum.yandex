@@ -2,7 +2,7 @@ import styles from "./header.css"
 import headerTemplate from "./header.hbs"
 import { string2DomElement, selectPlaceholder } from "../../utils/utils"
 import { linkButtons } from "../../router/tempButtons"
-import { button } from "../button"
+import { Button } from "../button"
 import { isLogged } from "../../consts"
 import { settingsContent } from "../../pages/settings"
 
@@ -25,11 +25,13 @@ export const header = () => {
             placeholders.menuButton
         )
         menuButtonDiv.appendChild(
-            button({
-                imgSrc: "menu_white_48dp.svg",
-                class_: ["btn__navbar_default"],
-                imgStyle: ["btn__image_default"]
-            })
+            new Button({
+                props: {
+                    imgSrc: "menu_white_48dp.svg",
+                    class_: ["btn__navbar_default"],
+                    imgStyle: ["btn__image_default"]
+                }
+            }).element
         )
         const settingsButtonDiv = selectPlaceholder(
             headerElement,
@@ -43,7 +45,7 @@ export const header = () => {
                     imgStyle: ["btn__image_default"]
                 },
                 settingsContent
-            )
+            ).element
         )
     }
 
