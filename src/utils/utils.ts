@@ -71,8 +71,12 @@ export const selectPlaceholder = (element: Element, id_: string): Element => {
 export const render = (query: string, block: Block): Element => {
     const root = document.querySelector(query)
     if (root === null) throw new Error("Check your query")
-
-    root.appendChild(block.element)
+    const content = block.getContent()
+    if (content !== null) {
+        root.appendChild(content)
+    } else {
+        throw new Error("Can not render. No content available")
+    }
     return root
 }
 
