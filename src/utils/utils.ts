@@ -80,7 +80,8 @@ const fillComponentId = (
     components: Record<string, Block>,
     key: string,
     value: unknown,
-    context: Props
+    context: Props,
+    index?: number
 ) => {
     if (value instanceof Block) {
         const id = uuidv4()
@@ -88,8 +89,8 @@ const fillComponentId = (
         const mockDomString = `<div data-content-id="${id}"></div>` // делаем заглушку
         components[id] = value // сохраняем компонент
         const contextValue = context[key]
-        if (Array.isArray(contextValue)) {
-            contextValue.push(mockDomString)
+        if (Array.isArray(contextValue) && index !== undefined) {
+            contextValue[index] = mockDomString
         } else {
             context[key] = mockDomString
         }
@@ -107,8 +108,8 @@ export const compile2Dom = (
         // Определяем, какие из переменных контекста — компоненты.
 
         if (Array.isArray(value)) {
-            for (const arrayValue of value) {
-                fillComponentId(components, key, arrayValue, context)
+            for (const [index, arrayValue] of value.entries()) {
+                fillComponentId(components, key, arrayValue, context, index)
             }
         } else fillComponentId(components, key, value, context)
     }
@@ -119,7 +120,8 @@ export const compile2Dom = (
         const stub = fragment.content.querySelector(`[data-content-id="${id}"]`)
         if (stub === null)
             throw new Error("You must find that Id. Something is missing")
-        stub.replaceWith(component.render())
+        const content = component.getContent()
+        if (content !== null) stub.replaceWith(content)
     }
     return fragment.content.firstChild as HTMLElement
 }
