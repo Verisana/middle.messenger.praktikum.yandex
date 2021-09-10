@@ -1,45 +1,23 @@
 import styles from "./submitForm.css"
 import submitFormTemplate from "./submitForm.hbs"
-import {
-    string2DomElement,
-    convertStyles2Strings,
-    selectPlaceholder
-} from "../../utils/utils"
-import { ISubmitForm } from "./types"
+import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { ISubmitFormParams } from "./types"
+import { Block } from "../../block"
 
-export const placeholders = {
-    submitButton: "submitButtonPlaceholder",
-    inputsPlace: "inputsPlaceholder"
-}
-
-export const submitForm = ({
-    class_,
-    inputBuilders,
-    submitBuilder,
-    onSubmitFunc,
-    formHeaderText,
-    isNoBorder = false
-}: ISubmitForm) => {
-    const params = {
-        class_: convertStyles2Strings(
+export class SubmitForm extends Block {
+    constructor(params: ISubmitFormParams) {
+        const { props, settings } = params
+        settings.isNoBorder =
+            settings.isNoBorder === undefined ? false : settings.isNoBorder
+        props.rootClass = convertStyles2Strings(
             [styles],
-            isNoBorder ? "form_no_border" : undefined,
-            class_
-        ),
-        formHeaderText,
-        ...placeholders
+            settings.isNoBorder ? "form_no_border" : undefined,
+            props.rootClass
+        )
+        super(params)
     }
-    const content = string2DomElement(submitFormTemplate(params))
-    const submitButtonsDiv = selectPlaceholder(
-        content,
-        placeholders.submitButton
-    )
-    submitButtonsDiv.appendChild(submitBuilder())
 
-    const inputsDiv = selectPlaceholder(content, placeholders.inputsPlace)
-    for (const inputBuilder of inputBuilders) {
-        inputsDiv.appendChild(inputBuilder())
+    render(): HTMLElement {
+        return compile2Dom(submitFormTemplate, this.props)
     }
-    if (onSubmitFunc) content.addEventListener("submit", onSubmitFunc)
-    return content
 }
