@@ -1,13 +1,12 @@
 import "./layout.css"
-import { header } from "../components/header"
+import { Header } from "../components/header"
 import { Footer } from "../components/footer"
 import { render } from "../utils/utils"
 
 export const renderContent = (content: () => Element) => {
     document.body.innerHTML = ""
-    const footer = new Footer()
 
-    document.body.appendChild(header())
+    render("body", new Header())
     document.body.appendChild(content())
-    render("body", footer)
+    render("body", new Footer())
 }
