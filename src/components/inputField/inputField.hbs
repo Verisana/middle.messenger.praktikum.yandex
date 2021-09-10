@@ -1,4 +1,10 @@
-<div class="{{divClass}}">
+<div class="{{rootClass}}">
+    {{#if label.text}}
+        <label class="{{label.class}}">
+            {{label.text}}
+        </label>
+    {{/if}}
+    <span class="{{barClass}}"></span>
     <input
         class="{{inputPart.class}}"
         type={{inputPart.type}}
@@ -7,12 +13,6 @@
         placeholder="{{inputPart.placeholder}}"
         name={{inputPart.name}}
     />
-    <span class="{{barClass}}"></span>
-    {{#if label.text}}
-        <label class="{{label.class}}">
-            {{label.text}}
-        </label>
-    {{/if}}
     {{#if br}}
         <br>
     {{/if}}

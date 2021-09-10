@@ -1,40 +1,50 @@
 import styles from "./inputField.css"
 import inputFieldTemplate from "./inputField.hbs"
-import { string2DomElement, convertStyles2Strings } from "../../utils/utils"
-import { IInputField } from "./types"
+import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { IInputFieldParams } from "./types"
+import { Block } from "../../block"
 
-export const inputField = ({
-    label,
-    inputPart,
-    br = false,
-    barClass = styles.bar,
-    divClass = styles.inputDiv_default
-}: IInputField) => {
-    const params: IInputField = {
-        barClass,
-        divClass,
-        br
+export class InputField extends Block {
+    constructor(params: IInputFieldParams) {
+        const { props } = params
+        props.barClass = convertStyles2Strings([styles], "bar", props.barClass)
+        props.rootClass = convertStyles2Strings(
+            [styles],
+            "inputDiv_default",
+            props.rootClass
+        )
+        props.br = props.br === undefined ? false : props.br
+        props.label =
+            props.label === undefined
+                ? undefined
+                : {
+                      text: props.label.text,
+                      class: convertStyles2Strings([styles], props.label.class)
+                  }
+        props.inputPart =
+            props.inputPart === undefined
+                ? undefined
+                : {
+                      class: convertStyles2Strings(
+                          [styles],
+                          props.inputPart.class
+                      ),
+                      type:
+                          props.inputPart.type === undefined
+                              ? "text"
+                              : props.inputPart.type,
+                      required:
+                          props.inputPart.required === undefined
+                              ? false
+                              : props.inputPart.required,
+                      pattern: props.inputPart.pattern,
+                      placeholder: props.inputPart.placeholder,
+                      name: props.inputPart.name
+                  }
+        super(params)
     }
-    params.label =
-        label === undefined
-            ? undefined
-            : {
-                  text: label.text,
-                  class: convertStyles2Strings([styles], label.class)
-              }
-    params.inputPart =
-        inputPart === undefined
-            ? undefined
-            : {
-                  class: convertStyles2Strings([styles], inputPart.class),
-                  type: inputPart.type === undefined ? "text" : inputPart.type,
-                  required:
-                      inputPart.required === undefined
-                          ? false
-                          : inputPart.required,
-                  pattern: inputPart.pattern,
-                  placeholder: inputPart.placeholder,
-                  name: inputPart.name
-              }
-    return string2DomElement(inputFieldTemplate(params))
+
+    render(): HTMLElement {
+        return compile2Dom(inputFieldTemplate, this.props)
+    }
 }

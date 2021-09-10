@@ -1,6 +1,8 @@
-export interface IInputField {
-    barClass?: string
-    divClass?: string
+import { BlockParams, Props } from "../../block";
+
+export interface IInputFieldProps extends Props {
+    barClass?: string | string[]
+    rootClass?: string | string[]
     label?: {
         text: string
         class?: string | string[]
@@ -15,3 +17,8 @@ export interface IInputField {
     }
     br?: boolean
 }
+
+export interface IInputFieldParams extends BlockParams {
+    props: IInputFieldProps
+}
+
