@@ -1,1 +1,2 @@
-export { header, placeholders } from "./header"
+export { Header } from "./header"
+export { IHeaderProps } from "./types"
