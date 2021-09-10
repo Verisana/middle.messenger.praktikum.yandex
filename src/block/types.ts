@@ -1,6 +1,6 @@
 export type Events = Record<string, (event: Event) => void>
 
-export interface IBlockSettings {
+export type BlockSettings = {
     withInternalID: boolean
 }
 
@@ -13,7 +13,7 @@ export type TemplateCreator = (props: Props) => string
 
 export type BlockParams = {
     events?: Events
-    settings?: IBlockSettings
+    settings?: BlockSettings
     props?: Props
 }
 
