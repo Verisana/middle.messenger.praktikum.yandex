@@ -1,4 +1,6 @@
-export interface IMessage {
+import { Props, BlockParams } from "../../block"
+
+export interface IMessageProps extends Props {
     messageId: number
     text: string
 
@@ -6,5 +8,9 @@ export interface IMessage {
     sender: string
     timeMachine: string
     timeHuman?: string
-    classList?: string | string[]
+    rootClass?: string | string[]
+}
+
+export interface IMessageParams extends BlockParams {
+    props: IMessageProps
 }

@@ -1,2 +1,2 @@
-export { message } from "./message"
-export { IMessage } from "./types"
+export { Message } from "./message"
+export { IMessageParams, IMessageProps } from "./types"

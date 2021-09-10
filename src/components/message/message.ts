@@ -1,23 +1,21 @@
 import styles from "./message.css"
 import messageTemplate from "./message.hbs"
-import { string2DomElement, convertStyles2Strings } from "../../utils/utils"
-import { IMessage } from "./types"
+import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { IMessageParams } from "./types"
+import { Block } from "../../block"
 
-export const message = ({
-    messageId,
-    text,
-    sender,
-    timeMachine,
-    timeHuman,
-    classList
-}: IMessage) => {
-    const params = {
-        class_: convertStyles2Strings([styles], "message", classList),
-        timeMachine,
-        timeHuman,
-        messageId,
-        sender,
-        text
+export class Message extends Block {
+    constructor(params: IMessageParams) {
+        const { props } = params
+        props.rootClass = convertStyles2Strings(
+            [styles],
+            "message",
+            props.rootClass
+        )
+        super(params)
     }
-    return string2DomElement(messageTemplate(params))
+
+    render(): HTMLElement {
+        return compile2Dom(messageTemplate, this.props)
+    }
 }
