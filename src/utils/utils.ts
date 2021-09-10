@@ -85,39 +85,48 @@ const fillComponentId = (
     key: string,
     value: unknown,
     context: Props,
-    index?: number
+    isValueArray: boolean
 ) => {
     if (value instanceof Block) {
         const id = uuidv4()
 
         const mockDomString = `<div data-content-id="${id}"></div>` // делаем заглушку
         components[id] = value // сохраняем компонент
-        const contextValue = context[key]
-        if (Array.isArray(contextValue) && index !== undefined) {
-            contextValue[index] = mockDomString
+
+        if (isValueArray) {
+            if (context[key] === undefined) {
+                context[key] = []
+            }
+            // TypeScript не понимал, что у меня тут 100% будет массив, поэтому
+            // пришлось вручную пробросить тип
+            const contextValue = context[key] as string[]
+            contextValue.push(mockDomString)
         } else {
             context[key] = mockDomString
         }
+    } else {
+        context[key] = value
     }
 }
 
 export const compile2Dom = (
     templateFunc: (context: Props) => string,
-    context: Props
+    proxyContext: Props
 ): HTMLElement => {
     const fragment = document.createElement("template")
     const components: Record<string, Block> = {}
 
-    for (const [key, value] of Object.entries(context)) {
-        // Определяем, какие из переменных контекста — компоненты.
+    // Создаем дубликат массива, чтобы не триггерить CDU, когда перезаписываем
+    // в пропсах mock значения
+    const context: Props = {}
 
+    for (const [key, value] of Object.entries(proxyContext)) {
         if (Array.isArray(value)) {
-            for (const [index, arrayValue] of value.entries()) {
-                fillComponentId(components, key, arrayValue, context, index)
+            for (const arrayValue of value) {
+                fillComponentId(components, key, arrayValue, context, true)
             }
-        } else fillComponentId(components, key, value, context)
+        } else fillComponentId(components, key, value, context, false)
     }
-
     fragment.innerHTML = templateFunc(context)
 
     for (const [id, component] of Object.entries(components)) {
@@ -125,7 +134,8 @@ export const compile2Dom = (
         if (stub === null)
             throw new Error("You must find that Id. Something is missing")
         const content = component.getContent()
-        if (content !== null) stub.replaceWith(content)
+        if (content === null) throw new Error("Content can not bu nulled")
+        stub.replaceWith(content)
     }
     return fragment.content.firstChild as HTMLElement
 }
