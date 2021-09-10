@@ -3,7 +3,7 @@ import { Button } from "../button"
 
 export interface IFooterProps extends Props {
     contentClass: string
-    linkButtons: Button[]
+    LinkButtons: Button[]
 }
 
 export interface IFooterParams extends BlockParams {

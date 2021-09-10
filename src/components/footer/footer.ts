@@ -18,7 +18,7 @@ export class Footer extends Block {
         const params: IFooterParams = {
             props: {
                 contentClass: layoutStyles.content,
-                linkButtons: routeButtons
+                LinkButtons: routeButtons
             }
         }
 

@@ -13,14 +13,14 @@ export class Header extends Block {
             props: {
                 isLogged,
                 logoStyles: styles.logo__style_default,
-                menuButton: new Button({
+                MenuButton: new Button({
                     props: {
                         imgSrc: "menu_white_48dp.svg",
                         class_: ["btn__navbar_default"],
                         imgStyle: ["btn__image_default"]
                     }
                 }),
-                settingsButton: linkButtons.profileSettings(
+                SettingsButton: linkButtons.profileSettings(
                     {
                         imgSrc: "settings_white_48dp.svg",
                         class_: ["btn__navbar_default"],
