@@ -1,7 +1,14 @@
 import "./500.css"
 import serverErrorTemplate from "./500.hbs"
-import { string2DomElement } from "../../../utils/utils"
+import { compile2Dom } from "../../../utils/utils"
+import { Block } from "../../../block"
 
-const serverErrorContent = () => string2DomElement(serverErrorTemplate())
+export class ServerErrorPage extends Block {
+    constructor() {
+        super({})
+    }
 
-export { serverErrorContent }
+    render(): HTMLElement {
+        return compile2Dom(serverErrorTemplate, this.props)
+    }
+}

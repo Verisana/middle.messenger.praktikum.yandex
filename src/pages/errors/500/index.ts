@@ -1,1 +1,1 @@
-export { serverErrorContent } from "./500"
+export { ServerErrorPage } from "./500"
