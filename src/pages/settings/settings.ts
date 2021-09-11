@@ -112,13 +112,13 @@ export class SettingsPage extends Block {
                     "img__avatar_default"
                 ),
                 SettingsForm: new SubmitForm({
+                    events: {
+                        submit: onSubmitMock
+                    },
                     props: {
                         formHeaderText: "Данные для редактирования",
                         Inputs: formInputs,
                         SubmitButton: new Button({
-                            events: {
-                                click: onSubmitMock
-                            },
                             props: {
                                 text: "Сохранить",
                                 type_: "submit"

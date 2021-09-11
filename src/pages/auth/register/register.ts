@@ -87,13 +87,13 @@ export class RegisterPage extends Block {
         super({
             props: {
                 RegisterSubmitForm: new SubmitForm({
+                    events: {
+                        submit: onSubmitMock
+                    },
                     props: {
                         formHeaderText: "Введите для регистрации",
                         Inputs: registerInputs,
                         SubmitButton: new Button({
-                            events: {
-                                click: onSubmitMock
-                            },
                             props: {
                                 text: "Зарегистрироваться",
                                 type_: "submit"

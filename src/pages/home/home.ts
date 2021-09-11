@@ -139,6 +139,9 @@ export class HomePage extends Block {
                 ChatsSideBar: chatSideBarList,
                 Messages: messages,
                 SendMessage: new SubmitForm({
+                    events: {
+                        submit: onSubmitMock
+                    },
                     settings: { isNoBorder: true },
                     props: {
                         Inputs: [

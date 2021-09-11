@@ -38,13 +38,13 @@ export class LoginPage extends Block {
         super({
             props: {
                 LoginSubmitForm: new SubmitForm({
+                    events: {
+                        submit: onSubmitMock
+                    },
                     props: {
                         formHeaderText: "Введите для авторизации",
                         Inputs: loginInputs,
                         SubmitButton: new Button({
-                            events: {
-                                click: onSubmitMock
-                            },
                             props: {
                                 text: "Войти",
                                 type_: "submit"
