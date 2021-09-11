@@ -1,15 +1,16 @@
 import { HomePage } from "./home"
 import { ErrorPage } from "./errors/404"
-import { serverErrorContent } from "./errors/500"
-import { loginContent } from "./auth/login"
-import { registerContent } from "./auth/register"
-import { settingsContent } from "./settings"
+import { ServerErrorPage } from "./errors/500"
+import { LoginPage } from "./auth/login"
+import { RegisterPage } from "./auth/register"
+import { SettingsPage } from "./settings"
+import { Block } from "../block"
 
-export const pages = {
+export const pages: Record<string, () => Block> = {
     home: () => new HomePage(),
-    loginContent,
-    registerContent,
-    settingsContent,
+    login: () => new LoginPage(),
+    register: () => new RegisterPage(),
+    profileSettings: () => new SettingsPage(),
     error: () => new ErrorPage(),
-    serverErrorContent
+    serverError: () => new ServerErrorPage()
 }
