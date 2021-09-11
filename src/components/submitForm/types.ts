@@ -16,5 +16,5 @@ export interface ISubmitFormSettings extends BlockSettings {
 
 export interface ISubmitFormParams extends BlockParams {
     props: ISubmitFormProps
-    settings: ISubmitFormSettings
+    settings?: ISubmitFormSettings
 }
