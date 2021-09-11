@@ -12,7 +12,8 @@
         "start": "ts-node src/server.ts",
         "lint:p": "npx prettier --write './src/**/*.{ts,test.ts,json}'",
         "lint:e": "npx eslint \"src/**/*.ts\" --fix",
-        "lint": "npm run lint:p && npm run lint:e"
+        "lint:s": "npx stylelint \"src/**/*css\" --fix",
+        "lint": "npm run lint:p && npm run lint:e && npm run lint:s"
     },
     "repository": {
         "type": "git",
@@ -31,6 +32,7 @@
         "parcel-plugin-handlebars-precompile-ts": "^1.0.0",
         "prettier": "^2.3.2",
         "stylelint": "^13.13.1",
+        "stylelint-config-standard": "^22.0.0",
         "ts-node": "^10.2.1",
         "typescript": "^4.4.2"
     },
