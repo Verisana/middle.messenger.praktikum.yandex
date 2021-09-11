@@ -1,7 +1,7 @@
 export { Block } from "./block"
 export {
     Props,
-    IBlockSettings,
+    BlockSettings,
     IMeta,
     Events,
     BlockParams,
