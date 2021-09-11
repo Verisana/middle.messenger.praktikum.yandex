@@ -4,7 +4,7 @@ import { compile2Dom } from "../../utils/utils"
 import { linkButtons } from "../../router/tempButtons"
 import { Button } from "../button"
 import { isLogged } from "../../consts"
-import { settingsContent } from "../../pages/settings"
+import { SettingsPage } from "../../pages/settings"
 import { Block } from "../../block"
 
 export class Header extends Block {
@@ -26,7 +26,7 @@ export class Header extends Block {
                         class_: ["btn__navbar_default"],
                         imgStyle: ["btn__image_default"]
                     },
-                    settingsContent
+                    () => new SettingsPage()
                 )
             }
         })
