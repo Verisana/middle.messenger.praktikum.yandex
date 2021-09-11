@@ -2,22 +2,22 @@ import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
 import {
-    string2DomElement,
     onSubmitMock,
     convertStyles2Strings,
-    selectPlaceholder
+    compile2Dom
 } from "../../utils/utils"
 import { linkButtons } from "../../router/tempButtons"
-import { submitForm } from "../../components/submitForm"
-import { inputField } from "../../components/inputField"
-import { homeContent } from "../home"
+import { SubmitForm } from "../../components/submitForm"
+import { InputField } from "../../components/inputField"
+import { HomePage } from "../home"
 import { Button } from "../../components/button"
+import { Block } from "../../block"
 
 // Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
 // автоматом подставлялись
-const buildSettingsForm = () => {
-    const inputBuilders = [
-        inputField.bind(null, {
+const formInputs = [
+    new InputField({
+        props: {
             inputPart: {
                 type: "password",
                 name: "oldPassword",
@@ -27,8 +27,10 @@ const buildSettingsForm = () => {
                 text: "Текущий пароль"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "password",
                 name: "newPassword"
@@ -37,8 +39,10 @@ const buildSettingsForm = () => {
                 text: "Новый пароль"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "tel",
                 name: "phone"
@@ -47,8 +51,10 @@ const buildSettingsForm = () => {
                 text: "Телефон"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "text",
                 name: "login"
@@ -57,15 +63,22 @@ const buildSettingsForm = () => {
                 text: "Логин"
             },
             br: true
-        }),
-        inputField.bind(null, {
-            inputPart: { type: "text", name: "first_name" },
+        }
+    }),
+    new InputField({
+        props: {
+            inputPart: {
+                type: "text",
+                name: "first_name"
+            },
             label: {
                 text: "Имя"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "text",
                 name: "second_name"
@@ -74,58 +87,54 @@ const buildSettingsForm = () => {
                 text: "Фамилия"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: { type: "email", name: "email" },
             label: {
                 text: "Email"
             },
             br: true
-        })
-    ]
-    const submitBuilder = () => {
-        const content = new Button({
-            props: {
-                text: "Сохранить",
-                type_: "submit"
-            }
-        }).getContent()
-        if (content === null) throw new Error("Content can not be empty")
-        return content
-    }
-    return submitForm({
-        inputBuilders,
-        submitBuilder,
-        formHeaderText: "Данные для редактирования",
-        onSubmitFunc: onSubmitMock
+        }
     })
-}
+]
 
-export const placeholders = {
-    formPlace: "settings-form-place",
-    buttonToHome: "settings-to-login-place"
-}
-
-export const settingsContent = () => {
-    const params = {
-        // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
-        linkToImage:
-            "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-        avatarStyle: convertStyles2Strings(
-            [layoutStyles],
-            "img__avatar_default"
-        ),
-        ...placeholders
+export class SettingsPage extends Block {
+    constructor() {
+        super({
+            props: {
+                // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
+                linkToImage:
+                    "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
+                avatarStyle: convertStyles2Strings(
+                    [layoutStyles],
+                    "img__avatar_default"
+                ),
+                SettingsForm: new SubmitForm({
+                    props: {
+                        formHeaderText: "Данные для редактирования",
+                        Inputs: formInputs,
+                        SubmitButton: new Button({
+                            events: {
+                                click: onSubmitMock
+                            },
+                            props: {
+                                text: "Сохранить",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                HomeButton: linkButtons.home(
+                    { text: "Вернуться к чатам" },
+                    () => new HomePage()
+                )
+            }
+        })
     }
 
-    const content = string2DomElement(settingsTemplate(params))
-    const formPlace = selectPlaceholder(content, placeholders.formPlace)
-    const buttonPlace = selectPlaceholder(content, placeholders.buttonToHome)
-
-    formPlace.appendChild(buildSettingsForm())
-    buttonPlace.appendChild(
-        linkButtons.home({ text: "Вернуться к чатам" }, homeContent).element
-    )
-
-    return content
+    render(): HTMLElement {
+        return compile2Dom(settingsTemplate, this.props)
+    }
 }
