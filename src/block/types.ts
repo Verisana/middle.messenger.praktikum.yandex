@@ -1,7 +1,7 @@
 export type Events = Record<string, (event: Event) => void>
 
 export type BlockSettings = {
-    withInternalID: boolean
+    withInternalID?: boolean
 }
 
 export type Props = {
