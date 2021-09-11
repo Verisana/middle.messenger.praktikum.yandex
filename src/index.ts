@@ -1,5 +1,5 @@
 import "@fontsource/roboto"
-import { homeContent } from "./pages/home"
-import { switchContent } from "./router/router"
+import { layout } from "./layout"
+import { render } from "./utils/utils"
 
-switchContent(homeContent)
+render("#App", layout)
