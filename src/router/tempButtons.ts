@@ -11,7 +11,7 @@ import { Block } from "../block"
 // уберу это безобразие
 
 type ButtonBuilder = (
-    { text, imgSrc, class_, imgStyle }: IButtonProps,
+    { text, imgSrc, rootClass, imgStyle }: IButtonProps,
     page: () => Block
 ) => Button
 
@@ -20,7 +20,7 @@ const createButtonBuilder = (
     styles?: string | string[]
 ): ButtonBuilder => {
     return (
-        { text, imgSrc, class_, imgStyle }: IButtonProps,
+        { text, imgSrc, rootClass, imgStyle }: IButtonProps,
         page: () => Block
     ): Button => {
         const params: IButtonParams = {
@@ -32,7 +32,7 @@ const createButtonBuilder = (
                     text === undefined
                         ? capitalizeFirstSymbol(contentRoute)
                         : text,
-                class_: class_ === undefined ? styles : class_,
+                rootClass: rootClass === undefined ? styles : rootClass,
                 imgSrc,
                 imgStyle
             }
