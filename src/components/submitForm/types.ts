@@ -1,7 +1,7 @@
-import { BlockParams, Props } from "../../block";
-import { BlockSettings } from "../../block/types";
-import { Button } from "../button";
-import { InputField } from "../inputField";
+import { BlockParams, Props } from "../../block"
+import { BlockSettings } from "../../block/types"
+import { Button } from "../button"
+import { InputField } from "../inputField"
 
 export interface ISubmitFormProps extends Props {
     Inputs: InputField[]

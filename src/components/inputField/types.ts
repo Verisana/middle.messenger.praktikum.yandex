@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../block";
+import { BlockParams, Props } from "../../block"
 
 export interface IInputFieldProps extends Props {
     barClass?: string | string[]
@@ -21,4 +21,3 @@ export interface IInputFieldProps extends Props {
 export interface IInputFieldParams extends BlockParams {
     props: IInputFieldProps
 }
-
