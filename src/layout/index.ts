@@ -1,1 +1,2 @@
-export { renderContent } from "./layout"
+export { layout } from "./layout"
+export { ILayoutProps, ILayoutParams } from "./types"
