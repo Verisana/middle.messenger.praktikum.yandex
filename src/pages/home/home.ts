@@ -1,13 +1,12 @@
 import styles from "./home.css"
 import homeTemplate from "./home.hbs"
 import {
-    string2DomElement,
     onSubmitMock,
     convertStyles2Strings,
-    selectPlaceholder
+    compile2Dom
 } from "../../utils/utils"
-import { inputField } from "../../components/inputField"
-import { submitForm } from "../../components/submitForm"
+import { InputField } from "../../components/inputField"
+import { SubmitForm } from "../../components/submitForm"
 import { Message } from "../../components/message"
 import { ChatSideBar } from "../../components/chatSideBar"
 import { linkButtons } from "../../router/tempButtons"
@@ -15,6 +14,7 @@ import { isLogged } from "../../consts"
 import { loginContent } from "../auth/login"
 import { registerContent } from "../auth/register"
 import { Button } from "../../components/button"
+import { Block } from "../../block"
 
 const chatSideBarList = [
     new ChatSideBar({
@@ -130,94 +130,55 @@ const messages = [
     })
 ]
 
-const buildMessageInputForm = () => {
-    const inputBuilders = [
-        inputField.bind(null, {
-            inputPart: {
-                type: "text",
-                name: "message",
-                required: true
-            },
-            label: {
-                text: "Сообщение"
+export class HomePage extends Block {
+    constructor() {
+        super({
+            props: {
+                isLogged,
+                rootClass: convertStyles2Strings([styles], "main_home"),
+                ChatsSideBar: chatSideBarList,
+                Messages: messages,
+                SendMessage: new SubmitForm({
+                    settings: { isNoBorder: true },
+                    props: {
+                        Inputs: [
+                            new InputField({
+                                props: {
+                                    inputPart: {
+                                        type: "text",
+                                        name: "message",
+                                        required: true
+                                    },
+                                    label: {
+                                        text: "Сообщение"
+                                    }
+                                }
+                            })
+                        ],
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Отправить",
+                                type_: "submit"
+                            },
+                            events: {
+                                click: onSubmitMock
+                            }
+                        })
+                    }
+                }),
+                LoginButton: linkButtons.login(
+                    { text: "Залогиниться" },
+                    loginContent
+                ),
+                RegisterButton: linkButtons.register(
+                    { text: "Зарегистрироваться" },
+                    registerContent
+                )
             }
         })
-    ]
-    const submitBuilder = () => {
-        const content = new Button({
-            props: {
-                text: "Отправить",
-                type_: "submit"
-            }
-        }).getContent()
-        if (content === null) throw new Error("Content can not be empty")
-        return content
     }
-    return submitForm({
-        inputBuilders,
-        submitBuilder,
-        isNoBorder: true,
-        onSubmitFunc: onSubmitMock
-    })
-}
 
-export const placeholders = {
-    chatSideBarPlace: "home-chat-sidebar-list",
-    messagesPlace: "home-chat-messages-list",
-    textInputPlace: "home-input-message-field",
-    buttonToLogin: "home-button-to-login",
-    buttonToRegister: "home-button-to-register"
-}
-
-export const homeContent = () => {
-    const params = {
-        isLogged,
-        class_: convertStyles2Strings([styles], "main_home"),
-        ...placeholders
+    render(): HTMLElement {
+        return compile2Dom(homeTemplate, this.props)
     }
-    const content = string2DomElement(homeTemplate(params))
-
-    if (isLogged) {
-        const chatSideBarDiv = selectPlaceholder(
-            content,
-            placeholders.chatSideBarPlace
-        )
-        for (const chatSideBarElement of chatSideBarList) {
-            chatSideBarDiv.appendChild(chatSideBarElement.getContent())
-        }
-
-        const messagesDiv = selectPlaceholder(
-            content,
-            placeholders.messagesPlace
-        )
-        for (const messageElement of messages) {
-            messagesDiv.appendChild(messageElement.getContent())
-        }
-
-        const textInputDiv = selectPlaceholder(
-            content,
-            placeholders.textInputPlace
-        )
-        textInputDiv.appendChild(buildMessageInputForm())
-    } else {
-        const buttonToLoginDiv = selectPlaceholder(
-            content,
-            placeholders.buttonToLogin
-        )
-        buttonToLoginDiv.appendChild(
-            linkButtons.login({ text: "Залогиниться" }, loginContent).element
-        )
-
-        const buttonToRegisterDiv = selectPlaceholder(
-            content,
-            placeholders.buttonToRegister
-        )
-        buttonToRegisterDiv.appendChild(
-            linkButtons.register(
-                { text: "Зарегистрироваться" },
-                registerContent
-            ).element
-        )
-    }
-    return content
 }

@@ -1,13 +1,19 @@
-<main class="{{class_}}">
+<main class="{{rootClass}}">
     {{#if isLogged}}
-        <div id={{chatSideBarPlace}}></div>
         <div>
-            <div id={{messagesPlace}}></div>
-            <div id={{textInputPlace}}></div>
+            {{#each ChatsSideBar }}
+                {{{this}}}
+            {{/each}}
+        </div>
+        <div>
+            {{#each Messages}}
+                {{{this}}}
+            {{/each}}
+            {{{SendMessage}}}
         </div>
     {{else}}
         <p>Войдите или зарегистрируйте новый аккаунт</p>
-        <div id={{buttonToLogin}}></div>
-        <div id={{buttonToRegister}}></div>
+        {{{LoginButton}}}
+        {{{RegisterButton}}}
     {{/if}}
 </main>

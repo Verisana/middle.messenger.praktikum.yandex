@@ -1,1 +1,2 @@
-export { homeContent } from "./home"
+export { HomePage } from "./home"
+export { IHomePageParams, IHomePageProps } from "./types"
