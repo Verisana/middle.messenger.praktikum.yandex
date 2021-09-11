@@ -6,7 +6,7 @@ import { Block } from "../../block"
 
 export class SubmitForm extends Block {
     constructor(params: ISubmitFormParams) {
-        const { props, settings } = params
+        const { props, settings = {} } = params
         settings.isNoBorder =
             settings.isNoBorder === undefined ? false : settings.isNoBorder
         props.rootClass = convertStyles2Strings(
