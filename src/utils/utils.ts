@@ -131,11 +131,15 @@ export const compile2Dom = (
 
     for (const [id, component] of Object.entries(components)) {
         const stub = fragment.content.querySelector(`[data-content-id="${id}"]`)
-        if (stub === null)
-            throw new Error("You must find that Id. Something is missing")
-        const content = component.getContent()
-        if (content === null) throw new Error("Content can not bu nulled")
-        stub.replaceWith(content)
+
+        // Здесь разрешено получать null, потому что шаблон может рендерить места
+        // В зависимости от условий. Тогда получается, что у нас может быть компонент
+        // но места под него нет в текущем состоянии.
+        if (stub !== null) {
+            if (component.content === null)
+                throw new Error("Content can not bu nulled")
+            stub.replaceWith(component.content)
+        }
     }
     return fragment.content.firstChild as HTMLElement
 }
