@@ -1,11 +1,7 @@
-.message {
-
-}
-
 .message_left {
-    text-align: left
+    text-align: left;
 }
 
 .message_right {
-    text-align: right
+    text-align: right;
 }
