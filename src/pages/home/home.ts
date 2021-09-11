@@ -11,8 +11,8 @@ import { Message } from "../../components/message"
 import { ChatSideBar } from "../../components/chatSideBar"
 import { linkButtons } from "../../router/tempButtons"
 import { isLogged } from "../../consts"
-import { loginContent } from "../auth/login"
-import { registerContent } from "../auth/register"
+import { LoginPage } from "../auth/login"
+import { RegisterPage } from "../auth/register"
 import { Button } from "../../components/button"
 import { Block } from "../../block"
 
@@ -162,20 +162,17 @@ export class HomePage extends Block {
                             props: {
                                 text: "Отправить",
                                 type_: "submit"
-                            },
-                            events: {
-                                click: onSubmitMock
                             }
                         })
                     }
                 }),
                 LoginButton: linkButtons.login(
                     { text: "Залогиниться" },
-                    loginContent
+                    () => new LoginPage()
                 ),
                 RegisterButton: linkButtons.register(
                     { text: "Зарегистрироваться" },
-                    registerContent
+                    () => new RegisterPage()
                 )
             }
         })
