@@ -1,26 +1,25 @@
 import "./login.css"
 import loginTemplate from "./login.hbs"
-import {
-    string2DomElement,
-    onSubmitMock,
-    selectPlaceholder
-} from "../../../utils/utils"
+import { onSubmitMock, compile2Dom } from "../../../utils/utils"
 import { linkButtons } from "../../../router/tempButtons"
-import { submitForm } from "../../../components/submitForm"
-import { inputField } from "../../../components/inputField"
-import { registerContent } from "../register"
+import { SubmitForm } from "../../../components/submitForm"
+import { InputField } from "../../../components/inputField"
+import { RegisterPage } from "../register"
 import { Button } from "../../../components/button"
+import { Block } from "../../../block"
 
-const buildLoginForm = () => {
-    const inputBuilders = [
-        inputField.bind(null, {
+const loginInputs = [
+    new InputField({
+        props: {
             inputPart: { type: "text", name: "login", required: true },
             label: {
                 text: "Логин"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "password",
                 name: "password",
@@ -30,46 +29,38 @@ const buildLoginForm = () => {
                 text: "Пароль"
             },
             br: true
-        })
-    ]
-    const submitBuilder = () => {
-        const content = new Button({
-            props: {
-                text: "Войти",
-                type_: "submit"
-            }
-        }).content
-        if (content === null) throw new Error("Content can not be empty")
-        return content
-    }
-    return submitForm({
-        inputBuilders,
-        submitBuilder,
-        formHeaderText: "Введите для авторизации",
-        onSubmitFunc: onSubmitMock
+        }
     })
-}
+]
 
-export const loginContent = () => {
-    const placeholders = {
-        formPlace: "login-input",
-        buttonToRegister: "login-no-account-button"
+export class LoginPage extends Block {
+    constructor() {
+        super({
+            props: {
+                LoginSubmitForm: new SubmitForm({
+                    props: {
+                        formHeaderText: "Введите для авторизации",
+                        Inputs: loginInputs,
+                        SubmitButton: new Button({
+                            events: {
+                                click: onSubmitMock
+                            },
+                            props: {
+                                text: "Войти",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                RegisterButton: linkButtons.register(
+                    { text: "Нет аккаунта?" },
+                    () => new RegisterPage()
+                )
+            }
+        })
     }
-    const params = {
-        ...placeholders
+
+    render(): HTMLElement {
+        return compile2Dom(loginTemplate, this.props)
     }
-
-    const content = string2DomElement(loginTemplate(params))
-
-    const formPlace = selectPlaceholder(content, placeholders.formPlace)
-    const buttonPlace = selectPlaceholder(
-        content,
-        placeholders.buttonToRegister
-    )
-
-    formPlace.appendChild(buildLoginForm())
-    buttonPlace.appendChild(
-        linkButtons.register({ text: "Нет аккаунта?" }, registerContent).element
-    )
-    return content
 }
