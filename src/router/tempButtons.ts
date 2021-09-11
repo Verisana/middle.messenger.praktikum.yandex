@@ -24,6 +24,8 @@ const createButtonBuilder = (
         page: () => Block
     ): Button => {
         const params: IButtonParams = {
+            // Проверяем работоспособность присвоения Id
+            settings: { withInternalID: true },
             events: {
                 click: switchContent.bind(null, page)
             },
