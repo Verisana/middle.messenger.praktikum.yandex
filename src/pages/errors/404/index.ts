@@ -1,1 +1,1 @@
-export { errorContent } from "./404"
+export { ErrorPage } from "./404"

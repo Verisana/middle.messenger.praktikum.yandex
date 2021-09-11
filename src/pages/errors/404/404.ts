@@ -1,17 +1,18 @@
 import "./404.css"
 import errorTemplate from "./404.hbs"
-import { selectPlaceholder, string2DomElement } from "../../../utils/utils"
+import { compile2Dom } from "../../../utils/utils"
 import { linkButtons } from "../../../router/tempButtons"
-import { homeContent } from "../../home"
+import { HomePage } from "../../home"
+import { Block } from "../../../block"
 
-const errorContent = () => {
-    const params = {
-        linkToHome: "linkToHome"
+export class ErrorPage extends Block {
+    constructor() {
+        super({
+            props: { HomeButton: linkButtons.home({}, () => new HomePage()) }
+        })
     }
-    const content = string2DomElement(errorTemplate(params))
-    const buttonPlace = selectPlaceholder(content, params.linkToHome)
-    buttonPlace.appendChild(linkButtons.home({}, homeContent).element)
-    return content
-}
 
-export { errorContent }
+    render(): HTMLElement {
+        return compile2Dom(errorTemplate, this.props)
+    }
+}
