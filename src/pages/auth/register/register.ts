@@ -1,19 +1,16 @@
 import "./register.css"
 import registerTemplate from "./register.hbs"
-import {
-    string2DomElement,
-    onSubmitMock,
-    selectPlaceholder
-} from "../../../utils/utils"
+import { onSubmitMock, compile2Dom } from "../../../utils/utils"
 import { linkButtons } from "../../../router/tempButtons"
-import { submitForm } from "../../../components/submitForm"
-import { inputField } from "../../../components/inputField"
-import { loginContent } from "../login"
+import { SubmitForm } from "../../../components/submitForm"
+import { InputField } from "../../../components/inputField"
+import { LoginPage } from "../login"
 import { Button } from "../../../components/button"
+import { Block } from "../../../block"
 
-const buildRegisterForm = () => {
-    const inputBuilders = [
-        inputField.bind(null, {
+const registerInputs = [
+    new InputField({
+        props: {
             inputPart: {
                 type: "tel",
                 name: "phone",
@@ -23,8 +20,10 @@ const buildRegisterForm = () => {
                 text: "Телефон"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "text",
                 name: "login",
@@ -34,8 +33,10 @@ const buildRegisterForm = () => {
                 text: "Логин"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: {
                 type: "password",
                 name: "password",
@@ -45,15 +46,21 @@ const buildRegisterForm = () => {
                 text: "Пароль"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+
+    new InputField({
+        props: {
             inputPart: { type: "text", name: "first_name" },
             label: {
                 text: "Имя"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+
+    new InputField({
+        props: {
             inputPart: {
                 type: "text",
                 name: "second_name"
@@ -62,51 +69,47 @@ const buildRegisterForm = () => {
                 text: "Фамилия"
             },
             br: true
-        }),
-        inputField.bind(null, {
+        }
+    }),
+    new InputField({
+        props: {
             inputPart: { type: "email", name: "email" },
             label: {
                 text: "Email"
             },
             br: true
-        })
-    ]
-    const submitBuilder = () => {
-        const content = new Button({
-            props: {
-                text: "Зарегистрироваться",
-                type_: "submit"
-            }
-        }).content
-        if (content === null) throw new Error("Content can not be empty")
-        return content
-    }
-    return submitForm({
-        inputBuilders,
-        submitBuilder,
-        formHeaderText: "Введите для регистрации",
-        onSubmitFunc: onSubmitMock
+        }
     })
-}
+]
 
-export const placeholders = {
-    formPlace: "register-form-place",
-    buttonToLogin: "register-to-login-place"
-}
-
-export const registerContent = () => {
-    const params = {
-        ...placeholders
+export class RegisterPage extends Block {
+    constructor() {
+        super({
+            props: {
+                RegisterSubmitForm: new SubmitForm({
+                    props: {
+                        formHeaderText: "Введите для регистрации",
+                        Inputs: registerInputs,
+                        SubmitButton: new Button({
+                            events: {
+                                click: onSubmitMock
+                            },
+                            props: {
+                                text: "Зарегистрироваться",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                LoginButton: linkButtons.login(
+                    { text: "Уже есть аккаунт?" },
+                    () => new LoginPage()
+                )
+            }
+        })
     }
 
-    const content = string2DomElement(registerTemplate(params))
-    const formPlace = selectPlaceholder(content, placeholders.formPlace)
-    const buttonPlace = selectPlaceholder(content, placeholders.buttonToLogin)
-
-    formPlace.appendChild(buildRegisterForm())
-    buttonPlace.appendChild(
-        linkButtons.login({ text: "Уже есть аккаунт?" }, loginContent).element
-    )
-
-    return content
+    render(): HTMLElement {
+        return compile2Dom(registerTemplate, this.props)
+    }
 }
