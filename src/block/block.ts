@@ -11,7 +11,9 @@ export abstract class Block {
         FLOW_RENDER: "flow:render"
     }
 
-    private _element: DocumentFragment | null
+    private _root: DocumentFragment | null
+
+    private _content: HTMLElement | null
 
     private _meta: IMeta
 
@@ -21,18 +23,19 @@ export abstract class Block {
 
     constructor(params: BlockParams) {
         const eventBus = new EventBus()
-        const { settings = { withInternalID: false }, props = {} } = params
+        const { settings, props = {} } = params
         this._meta = {
             params
         }
 
-        if (settings.withInternalID) {
+        if (settings?.withInternalID) {
             this._meta.id = uuidv4()
         }
         this.props = this._makePropsProxy({ ...props, __id: this._meta.id })
 
         this.eventBus = () => eventBus
-        this._element = null
+        this._root = null
+        this._content = null
         this._registerEvents(eventBus)
         eventBus.emit(Block.EVENTS.INIT)
     }
@@ -45,7 +48,7 @@ export abstract class Block {
     }
 
     protected _createResources() {
-        this._element = Block._createFragmentElement()
+        this._root = Block._createFragmentElement()
     }
 
     init() {
@@ -60,15 +63,15 @@ export abstract class Block {
 
     static componentDidMount() {}
 
-    protected _componentDidUpdate(oldProps: Props, newProps: Props) {
-        const response = Block.componentDidUpdate(oldProps, newProps)
+    protected _componentDidUpdate(newProps: Props) {
+        const response = Block.componentDidUpdate(newProps)
         if (!response) {
             return
         }
         this._render()
     }
 
-    static componentDidUpdate(_0: Props, newProps: Props): boolean {
+    static componentDidUpdate(newProps: Props): boolean {
         if (newProps !== undefined) {
             return true
         }
@@ -83,19 +86,13 @@ export abstract class Block {
         Object.assign(this.props, nextProps)
     }
 
-    get element(): DocumentFragment {
-        if (this._element === null) throw new Error("Element was not created")
-        return this._element
+    get root(): DocumentFragment {
+        if (this._root === null) throw new Error("Element was not created")
+        return this._root
     }
 
-    getContent(): HTMLElement | null {
-        if (this._element === null) throw new Error("Element was not created")
-        const children = this._element?.children
-
-        if (children.length === 1) return children[0] as HTMLElement
-        if (children.length === 0) return null
-
-        throw new Error("Something wrong. There should be only one child")
+    get content(): HTMLElement | null {
+        return this._content
     }
 
     protected _render() {
@@ -105,7 +102,13 @@ export abstract class Block {
         }
 
         this._removeEvents()
-        this.element.replaceChildren(block)
+
+        this.root.replaceChildren(block)
+        if (this._content === null) {
+            this._content = block
+        } else {
+            this._content.replaceWith(block)
+        }
         this._addEvents()
     }
 
@@ -122,11 +125,7 @@ export abstract class Block {
             set(target: Props, prop: string, value: unknown) {
                 target[prop] = value
 
-                that.eventBus().emit(
-                    Block.EVENTS.FLOW_CDU,
-                    { ...target },
-                    target
-                )
+                that.eventBus().emit(Block.EVENTS.FLOW_CDU, target)
                 return true
             },
             deleteProperty() {
@@ -140,30 +139,28 @@ export abstract class Block {
     }
 
     show() {
-        const content = this.getContent()
-        if (content !== null) {
-            content.style.display = "block"
+        if (this.content !== null) {
+            this.content.style.display = "block"
         }
     }
 
     hide() {
-        const content = this.getContent()
-        if (content !== null) {
-            content.style.display = "none"
+        if (this.content !== null) {
+            this.content.style.display = "none"
         }
     }
 
     _addEvents() {
         const { events = {} } = this._meta.params
         Object.keys(events).forEach((eventName) => {
-            this.getContent()?.addEventListener(eventName, events[eventName])
+            this.content?.addEventListener(eventName, events[eventName])
         })
     }
 
     _removeEvents() {
         const { events = {} } = this._meta.params
         Object.keys(events).forEach((eventName) => {
-            this.getContent()?.removeEventListener(eventName, events[eventName])
+            this.content?.removeEventListener(eventName, events[eventName])
         })
     }
 }
