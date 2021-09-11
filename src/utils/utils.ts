@@ -71,9 +71,9 @@ export const selectPlaceholder = (element: Element, id_: string): Element => {
 export const render = (query: string, block: Block): Element => {
     const root = document.querySelector(query)
     if (root === null) throw new Error("Check your query")
-    const content = block.getContent()
-    if (content !== null) {
-        root.appendChild(content)
+
+    if (block.content !== null) {
+        root.replaceWith(block.content)
     } else {
         throw new Error("Can not render. No content available")
     }
@@ -92,7 +92,6 @@ const fillComponentId = (
 
         const mockDomString = `<div data-content-id="${id}"></div>` // делаем заглушку
         components[id] = value // сохраняем компонент
-
         if (isValueArray) {
             if (context[key] === undefined) {
                 context[key] = []
@@ -128,7 +127,6 @@ export const compile2Dom = (
         } else fillComponentId(components, key, value, context, false)
     }
     fragment.innerHTML = templateFunc(context)
-
     for (const [id, component] of Object.entries(components)) {
         const stub = fragment.content.querySelector(`[data-content-id="${id}"]`)
 

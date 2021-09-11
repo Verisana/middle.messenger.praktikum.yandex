@@ -77,7 +77,7 @@ const buildRegisterForm = () => {
                 text: "Зарегистрироваться",
                 type_: "submit"
             }
-        }).getContent()
+        }).content
         if (content === null) throw new Error("Content can not be empty")
         return content
     }
