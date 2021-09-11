@@ -2,7 +2,7 @@ import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
 import footerTemplate from "./footer.hbs"
 import { linkButtons } from "../../router/tempButtons"
-import { DESTINATIONS } from "../../router/destinations"
+import { pages } from "../../pages"
 import { Block } from "../../block"
 import { Button } from "../button"
 import { IFooterParams } from "./types"
@@ -12,7 +12,7 @@ export class Footer extends Block {
     constructor() {
         const routeButtons: Button[] = []
         for (const [route, button] of Object.entries(linkButtons)) {
-            routeButtons.push(button({}, DESTINATIONS[route]))
+            routeButtons.push(button({}, pages[route]))
         }
 
         const params: IFooterParams = {
