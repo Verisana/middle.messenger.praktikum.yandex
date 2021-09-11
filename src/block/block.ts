@@ -104,10 +104,11 @@ export abstract class Block {
         this._removeEvents()
 
         this.root.replaceChildren(block)
+
         if (this._content === null) {
             this._content = block
         } else {
-            this._content.replaceWith(block)
+            this._content.replaceChildren(block)
         }
         this._addEvents()
     }
