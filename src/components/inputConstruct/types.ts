@@ -1,5 +1,5 @@
 import { BlockParams, Props } from "../../block"
-import { InputField } from "../inputField";
+import { InputField } from "../inputField"
 
 export interface IInputConstructProps extends Props {
     InputField: InputField
