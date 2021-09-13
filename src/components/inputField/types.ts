@@ -4,7 +4,7 @@ export interface IInputFieldProps extends Props {
     type_?: string
     rootClass?: string | string[]
     required?: boolean
-    pattern?: RegExp
+    pattern?: string
     placeholder?: string
     name?: string
 }
