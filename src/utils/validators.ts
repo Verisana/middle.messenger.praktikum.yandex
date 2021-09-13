@@ -10,8 +10,6 @@ export const validateValue = (
     pattern: RegExp,
     additionalChecks?: (value: string) => boolean
 ): boolean => {
-    if (value.length === 0) return false
-
     if (additionalChecks !== undefined) {
         return additionalChecks(value) && pattern.test(value)
     }
@@ -23,13 +21,7 @@ export const validateName = (value: string): boolean => {
 }
 
 export const validateLogin = (value: string): boolean => {
-    const restrictIfOnlyDigits = (val: string): boolean => {
-        const onlyDigit = /^\d*$/
-        // Сначала выясняем, что там только цифры. А потом возвращаем false,
-        // если так
-        return !onlyDigit.test(val)
-    }
-    return validateValue(value, loginPattern, restrictIfOnlyDigits)
+    return validateValue(value, loginPattern)
 }
 
 export const validateEmail = (value: string): boolean => {
@@ -37,14 +29,7 @@ export const validateEmail = (value: string): boolean => {
 }
 
 export const validatePassword = (value: string): boolean => {
-    const forceDigitAndUpperChar = (val: string): boolean => {
-        const upperChar = /[A-Z]+/g
-        const digit = /\d+/g
-
-        return upperChar.test(val) && digit.test(val)
-    }
-
-    return validateValue(value, passwordPattern, forceDigitAndUpperChar)
+    return validateValue(value, passwordPattern)
 }
 
 export const validatePhone = (value: string): boolean => {
@@ -94,8 +79,10 @@ export const errorMessages: Record<string, string> = {
 export const inputValidationCallback = (event: Event) => {
     const inputElement = event.target as HTMLInputElement
     const validator = validators[inputElement.name]
+
     if (!validator(inputElement.value)) {
         inputElement.setCustomValidity(errorMessages[inputElement.name])
-        console.log("error!")
+    } else {
+        inputElement.setCustomValidity("")
     }
 }
