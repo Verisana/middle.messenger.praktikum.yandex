@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import classNames from "classnames"
 import { Block, Props } from "../block"
+import { errorMessages, validators } from "./validators"
 
 export const string2DomElement = (toParse: string): HTMLElement => {
     const parsed = new DOMParser().parseFromString(toParse, "text/html")
@@ -50,16 +51,27 @@ export const convertStyles2Strings = (
     return classNames(totalArg)
 }
 
-// Заглушка, которая вызывается во всех сабмитах, чтобы показать
-// работоспособность
 export const onSubmitMock = (event: Event) => {
     event.preventDefault()
     const form = event.target as HTMLFormElement
-    const data = new FormData(form)
-    for (const [key, value] of data.entries()) {
-        console.log(`${key} = ${value}`)
+
+    // Не вижу смысла в этой валидации, но раз в задании есть, добавил
+    let isValid = true
+    for (const inputElement of form.getElementsByTagName("input")) {
+        const validator = validators[inputElement.name]
+        if (!validator(inputElement.value)) {
+            inputElement.setCustomValidity(errorMessages[inputElement.name])
+            isValid = false
+        }
     }
-    form.reset()
+
+    if (isValid) {
+        const data = new FormData(form)
+        for (const [key, value] of data.entries()) {
+            console.log(`${key}: ${value}`)
+        }
+        form.reset()
+    }
 }
 
 export const capitalizeFirstSymbol = (text: string): string | undefined => {
