@@ -1,10 +1,10 @@
 import { BlockParams, Props } from "../../block"
 import { BlockSettings } from "../../block/types"
 import { Button } from "../button"
-import { InputField } from "../inputField"
+import { InputConstruct } from "../inputConstruct"
 
 export interface ISubmitFormProps extends Props {
-    Inputs: InputField[]
+    Inputs: InputConstruct[]
     SubmitButton: Button
     formHeaderText?: string
     rootClass?: string | string[]
