@@ -1,6 +1,7 @@
 .inputDiv_default {
     position: relative;
     margin-bottom: 10px;
+    float: left
 }
 
 /* LABEL ======================================= */
