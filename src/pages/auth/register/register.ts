@@ -3,84 +3,10 @@ import registerTemplate from "./register.hbs"
 import { onSubmitMock, compile2Dom } from "../../../utils/utils"
 import { linkButtons } from "../../../router/tempButtons"
 import { SubmitForm } from "../../../components/submitForm"
-import { InputField } from "../../../components/inputField"
 import { LoginPage } from "../login"
 import { Button } from "../../../components/button"
 import { Block } from "../../../block"
-
-const registerInputs = [
-    new InputField({
-        props: {
-            inputPart: {
-                type: "tel",
-                name: "phone",
-                required: true
-            },
-            label: {
-                text: "Телефон"
-            },
-            br: true
-        }
-    }),
-    new InputField({
-        props: {
-            inputPart: {
-                type: "text",
-                name: "login",
-                required: true
-            },
-            label: {
-                text: "Логин"
-            },
-            br: true
-        }
-    }),
-    new InputField({
-        props: {
-            inputPart: {
-                type: "password",
-                name: "password",
-                required: true
-            },
-            label: {
-                text: "Пароль"
-            },
-            br: true
-        }
-    }),
-
-    new InputField({
-        props: {
-            inputPart: { type: "text", name: "first_name" },
-            label: {
-                text: "Имя"
-            },
-            br: true
-        }
-    }),
-
-    new InputField({
-        props: {
-            inputPart: {
-                type: "text",
-                name: "second_name"
-            },
-            label: {
-                text: "Фамилия"
-            },
-            br: true
-        }
-    }),
-    new InputField({
-        props: {
-            inputPart: { type: "email", name: "email" },
-            label: {
-                text: "Email"
-            },
-            br: true
-        }
-    })
-]
+import { getRegisterInputs } from "../../../components/inputs"
 
 export class RegisterPage extends Block {
     constructor() {
@@ -92,7 +18,7 @@ export class RegisterPage extends Block {
                     },
                     props: {
                         formHeaderText: "Введите для регистрации",
-                        Inputs: registerInputs,
+                        Inputs: getRegisterInputs(),
                         SubmitButton: new Button({
                             props: {
                                 text: "Зарегистрироваться",

@@ -3,35 +3,10 @@ import loginTemplate from "./login.hbs"
 import { onSubmitMock, compile2Dom } from "../../../utils/utils"
 import { linkButtons } from "../../../router/tempButtons"
 import { SubmitForm } from "../../../components/submitForm"
-import { InputField } from "../../../components/inputField"
 import { RegisterPage } from "../register"
 import { Button } from "../../../components/button"
 import { Block } from "../../../block"
-
-const loginInputs = [
-    new InputField({
-        props: {
-            inputPart: { type: "text", name: "login", required: true },
-            label: {
-                text: "Логин"
-            },
-            br: true
-        }
-    }),
-    new InputField({
-        props: {
-            inputPart: {
-                type: "password",
-                name: "password",
-                required: true
-            },
-            label: {
-                text: "Пароль"
-            },
-            br: true
-        }
-    })
-]
+import { getLoginInputs } from "../../../components/inputs"
 
 export class LoginPage extends Block {
     constructor() {
@@ -43,7 +18,7 @@ export class LoginPage extends Block {
                     },
                     props: {
                         formHeaderText: "Введите для авторизации",
-                        Inputs: loginInputs,
+                        Inputs: getLoginInputs(),
                         SubmitButton: new Button({
                             props: {
                                 text: "Войти",

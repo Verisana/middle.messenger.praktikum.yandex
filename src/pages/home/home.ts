@@ -5,7 +5,6 @@ import {
     convertStyles2Strings,
     compile2Dom
 } from "../../utils/utils"
-import { InputField } from "../../components/inputField"
 import { SubmitForm } from "../../components/submitForm"
 import { Message } from "../../components/message"
 import { ChatSideBar } from "../../components/chatSideBar"
@@ -15,6 +14,7 @@ import { LoginPage } from "../auth/login"
 import { RegisterPage } from "../auth/register"
 import { Button } from "../../components/button"
 import { Block } from "../../block"
+import { getMessageInput } from "../../components/inputs"
 
 const chatSideBarList = [
     new ChatSideBar({
@@ -144,20 +144,7 @@ export class HomePage extends Block {
                     },
                     settings: { isNoBorder: true },
                     props: {
-                        Inputs: [
-                            new InputField({
-                                props: {
-                                    inputPart: {
-                                        type: "text",
-                                        name: "message",
-                                        required: true
-                                    },
-                                    label: {
-                                        text: "Сообщение"
-                                    }
-                                }
-                            })
-                        ],
+                        Inputs: getMessageInput(),
                         SubmitButton: new Button({
                             props: {
                                 text: "Отправить",
