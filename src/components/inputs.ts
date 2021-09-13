@@ -1,4 +1,12 @@
-import { inputValidationCallback } from "../utils/validators"
+import {
+    emailPattern,
+    inputValidationCallback,
+    loginPattern,
+    messagePattern,
+    namePattern,
+    passwordPattern,
+    phonePattern
+} from "../utils/validators"
 import { InputConstruct } from "./inputConstruct"
 import { InputField } from "./inputField"
 
@@ -17,8 +25,8 @@ const getPasswordField = (
                 props: {
                     type: "password",
                     name,
-                    required
-                    // pattern: passwordPattern
+                    required,
+                    pattern: passwordPattern.source
                 }
             }),
             label: {
@@ -42,7 +50,8 @@ export const getMessageInput = (): InputConstruct[] => {
                     props: {
                         type: "text",
                         name: "message",
-                        required: true
+                        required: true,
+                        pattern: messagePattern.source
                     }
                 }),
                 label: {
@@ -65,8 +74,8 @@ export const getLoginInputs = (): InputConstruct[] => {
                     props: {
                         type: "text",
                         name: "login",
-                        required: true
-                        // pattern: loginPattern
+                        required: true,
+                        pattern: loginPattern.source
                     }
                 }),
                 label: {
@@ -94,7 +103,12 @@ export const getRegisterInputs = (
                         focus: inputValidationCallback,
                         blur: inputValidationCallback
                     },
-                    props: { type: "tel", name: "phone", required: true }
+                    props: {
+                        type: "tel",
+                        name: "phone",
+                        required: true,
+                        pattern: phonePattern.source
+                    }
                 }),
                 label: {
                     text: loadValues ? "Телефон" : "Телефон*"
@@ -109,7 +123,12 @@ export const getRegisterInputs = (
                         focus: inputValidationCallback,
                         blur: inputValidationCallback
                     },
-                    props: { type: "text", name: "login", required: true }
+                    props: {
+                        type: "text",
+                        name: "login",
+                        required: true,
+                        pattern: loginPattern.source
+                    }
                 }),
                 label: {
                     text: loadValues ? "Логин" : "Логин*"
@@ -125,7 +144,11 @@ export const getRegisterInputs = (
                         focus: inputValidationCallback,
                         blur: inputValidationCallback
                     },
-                    props: { type: "text", name: "first_name" }
+                    props: {
+                        type: "text",
+                        name: "first_name",
+                        pattern: namePattern.source
+                    }
                 }),
                 label: {
                     text: "Имя"
@@ -140,7 +163,11 @@ export const getRegisterInputs = (
                         focus: inputValidationCallback,
                         blur: inputValidationCallback
                     },
-                    props: { type: "text", name: "second_name" }
+                    props: {
+                        type: "text",
+                        name: "second_name",
+                        pattern: namePattern.source
+                    }
                 }),
                 label: {
                     text: "Фамилия"
@@ -155,7 +182,11 @@ export const getRegisterInputs = (
                         focus: inputValidationCallback,
                         blur: inputValidationCallback
                     },
-                    props: { type: "email", name: "email" }
+                    props: {
+                        type: "email",
+                        name: "email",
+                        pattern: emailPattern.source
+                    }
                 }),
                 label: {
                     text: "Email"
