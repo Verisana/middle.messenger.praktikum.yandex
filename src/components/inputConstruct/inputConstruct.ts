@@ -1,11 +1,11 @@
-import styles from "./inputField.css"
-import inputFieldTemplate from "./inputField.hbs"
+import styles from "./inputConstruct.css"
+import inputConstructTemplate from "./inputConstruct.hbs"
 import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
-import { IInputFieldParams } from "./types"
+import { IInputConstructParams } from "./types"
 import { Block } from "../../block"
 
-export class InputField extends Block {
-    constructor(params: IInputFieldParams) {
+export class InputConstruct extends Block {
+    constructor(params: IInputConstructParams) {
         const { props } = params
         props.barClass = convertStyles2Strings([styles], "bar", props.barClass)
         props.rootClass = convertStyles2Strings(
@@ -21,30 +21,10 @@ export class InputField extends Block {
                       text: props.label.text,
                       class: convertStyles2Strings([styles], props.label.class)
                   }
-        props.inputPart =
-            props.inputPart === undefined
-                ? undefined
-                : {
-                      class: convertStyles2Strings(
-                          [styles],
-                          props.inputPart.class
-                      ),
-                      type:
-                          props.inputPart.type === undefined
-                              ? "text"
-                              : props.inputPart.type,
-                      required:
-                          props.inputPart.required === undefined
-                              ? false
-                              : props.inputPart.required,
-                      pattern: props.inputPart.pattern,
-                      placeholder: props.inputPart.placeholder,
-                      name: props.inputPart.name
-                  }
         super(params)
     }
 
     render(): HTMLElement {
-        return compile2Dom(inputFieldTemplate, this.props)
+        return compile2Dom(inputConstructTemplate, this.props)
     }
 }

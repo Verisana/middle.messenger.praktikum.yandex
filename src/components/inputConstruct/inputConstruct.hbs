@@ -5,14 +5,7 @@
         </label>
     {{/if}}
     <span class="{{barClass}}"></span>
-    <input
-        class="{{inputPart.class}}"
-        type={{inputPart.type}}
-        required={{inputPart.required}}
-        {{#if inputPart.pattern}}pattern={{inputPart.pattern}}{{/if}}
-        placeholder="{{inputPart.placeholder}}"
-        name={{inputPart.name}}
-    />
+    {{{ InputField }}}
     {{#if br}}
         <br>
     {{/if}}

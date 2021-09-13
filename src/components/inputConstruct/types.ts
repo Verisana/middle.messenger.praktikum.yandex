@@ -1,23 +1,17 @@
 import { BlockParams, Props } from "../../block"
+import { InputField } from "../inputField";
 
-export interface IInputFieldProps extends Props {
+export interface IInputConstructProps extends Props {
+    InputField: InputField
     barClass?: string | string[]
     rootClass?: string | string[]
     label?: {
         text: string
         class?: string | string[]
     }
-    inputPart?: {
-        type: string
-        class?: string | string[]
-        required?: boolean
-        pattern?: RegExp
-        placeholder?: string
-        name?: string
-    }
     br?: boolean
 }
 
-export interface IInputFieldParams extends BlockParams {
-    props: IInputFieldProps
+export interface IInputConstructParams extends BlockParams {
+    props: IInputConstructProps
 }
