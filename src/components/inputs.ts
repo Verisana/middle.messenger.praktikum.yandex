@@ -1,3 +1,4 @@
+import { inputFieldNames } from "../consts"
 import {
     emailPattern,
     inputValidationCallback,
@@ -49,7 +50,7 @@ export const getMessageInput = (): InputConstruct[] => {
                     },
                     props: {
                         type: "text",
-                        name: "message",
+                        name: inputFieldNames.message,
                         required: true,
                         pattern: messagePattern.source
                     }
@@ -73,7 +74,7 @@ export const getLoginInputs = (): InputConstruct[] => {
                     },
                     props: {
                         type: "text",
-                        name: "login",
+                        name: inputFieldNames.login,
                         required: true,
                         pattern: loginPattern.source
                     }
@@ -84,7 +85,7 @@ export const getLoginInputs = (): InputConstruct[] => {
                 br: true
             }
         }),
-        getPasswordField("password", "Пароль*")
+        getPasswordField(inputFieldNames.password, "Пароль*")
     ]
 }
 
@@ -105,7 +106,7 @@ export const getRegisterInputs = (
                     },
                     props: {
                         type: "tel",
-                        name: "phone",
+                        name: inputFieldNames.phone,
                         required: true,
                         pattern: phonePattern.source
                     }
@@ -125,7 +126,7 @@ export const getRegisterInputs = (
                     },
                     props: {
                         type: "text",
-                        name: "login",
+                        name: inputFieldNames.login,
                         required: true,
                         pattern: loginPattern.source
                     }
@@ -146,7 +147,7 @@ export const getRegisterInputs = (
                     },
                     props: {
                         type: "text",
-                        name: "first_name",
+                        name: inputFieldNames.firstName,
                         pattern: namePattern.source
                     }
                 }),
@@ -165,7 +166,7 @@ export const getRegisterInputs = (
                     },
                     props: {
                         type: "text",
-                        name: "second_name",
+                        name: inputFieldNames.secondName,
                         pattern: namePattern.source
                     }
                 }),
@@ -184,7 +185,7 @@ export const getRegisterInputs = (
                     },
                     props: {
                         type: "email",
-                        name: "email",
+                        name: inputFieldNames.email,
                         pattern: emailPattern.source
                     }
                 }),
@@ -204,7 +205,7 @@ export const getSettingsInputs = (): InputConstruct[] => {
     registerInputs.splice(2, 1)
 
     return [
-        getPasswordField("oldPassword", "Текущий пароль*"),
-        getPasswordField("newPassword", "Новый пароль", false)
+        getPasswordField(inputFieldNames.oldPassword, "Текущий пароль*"),
+        getPasswordField(inputFieldNames.newPassword, "Новый пароль", false)
     ].concat(registerInputs)
 }
