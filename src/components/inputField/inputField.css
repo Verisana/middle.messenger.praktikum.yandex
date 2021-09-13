@@ -1,0 +1,40 @@
+input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid $input-text-color;
+    background: transparent;
+}
+
+input:valid {
+    background-color: green;
+    text-color: black;
+}
+
+input:invalid {
+    background-color: red;
+    text-color: black;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* active state */
+input:focus ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: $secondary-object-light-color;
+}
+
+input:valid ~ label {
+    color: $secondary-object-light-color;
+}
+
+/* active state */
+input:focus ~ .bar::before,
+input:focus ~ .bar::after {
+    width: 50%;
+}
