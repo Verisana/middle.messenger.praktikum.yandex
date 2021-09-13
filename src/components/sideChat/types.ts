@@ -1,7 +1,7 @@
 import { BlockParams, Props } from "../../block"
 import { Message } from "../message"
 
-export interface IChatSideBarProps extends Props {
+export interface ISideChatProps extends Props {
     Message: Message
     rootClass?: string | string[]
     messageIsRead?: boolean
@@ -10,6 +10,6 @@ export interface IChatSideBarProps extends Props {
     contactId?: number
 }
 
-export interface IChatSideBarParams extends BlockParams {
-    props: IChatSideBarProps
+export interface ISideChatParams extends BlockParams {
+    props: ISideChatProps
 }

@@ -1,4 +1,4 @@
-.chatSideBar_main {
+.sideChat__main {
     display: grid;
     grid-template-columns: 60px auto;
     grid-template-rows: 100%;
