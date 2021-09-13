@@ -1,7 +1,7 @@
 export const namePattern = /^[A-ZА-ЯЁ][A-Za-zА-Яа-яёЁ-]*$/
-export const loginPattern = /^[A-Za-z-_0-9]{3,20}$/
-export const emailPattern = /^[A-Za-z0-9-]+@[A-Za-z0-9]+.[a-z]+$/
-export const passwordPattern = /^.{8,40}$/
+export const loginPattern = /^(?!\d+$)[A-Za-z-_0-9]{3,20}$/
+export const emailPattern = /^[A-Za-z0-9-]+@[A-Za-z0-9]+\.[a-z]+$/
+export const passwordPattern = /^(?=\D*\d)(?=.*[A-Z]).{8,40}$/
 export const phonePattern = /^[+0-9]{10,15}$/
 export const messagePattern = /.+/
 
