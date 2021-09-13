@@ -54,7 +54,12 @@ export const convertStyles2Strings = (
 // работоспособность
 export const onSubmitMock = (event: Event) => {
     event.preventDefault()
-    console.log("Form submitted!")
+    const form = event.target as HTMLFormElement
+    const data = new FormData(form)
+    for (const [key, value] of data.entries()) {
+        console.log(`${key} = ${value}`)
+    }
+    form.reset()
 }
 
 export const capitalizeFirstSymbol = (text: string): string | undefined => {
