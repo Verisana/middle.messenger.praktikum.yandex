@@ -14,7 +14,7 @@ export const inputFieldNames = {
     login: "login",
     password: "password",
     oldPassword: "oldPassword",
-    newPassword: "mewPassword",
+    newPassword: "newPassword",
     phone: "phone",
     email: "email",
     message: "message"
