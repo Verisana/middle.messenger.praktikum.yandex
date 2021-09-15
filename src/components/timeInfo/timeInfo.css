@@ -6,4 +6,5 @@
 .timeInfo__chatSideBar {
     display: block;
     text-align: right;
+    margin-left: auto;
 }
