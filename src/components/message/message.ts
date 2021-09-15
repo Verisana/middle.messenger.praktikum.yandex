@@ -12,11 +12,6 @@ export class Message extends Block {
             "message",
             props.rootClass
         )
-        props.timeClass = convertStyles2Strings(
-            [styles],
-            "message__time_open",
-            props.timeClass
-        )
         super(params)
     }
 

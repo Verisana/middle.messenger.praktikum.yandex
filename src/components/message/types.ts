@@ -1,4 +1,5 @@
 import { Props, BlockParams } from "../../block"
+import { TimeInfo } from "../timeInfo";
 
 export interface IMessageProps extends Props {
     messageId: number
@@ -6,10 +7,8 @@ export interface IMessageProps extends Props {
 
     // Временно. Вероятнее всего здесь должен быть какой-то Sender объект
     sender: string
-    timeMachine: string
-    timeHuman?: string
-    timeClass?: string | string[]
     rootClass?: string | string[]
+    Time?: TimeInfo
 }
 
 export interface IMessageParams extends BlockParams {
