@@ -207,7 +207,8 @@ export class HomePage extends Block {
                         SubmitButton: new Button({
                             props: {
                                 text: "Отправить",
-                                type_: "submit"
+                                type_: "submit",
+                                rootClass: ["btn__messageSubmit"]
                             }
                         })
                     }
