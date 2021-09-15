@@ -7,7 +7,16 @@ import { Block } from "../../block"
 export class Message extends Block {
     constructor(params: IMessageParams) {
         const { props } = params
-        props.rootClass = convertStyles2Strings([styles], props.rootClass)
+        props.rootClass = convertStyles2Strings(
+            [styles],
+            "message",
+            props.rootClass
+        )
+        props.timeClass = convertStyles2Strings(
+            [styles],
+            "message__time_open",
+            props.timeClass
+        )
         super(params)
     }
 

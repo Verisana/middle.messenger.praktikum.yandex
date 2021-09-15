@@ -1,7 +1,36 @@
+.message {
+    max-width: 350px;
+    max-width: 350px;
+    word-wrap: break-word;
+}
+
+.message__open {
+    background-color: $secondary-object-light-color;
+
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.message__sidebar {
+
+}
+
 .message_left {
     text-align: left;
+    margin-right: auto;
 }
 
 .message_right {
     text-align: right;
+    margin-left: auto;
+}
+
+.message__time_open {
+    display: block;
+    text-align: right;
+}
+
+.message__time_sidebar {
+
 }

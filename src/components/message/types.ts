@@ -8,6 +8,7 @@ export interface IMessageProps extends Props {
     sender: string
     timeMachine: string
     timeHuman?: string
+    timeClass?: string | string[]
     rootClass?: string | string[]
 }
 
