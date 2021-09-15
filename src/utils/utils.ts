@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 
 import classNames from "classnames"
-import { Block, Props } from "../block"
+import { Block, Events, Props } from "../block"
 import { errorMessages, validators } from "./validators"
 
 export const string2DomElement = (toParse: string): HTMLElement => {
@@ -157,4 +157,16 @@ export const compile2Dom = (
         }
     }
     return fragment.content.firstChild as HTMLElement
+}
+
+export const pushEvent = (
+    events: Events,
+    eventName: string,
+    eventListener: EventListener
+) => {
+    if (events[eventName] !== undefined) {
+        events[eventName].push(eventListener)
+    } else {
+        events[eventName] = [eventListener]
+    }
 }
