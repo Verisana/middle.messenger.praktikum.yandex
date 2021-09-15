@@ -28,3 +28,7 @@
     height: 100%;
     margin: auto;
 }
+
+.btn__messageSubmit {
+    margin-left: auto;
+}
