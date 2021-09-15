@@ -4,4 +4,12 @@
     grid-template-rows: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.sideChat__main_select {
+    background-color: $primary-object-color;
+    color: $light-text-color;
+    border-radius: 5px;
 }
