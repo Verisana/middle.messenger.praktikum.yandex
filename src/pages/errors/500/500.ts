@@ -5,7 +5,7 @@ import { Block } from "../../../block"
 
 export class ServerErrorPage extends Block {
     constructor() {
-        super({})
+        super({ props: {} })
     }
 
     render(): HTMLElement {
