@@ -20,14 +20,14 @@ input:focus ~ label {
 }
 
 input:not(:placeholder-shown) ~ label {
-    display: none
+    display: none;
 }
 
 input:not(:placeholder-shown):valid ~ label {
     color: $secondary-object-light-color;
 }
 
-input:valid:not([value='']) {
+input:not(:placeholder-shown):valid {
     border-color: $primary-object-color;
 }
 
