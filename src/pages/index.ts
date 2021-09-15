@@ -4,7 +4,7 @@ import { ServerErrorPage } from "./errors/500"
 import { LoginPage } from "./auth/login"
 import { RegisterPage } from "./auth/register"
 import { SettingsPage } from "./settings"
-import { Block } from "../block"
+import { Block } from "../components/block"
 
 export const pages: Record<string, () => Block> = {
     home: () => new HomePage(),

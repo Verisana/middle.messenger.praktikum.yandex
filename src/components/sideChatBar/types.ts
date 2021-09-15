@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../block"
+import { BlockParams, Props } from "../block"
 import { SideChat } from "../sideChat/sideChat"
 
 export interface ISideChatBarProps extends Props {

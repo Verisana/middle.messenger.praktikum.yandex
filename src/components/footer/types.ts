@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../block"
+import { BlockParams, Props } from "../block"
 import { Button } from "../button"
 
 export interface IFooterProps extends Props {

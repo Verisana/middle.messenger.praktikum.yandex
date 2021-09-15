@@ -2,7 +2,7 @@ import styles from "./submitForm.css"
 import submitFormTemplate from "./submitForm.hbs"
 import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
 import { ISubmitFormParams } from "./types"
-import { Block } from "../../block"
+import { Block } from "../block"
 
 export class SubmitForm extends Block {
     constructor(params: ISubmitFormParams) {

@@ -3,7 +3,7 @@ import sideCHatTemplate from "./sideChat.hbs"
 import layoutStyles from "../../layout/layout.css"
 import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
 import { defaultAvatar } from "../../consts"
-import { Block } from "../../block"
+import { Block } from "../block"
 import { ISideChatParams } from "./types"
 
 export class SideChat extends Block {

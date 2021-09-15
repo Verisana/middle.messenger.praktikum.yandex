@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../../block"
+import { BlockParams, Props } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { SubmitForm } from "../../../components/submitForm"
 

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 
 import { Props, IMeta, BlockParams } from "./types"
-import { EventBus } from "../utils/event_bus"
+import { EventBus } from "../../utils/event_bus"
 
 export abstract class Block {
     static EVENTS = {

@@ -1,6 +1,6 @@
 import styles from "./sideChatBar.css"
 import sideChatBarTemplate from "./sideChatBar.hbs"
-import { Block } from "../../block"
+import { Block } from "../block"
 import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
 import { ISideChatBarParams } from "./types"
 

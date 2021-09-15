@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../block"
+import { BlockParams, Props } from "../block"
 import { Message } from "../message"
 import { TimeInfo } from "../timeInfo"
 

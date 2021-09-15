@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 
 import classNames from "classnames"
-import { Block, Events, Props } from "../block"
+import { Block, Events, Props } from "../components/block"
 import { errorMessages, validators } from "./validators"
 
 export const string2DomElement = (toParse: string): HTMLElement => {

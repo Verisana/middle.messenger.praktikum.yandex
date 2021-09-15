@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../block"
+import { BlockParams, Props } from "../block"
 
 export interface IButtonProps extends Props {
     text?: string

@@ -1,4 +1,4 @@
-import { Block, BlockParams, Props } from "../block"
+import { Block, BlockParams, Props } from "../components/block"
 import { Footer } from "../components/footer"
 import { Header } from "../components/header"
 

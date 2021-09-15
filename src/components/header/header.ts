@@ -5,7 +5,7 @@ import { linkButtons } from "../../router/tempButtons"
 import { Button } from "../button"
 import { isLogged } from "../../consts"
 import { SettingsPage } from "../../pages/settings"
-import { Block } from "../../block"
+import { Block } from "../block"
 
 export class Header extends Block {
     constructor() {

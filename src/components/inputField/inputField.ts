@@ -2,7 +2,7 @@ import styles from "./inputField.css"
 import inputFieldTemplate from "./inputField.hbs"
 import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
 import { IInputFieldParams } from "./types"
-import { Block } from "../../block"
+import { Block } from "../block"
 
 export class InputField extends Block {
     constructor(params: IInputFieldParams) {

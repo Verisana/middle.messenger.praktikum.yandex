@@ -2,7 +2,7 @@ import styles from "./button.css"
 import buttonTemplate from "./button.hbs"
 import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
 import { IButtonParams } from "./types"
-import { Block } from "../../block"
+import { Block } from "../block"
 
 export class Button extends Block {
     constructor(params: IButtonParams) {

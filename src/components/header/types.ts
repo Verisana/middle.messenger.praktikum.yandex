@@ -1,4 +1,4 @@
-import { Props } from "../../block"
+import { Props } from "../block"
 import { Button } from "../button"
 
 export interface IHeaderProps extends Props {

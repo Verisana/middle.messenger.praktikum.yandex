@@ -2,7 +2,7 @@ import styles from "./inputConstruct.css"
 import inputConstructTemplate from "./inputConstruct.hbs"
 import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
 import { IInputConstructParams } from "./types"
-import { Block } from "../../block"
+import { Block } from "../block"
 
 export class InputConstruct extends Block {
     constructor(params: IInputConstructParams) {

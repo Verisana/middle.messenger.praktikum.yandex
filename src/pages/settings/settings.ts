@@ -10,7 +10,7 @@ import { linkButtons } from "../../router/tempButtons"
 import { SubmitForm } from "../../components/submitForm"
 import { HomePage } from "../home"
 import { Button } from "../../components/button"
-import { Block } from "../../block"
+import { Block } from "../../components/block"
 import { getSettingsInputs } from "../../components/inputs"
 
 // Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы

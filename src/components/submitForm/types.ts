@@ -1,5 +1,5 @@
-import { BlockParams, Props } from "../../block"
-import { BlockSettings } from "../../block/types"
+import { BlockParams, Props } from "../block"
+import { BlockSettings } from "../block/types"
 import { Button } from "../button"
 import { InputConstruct } from "../inputConstruct"
 

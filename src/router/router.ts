@@ -1,4 +1,4 @@
-import { Block } from "../block"
+import { Block } from "../components/block"
 import { ILayoutProps, layout } from "../layout"
 
 // Пока мы не дошли до роутинга, чтобы не плодить лишние html файлы, которые

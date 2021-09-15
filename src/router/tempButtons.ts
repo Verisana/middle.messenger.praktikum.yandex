@@ -1,7 +1,7 @@
 import { Button, IButtonParams, IButtonProps } from "../components/button"
 import { switchContent } from "./router"
 import { capitalizeFirstSymbol } from "../utils/utils"
-import { Block } from "../block"
+import { Block } from "../components/block"
 
 // Это тоже временный файл на первый спринт. Отсюда раздаю себе кнопки
 // для перехода

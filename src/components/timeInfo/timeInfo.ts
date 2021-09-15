@@ -1,6 +1,6 @@
 import styles from "./timeInfo.css"
 import timeInfoTemplate from "./timeInfo.hbs"
-import { Block } from "../../block"
+import { Block } from "../block"
 import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
 import { ITimeInfoParams } from "./types"
 

@@ -5,7 +5,7 @@ import { linkButtons } from "../../../router/tempButtons"
 import { SubmitForm } from "../../../components/submitForm"
 import { LoginPage } from "../login"
 import { Button } from "../../../components/button"
-import { Block } from "../../../block"
+import { Block } from "../../../components/block"
 import { getRegisterInputs } from "../../../components/inputs"
 
 export class RegisterPage extends Block {

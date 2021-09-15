@@ -4,7 +4,7 @@ import { Header } from "../components/header"
 import { Footer } from "../components/footer"
 import { HomePage } from "../pages/home"
 import { compile2Dom } from "../utils/utils"
-import { Block } from "../block"
+import { Block } from "../components/block"
 
 class Layout extends Block {
     constructor() {
