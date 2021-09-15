@@ -1,12 +1,10 @@
 .message {
     max-width: 350px;
-    max-width: 350px;
     word-wrap: break-word;
 }
 
 .message__open {
     background-color: $secondary-object-light-color;
-
     padding: 5px;
     margin: 5px;
     border-radius: 5px;

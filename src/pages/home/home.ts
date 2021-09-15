@@ -16,7 +16,7 @@ import { Button } from "../../components/button"
 import { Block } from "../../block"
 import { getMessageInput } from "../../components/inputs"
 import { SideChatBar } from "../../components/sideChatBar"
-import { IHomePageParams } from "."
+import { IHomePageParams } from "./types"
 import { TimeInfo } from "../../components/timeInfo"
 
 const sideChatList = [

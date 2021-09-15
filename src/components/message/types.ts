@@ -1,5 +1,5 @@
 import { Props, BlockParams } from "../../block"
-import { TimeInfo } from "../timeInfo";
+import { TimeInfo } from "../timeInfo"
 
 export interface IMessageProps extends Props {
     messageId: number
