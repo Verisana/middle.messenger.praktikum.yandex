@@ -13,3 +13,13 @@
     color: $light-text-color;
     border-radius: 5px;
 }
+
+.sideChat__contactDiv {
+    display: flex;
+    margin-left: 5px;
+}
+
+.sideChat__contactParagraph {
+    display: block;
+    margin: 0;
+}

@@ -10,6 +10,8 @@ export interface ISideChatProps extends Props {
     contactName?: string
     contactId?: number
     Time?: TimeInfo
+    contactDivClass?: string | string[]
+    contactParagraphClass?: string | string[]
 }
 
 export interface ISideChatParams extends BlockParams {

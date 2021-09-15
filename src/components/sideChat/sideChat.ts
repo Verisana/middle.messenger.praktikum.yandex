@@ -14,6 +14,17 @@ export class SideChat extends Block {
             "sideChat__main",
             props.rootClass
         )
+        props.contactDivClass = convertStyles2Strings(
+            [styles],
+            "sideChat__contactDiv",
+            props.contactDivClass
+        )
+        props.contactParagraphClass = convertStyles2Strings(
+            [styles],
+            "sideChat__contactParagraph",
+            props.contactParagraphClass
+        )
+
         props.avatarSrc =
             props.avatarSrc === undefined ? defaultAvatar : props.avatarSrc
         props.imgStyles = convertStyles2Strings(
