@@ -10,5 +10,5 @@ export interface IInputFieldProps extends Props {
 }
 
 export interface IInputFieldParams extends BlockParams {
-    props?: IInputFieldProps
+    props: IInputFieldProps
 }

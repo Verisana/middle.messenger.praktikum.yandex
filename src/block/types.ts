@@ -15,7 +15,7 @@ export type TemplateCreator = (props: Props) => string
 export type BlockParams = {
     events?: Events
     settings?: BlockSettings
-    props?: Props
+    props: Props
 }
 
 export interface IMeta {
