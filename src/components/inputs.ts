@@ -24,7 +24,7 @@ const getPasswordField = (
                         focus: [inputValidationCallback],
                         blur: [inputValidationCallback]
                     },
-                    type: "password",
+                    type_: "password",
                     name,
                     required,
                     pattern: passwordPattern.source
@@ -49,7 +49,7 @@ export const getMessageInput = (): InputConstruct[] => {
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "text",
+                        type_: "text",
                         name: inputFieldNames.message,
                         required: true,
                         pattern: messagePattern.source
@@ -73,7 +73,7 @@ export const getLoginInputs = (): InputConstruct[] => {
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "text",
+                        type_: "text",
                         name: inputFieldNames.login,
                         required: true,
                         pattern: loginPattern.source
@@ -105,7 +105,7 @@ export const getRegisterInputs = (
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "tel",
+                        type_: "tel",
                         name: inputFieldNames.phone,
                         required: true,
                         pattern: phonePattern.source
@@ -125,7 +125,7 @@ export const getRegisterInputs = (
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "text",
+                        type_: "text",
                         name: inputFieldNames.login,
                         required: true,
                         pattern: loginPattern.source
@@ -146,7 +146,7 @@ export const getRegisterInputs = (
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "text",
+                        type_: "text",
                         name: inputFieldNames.firstName,
                         pattern: namePattern.source
                     }
@@ -165,7 +165,7 @@ export const getRegisterInputs = (
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "text",
+                        type_: "text",
                         name: inputFieldNames.secondName,
                         pattern: namePattern.source
                     }
@@ -184,7 +184,7 @@ export const getRegisterInputs = (
                             focus: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
-                        type: "email",
+                        type_: "email",
                         name: inputFieldNames.email,
                         pattern: emailPattern.source
                     }
