@@ -135,8 +135,7 @@ export class HomePage extends Block {
         super({
             props: {
                 isLogged,
-                rootClass: convertStyles2Strings([styles], "main_home"),
-                ChatsSideBar: chatSideBarList,
+                rootClass: convertStyles2Strings([styles], "main__home"),
                 Messages: messages,
                 SendMessage: new SubmitForm({
                     events: {
