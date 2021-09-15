@@ -8,8 +8,8 @@ import {
     passwordPattern,
     phonePattern
 } from "../utils/validators"
-import { InputConstruct } from "./inputConstruct"
-import { InputField } from "./inputField"
+import { InputConstruct } from "../components/inputConstruct"
+import { InputField } from "../components/inputField"
 
 const getPasswordField = (
     name: string,

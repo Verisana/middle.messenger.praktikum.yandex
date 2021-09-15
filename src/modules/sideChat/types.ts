@@ -1,6 +1,6 @@
-import { BlockParams, Props } from "../block"
-import { Message } from "../message"
-import { TimeInfo } from "../timeInfo"
+import { BlockParams, Props } from "../../components/block"
+import { Message } from "../../components/message"
+import { TimeInfo } from "../../components/timeInfo"
 
 export interface ISideChatProps extends Props {
     Message: Message

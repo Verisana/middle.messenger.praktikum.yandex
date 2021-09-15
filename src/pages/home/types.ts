@@ -2,7 +2,7 @@ import { BlockParams, Props } from "../../components/block"
 import { Button } from "../../components/button"
 import { Message } from "../../components/message"
 import { SubmitForm } from "../../components/submitForm"
-import { SideChatBar } from "../../components/sideChatBar"
+import { SideChatBar } from "../../modules/sideChatBar"
 
 export interface IHomePageProps extends Props {
     isLogged: boolean

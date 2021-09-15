@@ -11,7 +11,7 @@ import { SubmitForm } from "../../components/submitForm"
 import { HomePage } from "../home"
 import { Button } from "../../components/button"
 import { Block } from "../../components/block"
-import { getSettingsInputs } from "../../components/inputs"
+import { getSettingsInputs } from "../../modules/inputs"
 
 // Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
 // автоматом подставлялись

@@ -6,7 +6,7 @@ import { SubmitForm } from "../../../components/submitForm"
 import { LoginPage } from "../login"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
-import { getRegisterInputs } from "../../../components/inputs"
+import { getRegisterInputs } from "../../../modules/inputs"
 
 export class RegisterPage extends Block {
     constructor() {
