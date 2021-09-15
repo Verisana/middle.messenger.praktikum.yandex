@@ -29,7 +29,7 @@ export class SettingsPage extends Block {
                 ),
                 SettingsForm: new SubmitForm({
                     events: {
-                        submit: onSubmitMock
+                        submit: [onSubmitMock]
                     },
                     props: {
                         formHeaderText: "Данные для редактирования",

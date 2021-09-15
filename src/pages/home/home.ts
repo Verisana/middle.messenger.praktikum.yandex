@@ -200,7 +200,7 @@ export class HomePage extends Block {
                     settings: { isNoBorder: true },
                     props: {
                         events: {
-                            submit: onSubmitMock
+                            submit: [onSubmitMock]
                         },
                         rootClass: "form__message_default",
                         Inputs: getMessageInput(),

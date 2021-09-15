@@ -21,8 +21,8 @@ const getPasswordField = (
             InputField: new InputField({
                 props: {
                     events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
+                        focus: [inputValidationCallback],
+                        blur: [inputValidationCallback]
                     },
                     type: "password",
                     name,
@@ -46,8 +46,8 @@ export const getMessageInput = (): InputConstruct[] => {
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "text",
                         name: inputFieldNames.message,
@@ -70,8 +70,8 @@ export const getLoginInputs = (): InputConstruct[] => {
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "text",
                         name: inputFieldNames.login,
@@ -102,8 +102,8 @@ export const getRegisterInputs = (
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "tel",
                         name: inputFieldNames.phone,
@@ -122,8 +122,8 @@ export const getRegisterInputs = (
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "text",
                         name: inputFieldNames.login,
@@ -143,8 +143,8 @@ export const getRegisterInputs = (
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "text",
                         name: inputFieldNames.firstName,
@@ -162,8 +162,8 @@ export const getRegisterInputs = (
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "text",
                         name: inputFieldNames.secondName,
@@ -181,8 +181,8 @@ export const getRegisterInputs = (
                 InputField: new InputField({
                     props: {
                         events: {
-                            focus: inputValidationCallback,
-                            blur: inputValidationCallback
+                            focus: [inputValidationCallback],
+                            blur: [inputValidationCallback]
                         },
                         type: "email",
                         name: inputFieldNames.email,

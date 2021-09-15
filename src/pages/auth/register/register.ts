@@ -15,7 +15,7 @@ export class RegisterPage extends Block {
                 RegisterSubmitForm: new SubmitForm({
                     props: {
                         events: {
-                            submit: onSubmitMock
+                            submit: [onSubmitMock]
                         },
                         formHeaderText: "Введите для регистрации",
                         Inputs: getRegisterInputs(),

@@ -1,4 +1,4 @@
-export type Events = Record<string, EventListener>
+export type Events = Record<string, [EventListener]>
 
 export type BlockSettings = {
     withInternalID?: boolean

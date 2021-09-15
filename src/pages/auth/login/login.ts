@@ -15,7 +15,7 @@ export class LoginPage extends Block {
                 LoginSubmitForm: new SubmitForm({
                     props: {
                         events: {
-                            submit: onSubmitMock
+                            submit: [onSubmitMock]
                         },
                         formHeaderText: "Введите для авторизации",
                         Inputs: getLoginInputs(),

@@ -28,7 +28,7 @@ const createButtonBuilder = (
             settings: { withInternalID: true },
             props: {
                 events: {
-                    click: switchContent.bind(null, page)
+                    click: [switchContent.bind(null, page)]
                 },
                 text:
                     text === undefined

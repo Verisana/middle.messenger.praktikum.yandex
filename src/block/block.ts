@@ -154,14 +154,18 @@ export abstract class Block {
     _addEvents() {
         const { events = {} } = this.props
         Object.keys(events).forEach((eventName) => {
-            this.content?.addEventListener(eventName, events[eventName])
+            for (const eventListener of events[eventName]) {
+                this.content?.addEventListener(eventName, eventListener)
+            }
         })
     }
 
     _removeEvents() {
         const { events = {} } = this.props
         Object.keys(events).forEach((eventName) => {
-            this.content?.removeEventListener(eventName, events[eventName])
+            for (const eventListener of events[eventName]) {
+                this.content?.removeEventListener(eventName, eventListener)
+            }
         })
     }
 }
