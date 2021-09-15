@@ -71,11 +71,6 @@ export const onSubmitMock = (event: Event) => {
             console.log(`${key}: ${value}`)
         }
         form.reset()
-
-        // Заново показываем labels после сброса формы
-        for (const inputElement of form.getElementsByTagName("label")) {
-            inputElement.style.display = "block"
-        }
     }
 }
 

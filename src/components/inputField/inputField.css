@@ -19,8 +19,24 @@ input:focus ~ label {
     color: $secondary-object-light-color;
 }
 
-input:valid ~ label {
+input:not(:placeholder-shown) ~ label {
+    display: none
+}
+
+input:not(:placeholder-shown):valid ~ label {
     color: $secondary-object-light-color;
+}
+
+input:valid:not([value='']) {
+    border-color: $primary-object-color;
+}
+
+input:not(:placeholder-shown):invalid ~ label {
+    color: $primary-error;
+}
+
+input:not(:placeholder-shown):invalid {
+    border-color: $primary-error;
 }
 
 /* active state */
