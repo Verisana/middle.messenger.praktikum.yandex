@@ -1,3 +1,5 @@
+import { inputFieldNames } from "../consts"
+
 export const namePattern = /^[A-ZА-ЯЁ][A-Za-zА-Яа-яёЁ-]*$/
 export const loginPattern = /^(?!\d+$)[A-Za-z-_0-9]{3,20}$/
 export const emailPattern = /^[A-Za-z0-9-]+@[A-Za-z0-9]+\.[a-z]+$/
@@ -41,44 +43,56 @@ export const validateMessage = (value: string): boolean => {
 }
 
 export const validators: Record<string, (value: string) => boolean> = {
-    first_name: validateName,
-    second_name: validateName,
-    login: validateLogin,
-    email: validateEmail,
-    password: validatePassword,
-    phone: validatePhone,
-    message: validateMessage
+    [inputFieldNames.firstName]: validateName,
+    [inputFieldNames.secondName]: validateName,
+    [inputFieldNames.login]: validateLogin,
+    [inputFieldNames.email]: validateEmail,
+    [inputFieldNames.password]: validatePassword,
+    [inputFieldNames.oldPassword]: validatePassword,
+    [inputFieldNames.newPassword]: validatePassword,
+    [inputFieldNames.phone]: validatePhone,
+    [inputFieldNames.message]: validateMessage
 }
 
 export const errorMessages: Record<string, string> = {
-    first_name:
+    [inputFieldNames.firstName]:
         "Допускается только латиница или кириллица. Первая буква должна быть " +
         "заглавной, без пробелов и без цифр, нет спецсимволов (допустим " +
         "только дефис)",
-    second_name:
+    [inputFieldNames.secondName]:
         "Допускается только латиница или кириллица. Первая буква должна быть " +
         "заглавной, без пробелов и без цифр, нет спецсимволов (допустим " +
         "только дефис)",
-    login:
+    [inputFieldNames.login]:
         "Введите login от 3 до 20 символов: латиница, может содержать цифры, " +
         "но не состоять из них. Без пробелов, без спецсимволов (допустимы " +
         "дефис и нижнее подчёркивание)",
-    email:
+    [inputFieldNames.email]:
         "Введите email на латинице. Может включать цифры и спецсимволы " +
         "вроде дефиса. Обязательно должна быть «собака» (@) и точка после " +
         "неё, но перед точкой обязательно должны быть буквы",
-    password:
+    [inputFieldNames.password]:
         "Введите пароль от 8 до 40 символов, обязательно хотя бы одна " +
         "заглавная буква и цифра",
-    phone:
+    [inputFieldNames.oldPassword]:
+        "Введите пароль от 8 до 40 символов, обязательно хотя бы одна " +
+        "заглавная буква и цифра",
+    [inputFieldNames.newPassword]:
+        "Введите пароль от 8 до 40 символов, обязательно хотя бы одна " +
+        "заглавная буква и цифра",
+    [inputFieldNames.phone]:
         "Введите телефон от 10 до 15 символов. Состоит из цифр, может " +
         "начинается с плюса",
-    message: "Сообщение не может быть пустым"
+    [inputFieldNames.message]: "Сообщение не может быть пустым"
 }
 
 export const inputValidationCallback = (event: Event) => {
     const inputElement = event.target as HTMLInputElement
     const validator = validators[inputElement.name]
+
+    if (validator === undefined) {
+        throw new Error(`Can not find name ${inputElement.name}`)
+    }
 
     if (!validator(inputElement.value)) {
         inputElement.setCustomValidity(errorMessages[inputElement.name])
