@@ -7,7 +7,7 @@ import {
 } from "../../utils/utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Message } from "../../components/message"
-import { ChatSideBar } from "../../components/chatSideBar"
+import { SideChat } from "../../components/sideChat"
 import { linkButtons } from "../../router/tempButtons"
 import { isLogged } from "../../consts"
 import { LoginPage } from "../auth/login"
@@ -15,9 +15,10 @@ import { RegisterPage } from "../auth/register"
 import { Button } from "../../components/button"
 import { Block } from "../../block"
 import { getMessageInput } from "../../components/inputs"
+import { SideChatBar } from "../../components/sideChatBar"
 
-const chatSideBarList = [
-    new ChatSideBar({
+const sideChatList = [
+    new SideChat({
         props: {
             messageIsRead: false,
             contactName: "Contact",
@@ -28,13 +29,15 @@ const chatSideBarList = [
                     text: "Текст сообщения",
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    messageId: 10
+                    messageId: 10,
+                    rootClass: "message__sidebar"
                 }
             })
         }
     }),
-    new ChatSideBar({
+    new SideChat({
         props: {
+            rootClass: ["sideChat__main_select"],
             messageIsRead: true,
             contactName: "Contact_2",
             contactId: 2,
@@ -44,12 +47,13 @@ const chatSideBarList = [
                     text: "Текст сообщения 2",
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    messageId: 11
+                    messageId: 11,
+                    rootClass: "message__sidebar"
                 }
             })
         }
     }),
-    new ChatSideBar({
+    new SideChat({
         props: {
             messageIsRead: true,
             contactName: "Contact_3",
@@ -60,7 +64,8 @@ const chatSideBarList = [
                     text: "Текст сообщения 3",
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    messageId: 12
+                    messageId: 12,
+                    rootClass: "message__sidebar"
                 }
             })
         }
@@ -75,7 +80,7 @@ const messages = [
             timeMachine: "12:45:01.235",
             timeHuman: "12:45",
             messageId: 1,
-            rootClass: ["message_right"]
+            rootClass: ["message__open", "message_right"]
         }
     }),
     new Message({
@@ -85,7 +90,7 @@ const messages = [
             timeMachine: "12:46:02.23",
             timeHuman: "12:46",
             messageId: 2,
-            rootClass: ["message_left"]
+            rootClass: ["message__open", "message_left"]
         }
     }),
     new Message({
@@ -95,7 +100,7 @@ const messages = [
             timeMachine: "12:47:01:68",
             timeHuman: "12:47",
             messageId: 3,
-            rootClass: ["message_right"]
+            rootClass: ["message__open", "message_right"]
         }
     }),
     new Message({
@@ -105,7 +110,7 @@ const messages = [
             timeMachine: "12:48:03.39",
             timeHuman: "12:48",
             messageId: 4,
-            rootClass: ["message_left"]
+            rootClass: ["message__open", "message_left"]
         }
     }),
     new Message({
@@ -115,7 +120,7 @@ const messages = [
             timeMachine: "12:48:45.355",
             timeHuman: "12:48",
             messageId: 5,
-            rootClass: ["message_left"]
+            rootClass: ["message__open", "message_left"]
         }
     }),
     new Message({
@@ -125,7 +130,7 @@ const messages = [
             timeMachine: "12:49:25.355",
             timeHuman: "12:49",
             messageId: 6,
-            rootClass: ["message_right"]
+            rootClass: ["message__open", "message_right"]
         }
     })
 ]
@@ -136,6 +141,11 @@ export class HomePage extends Block {
             props: {
                 isLogged,
                 rootClass: convertStyles2Strings([styles], "main__home"),
+                SideChatBar: new SideChatBar({
+                    props: {
+                        SideChats: sideChatList
+                    }
+                }),
                 Messages: messages,
                 SendMessage: new SubmitForm({
                     events: {
@@ -143,6 +153,7 @@ export class HomePage extends Block {
                     },
                     settings: { isNoBorder: true },
                     props: {
+                        rootClass: "form__message_default",
                         Inputs: getMessageInput(),
                         SubmitButton: new Button({
                             props: {

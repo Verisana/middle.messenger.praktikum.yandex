@@ -1,12 +1,12 @@
 import { BlockParams, Props } from "../../block"
 import { Button } from "../../components/button"
-import { ChatSideBar } from "../../components/chatSideBar"
 import { Message } from "../../components/message"
 import { SubmitForm } from "../../components/submitForm"
+import { SideChatBar } from "../../components/sideChatBar"
 
 export interface IHomePageProps extends Props {
     isLogged: boolean
-    ChatsSideBar: ChatSideBar[]
+    SideChatBar: SideChatBar
     SendMessage: SubmitForm
     LoginButton: Button
     RegisterButton: Button
