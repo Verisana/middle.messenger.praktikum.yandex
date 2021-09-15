@@ -7,3 +7,7 @@ form {
 .form_no_border {
     border: 0;
 }
+
+.form__message_default {
+    border-top: 2px solid $primary-object-color;
+}
