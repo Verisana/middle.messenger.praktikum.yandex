@@ -7,13 +7,14 @@
     },
     "scripts": {
         "dev": "parcel static/*",
-        "build": "npm run lint && npx tsc && parcel build static/*",
+        "build": "npm run compile && npx lint && parcel build static/*",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "ts-node src/server.ts",
         "lint:p": "npx prettier --write './src/**/*.{ts,test.ts,json}'",
         "lint:e": "npx eslint \"src/**/*.ts\" --fix",
         "lint:s": "npx stylelint \"src/**/*css\" --fix",
-        "lint": "npm run lint:p && npm run lint:e && npm run lint:s"
+        "lint": "npm run lint:p && npm run lint:e && npm run lint:s",
+        "compile": "npx tsc"
     },
     "repository": {
         "type": "git",
