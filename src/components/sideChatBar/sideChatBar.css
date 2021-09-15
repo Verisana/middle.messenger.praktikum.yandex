@@ -1,0 +1,4 @@
+.sideChatBar__default {
+    border-right: solid $primary-object-color;
+    margin-right: 20px;
+}
