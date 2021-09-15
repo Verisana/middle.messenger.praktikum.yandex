@@ -13,7 +13,14 @@
 }
 
 .message__sidebar {
+    margin-left: 5px;
+    margin-top: 5px;
+}
 
+.message__sidebar p {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: left;
 }
 
 .message_left {
