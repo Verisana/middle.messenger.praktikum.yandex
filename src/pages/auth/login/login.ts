@@ -1,0 +1,41 @@
+import "./login.css"
+import loginTemplate from "./login.hbs"
+import { onSubmitMock, compile2Dom } from "../../../utils/utils"
+import { linkButtons } from "../../../router/tempButtons"
+import { SubmitForm } from "../../../components/submitForm"
+import { RegisterPage } from "../register"
+import { Button } from "../../../components/button"
+import { Block } from "../../../components/block"
+import { getLoginInputs } from "../../../modules/inputs"
+
+export class LoginPage extends Block {
+    constructor() {
+        super({
+            props: {
+                LoginSubmitForm: new SubmitForm({
+                    props: {
+                        events: {
+                            submit: [onSubmitMock]
+                        },
+                        formHeaderText: "Введите для авторизации",
+                        Inputs: getLoginInputs(),
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Войти",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                RegisterButton: linkButtons.register(
+                    { text: "Нет аккаунта?" },
+                    () => new RegisterPage()
+                )
+            }
+        })
+    }
+
+    render(): HTMLElement {
+        return compile2Dom(loginTemplate, this.props)
+    }
+}

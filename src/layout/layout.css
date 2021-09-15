@@ -1,5 +1,5 @@
 body {
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
     background-color: $main-background-color;
     text-align: center;
     margin: auto;
@@ -37,4 +37,6 @@ img {
     height: 50px;
     width: 50px;
     border-radius: 25px;
+    margin-top: auto;
+    margin-bottom: auto;
 }

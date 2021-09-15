@@ -1,8 +1,3 @@
-.inputDiv_default {
-    position: relative;
-    margin-bottom:  10px;
-}
-
 input {
     font-size: 18px;
     padding: 10px 10px 10px 5px;
@@ -17,20 +12,6 @@ input:focus {
     outline: none;
 }
 
-/* LABEL ======================================= */
-label {
-    color: $input-text-color;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
-
 /* active state */
 input:focus ~ label {
     top: -20px;
@@ -38,38 +19,28 @@ input:focus ~ label {
     color: $secondary-object-light-color;
 }
 
-input:valid ~ label {
+input:not(:placeholder-shown) ~ label {
+    display: none;
+}
+
+input:not(:placeholder-shown):valid ~ label {
     color: $secondary-object-light-color;
 }
 
+input:not(:placeholder-shown):valid {
+    border-color: $primary-object-color;
+}
 
-/* BOTTOM BARS ================================= */
-.bar {
-    position: relative;
-    display: block;
-    width: 300px;
+input:not(:placeholder-shown):invalid ~ label {
+    color: $primary-error;
 }
-.bar:before,
-.bar:after {
-    content: "";
-    height: 2px;
-    width: 0;
-    bottom: 1px;
-    position: absolute;
-    background: $secondary-object-light-color;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
-.bar:before {
-    left: 50%;
-}
-.bar:after {
-    right: 50%;
+
+input:not(:placeholder-shown):invalid {
+    border-color: $primary-error;
 }
 
 /* active state */
-input:focus ~ .bar:before,
-input:focus ~ .bar:after {
+input:focus ~ .bar::before,
+input:focus ~ .bar::after {
     width: 50%;
 }

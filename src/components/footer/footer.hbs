@@ -1,7 +1,11 @@
 <footer>
-    <div class={{contentClass}}>
+    <div className={{contentClass}}>
         <p>
             © 2021. Random Voice Companion
         </p>
+        <p>Служебные кнопки для проверки страниц задания</p>
+        {{#each LinkButtons}}
+            {{{this}}}
+        {{/each}}
     </div>
 </footer>
