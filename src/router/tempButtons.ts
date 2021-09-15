@@ -26,10 +26,10 @@ const createButtonBuilder = (
         const params: IButtonParams = {
             // Проверяем работоспособность присвоения Id
             settings: { withInternalID: true },
-            events: {
-                click: switchContent.bind(null, page)
-            },
             props: {
+                events: {
+                    click: switchContent.bind(null, page)
+                },
                 text:
                     text === undefined
                         ? capitalizeFirstSymbol(contentRoute)

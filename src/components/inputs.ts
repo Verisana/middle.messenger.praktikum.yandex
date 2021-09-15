@@ -19,11 +19,11 @@ const getPasswordField = (
     return new InputConstruct({
         props: {
             InputField: new InputField({
-                events: {
-                    focus: inputValidationCallback,
-                    blur: inputValidationCallback
-                },
                 props: {
+                    events: {
+                        focus: inputValidationCallback,
+                        blur: inputValidationCallback
+                    },
                     type: "password",
                     name,
                     required,
@@ -44,11 +44,11 @@ export const getMessageInput = (): InputConstruct[] => {
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "text",
                         name: inputFieldNames.message,
                         required: true,
@@ -68,11 +68,11 @@ export const getLoginInputs = (): InputConstruct[] => {
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "text",
                         name: inputFieldNames.login,
                         required: true,
@@ -100,11 +100,11 @@ export const getRegisterInputs = (
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "tel",
                         name: inputFieldNames.phone,
                         required: true,
@@ -120,11 +120,11 @@ export const getRegisterInputs = (
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "text",
                         name: inputFieldNames.login,
                         required: true,
@@ -141,11 +141,11 @@ export const getRegisterInputs = (
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "text",
                         name: inputFieldNames.firstName,
                         pattern: namePattern.source
@@ -160,11 +160,11 @@ export const getRegisterInputs = (
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "text",
                         name: inputFieldNames.secondName,
                         pattern: namePattern.source
@@ -179,11 +179,11 @@ export const getRegisterInputs = (
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    events: {
-                        focus: inputValidationCallback,
-                        blur: inputValidationCallback
-                    },
                     props: {
+                        events: {
+                            focus: inputValidationCallback,
+                            blur: inputValidationCallback
+                        },
                         type: "email",
                         name: inputFieldNames.email,
                         pattern: emailPattern.source

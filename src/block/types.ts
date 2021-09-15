@@ -1,10 +1,11 @@
-export type Events = Record<string, (event: Event) => void>
+export type Events = Record<string, EventListener>
 
 export type BlockSettings = {
     withInternalID?: boolean
 }
 
 export type Props = {
+    events?: Events
     __id?: string
     [key: string]: unknown
 }

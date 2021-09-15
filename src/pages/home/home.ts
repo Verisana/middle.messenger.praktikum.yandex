@@ -197,11 +197,11 @@ export class HomePage extends Block {
                 }),
                 Messages: messages,
                 SendMessage: new SubmitForm({
-                    events: {
-                        submit: onSubmitMock
-                    },
                     settings: { isNoBorder: true },
                     props: {
+                        events: {
+                            submit: onSubmitMock
+                        },
                         rootClass: "form__message_default",
                         Inputs: getMessageInput(),
                         SubmitButton: new Button({

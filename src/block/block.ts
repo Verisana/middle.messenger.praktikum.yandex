@@ -31,8 +31,8 @@ export abstract class Block {
         if (settings?.withInternalID) {
             this._meta.id = uuidv4()
         }
-        this.props = this._makePropsProxy({ ...props, __id: this._meta.id })
-
+        props.__id = this._meta.id
+        this.props = this._makePropsProxy(props)
         this.eventBus = () => eventBus
         this._root = null
         this._content = null
@@ -152,14 +152,14 @@ export abstract class Block {
     }
 
     _addEvents() {
-        const { events = {} } = this._meta.params
+        const { events = {} } = this.props
         Object.keys(events).forEach((eventName) => {
             this.content?.addEventListener(eventName, events[eventName])
         })
     }
 
     _removeEvents() {
-        const { events = {} } = this._meta.params
+        const { events = {} } = this.props
         Object.keys(events).forEach((eventName) => {
             this.content?.removeEventListener(eventName, events[eventName])
         })
