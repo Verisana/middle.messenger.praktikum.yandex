@@ -72,10 +72,7 @@ export abstract class Block {
     }
 
     static componentDidUpdate(newProps: Props): boolean {
-        if (newProps !== undefined) {
-            return true
-        }
-        return false
+        return newProps !== undefined
     }
 
     setProps = (nextProps: Props) => {
