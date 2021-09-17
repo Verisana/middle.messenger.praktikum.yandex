@@ -102,7 +102,7 @@ const messages = [
                 props: {
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    rootClass: ["timeInfo___open"]
+                    rootClass: ["timeInfo__open"]
                 }
             })
         }
@@ -117,7 +117,7 @@ const messages = [
                 props: {
                     timeMachine: "12:46:02.23",
                     timeHuman: "12:46",
-                    rootClass: ["timeInfo___open"]
+                    rootClass: ["timeInfo__open"]
                 }
             })
         }
@@ -132,7 +132,7 @@ const messages = [
                 props: {
                     timeMachine: "12:47:01:68",
                     timeHuman: "12:47",
-                    rootClass: ["timeInfo___open"]
+                    rootClass: ["timeInfo__open"]
                 }
             })
         }
@@ -147,7 +147,7 @@ const messages = [
                 props: {
                     timeMachine: "12:48:03.39",
                     timeHuman: "12:48",
-                    rootClass: ["timeInfo___open"]
+                    rootClass: ["timeInfo__open"]
                 }
             })
         }
@@ -162,7 +162,7 @@ const messages = [
                 props: {
                     timeMachine: "12:48:45.355",
                     timeHuman: "12:48",
-                    rootClass: ["timeInfo___open"]
+                    rootClass: ["timeInfo__open"]
                 }
             })
         }
@@ -177,7 +177,7 @@ const messages = [
                 props: {
                     timeMachine: "12:49:25.355",
                     timeHuman: "12:49",
-                    rootClass: ["timeInfo___open"]
+                    rootClass: ["timeInfo__open"]
                 }
             })
         }
