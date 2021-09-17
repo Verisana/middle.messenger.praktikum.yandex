@@ -91,7 +91,11 @@ export class Request {
             })
 
             xhr.onload = () => {
-                resolve(xhr)
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resolve(xhr)
+                } else {
+                    reject(xhr)
+                }
             }
 
             xhr.onabort = reject
