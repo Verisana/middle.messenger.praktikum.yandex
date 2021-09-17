@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
 
+import styles from "./block.css"
 import { Props, IMeta, BlockParams } from "./types"
 import { EventBus } from "../../utils/event_bus"
 
@@ -136,13 +137,13 @@ export abstract class Block {
 
     show() {
         if (this.content !== null) {
-            this.content.style.display = "block"
+            this.content.classList.remove(styles.hidden)
         }
     }
 
     hide() {
         if (this.content !== null) {
-            this.content.style.display = "none"
+            this.content.classList.add(styles.hidden)
         }
     }
 
