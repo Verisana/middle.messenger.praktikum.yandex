@@ -15,7 +15,7 @@ export class EventBus {
 
     off(event: string, callback: Function) {
         if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`)
+            console.log(`Попытка отписаться от отсутствующего события:${event}`)
         }
 
         this.listeners[event] = this.listeners[event].filter(
