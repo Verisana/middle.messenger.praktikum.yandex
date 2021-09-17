@@ -66,7 +66,7 @@ export class Request {
         options: IRequestOptions
     ): Promise<XMLHttpRequest> => {
         const {
-            headers = {},
+            headers = { "content-type": "application/json" },
             method = METHODS.GET,
             data,
             timeout = 3000
