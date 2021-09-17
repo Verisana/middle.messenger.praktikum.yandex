@@ -4,7 +4,7 @@ import classNames from "classnames"
 import { Block, Events, Props } from "../components/block"
 import { errorMessages, validators } from "./validators"
 
-export const string2DomElement = (toParse: string): HTMLElement => {
+export const stringToDomElement = (toParse: string): HTMLElement => {
     const parsed = new DOMParser().parseFromString(toParse, "text/html")
     return parsed.body.firstChild as HTMLElement
 }
