@@ -116,20 +116,18 @@ export abstract class Block {
     abstract render(): HTMLElement
 
     _makePropsProxy(props: Props): Props {
-        const that = this
-
         return new Proxy(props, {
-            get(target: Props, prop: string): unknown {
+            get: (target: Props, prop: string): unknown => {
                 const value = target[prop]
                 return typeof value === "function" ? value.bind(target) : value
             },
-            set(target: Props, prop: string, value: unknown) {
+            set: (target: Props, prop: string, value: unknown) => {
                 target[prop] = value
 
-                that.eventBus().emit(Block.EVENTS.FLOW_CDU, target)
+                this.eventBus().emit(Block.EVENTS.FLOW_CDU, target)
                 return true
             },
-            deleteProperty() {
+            deleteProperty: () => {
                 throw new Error("Нет доступа")
             }
         })
