@@ -8,10 +8,6 @@ input {
     background: transparent;
 }
 
-input:focus {
-    outline: none;
-}
-
 /* active state */
 input:focus ~ label {
     top: -20px;
