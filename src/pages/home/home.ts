@@ -9,7 +9,7 @@ import { SubmitForm } from "../../components/submitForm"
 import { Message } from "../../components/message"
 import { SideChat } from "../../modules/sideChat"
 import { linkButtons } from "../../router/tempButtons"
-import { isLogged } from "../../consts"
+import { isLogged, maxMessageLength } from "../../consts"
 import { LoginPage } from "../auth/login"
 import { RegisterPage } from "../auth/register"
 import { Button } from "../../components/button"
@@ -26,6 +26,7 @@ const sideChatList = [
             contactName: "Contact",
             contactId: 1,
             Message: new Message({
+                settings: { maxTextLength: maxMessageLength },
                 props: {
                     sender: "owner",
                     text: "Текст сообщения",
@@ -49,6 +50,7 @@ const sideChatList = [
             contactName: "Contact_2",
             contactId: 2,
             Message: new Message({
+                settings: { maxTextLength: maxMessageLength },
                 props: {
                     sender: "owner",
                     text: "Текст сообщения 2",
@@ -71,6 +73,7 @@ const sideChatList = [
             contactName: "Contact_3",
             contactId: 3,
             Message: new Message({
+                settings: { maxTextLength: maxMessageLength },
                 props: {
                     sender: "companion",
                     text: "Текст сообщения 3",

@@ -30,9 +30,6 @@ export class SideChat extends Block {
         props.imgStyles = convertStyles2Strings([layoutStyles], "avatar_small")
         super(params)
     }
-    // Добавить slice message
-    // messageElement.textContent =
-    //     textContent !== null ? textContent.slice(0, maxMessageLength) : null
 
     render(): HTMLElement {
         return compile2Dom(sideCHatTemplate, this.props)
