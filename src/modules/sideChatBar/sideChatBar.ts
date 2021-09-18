@@ -9,7 +9,7 @@ export class SideChatBar extends Block {
         const { props } = params
         props.rootClass = convertStyles2Strings(
             [styles],
-            "sideChatBar__default",
+            "side-chat-bar",
             props.rootClass
         )
         super(params)

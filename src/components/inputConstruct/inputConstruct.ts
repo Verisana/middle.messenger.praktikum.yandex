@@ -7,10 +7,14 @@ import { Block } from "../block"
 export class InputConstruct extends Block {
     constructor(params: IInputConstructParams) {
         const { props } = params
-        props.barClass = convertStyles2Strings([styles], "bar", props.barClass)
+        props.barClass = convertStyles2Strings(
+            [styles],
+            "input-construct__bar",
+            props.barClass
+        )
         props.rootClass = convertStyles2Strings(
             [styles],
-            "inputDiv_default",
+            "input-construct",
             props.rootClass
         )
         props.br = props.br === undefined ? false : props.br

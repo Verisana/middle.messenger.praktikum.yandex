@@ -1,9 +1,9 @@
-.timeInfo__open {
+.time-info__open {
     display: block;
     text-align: right;
 }
 
-.timeInfo__chatSideBar {
+.time-info__chat-side-bar {
     display: block;
     text-align: right;
     margin-left: auto;

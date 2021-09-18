@@ -21,12 +21,12 @@
     text-align: left;
 }
 
-.message_left {
+.message__open_left {
     text-align: left;
     margin-right: auto;
 }
 
-.message_right {
+.message__open_right {
     text-align: right;
     margin-left: auto;
 }

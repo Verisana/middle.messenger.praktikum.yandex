@@ -12,19 +12,19 @@ export class Header extends Block {
         super({
             props: {
                 isLogged,
-                logoStyles: styles.logo__style_default,
+                logoStyles: styles.logo,
                 MenuButton: new Button({
                     props: {
                         imgSrc: "menu_white_48dp.svg",
-                        rootClass: ["btn__navbar_default"],
-                        imgStyle: ["btn__image_default"]
+                        rootClass: ["button__navbar"],
+                        imgStyle: ["button__image"]
                     }
                 }),
                 SettingsButton: linkButtons.profileSettings(
                     {
                         imgSrc: "settings_white_48dp.svg",
-                        rootClass: ["btn__navbar_default"],
-                        imgStyle: ["btn__image_default"]
+                        rootClass: ["button__navbar"],
+                        imgStyle: ["button__image"]
                     },
                     () => new SettingsPage()
                 )

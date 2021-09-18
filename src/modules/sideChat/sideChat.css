@@ -1,4 +1,4 @@
-.sideChat__main {
+.side-chat {
     display: grid;
     grid-template-columns: 60px auto;
     grid-template-rows: 100%;
@@ -8,18 +8,18 @@
     padding: 5px;
 }
 
-.sideChat__main_select {
+.side-chat_select {
     background-color: $primary-object-color;
     color: $light-text-color;
     border-radius: 5px;
 }
 
-.sideChat__contactDiv {
+.side-chat__contact {
     display: flex;
     margin-left: 5px;
 }
 
-.sideChat__contactParagraph {
+.side-chat__contact-text {
     display: block;
     margin: 0;
 }

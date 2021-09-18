@@ -11,7 +11,7 @@ export class SubmitForm extends Block {
             settings.isNoBorder === undefined ? false : settings.isNoBorder
         props.rootClass = convertStyles2Strings(
             [styles],
-            settings.isNoBorder ? "form_no_border" : undefined,
+            settings.isNoBorder ? "form_no-border" : undefined,
             props.rootClass
         )
         super(params)

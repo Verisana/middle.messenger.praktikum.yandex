@@ -1,4 +1,4 @@
-.btn {
+.button {
     margin: 5px;
     padding: 5px;
     overflow: hidden;
@@ -10,24 +10,24 @@
     transition: background-color 0.3s;
 }
 
-.btn:hover,
-.btn:focus {
+.button:hover,
+.button:focus {
     background-color: $secondary-object-light-color;
 }
 
-.btn__navbar_default {
+.button__navbar {
     width: 40px;
     height: 40px;
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-.btn__image_default {
+.button__image {
     width: 100%;
     height: 100%;
     margin: auto;
 }
 
-.btn__messageSubmit {
+.button__message-submit {
     margin-left: auto;
 }

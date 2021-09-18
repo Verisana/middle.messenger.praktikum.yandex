@@ -37,14 +37,14 @@ const sideChatList = [
                 props: {
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    rootClass: ["timeInfo__chatSideBar"]
+                    rootClass: ["time-info__chat-side-bar"]
                 }
             })
         }
     }),
     new SideChat({
         props: {
-            rootClass: ["sideChat__main_select"],
+            rootClass: ["side-chat_select"],
             messageIsRead: true,
             contactName: "Contact_2",
             contactId: 2,
@@ -60,7 +60,7 @@ const sideChatList = [
                 props: {
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    rootClass: ["timeInfo__chatSideBar"]
+                    rootClass: ["time-info__chat-side-bar"]
                 }
             })
         }
@@ -84,7 +84,7 @@ const sideChatList = [
                 props: {
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    rootClass: ["timeInfo__chatSideBar"]
+                    rootClass: ["time-info__chat-side-bar"]
                 }
             })
         }
@@ -97,12 +97,12 @@ const messages = [
             sender: "owner",
             text: "Привет!",
             messageId: 1,
-            rootClass: ["message__open", "message_right"],
+            rootClass: ["message__open", "message__open_right"],
             Time: new TimeInfo({
                 props: {
                     timeMachine: "12:45:01.235",
                     timeHuman: "12:45",
-                    rootClass: ["timeInfo__open"]
+                    rootClass: ["time-info__open"]
                 }
             })
         }
@@ -112,12 +112,12 @@ const messages = [
             sender: "companion",
             text: "Прив",
             messageId: 2,
-            rootClass: ["message__open", "message_left"],
+            rootClass: ["message__open", "message__open_left"],
             Time: new TimeInfo({
                 props: {
                     timeMachine: "12:46:02.23",
                     timeHuman: "12:46",
-                    rootClass: ["timeInfo__open"]
+                    rootClass: ["time-info__open"]
                 }
             })
         }
@@ -127,12 +127,12 @@ const messages = [
             sender: "owner",
             text: "Ты будешь завтра на вебинаре?",
             messageId: 3,
-            rootClass: ["message__open", "message_right"],
+            rootClass: ["message__open", "message__open_right"],
             Time: new TimeInfo({
                 props: {
                     timeMachine: "12:47:01:68",
                     timeHuman: "12:47",
-                    rootClass: ["timeInfo__open"]
+                    rootClass: ["time-info__open"]
                 }
             })
         }
@@ -142,12 +142,12 @@ const messages = [
             sender: "companion",
             text: "Да, планирую",
             messageId: 4,
-            rootClass: ["message__open", "message_left"],
+            rootClass: ["message__open", "message__open_left"],
             Time: new TimeInfo({
                 props: {
                     timeMachine: "12:48:03.39",
                     timeHuman: "12:48",
-                    rootClass: ["timeInfo__open"]
+                    rootClass: ["time-info__open"]
                 }
             })
         }
@@ -157,12 +157,12 @@ const messages = [
             sender: "companion",
             text: "А ты?",
             messageId: 5,
-            rootClass: ["message__open", "message_left"],
+            rootClass: ["message__open", "message__open_left"],
             Time: new TimeInfo({
                 props: {
                     timeMachine: "12:48:45.355",
                     timeHuman: "12:48",
-                    rootClass: ["timeInfo__open"]
+                    rootClass: ["time-info__open"]
                 }
             })
         }
@@ -172,12 +172,12 @@ const messages = [
             sender: "owner",
             text: "Ага, тоже",
             messageId: 6,
-            rootClass: ["message__open", "message_right"],
+            rootClass: ["message__open", "message__open_right"],
             Time: new TimeInfo({
                 props: {
                     timeMachine: "12:49:25.355",
                     timeHuman: "12:49",
-                    rootClass: ["timeInfo__open"]
+                    rootClass: ["time-info__open"]
                 }
             })
         }
@@ -189,7 +189,7 @@ export class HomePage extends Block {
         const params: IHomePageParams = {
             props: {
                 isLogged,
-                rootClass: convertStyles2Strings([styles], "main__home"),
+                rootClass: convertStyles2Strings([styles], "home"),
                 SideChatBar: new SideChatBar({
                     props: {
                         SideChats: sideChatList
@@ -202,13 +202,13 @@ export class HomePage extends Block {
                         events: {
                             submit: [onSubmitMock]
                         },
-                        rootClass: "form__message_default",
+                        rootClass: "form__message-input",
                         Inputs: getMessageInput(),
                         SubmitButton: new Button({
                             props: {
                                 text: "Отправить",
                                 type_: "submit",
-                                rootClass: ["btn__messageSubmit"]
+                                rootClass: ["button__message-submit"]
                             }
                         })
                     }

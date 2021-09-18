@@ -23,10 +23,7 @@ export class SettingsPage extends Block {
                 // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
                 linkToImage:
                     "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-                avatarStyle: convertStyles2Strings(
-                    [layoutStyles],
-                    "img__avatar_default"
-                ),
+                avatarStyle: convertStyles2Strings([layoutStyles], "avatar"),
                 SettingsForm: new SubmitForm({
                     props: {
                         formHeaderText: "Данные для редактирования",

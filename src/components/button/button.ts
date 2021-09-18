@@ -10,7 +10,7 @@ export class Button extends Block {
         props.type_ = props.type_ === undefined ? "button" : props.type_
         props.rootClass = convertStyles2Strings(
             [styles],
-            "btn",
+            "button",
             props.rootClass
         )
         props.imgStyle = convertStyles2Strings([styles], props.imgStyle)
