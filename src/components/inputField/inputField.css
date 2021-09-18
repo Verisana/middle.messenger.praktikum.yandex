@@ -1,11 +1,18 @@
+$input-width: 300px;
+
 input {
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
-    width: 300px;
+    width: $input-width;
     border: none;
     border-bottom: 1px solid $input-text-color;
     background: transparent;
+}
+
+input:focus {
+    outline: 1px solid $input-text-color;
+    border: 0;
 }
 
 /* active state */
@@ -13,6 +20,20 @@ input:focus ~ label {
     top: -20px;
     font-size: 14px;
     color: $secondary-object-light-color;
+}
+
+input ~ p {
+    display: none;
+}
+
+input:not(:placeholder-shown):invalid ~ p {
+    display: block;
+    color: $primary-error;
+    text-align: left;
+    margin: 5px 0 0 0;
+    padding: 0;
+    width: $input-width;
+    font-size: smaller;
 }
 
 input:not(:placeholder-shown) ~ label {
@@ -32,7 +53,8 @@ input:not(:placeholder-shown):invalid ~ label {
 }
 
 input:not(:placeholder-shown):invalid {
-    border-color: $primary-error;
+    outline: 1px solid $primary-error;
+    border: 0;
 }
 
 /* active state */

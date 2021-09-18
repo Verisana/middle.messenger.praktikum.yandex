@@ -1,6 +1,7 @@
 import { inputFieldNames } from "../consts"
 import {
     emailPattern,
+    errorMessages,
     inputValidationCallback,
     loginPattern,
     messagePattern,
@@ -33,7 +34,8 @@ const getPasswordField = (
             label: {
                 text: labelText
             },
-            br: true
+            br: true,
+            validationErrorText: errorMessages[name]
         }
     })
 }
@@ -57,7 +59,8 @@ export const getMessageInput = (): InputConstruct[] => {
                 }),
                 label: {
                     text: "Сообщение"
-                }
+                },
+                validationErrorText: errorMessages[inputFieldNames.message]
             }
         })
     ]
@@ -82,7 +85,8 @@ export const getLoginInputs = (): InputConstruct[] => {
                 label: {
                     text: "Логин*"
                 },
-                br: true
+                br: true,
+                validationErrorText: errorMessages[inputFieldNames.login]
             }
         }),
         getPasswordField(inputFieldNames.password, "Пароль*")
@@ -114,7 +118,8 @@ export const getRegisterInputs = (
                 label: {
                     text: loadValues ? "Телефон" : "Телефон*"
                 },
-                br: true
+                br: true,
+                validationErrorText: errorMessages[inputFieldNames.phone]
             }
         }),
         new InputConstruct({
@@ -134,7 +139,8 @@ export const getRegisterInputs = (
                 label: {
                     text: loadValues ? "Логин" : "Логин*"
                 },
-                br: true
+                br: true,
+                validationErrorText: errorMessages[inputFieldNames.login]
             }
         }),
         getPasswordField("password", "Пароль*"),
@@ -154,7 +160,8 @@ export const getRegisterInputs = (
                 label: {
                     text: "Имя"
                 },
-                br: true
+                br: true,
+                validationErrorText: errorMessages[inputFieldNames.firstName]
             }
         }),
         new InputConstruct({
@@ -173,7 +180,8 @@ export const getRegisterInputs = (
                 label: {
                     text: "Фамилия"
                 },
-                br: true
+                br: true,
+                validationErrorText: errorMessages[inputFieldNames.secondName]
             }
         }),
         new InputConstruct({
@@ -192,7 +200,8 @@ export const getRegisterInputs = (
                 label: {
                     text: "Email"
                 },
-                br: true
+                br: true,
+                validationErrorText: errorMessages[inputFieldNames.email]
             }
         })
     ]
