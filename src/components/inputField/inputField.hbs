@@ -1,19 +1,8 @@
-<div class="{{divClass}}">
-    <input
-        class="{{input_.class_}}"
-        type={{input_.type}}
-        required={{input_.required}}
-        pattern={{input_.pattern}}
-        placeholder="{{input_.placeholder}}"
-        name={{input_.name}}
-    />
-    <span class="{{barClass}}"></span>
-    {{#if label_.text}}
-        <label class="{{label_.class_}}">
-            {{label_.text}}
-        </label>
-    {{/if}}
-    {{#if br_}}
-        <br>
-    {{/if}}
-</div>
+<input
+    class="{{rootClass}}"
+    type={{type_}}
+    required={{required}}
+    {{#if pattern}}pattern={{pattern}}{{/if}}
+    placeholder="{{placeholder}}"
+    name={{name}}
+/>

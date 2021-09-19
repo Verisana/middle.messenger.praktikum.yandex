@@ -2,8 +2,22 @@ form {
     border: 5px solid $secondary-object-dark-color;
     padding: 30px;
     margin: 10px;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.form_no_border {
-    border: 0px;
+form p {
+    padding-bottom: 10px;
+}
+
+.form_no-border {
+    border: 0;
+}
+
+.form__message-input {
+    border-top: 2px solid $primary-object-color;
+    display: flex;
+    padding: 25px 0 0;
+    max-width: 100%;
 }

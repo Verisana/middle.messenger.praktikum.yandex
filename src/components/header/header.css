@@ -9,7 +9,7 @@ nav {
     display: flex;
 }
 
-.logo__style_default {
+.logo {
     margin: auto;
     font-weight: 900;
 }

@@ -1,11 +1,32 @@
 .message {
-
+    max-width: 350px;
+    word-wrap: break-word;
 }
 
-.message_left {
-    text-align: left
+.message__open {
+    background-color: $secondary-object-light-color;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
 }
 
-.message_right {
-    text-align: right
+.message__sidebar {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.message__sidebar p {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: left;
+}
+
+.message__open_left {
+    text-align: left;
+    margin-right: auto;
+}
+
+.message__open_right {
+    text-align: right;
+    margin-left: auto;
 }

@@ -1,13 +1,13 @@
 <header>
     <nav>
         {{#if isLogged}}
-            <div id={{menuButton}}></div>
+            {{{ MenuButton }}}
         {{/if}}
         <p class={{logoStyles}}>
             Random Voice Companion
         </p>
         {{#if isLogged}}
-            <div id={{settingsButton}}></div>
+            {{{ SettingsButton }}}
         {{/if}}
     </nav>
 </header>

@@ -1,0 +1,10 @@
+.time-info__open {
+    display: block;
+    text-align: right;
+}
+
+.time-info__chat-side-bar {
+    display: block;
+    text-align: right;
+    margin-left: auto;
+}
