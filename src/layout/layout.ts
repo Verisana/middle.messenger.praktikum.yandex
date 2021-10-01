@@ -2,16 +2,15 @@ import "./layout.css"
 import layoutTemplate from "./layout.hbs"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { HomePage } from "../pages/home"
-import { compile2Dom } from "../utils/utils"
+import { compile2Dom } from "../utils/dom_utils"
 import { Block } from "../components/block"
 
-class Layout extends Block {
-    constructor() {
+export class Layout extends Block {
+    constructor(content: () => Block) {
         super({
             props: {
                 Header: new Header(),
-                Content: new HomePage(),
+                Content: content(),
                 Footer: new Footer()
             }
         })
@@ -22,4 +21,6 @@ class Layout extends Block {
     }
 }
 
-export const layout = new Layout()
+export function layoutFactory(content: () => Block): () => Layout {
+    return () => new Layout(content)
+}
