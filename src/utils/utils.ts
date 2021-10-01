@@ -1,13 +1,7 @@
-import { v4 as uuidv4 } from "uuid"
-
 import classNames from "classnames"
-import { Block, Events, Props } from "../components/block"
+import { Events } from "../components/block"
+import { PlainObject } from "./types"
 import { errorMessages, validators } from "./validators"
-
-export const stringToDomElement = (toParse: string): HTMLElement => {
-    const parsed = new DOMParser().parseFromString(toParse, "text/html")
-    return parsed.body.firstChild as HTMLElement
-}
 
 export const findPropertyInListOfObj = (
     objects: IStyle[],
