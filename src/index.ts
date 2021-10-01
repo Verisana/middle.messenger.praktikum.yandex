@@ -1,5 +1,4 @@
 import "@fontsource/roboto"
-import { layout } from "./layout"
-import { render } from "./utils/utils"
+import { router } from "./routes"
 
-render("#App", layout)
+router.go("/")
