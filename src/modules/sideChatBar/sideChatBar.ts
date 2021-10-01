@@ -1,7 +1,8 @@
 import styles from "./sideChatBar.css"
 import sideChatBarTemplate from "./sideChatBar.hbs"
 import { Block } from "../../components/block"
-import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
+import { convertStyles2Strings } from "../../utils/utils"
+import { compile2Dom } from "../../utils/dom_utils"
 import { ISideChatBarParams } from "./types"
 
 export class SideChatBar extends Block {

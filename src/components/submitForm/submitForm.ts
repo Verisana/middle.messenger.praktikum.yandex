@@ -1,6 +1,7 @@
 import styles from "./submitForm.css"
 import submitFormTemplate from "./submitForm.hbs"
-import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { convertStyles2Strings } from "../../utils/utils"
+import { compile2Dom } from "../../utils/dom_utils"
 import { ISubmitFormParams } from "./types"
 import { Block } from "../block"
 

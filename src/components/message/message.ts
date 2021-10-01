@@ -1,6 +1,7 @@
 import styles from "./message.css"
 import messageTemplate from "./message.hbs"
-import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { convertStyles2Strings } from "../../utils/utils"
+import { compile2Dom } from "../../utils/dom_utils"
 import { IMessageParams, IMessageProps } from "./types"
 import { Block } from "../block"
 
