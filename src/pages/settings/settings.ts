@@ -1,20 +1,16 @@
 import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
-import {
-    onSubmitMock,
-    convertStyles2Strings,
-    compile2Dom
-} from "../../utils/utils"
-import { linkButtons } from "../../router/tempButtons"
+import { onSubmitMock, convertStyles2Strings } from "../../utils/utils"
+import { compile2Dom } from "../../utils/dom_utils"
 import { SubmitForm } from "../../components/submitForm"
-import { HomePage } from "../home"
 import { Button } from "../../components/button"
 import { Block } from "../../components/block"
 import { getSettingsInputs } from "../../modules/inputs"
+import { routerFactory } from "../../router"
+import { urlSlugs } from "../../routes"
 
-// Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
-// автоматом подставлялись
+const router = routerFactory()
 
 export class SettingsPage extends Block {
     constructor() {
@@ -39,10 +35,14 @@ export class SettingsPage extends Block {
                         })
                     }
                 }),
-                HomeButton: linkButtons.home(
-                    { text: "Вернуться к чатам" },
-                    () => new HomePage()
-                )
+                HomeButton: new Button({
+                    props: {
+                        events: {
+                            click: [router.go.bind(router, urlSlugs.home)]
+                        },
+                        text: "Вернуться к чатам"
+                    }
+                })
             }
         })
     }

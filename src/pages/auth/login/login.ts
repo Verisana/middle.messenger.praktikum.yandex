@@ -1,12 +1,15 @@
 import "./login.css"
 import loginTemplate from "./login.hbs"
-import { onSubmitMock, compile2Dom } from "../../../utils/utils"
-import { linkButtons } from "../../../router/tempButtons"
+import { onSubmitMock } from "../../../utils/utils"
+import { compile2Dom } from "../../../utils/dom_utils"
 import { SubmitForm } from "../../../components/submitForm"
-import { RegisterPage } from "../register"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
 import { getLoginInputs } from "../../../modules/inputs"
+import { urlSlugs } from "../../../routes"
+import { routerFactory } from "../../../router"
+
+const router = routerFactory()
 
 export class LoginPage extends Block {
     constructor() {
@@ -27,10 +30,14 @@ export class LoginPage extends Block {
                         })
                     }
                 }),
-                RegisterButton: linkButtons.register(
-                    { text: "Нет аккаунта?" },
-                    () => new RegisterPage()
-                )
+                RegisterButton: new Button({
+                    props: {
+                        events: {
+                            click: [router.go.bind(router, urlSlugs.register)]
+                        },
+                        text: "Нет аккаунта?"
+                    }
+                })
             }
         })
     }
