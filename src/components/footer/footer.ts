@@ -1,24 +1,15 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
 import footerTemplate from "./footer.hbs"
-import { linkButtons } from "../../router/tempButtons"
-import { pages } from "../../pages"
 import { Block } from "../block"
-import { Button } from "../button"
 import { IFooterParams } from "./types"
-import { compile2Dom } from "../../utils/utils"
+import { compile2Dom } from "../../utils/dom_utils"
 
 export class Footer extends Block {
     constructor() {
-        const routeButtons: Button[] = []
-        for (const [route, button] of Object.entries(linkButtons)) {
-            routeButtons.push(button({}, pages[route]))
-        }
-
         const params: IFooterParams = {
             props: {
-                contentClass: layoutStyles.content,
-                LinkButtons: routeButtons
+                contentClass: layoutStyles.content
             }
         }
 
