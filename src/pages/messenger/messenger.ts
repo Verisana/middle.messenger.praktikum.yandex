@@ -1,23 +1,17 @@
-import styles from "./home.css"
-import homeTemplate from "./home.hbs"
-import {
-    onSubmitMock,
-    convertStyles2Strings,
-    compile2Dom
-} from "../../utils/utils"
-import { SubmitForm } from "../../components/submitForm"
-import { Message } from "../../components/message"
-import { SideChat } from "../../modules/sideChat"
-import { linkButtons } from "../../router/tempButtons"
-import { isLogged, maxMessageLength } from "../../consts"
-import { LoginPage } from "../auth/login"
-import { RegisterPage } from "../auth/register"
-import { Button } from "../../components/button"
 import { Block } from "../../components/block"
-import { getMessageInput } from "../../modules/inputs"
-import { SideChatBar } from "../../modules/sideChatBar"
-import { IHomePageParams } from "./types"
+import styles from "./messenger.css"
+import messengerTemplate from "./messenger.hbs"
+import { compile2Dom } from "../../utils/dom_utils"
+import { SideChat } from "../../modules/sideChat"
+import { Message } from "../../components/message"
+import { maxMessageLength } from "../../consts"
 import { TimeInfo } from "../../components/timeInfo"
+import { convertStyles2Strings, onSubmitMock } from "../../utils/utils"
+import { SideChatBar } from "../../modules/sideChatBar"
+import { SubmitForm } from "../../components/submitForm"
+import { getMessageInput } from "../../modules/inputs"
+import { Button } from "../../components/button"
+import { IMessengerPageParams } from "."
 
 const sideChatList = [
     new SideChat({
@@ -187,12 +181,11 @@ const messages = [
     })
 ]
 
-export class HomePage extends Block {
+export class MessengerPage extends Block {
     constructor() {
-        const params: IHomePageParams = {
+        const params: IMessengerPageParams = {
             props: {
-                isLogged,
-                rootClass: convertStyles2Strings([styles], "home"),
+                rootClass: convertStyles2Strings([styles], "messenger"),
                 SideChatBar: new SideChatBar({
                     props: {
                         SideChats: sideChatList
@@ -215,21 +208,13 @@ export class HomePage extends Block {
                             }
                         })
                     }
-                }),
-                LoginButton: linkButtons.login(
-                    { text: "Залогиниться" },
-                    () => new LoginPage()
-                ),
-                RegisterButton: linkButtons.register(
-                    { text: "Зарегистрироваться" },
-                    () => new RegisterPage()
-                )
+                })
             }
         }
         super(params)
     }
 
     render(): HTMLElement {
-        return compile2Dom(homeTemplate, this.props)
+        return compile2Dom(messengerTemplate, this.props)
     }
 }
