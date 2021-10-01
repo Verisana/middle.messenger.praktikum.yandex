@@ -1,6 +1,7 @@
 import styles from "./button.css"
 import buttonTemplate from "./button.hbs"
-import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
+import { convertStyles2Strings } from "../../utils/utils"
+import { compile2Dom } from "../../utils/dom_utils"
 import { IButtonParams } from "./types"
 import { Block } from "../block"
 
