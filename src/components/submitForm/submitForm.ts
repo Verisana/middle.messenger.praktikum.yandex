@@ -1,7 +1,7 @@
 import styles from "./submitForm.css"
 import submitFormTemplate from "./submitForm.hbs"
 import { convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { ISubmitFormParams } from "./types"
 import { Block } from "../block"
 
@@ -19,6 +19,6 @@ export class SubmitForm extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(submitFormTemplate, this.props)
+        return compileToDom(submitFormTemplate, this.props)
     }
 }

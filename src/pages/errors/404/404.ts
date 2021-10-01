@@ -1,6 +1,6 @@
 import "./404.css"
 import errorTemplate from "./404.hbs"
-import { compile2Dom } from "../../../utils/dom_utils"
+import { compileToDom } from "../../../utils/dom_utils"
 import { Block } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { routerFactory } from "../../../router"
@@ -24,6 +24,6 @@ export class ErrorPage extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(errorTemplate, this.props)
+        return compileToDom(errorTemplate, this.props)
     }
 }

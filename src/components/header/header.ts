@@ -1,6 +1,6 @@
 import styles from "./header.css"
 import headerTemplate from "./header.hbs"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { Button } from "../button"
 import { isLogged } from "../../consts"
 import { Block } from "../block"
@@ -37,6 +37,6 @@ export class Header extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(headerTemplate, this.props)
+        return compileToDom(headerTemplate, this.props)
     }
 }

@@ -1,7 +1,7 @@
 import styles from "./button.css"
 import buttonTemplate from "./button.hbs"
 import { convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { IButtonParams } from "./types"
 import { Block } from "../block"
 
@@ -19,6 +19,6 @@ export class Button extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(buttonTemplate, this.props)
+        return compileToDom(buttonTemplate, this.props)
     }
 }

@@ -2,7 +2,7 @@ import styles from "./sideChat.css"
 import sideCHatTemplate from "./sideChat.hbs"
 import layoutStyles from "../../layout/layout.css"
 import { convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { defaultAvatar } from "../../consts"
 import { Block } from "../../components/block"
 import { ISideChatParams } from "./types"
@@ -33,6 +33,6 @@ export class SideChat extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(sideCHatTemplate, this.props)
+        return compileToDom(sideCHatTemplate, this.props)
     }
 }

@@ -1,7 +1,7 @@
 import styles from "./message.css"
 import messageTemplate from "./message.hbs"
 import { convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { IMessageParams, IMessageProps } from "./types"
 import { Block } from "../block"
 
@@ -33,7 +33,7 @@ export class Message extends Block {
 
     render(): HTMLElement {
         const props = this.props as IMessageProps
-        return compile2Dom(messageTemplate, {
+        return compileToDom(messageTemplate, {
             ...props,
             text: Message._sliceMessageText(props.text, this._maxMessageLength)
         })

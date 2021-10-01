@@ -3,7 +3,7 @@ import layoutStyles from "../../layout/layout.css"
 import footerTemplate from "./footer.hbs"
 import { Block } from "../block"
 import { IFooterParams } from "./types"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 
 export class Footer extends Block {
     constructor() {
@@ -17,6 +17,6 @@ export class Footer extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(footerTemplate, this.props)
+        return compileToDom(footerTemplate, this.props)
     }
 }

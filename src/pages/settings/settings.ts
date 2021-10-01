@@ -2,7 +2,7 @@ import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
 import { onSubmitMock, convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Button } from "../../components/button"
 import { Block } from "../../components/block"
@@ -48,6 +48,6 @@ export class SettingsPage extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(settingsTemplate, this.props)
+        return compileToDom(settingsTemplate, this.props)
     }
 }

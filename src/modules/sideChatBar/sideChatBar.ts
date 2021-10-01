@@ -2,7 +2,7 @@ import styles from "./sideChatBar.css"
 import sideChatBarTemplate from "./sideChatBar.hbs"
 import { Block } from "../../components/block"
 import { convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { ISideChatBarParams } from "./types"
 
 export class SideChatBar extends Block {
@@ -17,6 +17,6 @@ export class SideChatBar extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(sideChatBarTemplate, this.props)
+        return compileToDom(sideChatBarTemplate, this.props)
     }
 }

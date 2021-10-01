@@ -2,7 +2,7 @@ import "./layout.css"
 import layoutTemplate from "./layout.hbs"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { compile2Dom } from "../utils/dom_utils"
+import { compileToDom } from "../utils/dom_utils"
 import { Block } from "../components/block"
 
 export class Layout extends Block {
@@ -17,7 +17,7 @@ export class Layout extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(layoutTemplate, this.props)
+        return compileToDom(layoutTemplate, this.props)
     }
 }
 

@@ -1,7 +1,7 @@
 import "./login.css"
 import loginTemplate from "./login.hbs"
 import { onSubmitMock } from "../../../utils/utils"
-import { compile2Dom } from "../../../utils/dom_utils"
+import { compileToDom } from "../../../utils/dom_utils"
 import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
@@ -43,6 +43,6 @@ export class LoginPage extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(loginTemplate, this.props)
+        return compileToDom(loginTemplate, this.props)
     }
 }

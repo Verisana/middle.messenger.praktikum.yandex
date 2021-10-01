@@ -42,7 +42,7 @@ const fillComponentId = (
     }
 }
 
-export const compile2Dom = (
+export const compileToDom = (
     templateFunc: (context: Props) => string,
     proxyContext: Props
 ): HTMLElement => {

@@ -1,7 +1,7 @@
 import styles from "./inputField.css"
 import inputFieldTemplate from "./inputField.hbs"
 import { convertStyles2Strings } from "../../utils/utils"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { IInputFieldParams } from "./types"
 import { Block } from "../block"
 
@@ -18,6 +18,6 @@ export class InputField extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(inputFieldTemplate, this.props)
+        return compileToDom(inputFieldTemplate, this.props)
     }
 }

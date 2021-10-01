@@ -1,7 +1,7 @@
 import { Block } from "../../components/block"
 import styles from "./messenger.css"
 import messengerTemplate from "./messenger.hbs"
-import { compile2Dom } from "../../utils/dom_utils"
+import { compileToDom } from "../../utils/dom_utils"
 import { SideChat } from "../../modules/sideChat"
 import { Message } from "../../components/message"
 import { maxMessageLength } from "../../consts"
@@ -215,6 +215,6 @@ export class MessengerPage extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(messengerTemplate, this.props)
+        return compileToDom(messengerTemplate, this.props)
     }
 }
