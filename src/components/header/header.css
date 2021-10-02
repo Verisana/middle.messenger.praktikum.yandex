@@ -7,9 +7,5 @@ nav {
     max-width: 1140px;
     margin: auto;
     display: flex;
-}
-
-.logo {
-    margin: auto;
-    font-weight: 900;
+    min-height: 70px;
 }

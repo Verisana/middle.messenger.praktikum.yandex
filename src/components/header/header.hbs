@@ -1,13 +1,11 @@
 <header>
     <nav>
         {{#if isLogged}}
-            {{{ MenuButton }}}
+            {{{MenuButton}}}
         {{/if}}
-        <p class={{logoStyles}}>
-            Random Voice Companion
-        </p>
+        {{{Logo}}}
         {{#if isLogged}}
-            {{{ SettingsButton }}}
+            {{{SettingsButton}}}
         {{/if}}
     </nav>
 </header>

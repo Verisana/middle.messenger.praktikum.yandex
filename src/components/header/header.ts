@@ -1,4 +1,4 @@
-import styles from "./header.css"
+import "./header.css"
 import headerTemplate from "./header.hbs"
 import { compileToDom } from "../../utils/dom_utils"
 import { Button } from "../button"
@@ -14,11 +14,10 @@ export class Header extends Block {
         super({
             props: {
                 isLogged,
-                logoStyles: styles.logo,
                 MenuButton: new Button({
                     props: {
-                        imgSrc: "menu_white_48dp.svg",
                         rootClass: ["button__navbar"],
+                        imgSrc: "menu_white_48dp.svg",
                         imgStyle: ["button__image"]
                     }
                 }),
@@ -31,7 +30,8 @@ export class Header extends Block {
                         imgSrc: "settings_white_48dp.svg",
                         imgStyle: ["button__image"]
                     }
-                })
+                }),
+                Logo: new Logo({ props: {} })
             }
         })
     }
