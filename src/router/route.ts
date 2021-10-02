@@ -11,9 +11,9 @@ export class Route {
 
     private _rootQuery: string
 
-    constructor(pathname: string, page: () => Block, rootQuery: string) {
+    constructor(pathname: string, pageFactory: () => Block, rootQuery: string) {
         this._pathname = pathname
-        this._pageFactory = page
+        this._pageFactory = pageFactory
         this._page = null
         this._rootQuery = rootQuery
     }
