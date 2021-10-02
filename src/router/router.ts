@@ -12,8 +12,6 @@ class Router {
 
     private _errorRoute?: Route
 
-    private _serverErrorRoute?: Route
-
     routes: (Route | RedirectRoute)[]
 
     history: History
@@ -65,11 +63,6 @@ class Router {
         return this
     }
 
-    useServerError(pathname: string, block: () => Block) {
-        this._serverErrorRoute = new Route(pathname, block, this._rootQuery)
-        return this
-    }
-
     start() {
         window.onpopstate = (event: PopStateEvent) => {
             const target = event.currentTarget as Window
@@ -103,14 +96,6 @@ class Router {
     go(pathname: string) {
         this.history.pushState({}, "", pathname)
         this._onRoute(pathname)
-    }
-
-    goServerError() {
-        if (this._serverErrorRoute === undefined) {
-            throw new Error("First, call useServerError route settings method")
-        }
-        this.history.pushState({}, "", this._serverErrorRoute.pathname)
-        this._onRoute(this._serverErrorRoute.pathname)
     }
 
     back() {
