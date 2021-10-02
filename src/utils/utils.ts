@@ -130,3 +130,16 @@ export function isEmpty(obj: object): boolean {
         Object.getPrototypeOf(obj) === Object.prototype
     )
 }
+
+export function appendEvent(
+    events: Events,
+    eventName: string,
+    callback: EventListener
+): boolean {
+    if (events.eventName === undefined) {
+        events[eventName] = [callback]
+    } else {
+        events[eventName].push(callback)
+    }
+    return true
+}
