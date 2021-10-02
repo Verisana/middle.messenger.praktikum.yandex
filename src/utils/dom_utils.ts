@@ -75,3 +75,8 @@ export const compileToDom = (
     }
     return fragment.content.firstChild as HTMLElement
 }
+
+export function getBaseUrl(): string {
+    const { location } = window
+    return `${location.protocol}//${location.host}`
+}
