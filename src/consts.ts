@@ -5,10 +5,7 @@ export const rootQuery = "#App"
 
 export const defaultAvatar = "default-avatar.png"
 
-// Пока у нас нет глобального состояния, решил сюда для эмуляции прописывать
-// нужные параметры по авторизации. Можно менять, чтобы посмотреть, как
-// меняется контент в зависимости от положения переключателя
-export const isLogged = false
+export const isLogged = true
 
 export const inputFieldNames = {
     firstName: "first_name",
@@ -20,4 +17,14 @@ export const inputFieldNames = {
     phone: "phone",
     email: "email",
     message: "message"
+}
+
+export const urlSlugs = {
+    home: "/",
+    register: "/sign-up",
+    settings: "/settings",
+    messenger: "/messenger",
+    login: "/login",
+    error: "/404",
+    serverError: "/500"
 }
