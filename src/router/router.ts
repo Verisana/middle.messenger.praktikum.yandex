@@ -80,15 +80,19 @@ class Router {
     }
 
     _onRoute(pathname: string) {
-        const route = this.getRoute(pathname)
-        if (!route) {
-            return
+        let route = this.getRoute(pathname)
+
+        if (route === undefined) {
+            this.history.replaceState({}, "", this._errorRoute?.pathname)
+            route = this._errorRoute
         }
 
         if (this._currentRoute && this._currentRoute !== route) {
             this._currentRoute.leave()
         }
 
+        if (route === undefined)
+            throw new Error("Unexpected undefined for route")
         this._currentRoute = route
         route.render()
     }
@@ -112,12 +116,11 @@ class Router {
                 route_ instanceof RedirectRoute ? route_.redirect() : route_
             return route.match(pathname)
         })
-
         if (foundRoute instanceof RedirectRoute) {
             foundRoute = foundRoute.redirect()
         }
 
-        return foundRoute === undefined ? this._errorRoute : foundRoute
+        return foundRoute
     }
 }
 
