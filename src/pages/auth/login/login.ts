@@ -6,7 +6,7 @@ import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
 import { getLoginInputs } from "../../../modules/inputs"
-import { urlSlugs } from "../../../routes"
+import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
 
 const router = routerFactory()

@@ -8,7 +8,7 @@ import { Button } from "../../components/button"
 import { Block } from "../../components/block"
 import { getSettingsInputs } from "../../modules/inputs"
 import { routerFactory } from "../../router"
-import { urlSlugs } from "../../routes"
+import { urlSlugs } from "../../consts"
 
 const router = routerFactory()
 

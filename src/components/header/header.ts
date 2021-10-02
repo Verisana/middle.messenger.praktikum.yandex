@@ -2,10 +2,10 @@ import styles from "./header.css"
 import headerTemplate from "./header.hbs"
 import { compileToDom } from "../../utils/dom_utils"
 import { Button } from "../button"
-import { isLogged } from "../../consts"
+import { isLogged, urlSlugs } from "../../consts"
 import { Block } from "../block"
 import { routerFactory } from "../../router"
-import { urlSlugs } from "../../routes"
+import { Logo } from "../logo"
 
 const router = routerFactory()
 

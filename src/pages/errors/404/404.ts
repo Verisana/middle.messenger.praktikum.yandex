@@ -4,7 +4,7 @@ import { compileToDom } from "../../../utils/dom_utils"
 import { Block } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { routerFactory } from "../../../router"
-import { urlSlugs } from "../../../routes"
+import { urlSlugs } from "../../../consts"
 
 const router = routerFactory()
 
