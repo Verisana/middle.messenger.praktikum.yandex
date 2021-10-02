@@ -16,7 +16,8 @@ export class ErrorPage extends Block {
                     props: {
                         events: {
                             click: [router.go.bind(router, urlSlugs.home)]
-                        }
+                        },
+                        text: "Home"
                     }
                 })
             }
