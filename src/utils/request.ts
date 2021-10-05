@@ -1,3 +1,6 @@
+import { IRequestOptions } from "./types"
+import { queryString } from "./utils"
+
 export enum METHODS {
     GET = "GET",
     POST = "POST",
@@ -5,46 +8,35 @@ export enum METHODS {
     DELETE = "DELETE"
 }
 
-export type ParamAble = Record<string, string | number | Array<string | number>>
-
-function queryStringify(data: ParamAble) {
-    const keys = Object.keys(data)
-    return keys.reduce((result, key, index) => {
-        return `${result}${key}=${data[key]}${
-            index < keys.length - 1 ? "&" : ""
-        }`
-    }, "?")
-}
-
-export interface IRequestOptions {
-    method?: string
-    retries?: number
-    data?: ParamAble
-    timeout?: number
-    headers?: Record<string, string>
-}
-
 export class Request {
-    get(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.GET })
+    url: string
+
+    constructor(url?: string) {
+        this.url = url === undefined ? "" : url
     }
 
-    post(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.POST })
+    get(endpoint: string, options = {}) {
+        return this.request(endpoint, { ...options, method: METHODS.GET })
     }
 
-    put(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.PUT })
+    post(endpoint: string, options = {}) {
+        return this.request(endpoint, { ...options, method: METHODS.POST })
     }
 
-    delete(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.DELETE })
+    put(endpoint: string, options = {}) {
+        return this.request(endpoint, { ...options, method: METHODS.PUT })
+    }
+
+    delete(endpoint: string, options = {}) {
+        return this.request(endpoint, { ...options, method: METHODS.DELETE })
     }
 
     async request(
-        url: string,
+        endpoint: string,
         options: IRequestOptions
     ): Promise<XMLHttpRequest> {
+        const url = `${this.url}${endpoint}`
+
         const { retries = 1 } = options
 
         const onError = (err: Error) => {
@@ -71,7 +63,6 @@ export class Request {
             data,
             timeout = 3000
         } = options
-
         return new Promise((resolve, reject) => {
             if (!method) {
                 reject(new Error("No method provided"))
@@ -83,7 +74,7 @@ export class Request {
 
             xhr.open(
                 method,
-                isGet && !!data ? `${url}${queryStringify(data)}` : url
+                isGet && !!data ? `${url}${queryString(data)}` : url
             )
 
             Object.keys(headers).forEach((key) => {
