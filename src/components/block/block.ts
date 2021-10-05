@@ -7,9 +7,10 @@ import { EventBus } from "../../utils/event_bus"
 export abstract class Block {
     static EVENTS = {
         INIT: "init",
+        FLOW_CBM: "flow:component-before-mount",
+        FLOW_RENDER: "flow:render",
         FLOW_CDM: "flow:component-did-mount",
-        FLOW_CDU: "flow:component-did-update",
-        FLOW_RENDER: "flow:render"
+        FLOW_CDU: "flow:component-did-update"
     }
 
     private _root: DocumentFragment | null
@@ -43,9 +44,13 @@ export abstract class Block {
 
     protected _registerEvents(eventBus: EventBus) {
         eventBus.on(Block.EVENTS.INIT, this.init.bind(this))
+        eventBus.on(
+            Block.EVENTS.FLOW_CBM,
+            this._componentBeforeMount.bind(this)
+        )
+        eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
-        eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
     }
 
     protected _createResources() {
@@ -54,26 +59,37 @@ export abstract class Block {
 
     init() {
         this._createResources()
-        this.eventBus().emit(Block.EVENTS.FLOW_CDM)
+        this.eventBus().emit(Block.EVENTS.FLOW_CBM)
     }
 
-    protected _componentDidMount() {
-        Block.componentDidMount()
+    protected _componentBeforeMount() {
+        this.componentBeforeMount()
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
     }
 
-    static componentDidMount() {}
+    protected _componentDidMount() {
+        this.componentDidMount()
+    }
+
+    componentDidMount() {
+        return this
+    }
+
+    componentBeforeMount() {
+        return this
+    }
 
     protected _componentDidUpdate(newProps: Props) {
-        const response = Block.componentDidUpdate(newProps)
+        const response = this.componentDidUpdate(newProps)
         if (!response) {
             return
         }
-        this._render()
+
+        this.eventBus().emit(Block.EVENTS.FLOW_CBM)
     }
 
-    static componentDidUpdate(newProps: Props): boolean {
-        return newProps !== undefined
+    componentDidUpdate(newProps: Props): boolean {
+        return newProps !== undefined && this.props !== newProps
     }
 
     setProps = (nextProps: Props) => {
@@ -109,6 +125,8 @@ export abstract class Block {
             this._content.replaceChildren(block)
         }
         this._addEvents()
+
+        this.eventBus().emit(Block.EVENTS.FLOW_CDM)
     }
 
     abstract render(): HTMLElement
