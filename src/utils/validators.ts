@@ -100,3 +100,17 @@ export const inputValidationCallback = (event: Event) => {
         inputElement.setCustomValidity("")
     }
 }
+
+export function isFormDataValid(form: HTMLFormElement): boolean {
+    // Здесь TS не мог распарсить, что HTMLCollection мог быть проитерирован,
+    // Поэтому поставил any
+    // https://stackoverflow.com/questions/51723962/typescript-nodelistofelement-is-not-an-array-type-or-a-string-type
+    for (const inputElement of form.getElementsByTagName("input") as any) {
+        const validator = validators[inputElement.name]
+        if (!validator(inputElement.value)) {
+            inputElement.setCustomValidity(errorMessages[inputElement.name])
+            return false
+        }
+    }
+    return true
+}
