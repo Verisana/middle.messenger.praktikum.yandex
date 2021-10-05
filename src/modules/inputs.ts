@@ -23,6 +23,7 @@ const getPasswordField = (
                 props: {
                     events: {
                         focus: [inputValidationCallback],
+                        keyup: [inputValidationCallback],
                         blur: [inputValidationCallback]
                     },
                     type_: "password",
@@ -49,6 +50,7 @@ export const getMessageInput = (): InputConstruct[] => {
                     props: {
                         events: {
                             focus: [inputValidationCallback],
+                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -74,7 +76,8 @@ export const getLoginInputs = (): InputConstruct[] => {
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            blur: [inputValidationCallback]
+                            blur: [inputValidationCallback],
+                            keyup: [inputValidationCallback]
                         },
                         type_: "text",
                         name: inputFieldNames.login,
@@ -107,6 +110,7 @@ export const getRegisterInputs = (
                     props: {
                         events: {
                             focus: [inputValidationCallback],
+                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "tel",
@@ -128,6 +132,7 @@ export const getRegisterInputs = (
                     props: {
                         events: {
                             focus: [inputValidationCallback],
+                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -150,6 +155,7 @@ export const getRegisterInputs = (
                     props: {
                         events: {
                             focus: [inputValidationCallback],
+                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -170,6 +176,7 @@ export const getRegisterInputs = (
                     props: {
                         events: {
                             focus: [inputValidationCallback],
+                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -190,6 +197,7 @@ export const getRegisterInputs = (
                     props: {
                         events: {
                             focus: [inputValidationCallback],
+                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "email",
