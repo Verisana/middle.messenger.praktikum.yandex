@@ -71,13 +71,9 @@ export abstract class Block {
         this.componentDidMount()
     }
 
-    componentDidMount() {
-        return this
-    }
+    componentDidMount() {}
 
-    componentBeforeMount() {
-        return this
-    }
+    componentBeforeMount() {}
 
     protected _componentDidUpdate(newProps: Props) {
         const response = this.componentDidUpdate(newProps)
