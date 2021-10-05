@@ -16,9 +16,9 @@ router.useRedirect(
 )
 
 router.use(urlSlugs.register, layoutFactory(pages.register))
+router.use(urlSlugs.login, layoutFactory(pages.login))
 router.use(urlSlugs.settings, layoutFactory(pages.profileSettings))
 router.use(urlSlugs.messenger, layoutFactory(pages.messenger))
-router.use(urlSlugs.login, layoutFactory(pages.login))
 router.use(urlSlugs.serverError, layoutFactory(pages.serverError))
 router.useError(urlSlugs.error, layoutFactory(pages.error))
 
