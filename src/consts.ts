@@ -28,3 +28,5 @@ export const urlSlugs = {
     error: "/404",
     serverError: "/500"
 }
+
+export const backendUrl = "https://ya-praktikum.tech/api/v2"
