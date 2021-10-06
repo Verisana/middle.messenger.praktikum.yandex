@@ -207,3 +207,6 @@ export function set(
     return merge(object as PlainObject, result)
 }
 
+export function isObject(val: unknown): val is object {
+    return val === Object(val)
+}
