@@ -210,3 +210,17 @@ export function set(
 export function isObject(val: unknown): val is object {
     return val === Object(val)
 }
+
+export function zip(...args: Array<unknown>) {
+    return args.reduce((accumulator: PlainObject, object) => {
+        if (isObject(object)) {
+            for (const [key, value] of Object.entries(object)) {
+                if (!Object.prototype.hasOwnProperty.call(accumulator, key)) {
+                    accumulator[key] = value
+                }
+            }
+        }
+        return accumulator
+    }, {})
+}
+
