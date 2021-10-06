@@ -224,3 +224,9 @@ export function zip(...args: Array<unknown>) {
     }, {})
 }
 
+export function get(obj: PlainObject, path: string): PlainObject | undefined {
+    const keys = path.split(".")
+    return keys.reduce((result: PlainObject, key: string) => {
+        return result[key]
+    }, obj)
+}
