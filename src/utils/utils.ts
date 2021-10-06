@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import { Events } from "../components/block"
 import { PlainObject } from "./types"
-import { errorMessages, validators } from "./validators"
+import { isFormDataValid } from "./validators"
 
 export const findPropertyInListOfObj = (
     objects: IStyle[],
@@ -50,20 +50,11 @@ export const onSubmitMock = (event: Event) => {
     const form = event.target as HTMLFormElement
 
     // Не вижу смысла в этой валидации, но раз в задании есть, добавил
-    let isValid = true
-    for (const inputElement of form.getElementsByTagName("input")) {
-        const validator = validators[inputElement.name]
-        if (!validator(inputElement.value)) {
-            inputElement.setCustomValidity(errorMessages[inputElement.name])
-            isValid = false
-        }
-    }
-
-    if (isValid) {
+    if (isFormDataValid(form)) {
         const data = new FormData(form)
-        for (const [key, value] of data.entries()) {
+        data.forEach((value, key) => {
             console.log(`${key}: ${value}`)
-        }
+        })
         form.reset()
     }
 }
