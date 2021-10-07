@@ -208,13 +208,23 @@ export function set(
         throw new Error("path must be string")
     }
 
-    const result = path.split(".").reduceRight<PlainObject>(
-        (acc, key) => ({
-            [key]: acc
-        }),
-        value as any
-    )
-    return merge(object as PlainObject, result)
+    const splitted = path.split(".")
+    let toChangeValue: PlainObject | undefined
+    if (splitted.length > 1) {
+        const pathWithoutLast = splitted.slice(0, -1).join(".")
+        toChangeValue = get(object, pathWithoutLast)
+    } else {
+        toChangeValue = object
+    }
+    if (
+        toChangeValue !== undefined &&
+        toChangeValue[splitted.slice(-1)[0]] !== undefined
+    ) {
+        toChangeValue[splitted.slice(-1)[0]] = value
+        return object
+    }
+
+    return undefined
 }
 
 export function isObject(val: unknown): val is object {
@@ -232,11 +242,4 @@ export function zip(...args: Array<unknown>) {
         }
         return accumulator
     }, {})
-}
-
-export function get(obj: PlainObject, path: string): PlainObject | undefined {
-    const keys = path.split(".")
-    return keys.reduce((result: PlainObject, key: string) => {
-        return result[key]
-    }, obj)
 }
