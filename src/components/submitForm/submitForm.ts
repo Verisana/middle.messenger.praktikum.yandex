@@ -15,7 +15,23 @@ export class SubmitForm extends Block {
             settings.isNoBorder ? "form_no-border" : undefined,
             props.rootClass
         )
+        props.errorClass = convertStyles2Strings(
+            [styles],
+            "form__authorization-error",
+            props.errorClass
+        )
         super(params)
+    }
+
+    showError() {
+        const { content } = this
+
+        if (content !== null) {
+            const errorText = content.querySelector("#form-authorization-error")
+            errorText?.classList.add(styles["form__authorization-error_show"])
+        } else {
+            throw new Error("Can not show error, because content is null")
+        }
     }
 
     render(): HTMLElement {

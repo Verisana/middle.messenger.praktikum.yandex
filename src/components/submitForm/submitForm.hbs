@@ -7,6 +7,11 @@
     {{#each Inputs}}
         {{{this}}}
     {{/each}}
+    {{#if errorText}}
+        <p class={{errorClass}} id="form-authorization-error">
+            {{errorText}}
+        </p>
+    {{/if}}
     {{#if SubmitButton}}
         {{{SubmitButton}}}
     {{/if}}

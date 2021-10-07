@@ -40,7 +40,9 @@ export class LoginPage extends Block {
                             text: "Войти",
                             type_: "submit"
                         }
-                    })
+                    }),
+                    errorText:
+                        "Неправильно введены логин или пароль. Попробуйте еще раз"
                 }
             }),
             RegisterButton: new Button({
