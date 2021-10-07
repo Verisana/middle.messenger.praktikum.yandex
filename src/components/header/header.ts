@@ -7,6 +7,7 @@ import { Block } from "../block"
 import { routerFactory } from "../../router"
 import { Logo } from "../logo"
 import { store } from "../../store"
+import authController from "../../controllers/auth_controller"
 
 const router = routerFactory()
 
@@ -31,6 +32,16 @@ export class Header extends Block {
                         },
                         rootClass: ["button__navbar"],
                         imgSrc: "settings_white_48dp.svg",
+                        imgStyle: ["button__image"]
+                    }
+                }),
+                LogoutButton: new Button({
+                    props: {
+                        events: {
+                            click: [authController.logout.bind(authController)]
+                        },
+                        rootClass: ["button__navbar"],
+                        imgSrc: "logout_white_48dp.svg",
                         imgStyle: ["button__image"]
                     }
                 }),

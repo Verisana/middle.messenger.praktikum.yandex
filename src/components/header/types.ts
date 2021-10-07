@@ -6,5 +6,6 @@ export interface IHeaderProps extends Props {
     isLogged: boolean
     MenuButton: Button
     SettingsButton: Button
+    LogoutButton: Button
     Logo: Logo
 }
