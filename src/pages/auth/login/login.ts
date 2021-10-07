@@ -7,31 +7,23 @@ import { Block } from "../../../components/block"
 import { getLoginInputs } from "../../../modules/inputs"
 import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
-import { isFormDataValid } from "../../../utils/validators"
 import authController from "../../../controllers/auth_controller"
 import { ILoginPageProps } from "."
+import { authSubmitBuilder } from "../utils"
 
 const router = routerFactory()
 
 export class LoginPage extends Block {
-    protected static async onLoginClick(event: Event) {
-        console.log("Submitted!")
-        event.preventDefault()
-        const form = event.target as HTMLFormElement
-        // Не вижу смысла в этой валидации, но раз в задании есть, добавил
-        if (isFormDataValid(form)) {
-            const data = new FormData(form)
-            await authController.login(data)
-            form.reset()
-        }
-    }
-
     constructor() {
         const props: ILoginPageProps = {
             LoginSubmitForm: new SubmitForm({
                 props: {
                     events: {
-                        submit: [LoginPage.onLoginClick]
+                        submit: [
+                            authSubmitBuilder(
+                                authController.login.bind(authController)
+                            )
+                        ]
                     },
                     formHeaderText: "Введите для авторизации",
                     Inputs: getLoginInputs(),
