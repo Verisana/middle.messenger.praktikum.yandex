@@ -58,8 +58,13 @@ export class Request {
         options: IRequestOptions
     ): Promise<XMLHttpRequest> => {
         const {
-            headers = { "content-type": "application/json" },
+            headers = {
+                "content-type": "application/json",
+                accept: "application/json"
+            },
             method = METHODS.GET,
+            withCredentials = false,
+            responseType = "json",
             data,
             timeout = 3000
         } = options
@@ -76,6 +81,10 @@ export class Request {
                 method,
                 isGet && !!data ? `${url}${queryString(data)}` : url
             )
+            xhr.withCredentials = withCredentials
+
+            // @ts-expect-error
+            xhr.responseType = responseType
 
             Object.keys(headers).forEach((key) => {
                 xhr.setRequestHeader(key, headers[key])
