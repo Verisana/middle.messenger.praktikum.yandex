@@ -47,14 +47,17 @@ class Router {
             blockBuilders
         )) {
             routes[redirectName] = new Route(
-                pathname,
+                redirectName,
                 blockBuilder,
                 this._rootQuery
             )
         }
-        const redirectRoute = new RedirectRoute(routes, decisionFunction)
+        const redirectRoute = new RedirectRoute(
+            pathname,
+            routes,
+            decisionFunction
+        )
         this.routes.push(redirectRoute)
-
         return this
     }
 
@@ -119,13 +122,14 @@ class Router {
     }
 
     getRoute(pathname: string): Route | undefined {
-        let foundRoute = this.routes.find((route_) => {
-            const route =
-                route_ instanceof RedirectRoute ? route_.redirect() : route_
+        let foundRoute = this.routes.find((route) => {
             return route.match(pathname)
         })
         if (foundRoute instanceof RedirectRoute) {
             foundRoute = foundRoute.redirect()
+        }
+        if (foundRoute !== undefined) {
+            this.history.replaceState({}, "", foundRoute.pathname)
         }
 
         return foundRoute

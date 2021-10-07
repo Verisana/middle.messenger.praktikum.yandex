@@ -1,3 +1,4 @@
+import { isEqual } from "../utils/utils"
 import { Route } from "./route"
 
 export class RedirectRoute {
@@ -5,9 +6,20 @@ export class RedirectRoute {
 
     private _routes: Record<string, Route>
 
-    constructor(routes: Record<string, Route>, decisionFunction: () => string) {
+    private _pathname: string
+
+    constructor(
+        pathname: string,
+        routes: Record<string, Route>,
+        decisionFunction: () => string
+    ) {
         this._routes = routes
         this._decisionFunction = decisionFunction
+        this._pathname = pathname
+    }
+
+    match(pathname: string) {
+        return isEqual({ pathname }, { pathname: this._pathname })
     }
 
     redirect(): Route {
