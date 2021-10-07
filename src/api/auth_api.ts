@@ -1,3 +1,4 @@
+import { IRequestOptions } from "../utils/types"
 import { BaseAPI } from "./base_api"
 import { ILoginRequest, IRegisterRequest } from "./types"
 
@@ -11,7 +12,10 @@ export class AuthAPI extends BaseAPI {
     }
 
     register(data: IRegisterRequest) {
-        return this.request.post("/signup", { data })
+        return this.request.post("/signup", {
+            data,
+            withCredentials: true
+        } as IRequestOptions)
     }
 
     logout() {
@@ -19,6 +23,8 @@ export class AuthAPI extends BaseAPI {
     }
 
     userRead() {
-        return this.request.get("/user")
+        return this.request.get("/user", {
+            withCredentials: true
+        } as IRequestOptions)
     }
 }
