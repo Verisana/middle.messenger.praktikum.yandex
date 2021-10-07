@@ -24,7 +24,7 @@ export interface IRegisterRequest extends RequestData {
     phone: string
 }
 
-export interface ILoginRequest {
+export interface ILoginRequest extends RequestData {
     login: string
     password: string
 }
