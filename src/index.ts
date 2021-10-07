@@ -1,25 +1,43 @@
 import "@fontsource/roboto"
 import { routerFactory } from "./router"
 import { pages } from "./pages"
-import { isLogged, urlSlugs } from "./consts"
+import { urlSlugs } from "./consts"
 import { layoutFactory } from "./layout"
+import { store } from "./store"
+import authController from "./controllers/auth_controller"
 
 const router = routerFactory()
 
-router.useRedirect(
-    urlSlugs.home,
-    {
-        login: layoutFactory(pages.login),
-        messenger: layoutFactory(pages.messenger)
-    },
-    () => (isLogged ? "messenger" : "login")
-)
+async function main() {
+    await authController.userRead()
 
-router.use(urlSlugs.register, layoutFactory(pages.register))
-router.use(urlSlugs.login, layoutFactory(pages.login))
-router.use(urlSlugs.settings, layoutFactory(pages.profileSettings))
-router.use(urlSlugs.messenger, layoutFactory(pages.messenger))
-router.use(urlSlugs.serverError, layoutFactory(pages.serverError))
-router.useError(urlSlugs.error, layoutFactory(pages.error))
+    router.useRedirect(
+        urlSlugs.home,
+        {
+            login: layoutFactory(pages.login),
+            messenger: layoutFactory(pages.messenger)
+        },
+        () => (store.select("user") !== undefined ? "messenger" : "login")
+    )
 
-router.start()
+    router.use(urlSlugs.register, layoutFactory(pages.register))
+    router.use(urlSlugs.login, layoutFactory(pages.login))
+    router.use(urlSlugs.settings, layoutFactory(pages.profileSettings))
+    router.use(urlSlugs.messenger, layoutFactory(pages.messenger))
+    router.use(urlSlugs.serverError, layoutFactory(pages.serverError))
+    router.useError(urlSlugs.error, layoutFactory(pages.error))
+
+    router.start()
+
+    store.setValue("message.text", "Before Test")
+
+    setTimeout(() => {
+        store.setValue("message.text", "Test")
+    }, 3000)
+}
+
+main()
+    .then(() => {})
+    .catch((error) => {
+        console.error(error)
+    })
