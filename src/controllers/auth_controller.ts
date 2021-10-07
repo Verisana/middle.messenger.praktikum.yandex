@@ -12,6 +12,15 @@ class AuthController {
         this.api = new AuthAPI()
     }
 
+    async logout() {
+        try {
+            await this.api.logout()
+            await this.userRead()
+        } catch (e) {
+            await this.userRead()
+        }
+    }
+
     async register(formData: FormData) {
         try {
             const data: IRegisterRequest = {
