@@ -1,12 +1,15 @@
 import { v4 as uuidv4 } from "uuid"
 
 import styles from "./block.css"
-import { Props, IMeta, BlockParams } from "./types"
+import { Props, IMeta, BlockParams, StoreMappings } from "./types"
 import { EventBus } from "../../utils/event_bus"
+import { set } from "../../utils/utils"
+import { store } from "../../store"
 
 export abstract class Block {
     static EVENTS = {
         INIT: "init",
+        STATE_SDU: "state:state-did-update",
         FLOW_CBM: "flow:component-before-mount",
         FLOW_RENDER: "flow:render",
         FLOW_CDM: "flow:component-did-mount",
@@ -23,9 +26,11 @@ export abstract class Block {
 
     eventBus: () => EventBus
 
+    storeMappings: StoreMappings
+
     constructor(params: BlockParams) {
         const eventBus = new EventBus()
-        const { settings, props = {} } = params
+        const { settings, props, storeMappings = {} } = params
         this._meta = {
             params
         }
@@ -34,6 +39,10 @@ export abstract class Block {
             this._meta.id = uuidv4()
         }
         props.__id = this._meta.id
+
+        // Обязательно до того, как пропсы стали прокси, чтобы не перерисовывать компоненты
+        this.storeMappings = storeMappings
+        this._initMappingValues()
         this.props = this._makePropsProxy(props)
         this.eventBus = () => eventBus
         this._root = null
@@ -51,6 +60,9 @@ export abstract class Block {
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
+        store
+            .eventBus()
+            .on(Block.EVENTS.STATE_SDU, this._storeDidUpdate.bind(this))
     }
 
     protected _createResources() {
@@ -60,6 +72,30 @@ export abstract class Block {
     init() {
         this._createResources()
         this.eventBus().emit(Block.EVENTS.FLOW_CBM)
+    }
+
+    protected _initMappingValues() {
+        for (const [storeSelector, propsSelectors] of Object.entries(
+            this.storeMappings
+        )) {
+            const value = store.select(storeSelector)
+            if (value !== undefined) {
+                for (const propsSelector of propsSelectors) {
+                    set(this._meta.params.props, propsSelector, value)
+                }
+            }
+        }
+    }
+
+    protected _storeDidUpdate(selector: string, value: unknown) {
+        const propsSelectors = this.storeMappings[selector]
+
+        // Обновляем только те компоненты, в которых нашли этот селектор
+        if (propsSelectors !== undefined) {
+            for (const propsSelector of propsSelectors) {
+                set(this.props, propsSelector, value)
+            }
+        }
     }
 
     protected _componentBeforeMount() {
@@ -97,7 +133,9 @@ export abstract class Block {
     }
 
     get root(): DocumentFragment {
-        if (this._root === null) throw new Error("Element was not created")
+        if (this._root === null) {
+            throw new Error("Element was not created")
+        }
         return this._root
     }
 
