@@ -11,7 +11,7 @@ import { SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
 import { getMessageInput } from "../../modules/inputs"
 import { Button } from "../../components/button"
-import { IMessengerPageParams } from "."
+import { IMessengerPageParams } from "./types"
 
 const sideChatList = [
     new SideChat({
