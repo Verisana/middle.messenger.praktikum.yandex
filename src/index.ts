@@ -28,12 +28,6 @@ async function main() {
     router.useError(urlSlugs.error, layoutFactory(pages.error))
 
     router.start()
-
-    store.setValue("message.text", "Before Test")
-
-    setTimeout(() => {
-        store.setValue("message.text", "Test")
-    }, 3000)
 }
 
 main()
