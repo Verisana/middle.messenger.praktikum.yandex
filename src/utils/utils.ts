@@ -237,15 +237,9 @@ export function set(
     } else {
         toChangeValue = object
     }
-    if (
-        toChangeValue !== undefined &&
-        toChangeValue[splitted.slice(-1)[0]] !== undefined
-    ) {
-        toChangeValue[splitted.slice(-1)[0]] = value
-        return object
-    }
 
-    return undefined
+    toChangeValue[splitted.slice(-1)[0]] = value
+    return object
 }
 
 export function isObject(val: unknown): val is object {
