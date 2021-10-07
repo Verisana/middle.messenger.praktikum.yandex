@@ -1,24 +1,22 @@
-export interface IBadRequestResponse {
+import { RequestData } from "../utils/types"
+
+export interface IBadRequest {
     reason: string
 }
 
-export interface Id {
+export interface UserData {
     id: string
-}
-
-export interface ILogin {
     login: string
-}
-
-export interface IAvatar {
+    first_name: string
+    second_name: string
+    display_name: string
+    email: string
+    phone: string
     avatar: string
 }
 
-export interface ITitle {
-    title: string
-}
-
-export interface IRegisterRequest extends ILogin {
+export interface IRegisterRequest extends RequestData {
+    login: string
     password: string
     first_name: string
     second_name: string
@@ -26,17 +24,10 @@ export interface IRegisterRequest extends ILogin {
     phone: string
 }
 
-export interface ILoginRequest
-    extends Omit<
-        IRegisterRequest,
-        "first_name" | "second_name" | "email" | "phone"
-    > {}
-
-export type UserResponse = Omit<IRegisterRequest, "password"> &
-    Id &
-    IAvatar & {
-        display_name: string
-    }
+export interface ILoginRequest {
+    login: string
+    password: string
+}
 
 export type ProfileUpdateRequest = Omit<IRegisterRequest, "password"> & {
     display_name: string
@@ -53,16 +44,17 @@ export interface IChatsRequest {
     title: string
 }
 
-export type IChatsResponse = Id &
-    IAvatar & {
-        title: string
-        unread_count: number
-        last_message: {
-            user: Omit<UserResponse, "id" | "display_name">
-            time: string
-            content: string
-        }
+export type IChatsResponse = {
+    id: string
+    avatar: string
+    title: string
+    unread_count: number
+    last_message: {
+        user: Omit<UserData, "id" | "display_name">
+        time: string
+        content: string
     }
+}
 
 export interface IChatsDeleteRequest {
     chatId: string
@@ -70,5 +62,9 @@ export interface IChatsDeleteRequest {
 
 export interface IChatsDeleteResponse {
     userId: number
-    result: Id & IAvatar & ITitle
+    result: {
+        id: string
+        avatar: string
+        title: string
+    }
 }
