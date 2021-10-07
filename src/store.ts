@@ -4,8 +4,6 @@ import { EventBus } from "./utils/event_bus"
 import { PlainObject } from "./utils/types"
 import { get, set } from "./utils/utils"
 
-const eventBus = new EventBus()
-
 export class Store {
     static EVENTS = {
         SDU: "state-did-update"
@@ -16,11 +14,17 @@ export class Store {
     // @ts-expect-error
     private _data: PlainObject
 
+    // @ts-expect-error
+    eventBus: () => EventBus
+
     constructor(data: PlainObject) {
+        const eventBus = new EventBus()
+
         if (Store.__instance) {
             return Store.__instance
         }
         this._data = data
+        this.eventBus = () => eventBus
 
         Store.__instance = this
     }
@@ -35,7 +39,12 @@ export class Store {
 
     setValue(path: string, value: unknown): boolean {
         set(this.data, path, value)
-        eventBus.emit(Block.EVENTS.STATE_SDU, path, value)
+        this.eventBus().emit(Block.EVENTS.STATE_SDU, path, value)
+        return true
+    }
+
+    setUndefined(path: string): boolean {
+        set(this.data, path, undefined)
         return true
     }
 }
@@ -44,17 +53,6 @@ export interface IStoreData {
     user?: UserData
 }
 
-const data: IStoreData = {
-    user: {
-        id: "2",
-        login: "loginTest",
-        first_name: "Ff",
-        second_name: "dF",
-        phone: "3432424323",
-        avatar: "/test/df.jpeg",
-        email: "dfsdfs@fdfd.ru",
-        display_name: "nameDisplay"
-    }
-}
+const data: IStoreData = {}
 
 export const store = new Store(data)
