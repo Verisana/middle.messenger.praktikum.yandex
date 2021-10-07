@@ -45,6 +45,18 @@ export const convertStyles2Strings = (
     return classNames(totalArg)
 }
 
+export function invertStyleMapping(styles: IStyle[]): IStyle[] {
+    const result: IStyle[] = []
+    for (const style of styles) {
+        result.push(
+            Object.entries(style).reduce((acc, [key, item]) => {
+                acc[item] = key
+                return acc
+            }, {} as IStyle)
+        )
+    }
+    return result
+}
 export const onSubmitMock = (event: Event) => {
     event.preventDefault()
     const form = event.target as HTMLFormElement
