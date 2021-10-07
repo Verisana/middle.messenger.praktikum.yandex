@@ -8,7 +8,10 @@ export class AuthAPI extends BaseAPI {
     }
 
     login(data: ILoginRequest): Promise<XMLHttpRequest> {
-        return this.request.post("/signin", { data })
+        return this.request.post("/signin", {
+            data,
+            withCredentials: true
+        } as IRequestOptions)
     }
 
     register(data: IRegisterRequest) {
@@ -19,7 +22,9 @@ export class AuthAPI extends BaseAPI {
     }
 
     logout() {
-        return this.request.post("/logout")
+        return this.request.post("/logout", {
+            withCredentials: true
+        } as IRequestOptions)
     }
 
     userRead() {
