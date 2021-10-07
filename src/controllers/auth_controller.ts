@@ -1,5 +1,6 @@
-import { AuthAPI, IRegisterRequest } from "../api"
+import { AuthAPI, ILoginRequest, IRegisterRequest } from "../api"
 import { urlSlugs } from "../consts"
+import { ILoginPageProps, LoginPage } from "../pages/auth/login"
 import { routerFactory } from "../router"
 import { store } from "../store"
 
@@ -12,10 +13,27 @@ class AuthController {
         this.api = new AuthAPI()
     }
 
+    async login(formData: FormData) {
+        try {
+            const data: ILoginRequest = {
+                login: String(formData.get("login")),
+                password: String(formData.get("password"))
+            }
+            await this.api.login(data)
+            await this.userRead()
+            router.go(urlSlugs.home)
+        } catch (e) {
+            const loginPage = router.page.props.Content as LoginPage
+            const loginPageProps = loginPage.props as ILoginPageProps
+            loginPageProps.LoginSubmitForm.showError()
+        }
+    }
+
     async logout() {
         try {
             await this.api.logout()
             await this.userRead()
+            router.go(urlSlugs.home)
         } catch (e) {
             await this.userRead()
         }
