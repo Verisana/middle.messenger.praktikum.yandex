@@ -34,7 +34,7 @@ export class Store {
     }
 
     select(path: string): PlainObject | undefined {
-        return get(this.data, path)
+        return get(this.data, path, false)
     }
 
     setValue(path: string, value: unknown): boolean {
