@@ -79,6 +79,14 @@ class Router {
         this._onRoute(window.location.pathname)
     }
 
+    get page(): Block {
+        const route = this._currentRoute
+        if (route !== null && route.page !== null) {
+            return route.page
+        }
+        throw new Error("Page must be found!")
+    }
+
     _onRoute(pathname: string) {
         let route = this.getRoute(pathname)
 

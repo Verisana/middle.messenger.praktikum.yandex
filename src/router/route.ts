@@ -22,6 +22,10 @@ export class Route {
         return this._pathname
     }
 
+    get page(): Block | null {
+        return this._page
+    }
+
     navigate(pathname: string) {
         if (this.match(pathname)) {
             this._pathname = pathname
