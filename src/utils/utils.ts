@@ -57,6 +57,7 @@ export function invertStyleMapping(styles: IStyle[]): IStyle[] {
     }
     return result
 }
+
 export const onSubmitMock = (event: Event) => {
     event.preventDefault()
     const form = event.target as HTMLFormElement
@@ -197,11 +198,19 @@ export function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
     return lhs
 }
 
-export function get(obj: PlainObject, path: string): PlainObject | undefined {
+export function get(
+    obj: PlainObject,
+    path: string,
+    createIfNotExist: boolean = true
+): PlainObject {
     const keys = path.split(".")
     return keys.reduce((result: PlainObject, key: string) => {
         if (result[key] === undefined) {
-            result[key] = {}
+            if (createIfNotExist) {
+                result[key] = {}
+            } else {
+                return undefined
+            }
         }
         return result[key]
     }, obj)
