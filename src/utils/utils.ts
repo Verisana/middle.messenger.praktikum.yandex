@@ -185,6 +185,16 @@ export function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
     return lhs
 }
 
+export function get(obj: PlainObject, path: string): PlainObject | undefined {
+    const keys = path.split(".")
+    return keys.reduce((result: PlainObject, key: string) => {
+        if (result[key] === undefined) {
+            result[key] = {}
+        }
+        return result[key]
+    }, obj)
+}
+
 export function set(
     object: PlainObject | unknown,
     path: string,
