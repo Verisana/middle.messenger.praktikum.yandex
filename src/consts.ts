@@ -5,8 +5,6 @@ export const rootQuery = "#App"
 
 export const defaultAvatar = "default-avatar.png"
 
-export const isLogged = true
-
 export const inputFieldNames = {
     firstName: "first_name",
     secondName: "second_name",

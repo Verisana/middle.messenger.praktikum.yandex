@@ -2,15 +2,18 @@ import "./header.css"
 import headerTemplate from "./header.hbs"
 import { compileToDom } from "../../utils/dom_utils"
 import { Button } from "../button"
-import { isLogged, urlSlugs } from "../../consts"
+import { urlSlugs } from "../../consts"
 import { Block } from "../block"
 import { routerFactory } from "../../router"
 import { Logo } from "../logo"
+import { store } from "../../store"
 
 const router = routerFactory()
 
 export class Header extends Block {
     constructor() {
+        const isLogged = store.select("user") !== undefined
+
         super({
             props: {
                 isLogged,
