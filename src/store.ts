@@ -1,5 +1,5 @@
-import { UserData } from "./api/types"
 import { Block } from "./components/block"
+import { IStoreData } from "./types"
 import { EventBus } from "./utils/event_bus"
 import { PlainObject } from "./utils/types"
 import { get, set } from "./utils/utils"
@@ -12,12 +12,12 @@ export class Store {
     static __instance: Store
 
     // @ts-expect-error
-    private _data: PlainObject
+    private _data: IStoreData
 
     // @ts-expect-error
     eventBus: () => EventBus
 
-    constructor(data: PlainObject) {
+    constructor(data: IStoreData) {
         const eventBus = new EventBus()
 
         if (Store.__instance) {
@@ -29,7 +29,7 @@ export class Store {
         Store.__instance = this
     }
 
-    get data(): object {
+    get data(): IStoreData {
         return this._data
     }
 
@@ -49,10 +49,4 @@ export class Store {
     }
 }
 
-export interface IStoreData {
-    user?: UserData
-}
-
-const data: IStoreData = {}
-
-export const store = new Store(data)
+export const store = new Store({})
