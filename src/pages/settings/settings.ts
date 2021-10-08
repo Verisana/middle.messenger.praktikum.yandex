@@ -1,34 +1,91 @@
 import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
-import { onSubmitMock, convertStyles2Strings } from "../../utils/utils"
+import { convertStyles2Strings } from "../../utils/utils"
 import { compileToDom } from "../../utils/dom_utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Button } from "../../components/button"
 import { Block } from "../../components/block"
-import { getSettingsInputs } from "../../modules/inputs"
+import {
+    getAvatarInput,
+    getPasswordInputs,
+    getSettingsInputs
+} from "../../modules/inputs"
 import { routerFactory } from "../../router"
 import { urlSlugs } from "../../consts"
+import { authSubmitBuilder } from "../auth/utils"
+import userController from "../../controllers/user_controller"
 
 const router = routerFactory()
 
 export class SettingsPage extends Block {
     constructor() {
         super({
+            storeMappings: {
+                "user.avatar": ["avatarLink"]
+            },
             props: {
-                // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
-                linkToImage:
-                    "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
                 avatarStyle: convertStyles2Strings([layoutStyles], "avatar"),
                 SettingsForm: new SubmitForm({
                     props: {
-                        formHeaderText: "Данные для редактирования",
+                        events: {
+                            submit: [
+                                authSubmitBuilder(
+                                    userController.updateProfile.bind(
+                                        userController
+                                    )
+                                )
+                            ]
+                        },
+                        formHeaderText: "Отредактировать данные профиля",
                         Inputs: getSettingsInputs(),
                         SubmitButton: new Button({
                             props: {
-                                events: {
-                                    submit: [onSubmitMock]
-                                },
+                                text: "Сохранить",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                AvatarForm: new SubmitForm({
+                    settings: {
+                        isNoBorder: true
+                    },
+                    props: {
+                        events: {
+                            submit: [
+                                authSubmitBuilder(
+                                    userController.updateAvatar.bind(
+                                        userController
+                                    )
+                                )
+                            ]
+                        },
+                        formHeaderText: "Для замены загрузите новый аватар",
+                        Inputs: getAvatarInput(),
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Загрузить",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                PasswordForm: new SubmitForm({
+                    props: {
+                        events: {
+                            submit: [
+                                authSubmitBuilder(
+                                    userController.updatePassword.bind(
+                                        userController
+                                    )
+                                )
+                            ]
+                        },
+                        formHeaderText: "Изменить пароль",
+                        Inputs: getPasswordInputs(),
+                        SubmitButton: new Button({
+                            props: {
                                 text: "Сохранить",
                                 type_: "submit"
                             }
