@@ -1,4 +1,5 @@
 import { BlockParams, Props } from "../../components/block"
+import { Button } from "../../components/button"
 import { Message } from "../../components/message"
 import { SubmitForm } from "../../components/submitForm"
 import { SideChatBar } from "../../modules/sideChatBar"
@@ -6,6 +7,8 @@ import { SideChatBar } from "../../modules/sideChatBar"
 export interface IMessengerPageProps extends Props {
     SideChatBar: SideChatBar
     SendMessage: SubmitForm
+    RemovePersonButton: Button
+    AddPersonButton: Button
     rootClass?: string | string[]
     Messages?: Message[]
 }

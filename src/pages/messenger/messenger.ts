@@ -14,6 +14,7 @@ import { Button } from "../../components/button"
 import { IMessengerPageParams } from "./types"
 import { SearchBar } from "../../modules/searchBar"
 import { InputField } from "../../components/inputField"
+import { chatsController } from "../../controllers"
 
 const sideChatList = [
     new SideChat({
@@ -187,10 +188,38 @@ export class MessengerPage extends Block {
     constructor() {
         const params: IMessengerPageParams = {
             props: {
+                RemovePersonButton: new Button({
+                    props: {
+                        rootClass: ["button__navbar"],
+                        imgSrc: "person_remove_white_48dp.svg",
+                        imgStyle: ["button__image"]
+                    }
+                }),
+                AddPersonButton: new Button({
+                    props: {
+                        rootClass: ["button__navbar"],
+                        imgSrc: "person_add_white_48dp.svg",
+                        imgStyle: ["button__image"]
+                    }
+                }),
                 rootClass: convertStylesToStrings([styles], "messenger"),
                 SideChatBar: new SideChatBar({
                     props: {
                         SideChats: sideChatList,
+                        ChatCreateButton: new Button({
+                            props: {
+                                rootClass: ["button__navbar"],
+                                imgSrc: "add_white_48dp.svg",
+                                imgStyle: ["button__image"]
+                            }
+                        }),
+                        ChatDeleteButton: new Button({
+                            props: {
+                                rootClass: ["button__navbar"],
+                                imgSrc: "remove_circle_white_48dp.svg",
+                                imgStyle: ["button__image"]
+                            }
+                        }),
                         SearchBar: new SearchBar({
                             props: {
                                 SearchField: new InputField({ props: {} }),
@@ -226,6 +255,10 @@ export class MessengerPage extends Block {
             }
         }
         super(params)
+    }
+
+    componentBeforeMount() {
+        return chatsController.get().then((value) => value)
     }
 
     render(): HTMLElement {
