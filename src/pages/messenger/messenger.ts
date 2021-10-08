@@ -6,12 +6,14 @@ import { SideChat } from "../../modules/sideChat"
 import { Message } from "../../components/message"
 import { maxMessageLength } from "../../consts"
 import { TimeInfo } from "../../components/timeInfo"
-import { convertStyles2Strings, onSubmitMock } from "../../utils/utils"
+import { convertStylesToStrings, onSubmitMock } from "../../utils/utils"
 import { SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
 import { getMessageInput } from "../../modules/inputs"
 import { Button } from "../../components/button"
 import { IMessengerPageParams } from "./types"
+import { SearchBar } from "../../modules/searchBar"
+import { InputField } from "../../components/inputField"
 
 const sideChatList = [
     new SideChat({
@@ -185,10 +187,22 @@ export class MessengerPage extends Block {
     constructor() {
         const params: IMessengerPageParams = {
             props: {
-                rootClass: convertStyles2Strings([styles], "messenger"),
+                rootClass: convertStylesToStrings([styles], "messenger"),
                 SideChatBar: new SideChatBar({
                     props: {
-                        SideChats: sideChatList
+                        SideChats: sideChatList,
+                        SearchBar: new SearchBar({
+                            props: {
+                                SearchField: new InputField({ props: {} }),
+                                SearchButton: new Button({
+                                    props: {
+                                        rootClass: ["button__navbar"],
+                                        imgSrc: "search_white_48dp.svg",
+                                        imgStyle: ["button__image"]
+                                    }
+                                })
+                            }
+                        })
                     }
                 }),
                 Messages: messages,
