@@ -1,5 +1,5 @@
 import { AuthAPI, ILoginRequest, IRegisterRequest } from "../api"
-import { urlSlugs } from "../consts"
+import { backendStaticUrl, defaultAvatar, urlSlugs } from "../consts"
 import { ILoginPageProps, LoginPage } from "../pages/auth/login"
 import { routerFactory } from "../router"
 import { store } from "../store"
@@ -60,6 +60,12 @@ class AuthController {
     async userRead() {
         try {
             const response = await this.api.userRead()
+            response.response.avatar =
+                response.response.avatar === null
+                    ? defaultAvatar
+                    : `${encodeURI(backendStaticUrl)}${encodeURI(
+                          response.response.avatar
+                      )}`
             store.setValue("user", response.response)
         } catch (e) {
             store.setUndefined("user")
