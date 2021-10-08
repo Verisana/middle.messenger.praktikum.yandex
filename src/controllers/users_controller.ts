@@ -2,7 +2,7 @@ import { UsersAPI, IProfilePasswordUpdateRequest } from "../api"
 import { IProfileUpdateRequest } from "../api/types"
 import { store } from "../store"
 
-class UserController {
+class UsersController {
     private api: UsersAPI
 
     constructor() {
@@ -51,4 +51,4 @@ class UserController {
     }
 }
 
-export default new UserController()
+export default new UsersController()
