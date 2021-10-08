@@ -1,20 +1,56 @@
 import { IRequestOptions } from "../utils/types"
 import { BaseAPI } from "./base_api"
+import {
+    IChatsCreateRequest,
+    IChatsDeleteRequest,
+    IChatsRequest,
+    IChatsUsersModifyRequest
+} from "./types"
 
 export class ChatsAPI extends BaseAPI {
     constructor() {
         super("/chats")
     }
 
-    get() {}
+    get(data?: IChatsRequest): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data,
+            withCredentials: true
+        }
+        return this.request.get("", options)
+    }
 
-    create() {}
+    create(data: IChatsCreateRequest): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data,
+            withCredentials: true
+        }
+        return this.request.post("", options)
+    }
 
-    delete() {}
+    delete(data: IChatsDeleteRequest): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data,
+            withCredentials: true
+        }
+        return this.request.delete("", options)
+    }
 
-    addUsers() {}
+    addUsers(data: IChatsUsersModifyRequest): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data,
+            withCredentials: true
+        }
+        return this.request.put("/users", options)
+    }
 
-    deleteUsers() {}
+    deleteUsers(data: IChatsUsersModifyRequest): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data,
+            withCredentials: true
+        }
+        return this.request.delete("/users", options)
+    }
 
     updateAvatar(data: FormData): Promise<XMLHttpRequest> {
         const options: IRequestOptions = {
