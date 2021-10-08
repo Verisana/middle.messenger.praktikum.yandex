@@ -14,7 +14,7 @@ import {
 import { routerFactory } from "../../router"
 import { urlSlugs } from "../../consts"
 import { authSubmitBuilder } from "../auth/utils"
-import userController from "../../controllers/user_controller"
+import { usersController } from "../../controllers"
 
 const router = routerFactory()
 
@@ -31,8 +31,8 @@ export class SettingsPage extends Block {
                         events: {
                             submit: [
                                 authSubmitBuilder(
-                                    userController.updateProfile.bind(
-                                        userController
+                                    usersController.updateProfile.bind(
+                                        usersController
                                     )
                                 )
                             ]
@@ -55,8 +55,8 @@ export class SettingsPage extends Block {
                         events: {
                             submit: [
                                 authSubmitBuilder(
-                                    userController.updateAvatar.bind(
-                                        userController
+                                    usersController.updateAvatar.bind(
+                                        usersController
                                     )
                                 )
                             ]
@@ -76,8 +76,8 @@ export class SettingsPage extends Block {
                         events: {
                             submit: [
                                 authSubmitBuilder(
-                                    userController.updatePassword.bind(
-                                        userController
+                                    usersController.updatePassword.bind(
+                                        usersController
                                     )
                                 )
                             ]

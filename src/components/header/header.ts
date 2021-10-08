@@ -7,7 +7,7 @@ import { Block } from "../block"
 import { routerFactory } from "../../router"
 import { Logo } from "../logo"
 import { store } from "../../store"
-import authController from "../../controllers/auth_controller"
+import { authController } from "../../controllers"
 
 const router = routerFactory()
 

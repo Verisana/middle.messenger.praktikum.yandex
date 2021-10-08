@@ -7,8 +7,7 @@ import { Block } from "../../../components/block"
 import { getRegisterInputs } from "../../../modules/inputs"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
-import authController from "../../../controllers/auth_controller"
-import { submitControllerBuilder } from "../../../controllers/utils"
+import { authController, submitControllerBuilder } from "../../../controllers"
 
 const router = routerFactory()
 

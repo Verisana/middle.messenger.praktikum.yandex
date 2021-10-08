@@ -7,9 +7,8 @@ import { Block } from "../../../components/block"
 import { getLoginInputs } from "../../../modules/inputs"
 import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
-import authController from "../../../controllers/auth_controller"
-import { ILoginPageProps } from "."
-import { submitControllerBuilder } from "../../../controllers/utils"
+import { authController, submitControllerBuilder } from "../../../controllers"
+import { ILoginPageProps } from "./types"
 
 const router = routerFactory()
 
