@@ -15,14 +15,11 @@ export class UserAPI extends BaseAPI {
         return this.request.put("/profile", options)
     }
 
-    updateAvatar(data: any): Promise<XMLHttpRequest> {
+    updateAvatar(data: FormData): Promise<XMLHttpRequest> {
         const options: IRequestOptions = {
             data,
             withCredentials: true,
-            headers: {
-                "Content-Type": "multipart/form-data",
-                accept: "application/json"
-            }
+            headers: {}
         }
         return this.request.put("/profile/avatar", options)
     }
@@ -42,6 +39,6 @@ export class UserAPI extends BaseAPI {
             data: { login },
             withCredentials: true
         }
-        return this.request.put("/profile", options)
+        return this.request.post("/profile", options)
     }
 }
