@@ -1,10 +1,6 @@
 import { UserAPI, IProfilePasswordUpdateRequest } from "../api"
 import { IProfileUpdateRequest } from "../api/types"
-import { urlSlugs } from "../consts"
-import { routerFactory } from "../router"
 import { store } from "../store"
-
-const router = routerFactory()
 
 class UserController {
     private api: UserAPI
@@ -25,6 +21,7 @@ class UserController {
             }
             const response = await this.api.updateProfile(data)
             store.setValue("user", response.response)
+            window.location.reload()
         } catch (e) {
             console.log(e)
         }
@@ -32,9 +29,9 @@ class UserController {
 
     async updateAvatar(formData: FormData) {
         try {
-            const data = formData.get("avatar")
-            const response = await this.api.updateAvatar(data)
+            const response = await this.api.updateAvatar(formData)
             store.setValue("user", response.response)
+            window.location.reload()
         } catch (e) {
             console.log(e)
         }
@@ -47,7 +44,7 @@ class UserController {
                 newPassword: String(formData.get("newPassword"))
             }
             await this.api.updatePassword(data)
-            router.go(urlSlugs.settings)
+            window.location.reload()
         } catch (e) {
             console.log(e)
         }
