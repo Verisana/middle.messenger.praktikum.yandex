@@ -1,6 +1,5 @@
 import classNames from "classnames"
-import { Events } from "../components/block"
-import { PlainObject } from "./types"
+import { Events, PlainObject } from "./types"
 import { isFormDataValid } from "./validators"
 
 export const findPropertyInListOfObj = (

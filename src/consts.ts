@@ -31,3 +31,12 @@ export const urlSlugs = {
 export const backendUrl = "https://ya-praktikum.tech/api/v2"
 
 export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
+
+export const BlockEvents = {
+    INIT: "init",
+    STATE_SDU: "state:state-did-update",
+    FLOW_CBM: "flow:component-before-mount",
+    FLOW_RENDER: "flow:render",
+    FLOW_CDM: "flow:component-did-mount",
+    FLOW_CDU: "flow:component-did-update"
+}

@@ -1,4 +1,4 @@
-export type Events = Record<string, [EventListener]>
+import { Events } from "../../utils/types"
 
 export type StoreMappings = Record<string, string[]>
 

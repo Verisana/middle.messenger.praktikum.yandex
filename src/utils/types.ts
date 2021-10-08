@@ -16,3 +16,5 @@ export interface IRequestOptions {
     withCredentials?: boolean
     responseType?: string
 }
+
+export type Events = Record<string, [EventListener]>

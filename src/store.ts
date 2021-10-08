@@ -1,4 +1,4 @@
-import { Block } from "./components/block"
+import { BlockEvents } from "./consts"
 import { IStoreData } from "./types"
 import { EventBus } from "./utils/event_bus"
 import { PlainObject } from "./utils/types"
@@ -39,7 +39,7 @@ export class Store {
 
     setValue(path: string, value: unknown): boolean {
         set(this.data, path, value)
-        this.eventBus().emit(Block.EVENTS.STATE_SDU, path, value)
+        this.eventBus().emit(BlockEvents.STATE_SDU, path, value)
         return true
     }
 

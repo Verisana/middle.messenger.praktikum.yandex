@@ -3,7 +3,6 @@ export {
     Props,
     BlockSettings,
     IMeta,
-    Events,
     BlockParams,
     TemplateCreator
 } from "./types"

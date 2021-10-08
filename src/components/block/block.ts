@@ -5,17 +5,9 @@ import { Props, IMeta, BlockParams, StoreMappings } from "./types"
 import { EventBus } from "../../utils/event_bus"
 import { set } from "../../utils/utils"
 import { store } from "../../store"
+import { BlockEvents } from "../../consts"
 
 export abstract class Block {
-    static EVENTS = {
-        INIT: "init",
-        STATE_SDU: "state:state-did-update",
-        FLOW_CBM: "flow:component-before-mount",
-        FLOW_RENDER: "flow:render",
-        FLOW_CDM: "flow:component-did-mount",
-        FLOW_CDU: "flow:component-did-update"
-    }
-
     private _root: DocumentFragment | null
 
     private _content: HTMLElement | null
@@ -48,21 +40,18 @@ export abstract class Block {
         this._root = null
         this._content = null
         this._registerEvents(eventBus)
-        eventBus.emit(Block.EVENTS.INIT)
+        eventBus.emit(BlockEvents.INIT)
     }
 
     protected _registerEvents(eventBus: EventBus) {
-        eventBus.on(Block.EVENTS.INIT, this.init.bind(this))
-        eventBus.on(
-            Block.EVENTS.FLOW_CBM,
-            this._componentBeforeMount.bind(this)
-        )
-        eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
-        eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
-        eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
+        eventBus.on(BlockEvents.INIT, this.init.bind(this))
+        eventBus.on(BlockEvents.FLOW_CBM, this._componentBeforeMount.bind(this))
+        eventBus.on(BlockEvents.FLOW_RENDER, this._render.bind(this))
+        eventBus.on(BlockEvents.FLOW_CDM, this._componentDidMount.bind(this))
+        eventBus.on(BlockEvents.FLOW_CDU, this._componentDidUpdate.bind(this))
         store
             .eventBus()
-            .on(Block.EVENTS.STATE_SDU, this._storeDidUpdate.bind(this))
+            .on(BlockEvents.STATE_SDU, this._storeDidUpdate.bind(this))
     }
 
     protected _createResources() {
@@ -71,7 +60,7 @@ export abstract class Block {
 
     init() {
         this._createResources()
-        this.eventBus().emit(Block.EVENTS.FLOW_CBM)
+        this.eventBus().emit(BlockEvents.FLOW_CBM)
     }
 
     protected _initMappingValues() {
@@ -100,7 +89,7 @@ export abstract class Block {
 
     protected _componentBeforeMount() {
         this.componentBeforeMount()
-        this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
+        this.eventBus().emit(BlockEvents.FLOW_RENDER)
     }
 
     protected _componentDidMount() {
@@ -117,7 +106,7 @@ export abstract class Block {
             return
         }
 
-        this.eventBus().emit(Block.EVENTS.FLOW_CBM)
+        this.eventBus().emit(BlockEvents.FLOW_CBM)
     }
 
     componentDidUpdate(newProps: Props): boolean {
@@ -160,7 +149,7 @@ export abstract class Block {
         }
         this._addEvents()
 
-        this.eventBus().emit(Block.EVENTS.FLOW_CDM)
+        this.eventBus().emit(BlockEvents.FLOW_CDM)
     }
 
     abstract render(): HTMLElement
@@ -174,7 +163,7 @@ export abstract class Block {
             set: (target: Props, prop: string, value: unknown) => {
                 target[prop] = value
 
-                this.eventBus().emit(Block.EVENTS.FLOW_CDU, target)
+                this.eventBus().emit(BlockEvents.FLOW_CDU, target)
                 return true
             },
             deleteProperty: () => {
