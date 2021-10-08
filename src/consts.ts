@@ -14,7 +14,8 @@ export const inputFieldNames = {
     newPassword: "newPassword",
     phone: "phone",
     email: "email",
-    message: "message"
+    message: "message",
+    avatar: "avatar"
 }
 
 export const urlSlugs = {
@@ -28,3 +29,5 @@ export const urlSlugs = {
 }
 
 export const backendUrl = "https://ya-praktikum.tech/api/v2"
+
+export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
