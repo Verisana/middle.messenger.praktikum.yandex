@@ -1,9 +1,10 @@
 <input
     class="{{rootClass}}"
-    type={{type_}}
+    type="{{type_}}"
     {{#if required}}required{{/if}}
-    {{#if pattern}}pattern={{pattern}}{{/if}}
+    {{#if pattern}}pattern="{{pattern}}"{{/if}}
     placeholder="{{placeholder}}"
     name={{name}}
-    {{#if value}}value={{value}}{{/if}}
+    {{#if value}}value="{{value}}"{{/if}}
+    {{#if accept}}accept="{{accept}}"{{/if}}
 />
