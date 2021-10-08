@@ -1,6 +1,6 @@
 import styles from "./inputConstruct.css"
 import inputConstructTemplate from "./inputConstruct.hbs"
-import { convertStyles2Strings } from "../../utils/utils"
+import { convertStylesToStrings } from "../../utils/utils"
 import { compileToDom } from "../../utils/dom_utils"
 import { IInputConstructParams } from "./types"
 import { Block } from "../block"
@@ -8,12 +8,12 @@ import { Block } from "../block"
 export class InputConstruct extends Block {
     constructor(params: IInputConstructParams) {
         const { props } = params
-        props.barClass = convertStyles2Strings(
+        props.barClass = convertStylesToStrings(
             [styles],
             "input-construct__bar",
             props.barClass
         )
-        props.rootClass = convertStyles2Strings(
+        props.rootClass = convertStylesToStrings(
             [styles],
             "input-construct",
             props.rootClass
@@ -24,7 +24,7 @@ export class InputConstruct extends Block {
                 ? undefined
                 : {
                       text: props.label.text,
-                      class: convertStyles2Strings([styles], props.label.class)
+                      class: convertStylesToStrings([styles], props.label.class)
                   }
         super(params)
     }

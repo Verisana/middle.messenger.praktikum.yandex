@@ -30,7 +30,7 @@ export const findPropertyInListOfObj = (
 }
 
 // Преобразуем список со стилями в строку для проброса в шаблон
-export const convertStyles2Strings = (
+export const convertStylesToStrings = (
     classMappings: IStyle[],
     ...classArgs: (string | string[] | undefined)[]
 ) => {

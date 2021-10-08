@@ -1,6 +1,6 @@
 import styles from "./message.css"
 import messageTemplate from "./message.hbs"
-import { convertStyles2Strings } from "../../utils/utils"
+import { convertStylesToStrings } from "../../utils/utils"
 import { compileToDom } from "../../utils/dom_utils"
 import { IMessageParams, IMessageProps } from "./types"
 import { Block } from "../block"
@@ -11,7 +11,7 @@ export class Message extends Block {
     constructor(params: IMessageParams) {
         const { props, settings = {} } = params
 
-        props.rootClass = convertStyles2Strings(
+        props.rootClass = convertStylesToStrings(
             [styles],
             "message",
             props.rootClass

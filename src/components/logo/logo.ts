@@ -3,7 +3,7 @@ import logoTemplate from "./logo.hbs"
 import { compileToDom } from "../../utils/dom_utils"
 import { Block } from "../block"
 import { ILogoParams } from "./types"
-import { appendEvent, convertStyles2Strings } from "../../utils/utils"
+import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { urlSlugs } from "../../consts"
 import { routerFactory } from "../../router"
 
@@ -13,9 +13,9 @@ export class Logo extends Block {
     constructor(params: ILogoParams) {
         const { props } = params
         if (props.rootClass === undefined) {
-            props.rootClass = convertStyles2Strings([styles], "logo")
+            props.rootClass = convertStylesToStrings([styles], "logo")
         } else {
-            props.rootClass = convertStyles2Strings(
+            props.rootClass = convertStylesToStrings(
                 [styles],
                 "logo",
                 props.rootClass
