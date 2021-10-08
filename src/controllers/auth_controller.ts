@@ -1,6 +1,5 @@
 import { AuthAPI, ILoginRequest, IRegisterRequest } from "../api"
 import { backendStaticUrl, defaultAvatar, urlSlugs } from "../consts"
-import { ILoginPageProps, LoginPage } from "../pages/auth/login"
 import { routerFactory } from "../router"
 import { store } from "../store"
 
@@ -23,8 +22,10 @@ class AuthController {
             await this.userRead()
             router.go(urlSlugs.home)
         } catch (e) {
-            const loginPage = router.page.props.Content as LoginPage
-            const loginPageProps = loginPage.props as ILoginPageProps
+            // Здесь нельзя импортировать тип LoginPage, иначе получается циклический импорт
+            // поэтому проставил тип any. Как это сделать более правильно?
+            const loginPage = router.page.props.Content as any
+            const loginPageProps = loginPage.props
             loginPageProps.LoginSubmitForm.showError()
         }
     }
