@@ -1,7 +1,7 @@
 import styles from "./sideChat.css"
-import sideCHatTemplate from "./sideChat.hbs"
+import sideChatTemplate from "./sideChat.hbs"
 import layoutStyles from "../../layout/layout.css"
-import { convertStyles2Strings } from "../../utils/utils"
+import { convertStylesToStrings } from "../../utils/utils"
 import { compileToDom } from "../../utils/dom_utils"
 import { defaultAvatar } from "../../consts"
 import { Block } from "../../components/block"
@@ -10,17 +10,17 @@ import { ISideChatParams } from "./types"
 export class SideChat extends Block {
     constructor(params: ISideChatParams) {
         const { props } = params
-        props.rootClass = convertStyles2Strings(
+        props.rootClass = convertStylesToStrings(
             [styles],
             "side-chat",
             props.rootClass
         )
-        props.contactDivClass = convertStyles2Strings(
+        props.contactDivClass = convertStylesToStrings(
             [styles],
             "side-chat__contact",
             props.contactDivClass
         )
-        props.contactParagraphClass = convertStyles2Strings(
+        props.contactParagraphClass = convertStylesToStrings(
             [styles],
             "side-chat__contact-text",
             props.contactParagraphClass
@@ -28,11 +28,11 @@ export class SideChat extends Block {
 
         props.avatarSrc =
             props.avatarSrc === undefined ? defaultAvatar : props.avatarSrc
-        props.imgStyles = convertStyles2Strings([layoutStyles], "avatar_small")
+        props.imgStyles = convertStylesToStrings([layoutStyles], "avatar_small")
         super(params)
     }
 
     render(): HTMLElement {
-        return compileToDom(sideCHatTemplate, this.props)
+        return compileToDom(sideChatTemplate, this.props)
     }
 }
