@@ -59,7 +59,7 @@ export class Request {
     ): Promise<XMLHttpRequest> => {
         const {
             headers = {
-                "content-type": "application/json",
+                "Content-Type": "application/json",
                 accept: "application/json"
             },
             method = METHODS.GET,
