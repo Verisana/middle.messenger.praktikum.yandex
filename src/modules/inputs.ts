@@ -246,6 +246,12 @@ export function getAvatarInput(): InputConstruct[] {
         })
     ]
 }
+
+export function getPasswordInputs() {
+    return [
+        getPasswordField(inputFieldNames.oldPassword, "Текущий пароль*"),
+        getPasswordField(inputFieldNames.newPassword, "Новый пароль")
+    ]
 }
 
 export const getSettingsInputs = (): InputConstruct[] => {
