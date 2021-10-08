@@ -260,8 +260,5 @@ export const getSettingsInputs = (): InputConstruct[] => {
     // Удаляем имеющееся поле для пароля
     registerInputs.splice(2, 1)
 
-    return [
-        getPasswordField(inputFieldNames.oldPassword, "Текущий пароль*"),
-        getPasswordField(inputFieldNames.newPassword, "Новый пароль", false)
-    ].concat(registerInputs)
+    return registerInputs
 }
