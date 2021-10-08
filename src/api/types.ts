@@ -43,7 +43,7 @@ export interface IProfilePasswordUpdateRequest extends RequestData {
     newPassword: string
 }
 
-export interface IChatsRequest {
+export interface IChatsRequest extends RequestData {
     offset: number
     limit: number
     title: string
@@ -61,8 +61,12 @@ export type IChatsResponse = {
     }
 }
 
-export interface IChatsDeleteRequest {
-    chatId: string
+export interface IChatsCreateRequest extends RequestData {
+    title: string
+}
+
+export interface IChatsDeleteRequest extends RequestData {
+    chatId: number
 }
 
 export interface IChatsDeleteResponse {
@@ -72,4 +76,17 @@ export interface IChatsDeleteResponse {
         avatar: string
         title: string
     }
+}
+
+export interface IChatsUsersModifyRequest extends RequestData {
+    users: number[]
+    chatId: number
+}
+
+export interface IMessageResponse {
+    id: string
+    time: string
+    user_id: string
+    content: string
+    type: string
 }
