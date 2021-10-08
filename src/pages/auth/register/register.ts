@@ -8,7 +8,7 @@ import { getRegisterInputs } from "../../../modules/inputs"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
 import authController from "../../../controllers/auth_controller"
-import { authSubmitBuilder } from "../utils"
+import { submitControllerBuilder } from "../../../controllers/utils"
 
 const router = routerFactory()
 
@@ -20,7 +20,7 @@ export class RegisterPage extends Block {
                     props: {
                         events: {
                             submit: [
-                                authSubmitBuilder(
+                                submitControllerBuilder(
                                     authController.register.bind(authController)
                                 )
                             ]

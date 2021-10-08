@@ -9,7 +9,7 @@ import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
 import authController from "../../../controllers/auth_controller"
 import { ILoginPageProps } from "."
-import { authSubmitBuilder } from "../utils"
+import { submitControllerBuilder } from "../../../controllers/utils"
 
 const router = routerFactory()
 
@@ -20,7 +20,7 @@ export class LoginPage extends Block {
                 props: {
                     events: {
                         submit: [
-                            authSubmitBuilder(
+                            submitControllerBuilder(
                                 authController.login.bind(authController)
                             )
                         ]
