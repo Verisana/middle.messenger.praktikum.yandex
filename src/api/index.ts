@@ -1,5 +1,5 @@
 export { AuthAPI } from "./auth_api"
-export { UserAPI } from "./user_api"
+export { UsersAPI } from "./users_api"
 
 export {
     IBadRequest,
