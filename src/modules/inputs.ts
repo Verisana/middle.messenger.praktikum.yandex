@@ -227,25 +227,25 @@ export const getRegisterInputs = (): InputConstruct[] => {
     ]
 }
 
-export function getAvatarInput(): InputConstruct {
-    return new InputConstruct({
-        props: {
-            InputField: new InputField({
-                storeMappings: {
-                    "user.avatar": ["value"]
-                },
-                props: {
-                    type_: "file",
-                    name: inputFieldNames.avatar,
-                    required: true
+export function getAvatarInput(): InputConstruct[] {
+    return [
+        new InputConstruct({
+            props: {
+                InputField: new InputField({
+                    props: {
+                        type_: "file",
+                        name: inputFieldNames.avatar,
+                        required: true,
+                        accept: "image/*"
+                    }
+                }),
+                label: {
+                    text: "Avatar"
                 }
-            }),
-            label: {
-                text: "Avatar"
-            },
-            br: true
-        }
-    })
+            }
+        })
+    ]
+}
 }
 
 export const getSettingsInputs = (): InputConstruct[] => {
