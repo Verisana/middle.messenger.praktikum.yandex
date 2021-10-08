@@ -1,9 +1,11 @@
 export { AuthAPI } from "./auth_api"
+export { UserAPI } from "./user_api"
 
 export {
-    IBadRequestResponse,
-    Id,
+    IBadRequest,
+    UserData,
     IRegisterRequest,
     ILoginRequest,
-    UserResponse
+    IProfileUpdateRequest,
+    IProfilePasswordUpdateRequest
 } from "./types"

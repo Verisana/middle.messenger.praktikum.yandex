@@ -29,11 +29,16 @@ export interface ILoginRequest extends RequestData {
     password: string
 }
 
-export type ProfileUpdateRequest = Omit<IRegisterRequest, "password"> & {
+export interface IProfileUpdateRequest extends RequestData {
+    login: string
+    first_name: string
+    second_name: string
     display_name: string
+    email: string
+    phone: string
 }
 
-export interface IProfilePasswordUpdateRequest {
+export interface IProfilePasswordUpdateRequest extends RequestData {
     oldPassword: string
     newPassword: string
 }
