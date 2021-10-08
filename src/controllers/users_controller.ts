@@ -1,12 +1,12 @@
-import { UserAPI, IProfilePasswordUpdateRequest } from "../api"
+import { UsersAPI, IProfilePasswordUpdateRequest } from "../api"
 import { IProfileUpdateRequest } from "../api/types"
 import { store } from "../store"
 
 class UserController {
-    private api: UserAPI
+    private api: UsersAPI
 
     constructor() {
-        this.api = new UserAPI()
+        this.api = new UsersAPI()
     }
 
     async updateProfile(formData: FormData) {
