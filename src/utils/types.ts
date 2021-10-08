@@ -10,7 +10,7 @@ export type RequestData = Record<
 export interface IRequestOptions {
     method?: string
     retries?: number
-    data?: RequestData
+    data?: RequestData | FormData
     timeout?: number
     headers?: Record<string, string>
     withCredentials?: boolean
