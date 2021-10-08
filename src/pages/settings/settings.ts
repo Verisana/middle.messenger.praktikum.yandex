@@ -1,7 +1,7 @@
 import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
 import settingsTemplate from "./settings.hbs"
-import { convertStyles2Strings } from "../../utils/utils"
+import { convertStylesToStrings } from "../../utils/utils"
 import { compileToDom } from "../../utils/dom_utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Button } from "../../components/button"
@@ -25,7 +25,7 @@ export class SettingsPage extends Block {
                 "user.avatar": ["avatarLink"]
             },
             props: {
-                avatarStyle: convertStyles2Strings([layoutStyles], "avatar"),
+                avatarStyle: convertStylesToStrings([layoutStyles], "avatar"),
                 SettingsForm: new SubmitForm({
                     props: {
                         events: {
