@@ -110,7 +110,7 @@ export abstract class Block {
     }
 
     componentDidUpdate(newProps: Props): boolean {
-        return newProps !== undefined && this.props !== newProps
+        return newProps !== undefined
     }
 
     setProps = (nextProps: Props) => {
@@ -132,6 +132,18 @@ export abstract class Block {
         return this._content
     }
 
+    private _cloneAttributes(target: HTMLElement, source: HTMLElement) {
+        Array.from(source.attributes).forEach((attr: Attr) => {
+            target.removeAttribute(attr.name)
+        })
+
+        Array.from(source.attributes).forEach((attr: Attr) => {
+            if (attr.nodeValue !== null) {
+                target.setAttribute(attr.nodeName, attr.nodeValue)
+            }
+        })
+    }
+
     protected _render() {
         const block = this.render()
         if (this._meta.params.settings?.withInternalID) {
@@ -145,8 +157,14 @@ export abstract class Block {
         if (this._content === null) {
             this._content = block
         } else {
-            this._content.replaceChildren(block)
+            this._content.replaceChildren(...Array.from(block.children))
+
+            if (block.tagName !== this._content.tagName)
+                throw new Error("You can't change _content tagName")
+
+            this._cloneAttributes(this._content, block)
         }
+
         this._addEvents()
 
         this.eventBus().emit(BlockEvents.FLOW_CDM)
@@ -162,7 +180,6 @@ export abstract class Block {
             },
             set: (target: Props, prop: string, value: unknown) => {
                 target[prop] = value
-
                 this.eventBus().emit(BlockEvents.FLOW_CDU, target)
                 return true
             },
