@@ -60,4 +60,12 @@ export class ChatsAPI extends BaseAPI {
         }
         return this.request.put("/avatar", options)
     }
+
+    getUsers(data: IChatsGetUsers): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data,
+            withCredentials: true
+        }
+        return this.request.get(`/${data.id}/users`, options)
+    }
 }
