@@ -7,6 +7,7 @@ import { SideChatBar } from "../../modules/sideChatBar"
 export interface IMessengerPageProps extends Props {
     SideChatBar: SideChatBar
     SendMessage: SubmitForm
+    UsersButton: Button
     RemovePersonButton: Button
     AddPersonButton: Button
     rootClass?: string | string[]

@@ -4,15 +4,17 @@ import messengerTemplate from "./messenger.hbs"
 import { compileToDom } from "../../utils/dom_utils"
 import { Message } from "../../components/message"
 import { TimeInfo } from "../../components/timeInfo"
-import { convertStylesToStrings, onSubmitMock } from "../../utils/utils"
-import { SideChatBar } from "../../modules/sideChatBar"
+import { appendEvent, convertStylesToStrings } from "../../utils/utils"
+import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
-import { getMessageInput } from "../../modules/inputs"
+import { getMessageInput, getSearchInput } from "../../modules/inputs"
 import { Button } from "../../components/button"
 import { IMessengerPageParams } from "./types"
-import { SearchBar } from "../../modules/searchBar"
-import { InputField } from "../../components/inputField"
-import { chatsController } from "../../controllers"
+import { chatsController, submitControllerBuilder } from "../../controllers"
+import { SideChat } from "../../modules/sideChat"
+import { getSelectedSideChat } from "./utils"
+import { store } from "../../store"
+import { inputFieldNames } from "../../consts"
 
 const messages = [
     new Message({
@@ -107,38 +109,19 @@ const messages = [
     })
 ]
 
-async function createChatCallback() {
-    const title = prompt("Введите заголовок нового чата", "")
-    if (title === "") {
-        alert("Нельзя создать чат без имени")
-        return
-    }
-    if (title !== null) {
-        chatsController.create({ title })
-    }
-}
-
-async function deleteChatCallback() {
-    console.log("clicked")
-}
-
-async function addUserCallback() {
-    console.log("clicked")
-}
-
-async function deleteUserCallback() {
-    console.log("clicked")
-}
-
 export class MessengerPage extends Block {
     constructor() {
         const params: IMessengerPageParams = {
             props: {
+                UsersButton: new Button({
+                    props: {
+                        rootClass: ["button__navbar"],
+                        imgSrc: "people_white_48dp.svg",
+                        imgStyle: ["button__image"]
+                    }
+                }),
                 RemovePersonButton: new Button({
                     props: {
-                        events: {
-                            click: [deleteUserCallback]
-                        },
                         rootClass: ["button__navbar"],
                         imgSrc: "person_remove_white_48dp.svg",
                         imgStyle: ["button__image"]
@@ -146,9 +129,6 @@ export class MessengerPage extends Block {
                 }),
                 AddPersonButton: new Button({
                     props: {
-                        events: {
-                            click: [addUserCallback]
-                        },
                         rootClass: ["button__navbar"],
                         imgSrc: "person_add_white_48dp.svg",
                         imgStyle: ["button__image"]
@@ -160,9 +140,6 @@ export class MessengerPage extends Block {
                         SideChats: [],
                         ChatCreateButton: new Button({
                             props: {
-                                events: {
-                                    click: [createChatCallback]
-                                },
                                 rootClass: ["button__navbar"],
                                 imgSrc: "add_white_48dp.svg",
                                 imgStyle: ["button__image"]
@@ -170,24 +147,20 @@ export class MessengerPage extends Block {
                         }),
                         ChatDeleteButton: new Button({
                             props: {
-                                events: {
-                                    click: [deleteChatCallback]
-                                },
                                 rootClass: ["button__navbar"],
                                 imgSrc: "remove_circle_white_48dp.svg",
                                 imgStyle: ["button__image"]
                             }
                         }),
-                        SearchBar: new SearchBar({
+                        SearchBar: new SubmitForm({
+                            settings: {
+                                isNoBorder: true
+                            },
                             props: {
-                                SearchField: new InputField({ props: {} }),
-                                SearchButton: new Button({
+                                Inputs: getSearchInput(),
+                                SubmitButton: new Button({
                                     props: {
-                                        events: {
-                                            click: [
-                                                () => console.log("clicked!")
-                                            ]
-                                        },
+                                        type_: "submit",
                                         rootClass: ["button__navbar"],
                                         imgSrc: "search_white_48dp.svg",
                                         imgStyle: ["button__image"]
@@ -202,7 +175,7 @@ export class MessengerPage extends Block {
                     settings: { isNoBorder: true },
                     props: {
                         events: {
-                            submit: [onSubmitMock]
+                            submit: [() => console.log("Clicked!")]
                         },
                         rootClass: "form__message-input",
                         Inputs: getMessageInput(),
@@ -218,6 +191,107 @@ export class MessengerPage extends Block {
             }
         }
         super(params)
+        const sideChatBarProps = params.props.SideChatBar
+            .props as ISideChatBarProps
+
+        sideChatBarProps.ChatCreateButton.props.events = appendEvent(
+            "click",
+            this.createChatClicked.bind(this),
+            sideChatBarProps.ChatCreateButton.props.events
+        )
+
+        sideChatBarProps.ChatDeleteButton.props.events = appendEvent(
+            "click",
+            this.deleteChatClicked.bind(this),
+            sideChatBarProps.ChatDeleteButton.props.events
+        )
+
+        sideChatBarProps.SearchBar.props.events = appendEvent(
+            "submit",
+            submitControllerBuilder(this.searchBarClicked.bind(this)),
+            sideChatBarProps.SearchBar.props.events
+        )
+
+        params.props.AddPersonButton.props.events = appendEvent(
+            "click",
+            this.addUserClicked.bind(this),
+            params.props.AddPersonButton.props.events
+        )
+
+        params.props.RemovePersonButton.props.events = appendEvent(
+            "click",
+            this.deleteUserClicked.bind(this),
+            params.props.RemovePersonButton.props.events
+        )
+
+        params.props.UsersButton.props.events = appendEvent(
+            "click",
+            this.showUsersClicked.bind(this),
+            params.props.UsersButton.props.events
+        )
+    }
+
+    async createChatClicked() {
+        const title = prompt("Введите заголовок нового чата", "")
+        if (title === null || title === "") {
+            alert("Нельзя создать чат без имени")
+            return
+        }
+        await chatsController.create(title)
+    }
+
+    async deleteChatClicked() {
+        const sideChats = (this.props.SideChatBar as SideChatBar).props
+            .SideChats as SideChat[]
+
+        const selected = getSelectedSideChat(sideChats)
+        if (selected !== undefined) {
+            chatsController.delete(selected)
+        } else {
+            alert("Для удаления нужно сначала выбрать чат")
+        }
+    }
+
+    async addUserClicked() {
+        const searchLogin = prompt("Введите логин пользователя для поиска")
+        if (searchLogin === null || searchLogin === "") {
+            if (searchLogin === "") {
+                alert("Логин не может быть пустым")
+            }
+            return
+        }
+        const sideChats = (this.props.SideChatBar as SideChatBar).props
+            .SideChats as SideChat[]
+        const selected = getSelectedSideChat(sideChats)
+        await chatsController.addUsers(searchLogin, selected)
+    }
+
+    async deleteUserClicked() {
+        const searchLogin = prompt("Введите логин пользователя для удаления")
+        if (searchLogin === null || searchLogin === "") {
+            if (searchLogin === "") {
+                alert("Логин не может быть пустым")
+            }
+            return
+        }
+        const sideChats = (this.props.SideChatBar as SideChatBar).props
+            .SideChats as SideChat[]
+        const selected = getSelectedSideChat(sideChats)
+        await chatsController.deleteUsers(searchLogin, selected)
+    }
+
+    async searchBarClicked(data: FormData) {
+        const query = data.get(inputFieldNames.searchQuery)
+        store.setValue("chatsSearchQuery", query)
+        await chatsController.get()
+    }
+
+    async showUsersClicked() {
+        const sideChats = (this.props.SideChatBar as SideChatBar).props
+            .SideChats as SideChat[]
+
+        const selected = getSelectedSideChat(sideChats)
+        await chatsController.showUsersInChat(selected)
     }
 
     async componentBeforeMount() {
