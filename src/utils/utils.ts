@@ -58,20 +58,6 @@ export function invertStyleMapping(styles: IStyle[]): IStyle[] {
     return result
 }
 
-export const onSubmitMock = (event: Event) => {
-    event.preventDefault()
-    const form = event.target as HTMLFormElement
-
-    // Не вижу смысла в этой валидации, но раз в задании есть, добавил
-    if (isFormDataValid(form)) {
-        const data = new FormData(form)
-        data.forEach((value, key) => {
-            console.log(`${key}: ${value}`)
-        })
-        form.reset()
-    }
-}
-
 export const capitalizeFirstSymbol = (text: string): string | undefined => {
     return text.charAt(0).toUpperCase() + text.slice(1)
 }
@@ -167,16 +153,17 @@ export function queryString(data: PlainObject) {
 }
 
 export function appendEvent(
-    events: Events,
     eventName: string,
-    callback: EventListener
-): boolean {
-    if (events.eventName === undefined) {
-        events[eventName] = [callback]
+    callback: EventListener,
+    events?: Events
+): Events {
+    const updated = events === undefined ? {} : events
+    if (updated.eventName === undefined) {
+        updated[eventName] = [callback]
     } else {
-        events[eventName].push(callback)
+        updated[eventName].push(callback)
     }
-    return true
+    return updated
 }
 
 export function merge(lhs: PlainObject, rhs: PlainObject): PlainObject {
