@@ -61,13 +61,7 @@ class AuthController {
     async userRead() {
         try {
             const response = await this.api.userRead()
-            response.response.avatar =
-                response.response.avatar === null
-                    ? defaultAvatar
-                    : `${encodeURI(backendStaticUrl)}${encodeURI(
-                          response.response.avatar
-                      )}`
-            store.setValue("user", response.response)
+            store.setUser(response.response)
         } catch (e) {
             store.setUndefined("user")
         }

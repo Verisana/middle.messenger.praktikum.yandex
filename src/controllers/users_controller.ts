@@ -20,7 +20,7 @@ class UsersController {
                 phone: String(formData.get("phone"))
             }
             const response = await this.api.updateProfile(data)
-            store.setValue("user", response.response)
+            store.setUser(response.response)
             window.location.reload()
         } catch (e) {
             console.log(e)
@@ -30,7 +30,7 @@ class UsersController {
     async updateAvatar(formData: FormData) {
         try {
             const response = await this.api.updateAvatar(formData)
-            store.setValue("user", response.response)
+            store.setUser(response.response)
             window.location.reload()
         } catch (e) {
             console.log(e)
