@@ -21,13 +21,10 @@ export class Logo extends Block {
                 props.rootClass
             )
         }
-        if (props.events === undefined) {
-            props.events = {}
-        }
-        appendEvent(
-            props.events,
+        props.events = appendEvent(
             "click",
-            router.go.bind(router, urlSlugs.home)
+            router.go.bind(router, urlSlugs.home),
+            props.events
         )
         super(params)
     }
