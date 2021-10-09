@@ -1,4 +1,4 @@
-import { UsersAPI, IProfilePasswordUpdateRequest } from "../api"
+import { UsersAPI, IProfilePasswordUpdateRequest, UserData } from "../api"
 import { IProfileUpdateRequest } from "../api/types"
 import { store } from "../store"
 
@@ -47,6 +47,24 @@ class UsersController {
             window.location.reload()
         } catch (e) {
             console.log(e)
+        }
+    }
+
+    async searchUser(login: string): Promise<UserData | undefined> {
+        try {
+            const response = await this.api.search(login)
+            const user = (response.response as UserData[]).filter((value) => {
+                return value.login === login
+            })
+            if (user.length > 1) {
+                throw new Error(
+                    "Found more than one user. This case is not handled"
+                )
+            }
+            return user.length === 1 ? user[0] : undefined
+        } catch (e) {
+            console.log(e)
+            return undefined
         }
     }
 }
