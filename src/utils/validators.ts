@@ -52,7 +52,8 @@ export const validators: Record<string, (value: string) => boolean> = {
     [inputFieldNames.newPassword]: validatePassword,
     [inputFieldNames.phone]: validatePhone,
     [inputFieldNames.message]: validateMessage,
-    [inputFieldNames.avatar]: () => true
+    [inputFieldNames.avatar]: () => true,
+    [inputFieldNames.searchQuery]: () => true
 }
 
 export const errorMessages: Record<string, string> = {
@@ -85,7 +86,8 @@ export const errorMessages: Record<string, string> = {
     [inputFieldNames.phone]:
         "Введите телефон от 10 до 15 символов. Состоит из цифр, может " +
         "начинается с плюса",
-    [inputFieldNames.message]: "Сообщение не может быть пустым"
+    [inputFieldNames.message]: "Сообщение не может быть пустым",
+    [inputFieldNames.searchQuery]: ""
 }
 
 export const inputValidationCallback = (event: Event) => {

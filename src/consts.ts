@@ -15,7 +15,8 @@ export const inputFieldNames = {
     phone: "phone",
     email: "email",
     message: "message",
-    avatar: "avatar"
+    avatar: "avatar",
+    searchQuery: "search_query"
 }
 
 export const urlSlugs = {
