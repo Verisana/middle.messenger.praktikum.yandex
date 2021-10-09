@@ -79,7 +79,7 @@ export class Request {
 
             xhr.open(
                 method,
-                isGet && !!data ? `${url}${queryString(data)}` : url
+                isGet && !!data ? `${url}?${queryString(data)}` : url
             )
             xhr.withCredentials = withCredentials
 
