@@ -1,4 +1,10 @@
-<div class="{{rootClass}}" data-sender={{sender}} data-message-id={{messageId}}>
-    <p>{{text}}</p>
+<div
+    class="{{rootClass}}"
+    {{#if senderId}}data-sender-id={{senderId}}{{/if}}
+    data-sender-name={{senderName}}
+>
+    <p>
+        {{text}}
+    </p>
     {{{Time}}}
 </div>
