@@ -1,4 +1,5 @@
 import classNames from "classnames"
+import { backendStaticUrl, defaultAvatar } from "../consts"
 import { Events, PlainObject } from "./types"
 import { isFormDataValid } from "./validators"
 
@@ -256,4 +257,12 @@ export function zip(...args: Array<unknown>) {
         }
         return accumulator
     }, {})
+}
+
+export function getFullStaticUri(relativePath: string) {
+    return `${encodeURI(backendStaticUrl)}${encodeURI(relativePath)}`
+}
+
+export function normalizeAvatar(avatar: string): string {
+    return avatar === null ? defaultAvatar : getFullStaticUri(avatar)
 }
