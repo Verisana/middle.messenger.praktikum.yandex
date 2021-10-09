@@ -44,6 +44,27 @@ const getPasswordField = (
     })
 }
 
+export function getSearchInput(): InputConstruct[] {
+    // Возвращаю массив для единообразия
+    return [
+        new InputConstruct({
+            props: {
+                InputField: new InputField({
+                    props: {
+                        type_: "text",
+                        name: inputFieldNames.searchQuery,
+                        required: false
+                    }
+                }),
+                label: {
+                    text: "Поиск по чатам"
+                },
+                validationErrorText: errorMessages[inputFieldNames.searchQuery]
+            }
+        })
+    ]
+}
+
 export const getMessageInput = (): InputConstruct[] => {
     // Возвращаю массив для единообразия
     return [
