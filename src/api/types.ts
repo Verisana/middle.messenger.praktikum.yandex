@@ -57,8 +57,9 @@ export type IChatsResponse = {
     last_message: {
         user: Omit<UserData, "id" | "display_name">
         time: string
+        timeHuman: string
         content: string
-    }
+    } | null
 }
 
 export interface IChatsCreateRequest extends RequestData {
