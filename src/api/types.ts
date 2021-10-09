@@ -62,14 +62,6 @@ export type IChatsResponse = {
     } | null
 }
 
-export interface IChatsCreateRequest extends RequestData {
-    title: string
-}
-
-export interface IChatsDeleteRequest extends RequestData {
-    chatId: number
-}
-
 export interface IChatsDeleteResponse {
     userId: number
     result: {
@@ -90,4 +82,12 @@ export interface IMessageResponse {
     user_id: string
     content: string
     type: string
+}
+
+export interface IChatsGetUsers extends RequestData {
+    id: number
+    offset: number
+    limit: number
+    name: string
+    email: string
 }
