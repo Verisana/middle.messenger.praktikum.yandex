@@ -15,15 +15,15 @@ export class SideChat extends Block {
             "side-chat",
             props.rootClass
         )
-        props.contactDivClass = convertStylesToStrings(
+        props.chatDivClass = convertStylesToStrings(
             [styles],
             "side-chat__contact",
-            props.contactDivClass
+            props.chatDivClass
         )
-        props.contactParagraphClass = convertStylesToStrings(
+        props.chatParagraphClass = convertStylesToStrings(
             [styles],
             "side-chat__contact-text",
-            props.contactParagraphClass
+            props.chatParagraphClass
         )
 
         props.avatarSrc =

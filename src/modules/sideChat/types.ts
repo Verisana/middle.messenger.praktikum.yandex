@@ -7,11 +7,11 @@ export interface ISideChatProps extends Props {
     rootClass?: string | string[]
     messageIsRead?: boolean
     avatarSrc?: string
-    contactName?: string
-    contactId?: number
+    chatTitle?: string
+    chatId?: number
     Time?: TimeInfo
-    contactDivClass?: string | string[]
-    contactParagraphClass?: string | string[]
+    chatDivClass?: string | string[]
+    chatParagraphClass?: string | string[]
 }
 
 export interface ISideChatParams extends BlockParams {
