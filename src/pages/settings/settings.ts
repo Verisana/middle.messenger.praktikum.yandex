@@ -13,8 +13,7 @@ import {
 } from "../../modules/inputs"
 import { routerFactory } from "../../router"
 import { urlSlugs } from "../../consts"
-import { authSubmitBuilder } from "../auth/utils"
-import { usersController } from "../../controllers"
+import { usersController, submitControllerBuilder } from "../../controllers"
 
 const router = routerFactory()
 
@@ -30,7 +29,7 @@ export class SettingsPage extends Block {
                     props: {
                         events: {
                             submit: [
-                                authSubmitBuilder(
+                                submitControllerBuilder(
                                     usersController.updateProfile.bind(
                                         usersController
                                     )
@@ -54,7 +53,7 @@ export class SettingsPage extends Block {
                     props: {
                         events: {
                             submit: [
-                                authSubmitBuilder(
+                                submitControllerBuilder(
                                     usersController.updateAvatar.bind(
                                         usersController
                                     )
@@ -75,7 +74,7 @@ export class SettingsPage extends Block {
                     props: {
                         events: {
                             submit: [
-                                authSubmitBuilder(
+                                submitControllerBuilder(
                                     usersController.updatePassword.bind(
                                         usersController
                                     )

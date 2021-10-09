@@ -1,7 +1,6 @@
 import classNames from "classnames"
 import { backendStaticUrl, defaultAvatar } from "../consts"
 import { Events, PlainObject } from "./types"
-import { isFormDataValid } from "./validators"
 
 export const findPropertyInListOfObj = (
     objects: IStyle[],
