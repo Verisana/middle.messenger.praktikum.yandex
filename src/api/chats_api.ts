@@ -1,8 +1,7 @@
 import { IRequestOptions } from "../utils/types"
 import { BaseAPI } from "./base_api"
 import {
-    IChatsCreateRequest,
-    IChatsDeleteRequest,
+    IChatsGetUsers,
     IChatsRequest,
     IChatsUsersModifyRequest
 } from "./types"
@@ -20,17 +19,17 @@ export class ChatsAPI extends BaseAPI {
         return this.request.get("", options)
     }
 
-    create(data: IChatsCreateRequest): Promise<XMLHttpRequest> {
+    create(title: string): Promise<XMLHttpRequest> {
         const options: IRequestOptions = {
-            data,
+            data: { title },
             withCredentials: true
         }
         return this.request.post("", options)
     }
 
-    delete(data: IChatsDeleteRequest): Promise<XMLHttpRequest> {
+    delete(chatId: number): Promise<XMLHttpRequest> {
         const options: IRequestOptions = {
-            data,
+            data: { chatId },
             withCredentials: true
         }
         return this.request.delete("", options)
