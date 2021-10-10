@@ -2,117 +2,53 @@ import { Block } from "../../components/block"
 import styles from "./messenger.css"
 import messengerTemplate from "./messenger.hbs"
 import { compileToDom } from "../../utils/dom_utils"
-import { Message } from "../../components/message"
-import { TimeInfo } from "../../components/timeInfo"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
-import { getMessageInput, getSearchInput } from "../../modules/inputs"
+import {
+    getAvatarInput,
+    getMessageInput,
+    getSearchInput
+} from "../../modules/inputs"
 import { Button } from "../../components/button"
 import { IMessengerPageParams } from "./types"
-import { chatsController, submitControllerBuilder } from "../../controllers"
+import {
+    chatsController,
+    messagesController,
+    submitControllerBuilder
+} from "../../controllers"
 import { SideChat } from "../../modules/sideChat"
 import { getSelectedSideChat } from "./utils"
 import { store } from "../../store"
 import { inputFieldNames } from "../../consts"
 
-const messages = [
-    new Message({
-        props: {
-            senderName: "owner",
-            text: "Привет!",
-            senderId: 1,
-            rootClass: ["message__open", "message__open_right"],
-            Time: new TimeInfo({
-                props: {
-                    timeMachine: "12:45:01.235",
-                    timeHuman: "12:45",
-                    rootClass: ["time-info__open"]
-                }
-            })
-        }
-    }),
-    new Message({
-        props: {
-            senderName: "companion",
-            text: "Прив",
-            senderId: 2,
-            rootClass: ["message__open", "message__open_left"],
-            Time: new TimeInfo({
-                props: {
-                    timeMachine: "12:46:02.23",
-                    timeHuman: "12:46",
-                    rootClass: ["time-info__open"]
-                }
-            })
-        }
-    }),
-    new Message({
-        props: {
-            senderName: "owner",
-            text: "Ты будешь завтра на вебинаре?",
-            senderId: 3,
-            rootClass: ["message__open", "message__open_right"],
-            Time: new TimeInfo({
-                props: {
-                    timeMachine: "12:47:01:68",
-                    timeHuman: "12:47",
-                    rootClass: ["time-info__open"]
-                }
-            })
-        }
-    }),
-    new Message({
-        props: {
-            senderName: "companion",
-            text: "Да, планирую",
-            senderId: 4,
-            rootClass: ["message__open", "message__open_left"],
-            Time: new TimeInfo({
-                props: {
-                    timeMachine: "12:48:03.39",
-                    timeHuman: "12:48",
-                    rootClass: ["time-info__open"]
-                }
-            })
-        }
-    }),
-    new Message({
-        props: {
-            senderName: "companion",
-            text: "А ты?",
-            senderId: 5,
-            rootClass: ["message__open", "message__open_left"],
-            Time: new TimeInfo({
-                props: {
-                    timeMachine: "12:48:45.355",
-                    timeHuman: "12:48",
-                    rootClass: ["time-info__open"]
-                }
-            })
-        }
-    }),
-    new Message({
-        props: {
-            senderName: "owner",
-            text: "Ага, тоже",
-            senderId: 6,
-            rootClass: ["message__open", "message__open_right"],
-            Time: new TimeInfo({
-                props: {
-                    timeMachine: "12:49:25.355",
-                    timeHuman: "12:49",
-                    rootClass: ["time-info__open"]
-                }
-            })
-        }
-    })
-]
-
 export class MessengerPage extends Block {
     constructor() {
         const params: IMessengerPageParams = {
             props: {
+                ChatAvatarSubmit: new SubmitForm({
+                    settings: {
+                        isNoBorder: true
+                    },
+                    props: {
+                        events: {
+                            submit: [
+                                submitControllerBuilder(
+                                    chatsController.updateAvatar.bind(
+                                        chatsController
+                                    )
+                                )
+                            ]
+                        },
+                        Inputs: getAvatarInput(),
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Загрузить",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
                 UsersButton: new Button({
                     props: {
                         rootClass: ["button__navbar"],
@@ -170,13 +106,9 @@ export class MessengerPage extends Block {
                         })
                     }
                 }),
-                Messages: messages,
                 SendMessage: new SubmitForm({
                     settings: { isNoBorder: true },
                     props: {
-                        events: {
-                            submit: [() => console.log("Clicked!")]
-                        },
                         rootClass: "form__message-input",
                         Inputs: getMessageInput(),
                         SubmitButton: new Button({
@@ -229,6 +161,14 @@ export class MessengerPage extends Block {
             this.showUsersClicked.bind(this),
             params.props.UsersButton.props.events
         )
+
+        params.props.SendMessage.props.events = appendEvent(
+            "submit",
+            submitControllerBuilder(
+                messagesController.sendMessage.bind(messagesController)
+            ),
+            params.props.SendMessage.props.events
+        )
     }
 
     async createChatClicked() {
@@ -241,10 +181,7 @@ export class MessengerPage extends Block {
     }
 
     async deleteChatClicked() {
-        const sideChats = (this.props.SideChatBar as SideChatBar).props
-            .SideChats as SideChat[]
-
-        const selected = getSelectedSideChat(sideChats)
+        const selected = store.select("selectedChat") as SideChat | undefined
         if (selected !== undefined) {
             chatsController.delete(selected)
         } else {

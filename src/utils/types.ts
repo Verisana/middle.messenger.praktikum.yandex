@@ -4,7 +4,7 @@ export type PlainObject<T = any> = {
 
 export type RequestData = Record<
     string,
-    string | number | Array<string | number>
+    string | number | Array<string | number> | FormData
 >
 
 export interface IRequestOptions {
