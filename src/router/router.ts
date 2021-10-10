@@ -90,8 +90,8 @@ class Router {
         throw new Error("Page must be found!")
     }
 
-    _onRoute(pathname: string) {
-        let route = this.getRoute(pathname)
+    private _onRoute(pathname: string) {
+        let route = this._getRoute(pathname)
 
         if (route === undefined) {
             this.history.replaceState({}, "", this._errorRoute?.pathname)
@@ -121,7 +121,7 @@ class Router {
         this.history.forward()
     }
 
-    getRoute(pathname: string): Route | undefined {
+    private _getRoute(pathname: string): Route | undefined {
         let foundRoute = this.routes.find((route) => {
             return route.match(pathname)
         })
