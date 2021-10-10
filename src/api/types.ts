@@ -91,3 +91,25 @@ export interface IChatsGetUsers extends RequestData {
     name: string
     email: string
 }
+
+export interface IChatsAvatarRequest extends RequestData {
+    chatId: number
+    avatar: FormData
+}
+
+export interface IWebSocketSend {
+    content: string
+    type: string
+}
+
+export interface ISocketMessageResponse {
+    chat_id: number
+    content: string
+    file: null
+    id: number
+    is_read: boolean
+    time: string
+    type: string
+    user_id: number
+    timeHuman?: string
+}
