@@ -76,14 +76,6 @@ export interface IChatsUsersModifyRequest extends RequestData {
     chatId: number
 }
 
-export interface IMessageResponse {
-    id: string
-    time: string
-    user_id: string
-    content: string
-    type: string
-}
-
 export interface IChatsGetUsers extends RequestData {
     id: number
     offset: number
