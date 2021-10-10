@@ -31,6 +31,8 @@ export const urlSlugs = {
 
 export const backendUrl = "https://ya-praktikum.tech/api/v2"
 
+export const backendWebsocketUrl = "wss://ya-praktikum.tech/ws/chats"
+
 export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
 
 export const BlockEvents = {
@@ -40,4 +42,14 @@ export const BlockEvents = {
     FLOW_RENDER: "flow:render",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update"
+}
+
+export const pingInterval = 60000 // 1 минута
+
+export const globalEvents = {
+    sideChatClicked: "sideChatClicked",
+    PING_STATUS: "websocket:ping-status",
+
+    OLD_MESSAGES: "websocket:received-old-messages",
+    NEW_MESSAGE: "websocket:received-new-message"
 }
