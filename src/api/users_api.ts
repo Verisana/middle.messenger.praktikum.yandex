@@ -39,6 +39,6 @@ export class UsersAPI extends BaseAPI {
             data: { login },
             withCredentials: true
         }
-        return this.request.post("/profile", options)
+        return this.request.post("/search", options)
     }
 }
