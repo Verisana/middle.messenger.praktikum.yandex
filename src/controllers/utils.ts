@@ -1,4 +1,4 @@
-import { IChatsResponse } from "../api/types"
+import { IChatsResponse, ISocketMessageResponse, UserData } from "../api"
 import { Message } from "../components/message"
 import { TimeInfo } from "../components/timeInfo"
 import { maxMessageLength } from "../consts"
@@ -79,6 +79,61 @@ export function constructSideChats(): SideChat[] {
         chats.forEach((chat: IChatsResponse, index: number) => {
             const sideChat = createSideChat(chat, index)
             result.push(sideChat)
+        })
+    }
+    return result
+}
+
+export function createMessage(
+    message: ISocketMessageResponse,
+    users: UserData[]
+): Message {
+    const user = store.select("user") as UserData | undefined
+    if (user === undefined) throw new Error("User must be defined")
+
+    let sender: UserData
+    let isOwner: boolean = false
+    if (Number(user.id) === Number(message.user_id)) {
+        sender = user
+        isOwner = true
+    } else {
+        // eslint-disable-next-line
+        sender = users.filter((user) => {
+            return Number(user.id) === Number(message.user_id)
+        })[0]
+    }
+
+    return new Message({
+        props: {
+            senderName: sender.login,
+            text: message.content,
+            senderId: Number(sender.id),
+            rootClass: isOwner
+                ? ["message__open", "message__open_right"]
+                : ["message__open", "message__open_left"],
+            Time: new TimeInfo({
+                props: {
+                    timeMachine: message.time,
+                    timeHuman: message.timeHuman,
+                    rootClass: ["time-info__open"]
+                }
+            })
+        }
+    })
+}
+
+export function constructMessages(): Message[] {
+    const result: Message[] = []
+    const messages = store.select("messages") as
+        | ISocketMessageResponse[]
+        | undefined
+    const chatUsers = store.select("usersInChat") as UserData[] | undefined
+    if (chatUsers === undefined) throw new Error("Users must be already set")
+
+    if (messages !== undefined && messages.length > 0) {
+        messages.forEach((messageReceived) => {
+            const message = createMessage(messageReceived, chatUsers)
+            result.push(message)
         })
     }
     return result
