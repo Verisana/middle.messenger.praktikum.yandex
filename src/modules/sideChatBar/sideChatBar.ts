@@ -7,7 +7,10 @@ import { compileToDom } from "../../utils/dom_utils"
 import { ISideChatBarParams } from "./types"
 import { ISideChatProps, SideChat } from "../sideChat"
 import { globalEventBus } from "../../utils/event_bus"
-import { sideChatEvents } from "../sideChat/sideChat"
+import { messagesController } from "../../controllers"
+import { getSelectedSideChat } from "../../pages/messenger/utils"
+import { globalEvents } from "../../consts"
+import { store } from "../../store"
 
 export class SideChatBar extends Block {
     constructor(params: ISideChatBarParams) {
@@ -19,13 +22,16 @@ export class SideChatBar extends Block {
         )
         super(params)
         globalEventBus().on(
-            sideChatEvents.sideChatClicked,
+            globalEvents.sideChatClicked,
             this.sideChatClick.bind(this)
         )
     }
 
     sideChatClick(id: number) {
         this.selectSideChat(id)
+        const selected = getSelectedSideChat(this.props.SideChats as SideChat[])
+        store.setValue("selectedChat", selected)
+        return messagesController.open(selected)
     }
 
     selectSideChat(id: number) {
