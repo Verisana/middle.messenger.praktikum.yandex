@@ -191,6 +191,9 @@ export function get(
 ): PlainObject {
     const keys = path.split(".")
     return keys.reduce((result: PlainObject, key: string) => {
+        if (result === undefined) {
+            return undefined
+        }
         if (result[key] === undefined) {
             if (createIfNotExist) {
                 result[key] = {}
