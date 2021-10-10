@@ -67,4 +67,12 @@ export class ChatsAPI extends BaseAPI {
         }
         return this.request.get(`/${data.id}/users`, options)
     }
+
+    getToken(id: number): Promise<XMLHttpRequest> {
+        const options: IRequestOptions = {
+            data: { id },
+            withCredentials: true
+        }
+        return this.request.post(`/token/${id}`, options)
+    }
 }
