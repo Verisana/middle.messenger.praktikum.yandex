@@ -1,4 +1,4 @@
-import { IChatsResponse, ISocketMessageResponse, UserData } from "./api/types"
+import { IChatsResponse, ISocketMessageResponse, UserData } from "./api"
 import { SideChat } from "./modules/sideChat"
 
 export interface IStoreData {

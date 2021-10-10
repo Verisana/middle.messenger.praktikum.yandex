@@ -1,6 +1,5 @@
 import usersController from "./users_controller"
-import { ChatsAPI, UserData } from "../api"
-import { IChatsGetUsers, IChatsRequest } from "../api/types"
+import { ChatsAPI, UserData, IChatsGetUsers, IChatsRequest } from "../api"
 import { IMessageProps } from "../components/message"
 import { ILayoutProps } from "../layout"
 import { ISideChatProps, SideChat } from "../modules/sideChat"

@@ -3,7 +3,7 @@ import { routerFactory } from "./router"
 import { pages } from "./pages"
 import { urlSlugs } from "./consts"
 import { layoutFactory } from "./layout"
-import authController from "./controllers/auth_controller"
+import { authController } from "./controllers"
 import { loginBlockBuilder, loginRedirectBuilder } from "./router/utils"
 
 const router = routerFactory()

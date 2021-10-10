@@ -1,5 +1,9 @@
-import { UsersAPI, IProfilePasswordUpdateRequest, UserData } from "../api"
-import { IProfileUpdateRequest } from "../api/types"
+import {
+    UsersAPI,
+    IProfilePasswordUpdateRequest,
+    UserData,
+    IProfileUpdateRequest
+} from "../api"
 import { store } from "../store"
 
 class UsersController {
