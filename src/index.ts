@@ -25,8 +25,13 @@ async function main() {
 
     router.useRedirect(
         urlSlugs.register,
-        loginBlockBuilder(urlSlugs.messenger, "messenger"),
-        loginRedirectBuilder(urlSlugs.messenger)
+        loginBlockBuilder(
+            urlSlugs.messenger,
+            "messenger",
+            urlSlugs.register,
+            pages.register
+        ),
+        loginRedirectBuilder(urlSlugs.messenger, urlSlugs.register)
     )
 
     router.useRedirect(
