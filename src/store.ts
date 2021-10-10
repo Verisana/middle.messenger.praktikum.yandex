@@ -68,6 +68,18 @@ export class Store {
         return this.setValue("chats", chats)
     }
 
+    setMessages(messages: ISocketMessageResponse[]): boolean {
+        for (const message of messages) {
+            const date = new Date(message.time)
+            message.timeHuman = Intl.DateTimeFormat("ru-RU", {
+                hour: "numeric",
+                minute: "numeric"
+            }).format(date)
+        }
+
+        return this.setValue("messages", messages)
+    }
+
     setValue(path: string, value: unknown): boolean {
         set(this.data, path, value)
         this.eventBus().emit(BlockEvents.STATE_SDU, path, value)
