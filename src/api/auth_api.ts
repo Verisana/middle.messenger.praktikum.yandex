@@ -14,20 +14,20 @@ export class AuthAPI extends BaseAPI {
         } as IRequestOptions)
     }
 
-    register(data: IRegisterRequest) {
+    register(data: IRegisterRequest): Promise<XMLHttpRequest> {
         return this.request.post("/signup", {
             data,
             withCredentials: true
         } as IRequestOptions)
     }
 
-    logout() {
+    logout(): Promise<XMLHttpRequest> {
         return this.request.post("/logout", {
             withCredentials: true
         } as IRequestOptions)
     }
 
-    userRead() {
+    userRead(): Promise<XMLHttpRequest> {
         return this.request.get("/user", {
             withCredentials: true
         } as IRequestOptions)
