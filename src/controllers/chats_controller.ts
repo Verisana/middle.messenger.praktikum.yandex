@@ -1,8 +1,12 @@
-import { usersController } from "."
+import usersController from "./users_controller"
 import { ChatsAPI, UserData } from "../api"
 import { IChatsGetUsers, IChatsRequest } from "../api/types"
 import { IMessageProps } from "../components/message"
+import { ILayoutProps } from "../layout"
 import { ISideChatProps, SideChat } from "../modules/sideChat"
+import { ISideChatBarProps } from "../modules/sideChatBar"
+import { IMessengerPageProps } from "../pages/messenger"
+import { getSelectedSideChat } from "../pages/messenger/utils"
 import { routerFactory } from "../router"
 import { store } from "../store"
 import { constructSideChats } from "./utils"
@@ -91,13 +95,8 @@ class ChatsController {
         try {
             if (selected !== undefined) {
                 const sideChatProps = selected.props as ISideChatProps
-                const allUsers = await this.getUsers({
-                    id: sideChatProps.chatId,
-                    offset: 0,
-                    limit: 0,
-                    name: "",
-                    email: ""
-                })
+                const allUsers = await this.readUsers(sideChatProps.chatId)
+
                 const duplicateUsers = allUsers.filter((value) => {
                     if (value.login === login) {
                         return true
@@ -107,7 +106,9 @@ class ChatsController {
 
                 if (isDelete) {
                     if (duplicateUsers.length === 0) {
-                        alert(`Пользователя ${login} нет в чате`)
+                        alert(
+                            `Пользователя ${login} нет в чате или вы пытаетесь удалить себя`
+                        )
                         return
                     }
                 } else {
@@ -162,8 +163,20 @@ class ChatsController {
 
     async updateAvatar(formData: FormData) {
         try {
-            const response = await this.api.updateAvatar(formData)
-            console.log(response)
+            const sidebarProps = (
+                (router.page.props as ILayoutProps).Content
+                    .props as IMessengerPageProps
+            ).SideChatBar.props as ISideChatBarProps
+
+            const selected = getSelectedSideChat(sidebarProps.SideChats)
+            if (selected !== undefined) {
+                const sideChatProps = selected.props as ISideChatProps
+                formData.append("chatId", String(sideChatProps.chatId))
+                await this.api.updateAvatar(formData)
+                await this.get()
+            } else {
+                alert("Чтобы установить аватар, надо сначала выбрать чат")
+            }
         } catch (e) {
             alert("Ошибка. Аватар не обновлен")
             console.log(e)
@@ -180,18 +193,31 @@ class ChatsController {
         }
     }
 
+    async readUsers(chatId: number): Promise<UserData[]> {
+        try {
+            const users = await this.getUsers({
+                id: chatId,
+                offset: 0,
+                limit: 100,
+                name: "",
+                email: ""
+            })
+            store.setUsersInChat(users)
+            return users
+        } catch (e) {
+            console.log(e)
+            return []
+        }
+    }
+
     async showUsersInChat(selected?: SideChat): Promise<undefined> {
         try {
             if (selected !== undefined) {
                 const sideChatProps = selected.props as ISideChatProps
-                const allUsers = await this.getUsers({
-                    id: sideChatProps.chatId,
-                    offset: 0,
-                    limit: 0,
-                    name: "",
-                    email: ""
-                })
+                const allUsers = await this.readUsers(sideChatProps.chatId)
+
                 let info = `В чате ${sideChatProps.chatTitle} участвуют пользователи в количестве ${allUsers.length}:\n`
+
                 for (const user of allUsers) {
                     info += `${user.login}\n`
                 }
@@ -204,6 +230,16 @@ class ChatsController {
             alert(`Ошибка. Не удалось получить пользователей`)
         }
         return undefined
+    }
+
+    async getToken(chatId: number): Promise<string | undefined> {
+        try {
+            const response = await this.api.getToken(chatId)
+            return response.response.token
+        } catch (e) {
+            console.log(e)
+            return undefined
+        }
     }
 }
 
