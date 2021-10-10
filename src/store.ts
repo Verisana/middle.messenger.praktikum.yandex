@@ -1,5 +1,4 @@
-import { UserData } from "./api"
-import { IChatsResponse } from "./api/types"
+import { UserData, ISocketMessageResponse, IChatsResponse } from "./api"
 import { BlockEvents } from "./consts"
 import { IStoreData } from "./types"
 import { EventBus } from "./utils/event_bus"
@@ -42,6 +41,13 @@ export class Store {
     setUser(user: UserData): boolean {
         user.avatar = normalizeAvatar(user.avatar)
         return this.setValue("user", user)
+    }
+
+    setUsersInChat(users: UserData[]): boolean {
+        for (const user of users) {
+            user.avatar = normalizeAvatar(user.avatar)
+        }
+        return this.setValue("usersInChat", users)
     }
 
     setChats(chats: IChatsResponse[]): boolean {
