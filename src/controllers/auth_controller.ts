@@ -1,5 +1,5 @@
 import { AuthAPI, ILoginRequest, IRegisterRequest } from "../api"
-import { backendStaticUrl, defaultAvatar, urlSlugs } from "../consts"
+import { urlSlugs } from "../consts"
 import { routerFactory } from "../router"
 import { store } from "../store"
 
