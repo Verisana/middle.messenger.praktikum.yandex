@@ -1,33 +1,25 @@
 import "./layout.css"
+import layoutTemplate from "./layout.hbs"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
+import { HomePage } from "../pages/home"
+import { compile2Dom } from "../utils/utils"
 import { Block } from "../components/block"
 
-export class Layout extends Block {
-    constructor(content: () => Block) {
+class Layout extends Block {
+    constructor() {
         super({
             props: {
                 Header: new Header(),
-                Content: content(),
+                Content: new HomePage(),
                 Footer: new Footer()
             }
         })
     }
 
     render(): HTMLElement {
-        return this._compile(
-            /*html*/ `
-            <div id="App">
-                {{{Header}}}
-                {{{Content}}}
-                {{{Footer}}}
-            </div>
-        `,
-            this.props
-        )
+        return compile2Dom(layoutTemplate, this.props)
     }
 }
 
-export function layoutFactory(content: () => Block): () => Layout {
-    return () => new Layout(content)
-}
+export const layout = new Layout()

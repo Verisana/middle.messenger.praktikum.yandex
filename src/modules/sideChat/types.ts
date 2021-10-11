@@ -4,15 +4,14 @@ import { TimeInfo } from "../../components/timeInfo"
 
 export interface ISideChatProps extends Props {
     Message: Message
-    chatId: number
-    chatTitle: string
     rootClass?: string | string[]
     messageIsRead?: boolean
     avatarSrc?: string
+    contactName?: string
+    contactId?: number
     Time?: TimeInfo
-    chatDivClass?: string | string[]
-    chatParagraphClass?: string | string[]
-    selected?: boolean
+    contactDivClass?: string | string[]
+    contactParagraphClass?: string | string[]
 }
 
 export interface ISideChatParams extends BlockParams {

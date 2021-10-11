@@ -21,17 +21,3 @@ form p {
     padding: 25px 0 0;
     max-width: 100%;
 }
-
-.form__authorization-error {
-    display: none;
-    color: $primary-error;
-    text-align: center;
-    margin: 5px 0 0 0;
-    padding: 0;
-    width: $input-width;
-    font-size: smaller;
-}
-
-.form__authorization-error_show {
-    display: block;
-}

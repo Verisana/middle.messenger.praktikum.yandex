@@ -1,64 +1,41 @@
 import "./login.css"
+import loginTemplate from "./login.hbs"
+import { onSubmitMock, compile2Dom } from "../../../utils/utils"
+import { linkButtons } from "../../../router/tempButtons"
 import { SubmitForm } from "../../../components/submitForm"
+import { RegisterPage } from "../register"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
 import { getLoginInputs } from "../../../modules/inputs"
-import { urlSlugs } from "../../../consts"
-import { routerFactory } from "../../../router"
-import { authController, submitControllerBuilder } from "../../../controllers"
-import { ILoginPageProps } from "./types"
-
-const router = routerFactory()
 
 export class LoginPage extends Block {
     constructor() {
-        const props: ILoginPageProps = {
-            LoginSubmitForm: new SubmitForm({
-                props: {
-                    events: {
-                        submit: [
-                            submitControllerBuilder(
-                                authController.login.bind(authController)
-                            )
-                        ]
-                    },
-                    formHeaderText: "Введите для авторизации",
-                    Inputs: getLoginInputs(),
-                    SubmitButton: new Button({
-                        props: {
-                            text: "Войти",
-                            type_: "submit"
-                        }
-                    }),
-                    errorText:
-                        "Неправильно введены логин или пароль. Попробуйте еще раз"
-                }
-            }),
-            RegisterButton: new Button({
-                props: {
-                    events: {
-                        click: [router.go.bind(router, urlSlugs.register)]
-                    },
-                    text: "Нет аккаунта?"
-                }
-            })
-        }
-
-        const params = {
-            props
-        }
-        super(params)
+        super({
+            props: {
+                LoginSubmitForm: new SubmitForm({
+                    props: {
+                        events: {
+                            submit: [onSubmitMock]
+                        },
+                        formHeaderText: "Введите для авторизации",
+                        Inputs: getLoginInputs(),
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Войти",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                RegisterButton: linkButtons.register(
+                    { text: "Нет аккаунта?" },
+                    () => new RegisterPage()
+                )
+            }
+        })
     }
 
     render(): HTMLElement {
-        return this._compile(
-            /*html*/ `
-            <main>
-                {{{LoginSubmitForm}}}
-                {{{RegisterButton}}}
-            </main>
-        `,
-            this.props
-        )
+        return compile2Dom(loginTemplate, this.props)
     }
 }

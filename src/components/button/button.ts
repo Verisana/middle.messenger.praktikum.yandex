@@ -1,5 +1,6 @@
 import styles from "./button.css"
-import { convertStylesToStrings } from "../../utils/utils"
+import buttonTemplate from "./button.hbs"
+import { compile2Dom, convertStyles2Strings } from "../../utils/utils"
 import { IButtonParams } from "./types"
 import { Block } from "../block"
 
@@ -7,27 +8,16 @@ export class Button extends Block {
     constructor(params: IButtonParams) {
         const { props } = params
         props.type_ = props.type_ === undefined ? "button" : props.type_
-        props.rootClass = convertStylesToStrings(
+        props.rootClass = convertStyles2Strings(
             [styles],
             "button",
             props.rootClass
         )
-        props.imgStyle = convertStylesToStrings([styles], props.imgStyle)
+        props.imgStyle = convertStyles2Strings([styles], props.imgStyle)
         super(params)
     }
 
     render(): HTMLElement {
-        return this._compile(
-            /*html*/ `
-            <button type="{{type_}}" class="{{rootClass}}">
-                {{#if imgSrc}}<img
-                    src="{{imgSrc}}"
-                    class="{{imgStyle}}"
-                />{{else}}{{text}}
-                {{/if}}
-            </button>
-        `,
-            this.props
-        )
+        return compile2Dom(buttonTemplate, this.props)
     }
 }

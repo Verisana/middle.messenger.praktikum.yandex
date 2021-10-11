@@ -23,10 +23,7 @@
         ],
         "no-param-reassign": ["error", { "props": false }],
         "import/prefer-default-export": 0,
-        "no-underscore-dangle": "off",
-        "class-methods-use-this": "off",
-        "no-alert": "off",
-        "spaced-comment": "off"
+        "no-underscore-dangle": "off"
     },
     "env": {
         "browser": true

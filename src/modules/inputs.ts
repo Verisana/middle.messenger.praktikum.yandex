@@ -10,30 +10,26 @@ import {
     phonePattern
 } from "../utils/validators"
 import { InputConstruct } from "../components/inputConstruct"
-import { IInputFieldProps, InputField } from "../components/inputField"
+import { InputField } from "../components/inputField"
 
 const getPasswordField = (
     name: string,
     labelText: string,
     required: boolean = true
 ): InputConstruct => {
-    const props: IInputFieldProps = {
-        events: {
-            focus: [inputValidationCallback],
-            keyup: [inputValidationCallback],
-            blur: [inputValidationCallback]
-        },
-        type_: "password",
-        name,
-        pattern: passwordPattern.source
-    }
-    if (required) {
-        props.required = required
-    }
     return new InputConstruct({
         props: {
             InputField: new InputField({
-                props
+                props: {
+                    events: {
+                        focus: [inputValidationCallback],
+                        blur: [inputValidationCallback]
+                    },
+                    type_: "password",
+                    name,
+                    required,
+                    pattern: passwordPattern.source
+                }
             }),
             label: {
                 text: labelText
@@ -42,27 +38,6 @@ const getPasswordField = (
             validationErrorText: errorMessages[name]
         }
     })
-}
-
-export function getSearchInput(): InputConstruct[] {
-    // Возвращаю массив для единообразия
-    return [
-        new InputConstruct({
-            props: {
-                InputField: new InputField({
-                    props: {
-                        type_: "text",
-                        name: inputFieldNames.searchQuery,
-                        required: false
-                    }
-                }),
-                label: {
-                    text: "Поиск по чатам"
-                },
-                validationErrorText: errorMessages[inputFieldNames.searchQuery]
-            }
-        })
-    ]
 }
 
 export const getMessageInput = (): InputConstruct[] => {
@@ -74,7 +49,6 @@ export const getMessageInput = (): InputConstruct[] => {
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -100,8 +74,7 @@ export const getLoginInputs = (): InputConstruct[] => {
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            blur: [inputValidationCallback],
-                            keyup: [inputValidationCallback]
+                            blur: [inputValidationCallback]
                         },
                         type_: "text",
                         name: inputFieldNames.login,
@@ -120,18 +93,20 @@ export const getLoginInputs = (): InputConstruct[] => {
     ]
 }
 
-export const getRegisterInputs = (): InputConstruct[] => {
+export const getRegisterInputs = (
+    loadValues: boolean = false
+): InputConstruct[] => {
+    if (loadValues) {
+        // Вот тут буду подгружать имеющиеся значения и прокидывать в форму
+    }
+
     return [
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    storeMappings: {
-                        "user.phone": ["value"]
-                    },
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "tel",
@@ -141,7 +116,7 @@ export const getRegisterInputs = (): InputConstruct[] => {
                     }
                 }),
                 label: {
-                    text: "Телефон*"
+                    text: loadValues ? "Телефон" : "Телефон*"
                 },
                 br: true,
                 validationErrorText: errorMessages[inputFieldNames.phone]
@@ -150,13 +125,9 @@ export const getRegisterInputs = (): InputConstruct[] => {
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    storeMappings: {
-                        "user.login": ["value"]
-                    },
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -166,7 +137,7 @@ export const getRegisterInputs = (): InputConstruct[] => {
                     }
                 }),
                 label: {
-                    text: "Логин*"
+                    text: loadValues ? "Логин" : "Логин*"
                 },
                 br: true,
                 validationErrorText: errorMessages[inputFieldNames.login]
@@ -176,13 +147,9 @@ export const getRegisterInputs = (): InputConstruct[] => {
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    storeMappings: {
-                        "user.first_name": ["value"]
-                    },
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -200,13 +167,9 @@ export const getRegisterInputs = (): InputConstruct[] => {
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    storeMappings: {
-                        "user.second_name": ["value"]
-                    },
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "text",
@@ -224,13 +187,9 @@ export const getRegisterInputs = (): InputConstruct[] => {
         new InputConstruct({
             props: {
                 InputField: new InputField({
-                    storeMappings: {
-                        "user.email": ["value"]
-                    },
                     props: {
                         events: {
                             focus: [inputValidationCallback],
-                            keyup: [inputValidationCallback],
                             blur: [inputValidationCallback]
                         },
                         type_: "email",
@@ -248,38 +207,14 @@ export const getRegisterInputs = (): InputConstruct[] => {
     ]
 }
 
-export function getAvatarInput(): InputConstruct[] {
-    return [
-        new InputConstruct({
-            props: {
-                InputField: new InputField({
-                    props: {
-                        type_: "file",
-                        name: inputFieldNames.avatar,
-                        required: true,
-                        accept: "image/*"
-                    }
-                }),
-                label: {
-                    text: "Avatar"
-                }
-            }
-        })
-    ]
-}
-
-export function getPasswordInputs() {
-    return [
-        getPasswordField(inputFieldNames.oldPassword, "Текущий пароль*"),
-        getPasswordField(inputFieldNames.newPassword, "Новый пароль")
-    ]
-}
-
 export const getSettingsInputs = (): InputConstruct[] => {
-    const registerInputs = getRegisterInputs()
+    const registerInputs = getRegisterInputs(true)
 
     // Удаляем имеющееся поле для пароля
     registerInputs.splice(2, 1)
 
-    return registerInputs
+    return [
+        getPasswordField(inputFieldNames.oldPassword, "Текущий пароль*"),
+        getPasswordField(inputFieldNames.newPassword, "Новый пароль", false)
+    ].concat(registerInputs)
 }
