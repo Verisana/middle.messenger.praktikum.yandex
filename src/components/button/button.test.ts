@@ -1,7 +1,6 @@
 import { expect } from "chai"
 import { JSDOM } from "jsdom"
 import { Button, IButtonParams } from "."
-import { rootQuery } from "../../consts"
 
 describe("Test Button", () => {
     let dom: JSDOM
@@ -46,8 +45,9 @@ describe("Test Button", () => {
         }
 
         // eslint-disable-next-line
-        expect(button.content.textContent?.includes(params.props.text as string))
-            .to.be.true
+        expect(
+            button.content.textContent?.includes(params.props.text as string)
+        ).to.be.true
 
         const textChanged = "Changed"
 
