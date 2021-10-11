@@ -1,6 +1,4 @@
 import "./register.css"
-import registerTemplate from "./register.hbs"
-import { compileToDom } from "../../../utils/dom_utils"
 import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
@@ -46,9 +44,15 @@ export class RegisterPage extends Block {
         })
     }
 
-    componentBeforeMount() {}
-
     render(): HTMLElement {
-        return compileToDom(registerTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <main>
+                {{{RegisterSubmitForm}}}
+                {{{LoginButton}}}
+            </main>
+        `,
+            this.props
+        )
     }
 }

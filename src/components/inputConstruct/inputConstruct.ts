@@ -1,7 +1,5 @@
 import styles from "./inputConstruct.css"
-import inputConstructTemplate from "./inputConstruct.hbs"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { IInputConstructParams } from "./types"
 import { Block } from "../block"
 
@@ -30,6 +28,23 @@ export class InputConstruct extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(inputConstructTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <div class="{{rootClass}}">
+                {{{InputField}}}
+                <p>{{validationErrorText}}</p>
+                <span class="{{barClass}}"></span>
+                {{#if label.text}}
+                    <label class="{{label.class}}">
+                        {{label.text}}
+                    </label>
+                {{/if}}
+                {{#if br}}
+                    <br />
+                {{/if}}
+            </div>
+        `,
+            this.props
+        )
     }
 }

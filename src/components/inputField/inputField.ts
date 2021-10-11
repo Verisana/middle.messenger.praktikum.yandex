@@ -1,7 +1,5 @@
 import styles from "./inputField.css"
-import inputFieldTemplate from "./inputField.hbs"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { IInputFieldParams } from "./types"
 import { Block } from "../block"
 
@@ -18,6 +16,20 @@ export class InputField extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(inputFieldTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <input
+                class="{{rootClass}}"
+                type="{{type_}}"
+                {{#if required}}required{{/if}}
+                {{#if pattern}}pattern="{{pattern}}"{{/if}}
+                placeholder="{{placeholder}}"
+                name={{name}}
+                {{#if value}}value="{{value}}"{{/if}}
+                {{#if accept}}accept="{{accept}}"{{/if}}
+            />
+        `,
+            this.props
+        )
     }
 }

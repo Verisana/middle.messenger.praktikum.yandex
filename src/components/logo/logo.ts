@@ -1,6 +1,4 @@
 import styles from "./logo.css"
-import logoTemplate from "./logo.hbs"
-import { compileToDom } from "../../utils/dom_utils"
 import { Block } from "../block"
 import { ILogoParams } from "./types"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
@@ -30,6 +28,13 @@ export class Logo extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(logoTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <p class={{rootClass}}>
+                Random Voice Companion
+            </p>
+        `,
+            this.props
+        )
     }
 }

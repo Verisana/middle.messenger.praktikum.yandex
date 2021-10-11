@@ -1,8 +1,6 @@
 import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
-import settingsTemplate from "./settings.hbs"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Button } from "../../components/button"
 import { Block } from "../../components/block"
@@ -104,6 +102,17 @@ export class SettingsPage extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(settingsTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <main>
+                <img class="{{avatarStyle}}" src={{avatarLink}} alt="Avatar place" />
+                {{{AvatarForm}}}
+                {{{PasswordForm}}}
+                {{{SettingsForm}}}
+                {{{HomeButton}}}
+            </main>
+        `,
+            this.props
+        )
     }
 }

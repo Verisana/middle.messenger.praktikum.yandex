@@ -1,7 +1,5 @@
 import styles from "./button.css"
-import buttonTemplate from "./button.hbs"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { IButtonParams } from "./types"
 import { Block } from "../block"
 
@@ -19,6 +17,17 @@ export class Button extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(buttonTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <button type="{{type_}}" class="{{rootClass}}">
+                {{#if imgSrc}}<img
+                    src="{{imgSrc}}"
+                    class="{{imgStyle}}"
+                />{{else}}{{text}}
+                {{/if}}
+            </button>
+        `,
+            this.props
+        )
     }
 }

@@ -1,6 +1,4 @@
 import "./header.css"
-import headerTemplate from "./header.hbs"
-import { compileToDom } from "../../utils/dom_utils"
 import { Button } from "../button"
 import { urlSlugs } from "../../consts"
 import { Block } from "../block"
@@ -51,6 +49,21 @@ export class Header extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(headerTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <header>
+                <nav>
+                    {{#if isLogged}}
+                        {{{MenuButton}}}
+                    {{/if}}
+                    {{{Logo}}}
+                    {{#if isLogged}}
+                        {{{SettingsButton}}}{{{LogoutButton}}}
+                    {{/if}}
+                </nav>
+            </header>
+        `,
+            this.props
+        )
     }
 }

@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid"
+import Handlebars from "handlebars"
 
 import styles from "./block.css"
 import { Props, IMeta, BlockParams, StoreMappings } from "./types"
@@ -6,6 +7,7 @@ import { EventBus } from "../../utils/event_bus"
 import { set } from "../../utils/utils"
 import { store } from "../../store"
 import { BlockEvents } from "../../consts"
+import { compileToDom } from "../../utils/dom_utils"
 
 export abstract class Block {
     private _root: DocumentFragment | null
@@ -146,6 +148,7 @@ export abstract class Block {
 
     protected _render() {
         const block = this.render()
+
         if (this._meta.params.settings?.withInternalID) {
             block.dataset.blockId = this.props.__id
         }
@@ -221,5 +224,12 @@ export abstract class Block {
                 this.content?.removeEventListener(eventName, eventListener)
             }
         })
+    }
+
+    protected _compile(template: string, props: Props): HTMLElement {
+        const templateFunc = Handlebars.compile(template) as (
+            context?: Props
+        ) => string
+        return compileToDom(templateFunc, props)
     }
 }

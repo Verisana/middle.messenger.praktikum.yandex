@@ -1,7 +1,5 @@
 import { Block } from "../../components/block"
 import styles from "./messenger.css"
-import messengerTemplate from "./messenger.hbs"
-import { compileToDom } from "../../utils/dom_utils"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
@@ -236,6 +234,27 @@ export class MessengerPage extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(messengerTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <main class="{{rootClass}}">
+                {{{SideChatBar}}}
+                <div>
+                    <div>
+                        {{{ChatAvatarSubmit}}}
+                        {{{UsersButton}}}
+                        {{{RemovePersonButton}}}
+                        {{{AddPersonButton}}}
+                    </div>
+                    {{#each Messages}}
+                        <div>
+                            {{{this}}}
+                        </div>
+                    {{/each}}
+                    {{{SendMessage}}}
+                </div>
+            </main>
+        `,
+            this.props
+        )
     }
 }

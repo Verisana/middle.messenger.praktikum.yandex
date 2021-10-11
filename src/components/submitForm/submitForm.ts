@@ -1,7 +1,5 @@
 import styles from "./submitForm.css"
-import submitFormTemplate from "./submitForm.hbs"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { ISubmitFormParams } from "./types"
 import { Block } from "../block"
 
@@ -35,6 +33,28 @@ export class SubmitForm extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(submitFormTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <form class="{{rootClass}}">
+                {{#if formHeaderText}}
+                    <p>
+                        {{formHeaderText}}
+                    </p>
+                {{/if}}
+                {{#each Inputs}}
+                    {{{this}}}
+                {{/each}}
+                {{#if errorText}}
+                    <p class={{errorClass}} id="form-authorization-error">
+                        {{errorText}}
+                    </p>
+                {{/if}}
+                {{#if SubmitButton}}
+                    {{{SubmitButton}}}
+                {{/if}}
+            </form>
+        `,
+            this.props
+        )
     }
 }

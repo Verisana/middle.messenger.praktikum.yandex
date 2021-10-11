@@ -1,9 +1,7 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
-import footerTemplate from "./footer.hbs"
 import { Block } from "../block"
 import { IFooterParams } from "./types"
-import { compileToDom } from "../../utils/dom_utils"
 
 export class Footer extends Block {
     constructor() {
@@ -17,6 +15,17 @@ export class Footer extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(footerTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <footer>
+                <div className={{contentClass}}>
+                    <p>
+                        © 2021. Random Voice Companion
+                    </p>
+                </div>
+            </footer>
+        `,
+            this.props
+        )
     }
 }

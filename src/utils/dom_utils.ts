@@ -73,7 +73,7 @@ export const compileToDom = (
             stub.replaceWith(component.content)
         }
     }
-    return fragment.content.firstChild as HTMLElement
+    return fragment.content.firstElementChild as HTMLElement
 }
 
 export function getBaseUrl(): string {

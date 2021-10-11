@@ -1,6 +1,4 @@
 import "./login.css"
-import loginTemplate from "./login.hbs"
-import { compileToDom } from "../../../utils/dom_utils"
 import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
@@ -53,6 +51,14 @@ export class LoginPage extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(loginTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <main>
+                {{{LoginSubmitForm}}}
+                {{{RegisterButton}}}
+            </main>
+        `,
+            this.props
+        )
     }
 }

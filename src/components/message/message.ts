@@ -1,7 +1,5 @@
 import styles from "./message.css"
-import messageTemplate from "./message.hbs"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { IMessageParams, IMessageProps } from "./types"
 import { Block } from "../block"
 
@@ -33,9 +31,24 @@ export class Message extends Block {
 
     render(): HTMLElement {
         const props = this.props as IMessageProps
-        return compileToDom(messageTemplate, {
+        const propsCopy = {
             ...props,
             text: Message._sliceMessageText(props.text, this._maxMessageLength)
-        })
+        }
+        return this._compile(
+            /*html*/ `
+            <div
+                class="{{rootClass}}"
+                {{#if senderId}}data-sender-id={{senderId}}{{/if}}
+                data-sender-name={{senderName}}
+            >
+                <p>
+                    {{text}}
+                </p>
+                {{{Time}}}
+            </div>
+        `,
+            propsCopy
+        )
     }
 }

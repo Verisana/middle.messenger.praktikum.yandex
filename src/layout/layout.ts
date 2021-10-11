@@ -1,8 +1,6 @@
 import "./layout.css"
-import layoutTemplate from "./layout.hbs"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { compileToDom } from "../utils/dom_utils"
 import { Block } from "../components/block"
 
 export class Layout extends Block {
@@ -17,7 +15,16 @@ export class Layout extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(layoutTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <div id="App">
+                {{{Header}}}
+                {{{Content}}}
+                {{{Footer}}}
+            </div>
+        `,
+            this.props
+        )
     }
 }
 
