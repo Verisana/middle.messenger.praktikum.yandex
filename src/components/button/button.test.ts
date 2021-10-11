@@ -7,12 +7,14 @@ describe("Test Button", () => {
     let dom: JSDOM
 
     beforeEach(() => {
-        dom = new JSDOM(
-            `<html></html><body><div id="App"></div><script type="text/javascript" src="../index.ts"></script></body></html>`,
-            {
-                url: "http://localhost:1234"
-            }
-        )
+        dom = new JSDOM(`<html><body><div id="App"></div></body></html>`, {
+            url: "http://localhost:1234"
+        })
+
+        // @ts-expect-error
+        global.window = dom.window as DOMWindow
+
+        global.document = dom.window.document
     })
 
     it("initialization", () => {
@@ -34,22 +36,24 @@ describe("Test Button", () => {
                 type_: "text"
             }
         }
-        const button = new Button(params)
-        const div = document.getElementById(rootQuery)
 
+        const button = new Button(params)
+        const div = document.body.firstElementChild
         if (div !== null && button.content !== null) {
-            div.replaceChildren(button.content)
+            div.appendChild(button.content)
         } else {
             throw new Error("You must find div in tests")
         }
 
-        expect(button.content.textContent).to.be.equal(params.props.text)
+        // eslint-disable-next-line
+        expect(button.content.textContent?.includes(params.props.text as string))
+            .to.be.true
 
         const textChanged = "Changed"
 
-        // @ts-expect-error
-        button.props = textChanged
+        button.props.text = textChanged
 
-        expect(button.content.textContent).to.be.equal(textChanged)
+        // eslint-disable-next-line
+        expect(button.content.textContent?.includes(textChanged)).to.be.true
     })
 })
