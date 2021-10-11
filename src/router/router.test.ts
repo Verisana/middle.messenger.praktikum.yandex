@@ -1,4 +1,5 @@
-import { JSDOM } from "jsdom"
+import sinon from "sinon"
+import { DOMWindow, JSDOM } from "jsdom"
 import { expect } from "chai"
 import { rootQuery } from "../consts"
 import { Router } from "./router"
@@ -6,36 +7,45 @@ import { Route } from "./route"
 import { RedirectRoute } from "./redirect"
 import { Block } from "../components/block"
 
+const div = document.createElement("div")
+div.id = "App"
+
 describe("Test Router", () => {
     let dom: JSDOM
     let router: Router
+
     const pages = {
         login: () => {
             return {
+                content: div,
                 render: () => "render",
                 leave: () => "leave"
             } as unknown as Block
         },
         register: () => {
             return {
+                content: div,
                 render: () => "render",
                 leave: () => "leave"
             } as unknown as Block
         },
         messenger: () => {
             return {
+                content: div,
                 render: () => "render",
                 leave: () => "leave"
             } as unknown as Block
         },
         profileSettings: () => {
             return {
+                content: div,
                 render: () => "render",
                 leave: () => "leave"
             } as unknown as Block
         },
         error: () => {
             return {
+                content: div,
                 render: () => "render",
                 leave: () => "leave"
             } as unknown as Block
@@ -44,11 +54,16 @@ describe("Test Router", () => {
 
     beforeEach(() => {
         dom = new JSDOM(
-            `<html></html><body><div id="App"></div><script type="text/javascript" src="../index.ts"></script></body></html>`,
+            `<html></html><body><div id="App"></div></body></html>`,
             {
                 url: "http://localhost:1234"
             }
         )
+
+        // @ts-expect-error
+        global.window = dom.window as DOMWindow
+
+        global.document = dom.window.document
 
         // @ts-expect-error
         Router.__instance = undefined
@@ -107,22 +122,13 @@ describe("Test Router", () => {
         expect(window.location.pathname).to.be.equal("/login")
     })
     it("back method", () => {
-        router.use("/login", pages.login)
-        router.use("/", pages.profileSettings)
-        router.start()
-
-        router.go("/login")
+        const backSpy = sinon.spy(global.window.history, "back")
         router.back()
-        expect(window.location.pathname).to.be.equal("/")
+        expect(backSpy.callCount).to.be.equal(1)
     })
     it("forward method", () => {
-        router.use("/login", pages.login)
-        router.use("/", pages.profileSettings)
-        router.start()
-
-        router.go("/login")
-        router.back()
+        const forwardSpy = sinon.spy(global.window.history, "forward")
         router.forward()
-        expect(window.location.pathname).to.be.equal("/login")
+        expect(forwardSpy.callCount).to.be.equal(1)
     })
 })
