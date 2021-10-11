@@ -6,10 +6,6 @@ import { PlainObject } from "./utils/types"
 import { get, normalizeAvatar, set } from "./utils/utils"
 
 export class Store {
-    static EVENTS = {
-        SDU: "state-did-update"
-    }
-
     static __instance: Store
 
     // @ts-expect-error
