@@ -1,8 +1,6 @@
 import styles from "./sideChat.css"
-import sideChatTemplate from "./sideChat.hbs"
 import layoutStyles from "../../layout/layout.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { defaultAvatar, globalEvents } from "../../consts"
 import { Block } from "../../components/block"
 import { ISideChatParams, ISideChatProps } from "./types"
@@ -69,6 +67,26 @@ export class SideChat extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(sideChatTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <div
+                data-message-is-read="{{messageIsRead}}"
+                data-chat-id="{{chatId}}"
+                class="{{rootClass}}"
+            >
+                <img class="{{imgStyles}}" src="{{avatarSrc}}" />
+                <div>
+                    <div class="{{chatDivClass}}">
+                        <p class="{{chatParagraphClass}}">
+                            {{chatTitle}}
+                        </p>
+                        {{{Time}}}
+                    </div>
+                    {{{Message}}}
+                </div>
+            </div>
+        `,
+            this.props
+        )
     }
 }

@@ -1,9 +1,7 @@
 import styles from "./sideChatBar.css"
 import sideChatStyles from "../sideChat/sideChat.css"
-import sideChatBarTemplate from "./sideChatBar.hbs"
 import { Block } from "../../components/block"
 import { convertStylesToStrings } from "../../utils/utils"
-import { compileToDom } from "../../utils/dom_utils"
 import { ISideChatBarParams } from "./types"
 import { ISideChatProps, SideChat } from "../sideChat"
 import { globalEventBus } from "../../utils/event_bus"
@@ -56,6 +54,20 @@ export class SideChatBar extends Block {
     }
 
     render(): HTMLElement {
-        return compileToDom(sideChatBarTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <div class="{{rootClass}}">
+                {{{SearchBar}}}
+                <div>
+                    {{{ChatDeleteButton}}}
+                    {{{ChatCreateButton}}}
+                </div>
+                {{#each SideChats}}
+                    {{{this}}}
+                {{/each}}
+            </div>
+        `,
+            this.props
+        )
     }
 }
