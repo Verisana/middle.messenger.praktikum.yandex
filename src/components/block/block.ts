@@ -7,7 +7,6 @@ import { EventBus } from "../../utils/event_bus"
 import { set } from "../../utils/utils"
 import { store } from "../../store"
 import { BlockEvents } from "../../consts"
-import { compileToDom } from "../../utils/dom_utils"
 
 export abstract class Block {
     private _content: HTMLElement | null
@@ -218,6 +217,76 @@ export abstract class Block {
         const templateFunc = Handlebars.compile(template) as (
             context?: Props
         ) => string
-        return compileToDom(templateFunc, props)
+        return Block.compileToDom(templateFunc, props)
+    }
+
+    static fillComponentId(
+        components: Record<string, Block>,
+        key: string,
+        value: unknown,
+        context: Props,
+        isValueArray: boolean
+    ) {
+        if (value instanceof Block) {
+            const id = uuidv4()
+
+            const mockDomString = `<div data-content-id="${id}"></div>` // делаем заглушку
+            components[id] = value // сохраняем компонент
+            if (isValueArray) {
+                if (context[key] === undefined) {
+                    context[key] = []
+                }
+                // TypeScript не понимал, что у меня тут 100% будет массив, поэтому
+                // пришлось вручную пробросить тип
+                const contextValue = context[key] as string[]
+                contextValue.push(mockDomString)
+            } else {
+                context[key] = mockDomString
+            }
+        } else {
+            context[key] = value
+        }
+    }
+
+    static compileToDom(
+        templateFunc: (context: Props) => string,
+        proxyContext: Props
+    ): HTMLElement {
+        const fragment = document.createElement("template")
+        const components: Record<string, Block> = {}
+
+        // Создаем дубликат массива, чтобы не триггерить CDU, когда перезаписываем
+        // в пропсах mock значения
+        const context: Props = {}
+
+        for (const [key, value] of Object.entries(proxyContext)) {
+            if (Array.isArray(value)) {
+                for (const arrayValue of value) {
+                    Block.fillComponentId(
+                        components,
+                        key,
+                        arrayValue,
+                        context,
+                        true
+                    )
+                }
+            } else Block.fillComponentId(components, key, value, context, false)
+        }
+        fragment.innerHTML = templateFunc(context)
+        for (const [id, component] of Object.entries(components)) {
+            const stub = fragment.content.querySelector(
+                `[data-content-id="${id}"]`
+            )
+
+            // Здесь разрешено получать null, потому что шаблон может рендерить места
+            // В зависимости от условий. Тогда получается, что у нас может быть компонент
+            // но места под него нет в текущем состоянии.
+            if (stub !== null) {
+                if (component.content === null)
+                    throw new Error("Content can not bu nulled")
+                stub.replaceWith(component.content)
+            }
+        }
+        return fragment.content.firstElementChild as HTMLElement
     }
 }
