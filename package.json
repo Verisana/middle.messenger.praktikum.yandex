@@ -21,6 +21,8 @@
         "url": "git+https://github.com/Verisana/middle.messenger.praktikum.yandex.git"
     },
     "devDependencies": {
+        "@babel/core": "^7.15.8",
+        "@babel/register": "^7.15.3",
         "@types/chai": "^4.2.22",
         "@types/jsdom": "^16.2.13",
         "@types/mocha": "^9.0.0",
@@ -71,5 +73,14 @@
         "tabWidth": 4,
         "semi": false,
         "singleQuote": false
+    },
+    "mocha": {
+        "require": [
+            "ts-node/register",
+            "ignore-styles",
+            "jsdom-global/register"
+        ],
+        "reporter": "list",
+        "colors": true
     }
 }

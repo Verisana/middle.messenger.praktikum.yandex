@@ -25,7 +25,8 @@
         "import/prefer-default-export": 0,
         "no-underscore-dangle": "off",
         "class-methods-use-this": "off",
-        "no-alert": "off"
+        "no-alert": "off",
+        "spaced-comment": "off"
     },
     "env": {
         "browser": true
