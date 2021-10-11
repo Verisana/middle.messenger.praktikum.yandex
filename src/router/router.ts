@@ -61,8 +61,8 @@ class Router {
         return this
     }
 
-    useError(pathname: string, block: () => Block) {
-        this._errorRoute = new Route(pathname, block, this._rootQuery)
+    useError(pathname: string, blockBuilder: () => Block) {
+        this._errorRoute = new Route(pathname, blockBuilder, this._rootQuery)
         return this
     }
 
