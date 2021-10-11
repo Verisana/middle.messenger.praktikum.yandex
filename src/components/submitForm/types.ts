@@ -8,6 +8,8 @@ export interface ISubmitFormProps extends Props {
     SubmitButton: Button
     formHeaderText?: string
     rootClass?: string | string[]
+    errorClass?: string | string[]
+    errorText?: string
 }
 
 export interface ISubmitFormSettings extends BlockSettings {

@@ -7,6 +7,8 @@ export interface IInputFieldProps extends Props {
     pattern?: string
     placeholder?: string
     name?: string
+    value?: string
+    accept?: string
 }
 
 export interface IInputFieldParams extends BlockParams {

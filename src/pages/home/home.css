@@ -1,6 +1,0 @@
-.home {
-    display: grid;
-    grid-template-columns: 30% 70%;
-    grid-template-rows: 100%;
-    width: 1140px;
-}

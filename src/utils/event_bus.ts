@@ -33,3 +33,9 @@ export class EventBus {
         })
     }
 }
+
+const instance = new EventBus()
+
+export function globalEventBus() {
+    return instance
+}

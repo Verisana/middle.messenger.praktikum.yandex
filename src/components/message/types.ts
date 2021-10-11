@@ -6,11 +6,9 @@ export interface IMessageSettings extends BlockSettings {
 }
 
 export interface IMessageProps extends Props {
-    messageId: number
     text: string
-
-    // Временно. Вероятнее всего здесь должен быть какой-то Sender объект
-    sender: string
+    senderName: string
+    senderId?: number
     rootClass?: string | string[]
     Time?: TimeInfo
 }

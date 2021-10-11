@@ -4,9 +4,11 @@ import { SubmitForm } from "../../components/submitForm"
 
 export interface ISettingsPageProps extends Props {
     SettingsForm: SubmitForm
+    AvatarForm: SubmitForm
+    PasswordForm: SubmitForm
     HomeButton: Button
     avatarStyle: string | string[]
-    linkToImage: string
+    avatarLink: string
 }
 
 export interface ISettingsPageParams extends BlockParams {

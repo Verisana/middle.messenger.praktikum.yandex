@@ -1,24 +1,13 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
-import footerTemplate from "./footer.hbs"
-import { linkButtons } from "../../router/tempButtons"
-import { pages } from "../../pages"
 import { Block } from "../block"
-import { Button } from "../button"
 import { IFooterParams } from "./types"
-import { compile2Dom } from "../../utils/utils"
 
 export class Footer extends Block {
     constructor() {
-        const routeButtons: Button[] = []
-        for (const [route, button] of Object.entries(linkButtons)) {
-            routeButtons.push(button({}, pages[route]))
-        }
-
         const params: IFooterParams = {
             props: {
-                contentClass: layoutStyles.content,
-                LinkButtons: routeButtons
+                contentClass: layoutStyles.content
             }
         }
 
@@ -26,6 +15,17 @@ export class Footer extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(footerTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <footer>
+                <div className={{contentClass}}>
+                    <p>
+                        © 2021. Random Voice Companion
+                    </p>
+                </div>
+            </footer>
+        `,
+            this.props
+        )
     }
 }

@@ -51,10 +51,13 @@ export const validators: Record<string, (value: string) => boolean> = {
     [inputFieldNames.oldPassword]: validatePassword,
     [inputFieldNames.newPassword]: validatePassword,
     [inputFieldNames.phone]: validatePhone,
-    [inputFieldNames.message]: validateMessage
+    [inputFieldNames.message]: validateMessage,
+    [inputFieldNames.avatar]: () => true,
+    [inputFieldNames.searchQuery]: () => true
 }
 
 export const errorMessages: Record<string, string> = {
+    [inputFieldNames.avatar]: "",
     [inputFieldNames.firstName]:
         "Допускается только латиница или кириллица. Первая буква должна быть " +
         "заглавной, без пробелов и без цифр, нет спецсимволов (допустим " +
@@ -83,7 +86,8 @@ export const errorMessages: Record<string, string> = {
     [inputFieldNames.phone]:
         "Введите телефон от 10 до 15 символов. Состоит из цифр, может " +
         "начинается с плюса",
-    [inputFieldNames.message]: "Сообщение не может быть пустым"
+    [inputFieldNames.message]: "Сообщение не может быть пустым",
+    [inputFieldNames.searchQuery]: ""
 }
 
 export const inputValidationCallback = (event: Event) => {
@@ -99,4 +103,18 @@ export const inputValidationCallback = (event: Event) => {
     } else {
         inputElement.setCustomValidity("")
     }
+}
+
+export function isFormDataValid(form: HTMLFormElement): boolean {
+    // Здесь TS не мог распарсить, что HTMLCollection мог быть проитерирован,
+    // Поэтому поставил any
+    // https://stackoverflow.com/questions/51723962/typescript-nodelistofelement-is-not-an-array-type-or-a-string-type
+    for (const inputElement of form.getElementsByTagName("input") as any) {
+        const validator = validators[inputElement.name]
+        if (!validator(inputElement.value)) {
+            inputElement.setCustomValidity(errorMessages[inputElement.name])
+            return false
+        }
+    }
+    return true
 }
