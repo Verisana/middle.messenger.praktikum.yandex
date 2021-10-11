@@ -5,7 +5,7 @@ import { Events, PlainObject } from "./types"
 export const findPropertyInListOfObj = (
     objects: IStyle[],
     property: string
-): string => {
+): string | undefined => {
     if (!Array.isArray(objects))
         throw new Error(`Objects must be an Array. Received: ${objects}`)
     if (typeof property !== "string")
@@ -22,10 +22,6 @@ export const findPropertyInListOfObj = (
             throw new Error("Duplicate names found. Check your style names")
         }
     }
-    if (result === undefined)
-        throw new Error(
-            `Can not find property ${property} in objects ${objects}. Check arguments`
-        )
     return result
 }
 

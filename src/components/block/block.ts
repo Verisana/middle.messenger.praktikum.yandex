@@ -10,8 +10,6 @@ import { BlockEvents } from "../../consts"
 import { compileToDom } from "../../utils/dom_utils"
 
 export abstract class Block {
-    private _root: DocumentFragment | null
-
     private _content: HTMLElement | null
 
     private _meta: IMeta
@@ -39,7 +37,6 @@ export abstract class Block {
         this._initMappingValues()
         this.props = this._makePropsProxy(props)
         this.eventBus = () => eventBus
-        this._root = null
         this._content = null
         this._registerEvents(eventBus)
         eventBus.emit(BlockEvents.INIT)
@@ -56,12 +53,7 @@ export abstract class Block {
             .on(BlockEvents.STATE_SDU, this._storeDidUpdate.bind(this))
     }
 
-    protected _createResources() {
-        this._root = Block._createFragmentElement()
-    }
-
     init() {
-        this._createResources()
         this.eventBus().emit(BlockEvents.FLOW_CBM)
     }
 
@@ -123,13 +115,6 @@ export abstract class Block {
         Object.assign(this.props, nextProps)
     }
 
-    get root(): DocumentFragment {
-        if (this._root === null) {
-            throw new Error("Element was not created")
-        }
-        return this._root
-    }
-
     get content(): HTMLElement | null {
         return this._content
     }
@@ -155,12 +140,15 @@ export abstract class Block {
 
         this._removeEvents()
 
-        this.root.replaceChildren(block)
-
         if (this._content === null) {
             this._content = block
         } else {
-            this._content.replaceChildren(...Array.from(block.children))
+            const children = Array.from(block.children)
+            if (children.length > 0) {
+                this._content.replaceChildren(...children)
+            } else {
+                this._content.textContent = block.textContent
+            }
 
             if (block.tagName !== this._content.tagName)
                 throw new Error("You can't change _content tagName")
