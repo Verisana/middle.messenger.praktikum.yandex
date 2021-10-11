@@ -10,6 +10,7 @@ export interface IInputConstructProps extends Props {
         class?: string | string[]
     }
     br?: boolean
+    validationErrorText?: string
 }
 
 export interface IInputConstructParams extends BlockParams {

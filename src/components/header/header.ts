@@ -1,38 +1,69 @@
-import styles from "./header.css"
-import headerTemplate from "./header.hbs"
-import { compile2Dom } from "../../utils/utils"
-import { linkButtons } from "../../router/tempButtons"
+import "./header.css"
 import { Button } from "../button"
-import { isLogged } from "../../consts"
-import { SettingsPage } from "../../pages/settings"
+import { urlSlugs } from "../../consts"
 import { Block } from "../block"
+import { routerFactory } from "../../router"
+import { Logo } from "../logo"
+import { store } from "../../store"
+import { authController } from "../../controllers"
+
+const router = routerFactory()
 
 export class Header extends Block {
     constructor() {
+        const isLogged = store.select("user") !== undefined
+
         super({
             props: {
                 isLogged,
-                logoStyles: styles.logo__style_default,
                 MenuButton: new Button({
                     props: {
+                        rootClass: ["button__navbar"],
                         imgSrc: "menu_white_48dp.svg",
-                        rootClass: ["btn__navbar_default"],
-                        imgStyle: ["btn__image_default"]
+                        imgStyle: ["button__image"]
                     }
                 }),
-                SettingsButton: linkButtons.profileSettings(
-                    {
+                SettingsButton: new Button({
+                    props: {
+                        events: {
+                            click: [router.go.bind(router, urlSlugs.settings)]
+                        },
+                        rootClass: ["button__navbar"],
                         imgSrc: "settings_white_48dp.svg",
-                        rootClass: ["btn__navbar_default"],
-                        imgStyle: ["btn__image_default"]
-                    },
-                    () => new SettingsPage()
-                )
+                        imgStyle: ["button__image"]
+                    }
+                }),
+                LogoutButton: new Button({
+                    props: {
+                        events: {
+                            click: [authController.logout.bind(authController)]
+                        },
+                        rootClass: ["button__navbar"],
+                        imgSrc: "logout_white_48dp.svg",
+                        imgStyle: ["button__image"]
+                    }
+                }),
+                Logo: new Logo({ props: {} })
             }
         })
     }
 
     render(): HTMLElement {
-        return compile2Dom(headerTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <header>
+                <nav>
+                    {{#if isLogged}}
+                        {{{MenuButton}}}
+                    {{/if}}
+                    {{{Logo}}}
+                    {{#if isLogged}}
+                        {{{SettingsButton}}}{{{LogoutButton}}}
+                    {{/if}}
+                </nav>
+            </header>
+        `,
+            this.props
+        )
     }
 }

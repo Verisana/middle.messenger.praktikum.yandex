@@ -1,6 +1,4 @@
 import "./500.css"
-import serverErrorTemplate from "./500.hbs"
-import { compile2Dom } from "../../../utils/utils"
 import { Block } from "../../../components/block"
 
 export class ServerErrorPage extends Block {
@@ -9,6 +7,16 @@ export class ServerErrorPage extends Block {
     }
 
     render(): HTMLElement {
-        return compile2Dom(serverErrorTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <main>
+                <h1>Ошибка 500</h1>
+                <h2>Сервер не отвечает</h2>
+                <h3>Мы уже решаем проблему. Попробуйте зайти позже</h3>
+                <img src="500_img.jpg" alt="Jedi 500 error meme" />
+            </main>
+        `,
+            this.props
+        )
     }
 }

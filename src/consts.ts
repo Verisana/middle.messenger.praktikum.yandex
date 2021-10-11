@@ -1,12 +1,9 @@
 // В контакт листе на каком знаке обрубать сообщения
 export const maxMessageLength = 64
 
-export const defaultAvatar = "default-avatar.png"
+export const rootQuery = "#App"
 
-// Пока у нас нет глобального состояния, решил сюда для эмуляции прописывать
-// нужные параметры по авторизации. Можно менять, чтобы посмотреть, как
-// меняется контент в зависимости от положения переключателя
-export const isLogged = true
+export const defaultAvatar = "default-avatar.png"
 
 export const inputFieldNames = {
     firstName: "first_name",
@@ -17,5 +14,42 @@ export const inputFieldNames = {
     newPassword: "newPassword",
     phone: "phone",
     email: "email",
-    message: "message"
+    message: "message",
+    avatar: "avatar",
+    searchQuery: "search_query"
+}
+
+export const urlSlugs = {
+    home: "/",
+    register: "/sign-up",
+    settings: "/settings",
+    messenger: "/messenger",
+    login: "/login",
+    error: "/404",
+    serverError: "/500"
+}
+
+export const backendUrl = "https://ya-praktikum.tech/api/v2"
+
+export const backendWebsocketUrl = "wss://ya-praktikum.tech/ws/chats"
+
+export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
+
+export const BlockEvents = {
+    INIT: "init",
+    STATE_SDU: "state:state-did-update",
+    FLOW_CBM: "flow:component-before-mount",
+    FLOW_RENDER: "flow:render",
+    FLOW_CDM: "flow:component-did-mount",
+    FLOW_CDU: "flow:component-did-update"
+}
+
+export const pingInterval = 60000 // 1 минута
+
+export const globalEvents = {
+    sideChatClicked: "sideChatClicked",
+    PING_STATUS: "websocket:ping-status",
+
+    OLD_MESSAGES: "websocket:received-old-messages",
+    NEW_MESSAGE: "websocket:received-new-message"
 }

@@ -1,56 +1,118 @@
 import "./settings.css"
 import layoutStyles from "../../layout/layout.css"
-import settingsTemplate from "./settings.hbs"
-import {
-    onSubmitMock,
-    convertStyles2Strings,
-    compile2Dom
-} from "../../utils/utils"
-import { linkButtons } from "../../router/tempButtons"
+import { convertStylesToStrings } from "../../utils/utils"
 import { SubmitForm } from "../../components/submitForm"
-import { HomePage } from "../home"
 import { Button } from "../../components/button"
 import { Block } from "../../components/block"
-import { getSettingsInputs } from "../../modules/inputs"
+import {
+    getAvatarInput,
+    getPasswordInputs,
+    getSettingsInputs
+} from "../../modules/inputs"
+import { routerFactory } from "../../router"
+import { urlSlugs } from "../../consts"
+import { usersController, submitControllerBuilder } from "../../controllers"
 
-// Сюда в value нужно будет потом прокинуть уже установленные значения, чтобы
-// автоматом подставлялись
+const router = routerFactory()
 
 export class SettingsPage extends Block {
     constructor() {
         super({
+            storeMappings: {
+                "user.avatar": ["avatarLink"]
+            },
             props: {
-                // Пока не знаю, откуда будут картинки приходить, поставлю просто ссылку на статическую картинку
-                linkToImage:
-                    "https://lumpics.ru/wp-content/uploads/2017/11/Programmyi-dlya-sozdaniya-avatarok.png",
-                avatarStyle: convertStyles2Strings(
-                    [layoutStyles],
-                    "img__avatar_default"
-                ),
+                avatarStyle: convertStylesToStrings([layoutStyles], "avatar"),
                 SettingsForm: new SubmitForm({
                     props: {
-                        formHeaderText: "Данные для редактирования",
+                        events: {
+                            submit: [
+                                submitControllerBuilder(
+                                    usersController.updateProfile.bind(
+                                        usersController
+                                    )
+                                )
+                            ]
+                        },
+                        formHeaderText: "Отредактировать данные профиля",
                         Inputs: getSettingsInputs(),
                         SubmitButton: new Button({
                             props: {
-                                events: {
-                                    submit: [onSubmitMock]
-                                },
                                 text: "Сохранить",
                                 type_: "submit"
                             }
                         })
                     }
                 }),
-                HomeButton: linkButtons.home(
-                    { text: "Вернуться к чатам" },
-                    () => new HomePage()
-                )
+                AvatarForm: new SubmitForm({
+                    settings: {
+                        isNoBorder: true
+                    },
+                    props: {
+                        events: {
+                            submit: [
+                                submitControllerBuilder(
+                                    usersController.updateAvatar.bind(
+                                        usersController
+                                    )
+                                )
+                            ]
+                        },
+                        formHeaderText: "Для замены загрузите новый аватар",
+                        Inputs: getAvatarInput(),
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Загрузить",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                PasswordForm: new SubmitForm({
+                    props: {
+                        events: {
+                            submit: [
+                                submitControllerBuilder(
+                                    usersController.updatePassword.bind(
+                                        usersController
+                                    )
+                                )
+                            ]
+                        },
+                        formHeaderText: "Изменить пароль",
+                        Inputs: getPasswordInputs(),
+                        SubmitButton: new Button({
+                            props: {
+                                text: "Сохранить",
+                                type_: "submit"
+                            }
+                        })
+                    }
+                }),
+                HomeButton: new Button({
+                    props: {
+                        events: {
+                            click: [router.go.bind(router, urlSlugs.home)]
+                        },
+                        text: "Вернуться к чатам"
+                    }
+                })
             }
         })
     }
 
     render(): HTMLElement {
-        return compile2Dom(settingsTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <main>
+                <img class="{{avatarStyle}}" src={{avatarLink}} alt="Avatar place" />
+                {{{AvatarForm}}}
+                {{{PasswordForm}}}
+                {{{SettingsForm}}}
+                {{{HomeButton}}}
+            </main>
+        `,
+            this.props
+        )
     }
 }

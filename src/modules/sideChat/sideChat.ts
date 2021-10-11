@@ -1,43 +1,92 @@
 import styles from "./sideChat.css"
-import sideCHatTemplate from "./sideChat.hbs"
 import layoutStyles from "../../layout/layout.css"
-import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
-import { defaultAvatar } from "../../consts"
+import { appendEvent, convertStylesToStrings } from "../../utils/utils"
+import { defaultAvatar, globalEvents } from "../../consts"
 import { Block } from "../../components/block"
-import { ISideChatParams } from "./types"
+import { ISideChatParams, ISideChatProps } from "./types"
+import { globalEventBus } from "../../utils/event_bus"
+import { store } from "../../store"
+
+function sideChatClick(event: Event) {
+    const { currentTarget } = event
+    if (currentTarget !== null) {
+        globalEventBus().emit(
+            globalEvents.sideChatClicked,
+            Number((currentTarget as HTMLElement).dataset.chatId)
+        )
+    }
+}
+
+export function isSelectedChat(
+    selected: SideChat | undefined,
+    props: ISideChatProps
+): boolean {
+    return (
+        selected !== undefined &&
+        (selected.props as ISideChatProps).chatId === props.chatId
+    )
+}
 
 export class SideChat extends Block {
     constructor(params: ISideChatParams) {
         const { props } = params
-        props.rootClass = convertStyles2Strings(
+        const selected = store.select("selectedChat") as SideChat | undefined
+
+        props.rootClass = convertStylesToStrings(
             [styles],
-            "sideChat__main",
-            props.rootClass
+            "side-chat",
+            props.rootClass,
+            isSelectedChat(selected, props) ? "side-chat_select" : undefined
         )
-        props.contactDivClass = convertStyles2Strings(
+        props.chatDivClass = convertStylesToStrings(
             [styles],
-            "sideChat__contactDiv",
-            props.contactDivClass
+            "side-chat__contact",
+            props.chatDivClass
         )
-        props.contactParagraphClass = convertStyles2Strings(
+        props.chatParagraphClass = convertStylesToStrings(
             [styles],
-            "sideChat__contactParagraph",
-            props.contactParagraphClass
+            "side-chat__contact-text",
+            props.chatParagraphClass
         )
 
         props.avatarSrc =
             props.avatarSrc === undefined ? defaultAvatar : props.avatarSrc
-        props.imgStyles = convertStyles2Strings(
-            [layoutStyles],
-            "img__avatar_small"
-        )
+        props.imgStyles = convertStylesToStrings([layoutStyles], "avatar_small")
+        props.selected = props.selected === undefined ? false : props.selected
+
+        if (isSelectedChat(selected, props)) {
+            props.selected = true
+        }
+
+        props.events = appendEvent("click", sideChatClick, props.events)
         super(params)
+
+        if (isSelectedChat(selected, props)) {
+            store.setValue("selectedChat", this)
+        }
     }
-    // Добавить slice message
-    // messageElement.textContent =
-    //     textContent !== null ? textContent.slice(0, maxMessageLength) : null
 
     render(): HTMLElement {
-        return compile2Dom(sideCHatTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <div
+                data-message-is-read="{{messageIsRead}}"
+                data-chat-id="{{chatId}}"
+                class="{{rootClass}}"
+            >
+                <img class="{{imgStyles}}" src="{{avatarSrc}}" />
+                <div>
+                    <div class="{{chatDivClass}}">
+                        <p class="{{chatParagraphClass}}">
+                            {{chatTitle}}
+                        </p>
+                        {{{Time}}}
+                    </div>
+                    {{{Message}}}
+                </div>
+            </div>
+        `,
+            this.props
+        )
     }
 }

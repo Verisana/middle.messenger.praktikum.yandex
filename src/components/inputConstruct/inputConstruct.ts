@@ -1,16 +1,19 @@
 import styles from "./inputConstruct.css"
-import inputConstructTemplate from "./inputConstruct.hbs"
-import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { convertStylesToStrings } from "../../utils/utils"
 import { IInputConstructParams } from "./types"
 import { Block } from "../block"
 
 export class InputConstruct extends Block {
     constructor(params: IInputConstructParams) {
         const { props } = params
-        props.barClass = convertStyles2Strings([styles], "bar", props.barClass)
-        props.rootClass = convertStyles2Strings(
+        props.barClass = convertStylesToStrings(
             [styles],
-            "inputDiv_default",
+            "input-construct__bar",
+            props.barClass
+        )
+        props.rootClass = convertStylesToStrings(
+            [styles],
+            "input-construct",
             props.rootClass
         )
         props.br = props.br === undefined ? false : props.br
@@ -19,12 +22,29 @@ export class InputConstruct extends Block {
                 ? undefined
                 : {
                       text: props.label.text,
-                      class: convertStyles2Strings([styles], props.label.class)
+                      class: convertStylesToStrings([styles], props.label.class)
                   }
         super(params)
     }
 
     render(): HTMLElement {
-        return compile2Dom(inputConstructTemplate, this.props)
+        return this._compile(
+            /*html*/ `
+            <div class="{{rootClass}}">
+                {{{InputField}}}
+                <p>{{validationErrorText}}</p>
+                <span class="{{barClass}}"></span>
+                {{#if label.text}}
+                    <label class="{{label.class}}">
+                        {{label.text}}
+                    </label>
+                {{/if}}
+                {{#if br}}
+                    <br />
+                {{/if}}
+            </div>
+        `,
+            this.props
+        )
     }
 }

@@ -27,13 +27,13 @@ img {
     border-radius: 15px;
 }
 
-.img__avatar_default {
+.avatar {
     height: 100px;
     width: 100px;
     border-radius: 50px;
 }
 
-.img__avatar_small {
+.avatar_small {
     height: 50px;
     width: 50px;
     border-radius: 25px;

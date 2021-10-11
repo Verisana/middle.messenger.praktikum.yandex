@@ -1,4 +1,4 @@
-import { HomePage } from "./home"
+import { MessengerPage } from "./messenger"
 import { ErrorPage } from "./errors/404"
 import { ServerErrorPage } from "./errors/500"
 import { LoginPage } from "./auth/login"
@@ -7,9 +7,9 @@ import { SettingsPage } from "./settings"
 import { Block } from "../components/block"
 
 export const pages: Record<string, () => Block> = {
-    home: () => new HomePage(),
     login: () => new LoginPage(),
     register: () => new RegisterPage(),
+    messenger: () => new MessengerPage(),
     profileSettings: () => new SettingsPage(),
     error: () => new ErrorPage(),
     serverError: () => new ServerErrorPage()

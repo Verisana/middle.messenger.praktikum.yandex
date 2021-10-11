@@ -1,4 +1,4 @@
-.inputDiv_default {
+.input-construct {
     position: relative;
     margin-bottom: 10px;
 }
@@ -13,19 +13,17 @@ label {
     left: 5px;
     top: 10px;
     transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
 }
 
 /* BOTTOM BARS ================================= */
-.bar {
+.input-construct__bar {
     position: relative;
     display: block;
     width: 300px;
 }
 
-.bar::before,
-.bar::after {
+.input-construct__bar::before,
+.input-construct__bar::after {
     content: "";
     height: 2px;
     width: 0;
@@ -37,10 +35,10 @@ label {
     -webkit-transition: 0.2s ease all;
 }
 
-.bar::before {
+.input-construct__bar::before {
     left: 50%;
 }
 
-.bar::after {
+.input-construct__bar::after {
     right: 50%;
 }
