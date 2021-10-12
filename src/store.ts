@@ -6,24 +6,15 @@ import { PlainObject } from "./utils/types"
 import { get, normalizeAvatar, set } from "./utils/utils"
 
 export class Store {
-    static __instance: Store
-
-    // @ts-expect-error
     private _data: IStoreData
 
-    // @ts-expect-error
     eventBus: () => EventBus
 
     constructor(data: IStoreData) {
         const eventBus = new EventBus()
 
-        if (Store.__instance) {
-            return Store.__instance
-        }
         this._data = data
         this.eventBus = () => eventBus
-
-        Store.__instance = this
     }
 
     get data(): IStoreData {
