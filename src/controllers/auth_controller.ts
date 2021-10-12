@@ -12,22 +12,15 @@ class AuthController {
         this.api = AuthAPI
     }
 
-    async login(formData: FormData) {
-        try {
-            const data: ILoginRequest = {
-                login: String(formData.get("login")),
-                password: String(formData.get("password"))
-            }
-            await this.api.login(data)
-            await this.userRead()
-            router.go(urlSlugs.home)
-        } catch (e) {
-            // Здесь нельзя импортировать тип LoginPage, иначе получается циклический импорт
-            // поэтому проставил тип any. Как это сделать более правильно?
-            const loginPage = router.page.props.Content as any
-            const loginPageProps = loginPage.props
-            loginPageProps.LoginSubmitForm.showError()
+    async login(formData: FormData): Promise<undefined> {
+        const data: ILoginRequest = {
+            login: String(formData.get("login")),
+            password: String(formData.get("password"))
         }
+        await this.api.login(data)
+        await this.userRead()
+        router.go(urlSlugs.home)
+        return undefined
     }
 
     async logout() {

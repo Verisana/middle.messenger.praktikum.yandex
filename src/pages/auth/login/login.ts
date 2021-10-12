@@ -7,6 +7,7 @@ import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
 import { authController, submitControllerBuilder } from "../../../controllers"
 import { ILoginPageProps } from "./types"
+import { appendEvent } from "../../../utils/utils"
 
 const router = routerFactory()
 
@@ -15,13 +16,6 @@ export class LoginPage extends Block {
         const props: ILoginPageProps = {
             LoginSubmitForm: new SubmitForm({
                 props: {
-                    events: {
-                        submit: [
-                            submitControllerBuilder(
-                                authController.login.bind(authController)
-                            )
-                        ]
-                    },
                     formHeaderText: "Введите для авторизации",
                     Inputs: getLoginInputs(),
                     SubmitButton: new Button({
@@ -48,6 +42,23 @@ export class LoginPage extends Block {
             props
         }
         super(params)
+
+        props.LoginSubmitForm.props.events = appendEvent(
+            "submit",
+            this.submitLogin.bind(this),
+            props.LoginSubmitForm.props.events
+        )
+    }
+
+    submitLogin(event: Event) {
+        const submitFunc = submitControllerBuilder(
+            authController.login.bind(authController)
+        )
+        try {
+            submitFunc(event)
+        } catch (e) {
+            ;(this.props as ILoginPageProps).LoginSubmitForm.showError()
+        }
     }
 
     render(): [string, Props] {
