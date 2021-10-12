@@ -8,37 +8,23 @@ export class UsersAPI extends BaseAPI {
     }
 
     updateProfile(data: IProfileUpdateRequest): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data,
-            withCredentials: true
-        }
-        return this.request.put("/profile", options)
+        return this.request.put("/profile", data)
     }
 
     updateAvatar(data: FormData): Promise<XMLHttpRequest> {
         const options: IRequestOptions = {
-            data,
-            withCredentials: true,
             headers: {}
         }
-        return this.request.put("/profile/avatar", options)
+        return this.request.put("/profile/avatar", data, options)
     }
 
     updatePassword(
         data: IProfilePasswordUpdateRequest
     ): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data,
-            withCredentials: true
-        }
-        return this.request.put("/password", options)
+        return this.request.put("/password", data)
     }
 
     search(login: string): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data: { login },
-            withCredentials: true
-        }
-        return this.request.post("/search", options)
+        return this.request.post("/search", { login })
     }
 }
