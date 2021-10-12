@@ -15,7 +15,7 @@ import {
     messagesController,
     submitControllerBuilder
 } from "../../controllers"
-import { SideChat } from "../../modules/sideChat"
+import { ISideChatProps, SideChat } from "../../modules/sideChat"
 import { getSelectedSideChat } from "./utils"
 import { store } from "../../store"
 import { inputFieldNames } from "../../consts"
@@ -175,13 +175,31 @@ export class MessengerPage extends Block {
             alert("Нельзя создать чат без имени")
             return
         }
+        const { chats } = store.data
+        if (chats !== undefined) {
+            const duplicate = chats.filter((chat) => {
+                return chat.title === title
+            })
+            if (duplicate.length > 0) {
+                alert("Нельзя создавать чаты с одинаковыми именами")
+                return
+            }
+        }
         await chatsController.create(title)
     }
 
     async deleteChatClicked() {
         const selected = store.select("selectedChat") as SideChat | undefined
         if (selected !== undefined) {
-            chatsController.delete(selected)
+            const props = selected.props as ISideChatProps
+            if (
+                // eslint-disable-next-line
+                confirm(
+                    `Вы действительно хотите удалить ${props.chatTitle} чат?`
+                )
+            ) {
+                chatsController.delete(props)
+            }
         } else {
             alert("Для удаления нужно сначала выбрать чат")
         }

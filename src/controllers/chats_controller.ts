@@ -1,6 +1,5 @@
 import usersController from "./users_controller"
 import { ChatsAPI, UserData, IChatsGetUsers, IChatsRequest } from "../api"
-import { IMessageProps } from "../components/message"
 import { ILayoutProps } from "../layout"
 import { ISideChatProps, SideChat } from "../modules/sideChat"
 import { ISideChatBarProps } from "../modules/sideChatBar"
@@ -8,7 +7,6 @@ import { IMessengerPageProps } from "../pages/messenger"
 import { getSelectedSideChat } from "../pages/messenger/utils"
 import { routerFactory } from "../router"
 import { store } from "../store"
-import { constructSideChats } from "./utils"
 import { globalEventBus } from "../utils/event_bus"
 import { globalEvents } from "../consts"
 
@@ -33,35 +31,17 @@ class ChatsController {
 
     async create(title: string) {
         try {
-            const { chats } = store.data
-            if (chats !== undefined) {
-                const duplicate = chats.filter((chat) => {
-                    return chat.title === title
-                })
-                if (duplicate.length > 0) {
-                    alert("Нельзя создавать чаты с одинаковыми именами")
-                    return
-                }
-                await this.api.create(title)
-                await this.get()
-            }
+            await this.api.create(title)
+            await this.get()
         } catch (e) {
             console.log(e)
         }
     }
 
-    async delete(selected: SideChat) {
+    async delete(props: ISideChatProps) {
         try {
-            const props = selected.props as ISideChatProps
-            if (
-                // eslint-disable-next-line
-                confirm(
-                    `Вы действительно хотите удалить ${props.chatTitle} чат?`
-                )
-            ) {
-                await this.api.delete(props.chatId)
-                await this.get()
-            }
+            await this.api.delete(props.chatId)
+            await this.get()
         } catch (e) {
             console.log(e)
         }
