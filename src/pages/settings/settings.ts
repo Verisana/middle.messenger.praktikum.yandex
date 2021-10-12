@@ -96,7 +96,7 @@ export class SettingsPage extends Block<ISettingsPageProps> {
                 HomeButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.home)]
+                            click: [() => router.go(urlSlugs.home)]
                         },
                         text: "Вернуться к чатам"
                     }

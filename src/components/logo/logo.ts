@@ -21,7 +21,7 @@ export class Logo extends Block<ILogoProps> {
         }
         props.events = appendEvent(
             "click",
-            router.go.bind(router, urlSlugs.home),
+            () => router.go(urlSlugs.home),
             props.events
         )
         super(params)

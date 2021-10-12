@@ -13,7 +13,7 @@ export class ErrorPage extends Block<Props> {
                 HomeButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.home)]
+                            click: [() => router.go(urlSlugs.home)]
                         },
                         text: "Home"
                     }

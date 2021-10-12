@@ -27,7 +27,7 @@ export class Header extends Block<IHeaderProps> {
                 SettingsButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.settings)]
+                            click: [() => router.go(urlSlugs.settings)]
                         },
                         rootClass: ["button__navbar"],
                         imgSrc: "settings_white_48dp.svg",
@@ -37,7 +37,7 @@ export class Header extends Block<IHeaderProps> {
                 LogoutButton: new Button({
                     props: {
                         events: {
-                            click: [authController.logout.bind(authController)]
+                            click: [() => authController.logout()]
                         },
                         rootClass: ["button__navbar"],
                         imgSrc: "logout_white_48dp.svg",

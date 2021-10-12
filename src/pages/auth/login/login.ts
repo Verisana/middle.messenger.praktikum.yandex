@@ -31,7 +31,7 @@ export class LoginPage extends Block<ILoginPageProps> {
             RegisterButton: new Button({
                 props: {
                     events: {
-                        click: [router.go.bind(router, urlSlugs.register)]
+                        click: [() => router.go(urlSlugs.register)]
                     },
                     text: "Нет аккаунта?"
                 }
