@@ -52,7 +52,7 @@ export class SideChatBar extends Block<ISideChatBarProps> {
                     messageProps.text.includes(searchQuery)
                 )
             })
-            store.setUndefined("chatsSearchQuery")
+            store.setValue("chatsSearchQuery", undefined)
         }
         this.props.SideChats = sideChats
     }

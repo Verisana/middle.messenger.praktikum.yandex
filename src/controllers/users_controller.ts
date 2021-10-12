@@ -25,7 +25,6 @@ class UsersController {
             }
             const response = await this.api.updateProfile(data)
             store.setUser(response.response)
-            window.location.reload()
         } catch (e) {
             console.log(e)
         }
@@ -35,7 +34,6 @@ class UsersController {
         try {
             const response = await this.api.updateAvatar(formData)
             store.setUser(response.response)
-            window.location.reload()
         } catch (e) {
             console.log(e)
         }
@@ -48,7 +46,6 @@ class UsersController {
                 newPassword: String(formData.get("newPassword"))
             }
             await this.api.updatePassword(data)
-            window.location.reload()
         } catch (e) {
             console.log(e)
         }

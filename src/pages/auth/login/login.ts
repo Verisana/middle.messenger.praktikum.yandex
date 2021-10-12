@@ -38,11 +38,7 @@ export class LoginPage extends Block<ILoginPageProps> {
             })
         }
 
-        const params = {
-            props
-        }
-        super(params)
-
+        super({ props })
         props.LoginSubmitForm.props.events = appendEvent(
             "submit",
             this.submitLogin.bind(this),

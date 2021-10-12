@@ -2,12 +2,17 @@ import { v4 as uuidv4 } from "uuid"
 import Handlebars from "handlebars"
 
 import styles from "./block.css"
-import { Props, IMeta, BlockParams, StoreMappings } from "./types"
+import {
+    Props,
+    IMeta,
+    BlockParams,
+    StoreMappings,
+    TemplateCreator
+} from "./types"
 import { EventBus } from "../../utils/event_bus"
 import { set } from "../../utils/utils"
 import { store } from "../../store"
 import { BlockEvents } from "../../consts"
-import { TemplateCreator } from "."
 
 export abstract class Block<T extends Props> {
     private _content: HTMLElement | null
@@ -265,7 +270,7 @@ export abstract class Block<T extends Props> {
 
         // Создаем дубликат массива, чтобы не триггерить CDU, когда перезаписываем
         // в пропсах mock значения
-        const context: T = { ...proxyContext }
+        const context = {}
 
         for (const [key, value] of Object.entries(proxyContext)) {
             if (Array.isArray(value)) {
@@ -282,7 +287,7 @@ export abstract class Block<T extends Props> {
                 this._fillComponentId(components, key, value, context, false)
             }
         }
-        fragment.innerHTML = templateFunc(context)
+        fragment.innerHTML = templateFunc(context as T)
         for (const [id, component] of Object.entries(components)) {
             const stub = fragment.content.querySelector(
                 `[data-content-id="${id}"]`

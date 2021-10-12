@@ -36,7 +36,6 @@ export class MessagesController {
 
     onOldMessagesReceived(messages: ISocketMessageResponse[]) {
         store.setMessages(messages.reverse())
-        globalEventBus().emit(globalEvents.messengerMessagesUpdate)
     }
 
     onNewMessageReceived(message: ISocketMessageResponse) {
@@ -49,7 +48,6 @@ export class MessagesController {
             messages = [message]
         }
         store.setMessages(messages)
-        globalEventBus().emit(globalEvents.messengerMessagesUpdate)
     }
 
     onOpenHandler() {

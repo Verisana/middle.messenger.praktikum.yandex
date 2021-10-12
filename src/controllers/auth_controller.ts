@@ -57,7 +57,7 @@ class AuthController {
             store.setUser(response.response)
         } catch (e) {
             console.log(e)
-            store.setUndefined("user")
+            store.setUser(undefined)
         }
     }
 }

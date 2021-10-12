@@ -32,7 +32,8 @@ export class SettingsPage extends Block<ISettingsPageProps> {
                                 submitControllerBuilder(
                                     usersController.updateProfile.bind(
                                         usersController
-                                    )
+                                    ),
+                                    false
                                 )
                             ]
                         },
@@ -81,6 +82,7 @@ export class SettingsPage extends Block<ISettingsPageProps> {
                                 )
                             ]
                         },
+                        errorText: "Ошибка. Пароль не был изменен",
                         formHeaderText: "Изменить пароль",
                         Inputs: getPasswordInputs(),
                         SubmitButton: new Button({

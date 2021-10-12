@@ -1,7 +1,7 @@
 import { UserData, ISocketMessageResponse, IChatsResponse } from "./api"
-import { BlockEvents } from "./consts"
+import { BlockEvents, globalEvents } from "./consts"
 import { IStoreData } from "./types"
-import { EventBus } from "./utils/event_bus"
+import { EventBus, globalEventBus } from "./utils/event_bus"
 import { PlainObject } from "./utils/types"
 import { get, normalizeAvatar, set } from "./utils/utils"
 
@@ -34,9 +34,19 @@ export class Store {
         return get(this.data, path, false)
     }
 
-    setUser(user: UserData): boolean {
-        user.avatar = normalizeAvatar(user.avatar)
-        return this.setValue("user", user)
+    setUser(user: UserData | undefined): boolean {
+        let result: boolean
+        if (user === undefined) {
+            result = this.setValue("user", undefined)
+        } else {
+            user.avatar = normalizeAvatar(user.avatar)
+            for (const [key, value] of Object.entries(user)) {
+                this.setValue(`user.${key}`, value)
+            }
+            result = true
+        }
+
+        return result
     }
 
     setUsersInChat(users: UserData[]): boolean {
@@ -72,18 +82,15 @@ export class Store {
                 minute: "numeric"
             }).format(date)
         }
+        const result = this.setValue("messages", messages)
+        globalEventBus().emit(globalEvents.messengerMessagesUpdate)
 
-        return this.setValue("messages", messages)
+        return result
     }
 
     setValue(path: string, value: unknown): boolean {
         set(this.data, path, value)
         this.eventBus().emit(BlockEvents.STATE_SDU, path, value)
-        return true
-    }
-
-    setUndefined(path: string): boolean {
-        set(this.data, path, undefined)
         return true
     }
 }
