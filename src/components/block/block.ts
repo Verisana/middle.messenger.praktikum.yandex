@@ -276,7 +276,9 @@ export abstract class Block {
                         true
                     )
                 }
-            } else Block.fillComponentId(components, key, value, context, false)
+            } else {
+                Block.fillComponentId(components, key, value, context, false)
+            }
         }
         fragment.innerHTML = templateFunc(context)
         for (const [id, component] of Object.entries(components)) {
@@ -288,9 +290,11 @@ export abstract class Block {
             // В зависимости от условий. Тогда получается, что у нас может быть компонент
             // но места под него нет в текущем состоянии.
             if (stub !== null) {
-                if (component.content === null)
-                    throw new Error("Content can not bu nulled")
-                stub.replaceWith(component.content)
+                if (component.content !== null) {
+                    stub.replaceWith(component.content)
+                } else {
+                    console.warn("Content can not bu nulled")
+                }
             }
         }
         return fragment.content.firstElementChild as HTMLElement
