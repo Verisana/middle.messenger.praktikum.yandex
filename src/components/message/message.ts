@@ -30,10 +30,12 @@ export class Message extends Block<IMessageProps> {
     }
 
     render(): [string, IMessageProps] {
-        const props = this.props as IMessageProps
         const propsCopy = {
-            ...props,
-            text: Message._sliceMessageText(props.text, this._maxMessageLength)
+            ...this.props,
+            text: Message._sliceMessageText(
+                this.props.text,
+                this._maxMessageLength
+            )
         }
         return [
             /*html*/ `

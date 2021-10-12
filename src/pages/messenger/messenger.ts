@@ -1,7 +1,7 @@
 import { Block, BlockParams } from "../../components/block"
 import styles from "./messenger.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
-import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
+import { SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
 import {
     getAvatarInput,
@@ -15,7 +15,7 @@ import {
     messagesController,
     submitControllerBuilder
 } from "../../controllers"
-import { ISideChatProps, SideChat } from "../../modules/sideChat"
+import { SideChat } from "../../modules/sideChat"
 import { getSelectedSideChat } from "./utils"
 import { store } from "../../store"
 import { inputFieldNames } from "../../consts"
@@ -121,8 +121,7 @@ export class MessengerPage extends Block<IMessengerPageProps> {
             }
         }
         super(params)
-        const sideChatBarProps = params.props.SideChatBar
-            .props as ISideChatBarProps
+        const sideChatBarProps = params.props.SideChatBar.props
 
         sideChatBarProps.ChatCreateButton.props.events = appendEvent(
             "click",
@@ -191,14 +190,13 @@ export class MessengerPage extends Block<IMessengerPageProps> {
     async deleteChatClicked() {
         const selected = store.select("selectedChat") as SideChat | undefined
         if (selected !== undefined) {
-            const props = selected.props as ISideChatProps
             if (
                 // eslint-disable-next-line
                 confirm(
-                    `Вы действительно хотите удалить ${props.chatTitle} чат?`
+                    `Вы действительно хотите удалить ${selected.props.chatTitle} чат?`
                 )
             ) {
-                chatsController.delete(props)
+                chatsController.delete(selected.props)
             }
         } else {
             alert("Для удаления нужно сначала выбрать чат")

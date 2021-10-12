@@ -57,7 +57,7 @@ export class LoginPage extends Block<ILoginPageProps> {
         try {
             submitFunc(event)
         } catch (e) {
-            ;(this.props as ILoginPageProps).LoginSubmitForm.showError()
+            this.props.LoginSubmitForm.showError()
         }
     }
 

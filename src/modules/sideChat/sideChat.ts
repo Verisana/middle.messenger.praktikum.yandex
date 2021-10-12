@@ -21,10 +21,7 @@ export function isSelectedChat(
     selected: SideChat | undefined,
     props: ISideChatProps
 ): boolean {
-    return (
-        selected !== undefined &&
-        (selected.props as ISideChatProps).chatId === props.chatId
-    )
+    return selected !== undefined && selected.props.chatId === props.chatId
 }
 
 export class SideChat extends Block<ISideChatProps> {

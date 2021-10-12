@@ -53,8 +53,7 @@ class ChatsController {
     ) {
         try {
             if (selected !== undefined) {
-                const sideChatProps = selected.props as ISideChatProps
-                const allUsers = await this.readUsers(sideChatProps.chatId)
+                const allUsers = await this.readUsers(selected.props.chatId)
 
                 const duplicateUsers = allUsers.filter((value) => {
                     if (value.login === login) {
@@ -81,19 +80,19 @@ class ChatsController {
                 if (user !== undefined) {
                     if (isDelete) {
                         await this.api.deleteUsers({
-                            chatId: sideChatProps.chatId,
+                            chatId: selected.props.chatId,
                             users: [Number(user.id)]
                         })
                         alert(
-                            `Пользователь ${user.login} удален из чата ${sideChatProps.chatTitle}`
+                            `Пользователь ${user.login} удален из чата ${selected.props.chatTitle}`
                         )
                     } else {
                         await this.api.addUsers({
-                            chatId: sideChatProps.chatId,
+                            chatId: selected.props.chatId,
                             users: [Number(user.id)]
                         })
                         alert(
-                            `Пользователь ${user.login} добавлен в чат ${sideChatProps.chatTitle}`
+                            `Пользователь ${user.login} добавлен в чат ${selected.props.chatTitle}`
                         )
                     }
                 } else {
@@ -128,8 +127,7 @@ class ChatsController {
 
             const selected = getSelectedSideChat(sidebarProps.SideChats)
             if (selected !== undefined) {
-                const sideChatProps = selected.props as ISideChatProps
-                formData.append("chatId", String(sideChatProps.chatId))
+                formData.append("chatId", String(selected.props.chatId))
                 await this.api.updateAvatar(formData)
                 await this.get()
             } else {
@@ -171,10 +169,9 @@ class ChatsController {
     async showUsersInChat(selected?: SideChat): Promise<undefined> {
         try {
             if (selected !== undefined) {
-                const sideChatProps = selected.props as ISideChatProps
-                const allUsers = await this.readUsers(sideChatProps.chatId)
+                const allUsers = await this.readUsers(selected.props.chatId)
 
-                let info = `В чате ${sideChatProps.chatTitle} участвуют пользователи в количестве ${allUsers.length}:\n`
+                let info = `В чате ${selected.props.chatTitle} участвуют пользователи в количестве ${allUsers.length}:\n`
 
                 for (const user of allUsers) {
                     info += `${user.login}\n`

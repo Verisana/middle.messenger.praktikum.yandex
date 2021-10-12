@@ -1,6 +1,6 @@
 import chatsController from "./chats_controller"
 import { MessagesAPI, UserData, ISocketMessageResponse } from "../api"
-import { ISideChatProps, SideChat } from "../modules/sideChat"
+import { SideChat } from "../modules/sideChat"
 import { store } from "../store"
 import { globalEvents, inputFieldNames } from "../consts"
 import { globalEventBus } from "../utils/event_bus"
@@ -45,7 +45,7 @@ export class MessagesController {
         const messageComponents = constructMessages()
         const messengerPageProps = (
             router.page as unknown as Layout<IMessengerPageProps>
-        ).props.Content.props as IMessengerPageProps
+        ).props.Content.props
         messengerPageProps.Messages = messageComponents
     }
 
@@ -115,8 +115,7 @@ export class MessagesController {
         const user = store.select("user") as UserData | undefined
         if (user === undefined) throw new Error("User must be authorized")
 
-        const sideChatProps = this.selected.props as ISideChatProps
-        const token = await chatsController.getToken(sideChatProps.chatId)
+        const token = await chatsController.getToken(this.selected.props.chatId)
 
         if (token === undefined) {
             console.log("Can not receive token. Connection has not been opened")
@@ -124,7 +123,7 @@ export class MessagesController {
         }
         this.api = new MessagesAPI(
             Number(user.id),
-            sideChatProps.chatId,
+            this.selected.props.chatId,
             token,
             {
                 onOpen: this.onOpenHandler.bind(this),
@@ -153,8 +152,7 @@ export class MessagesController {
                     | SideChat
                     | undefined
                 if (selected !== undefined) {
-                    const props = selected.props as ISideChatProps
-                    await chatsController.readUsers(props.chatId)
+                    await chatsController.readUsers(selected.props.chatId)
                     this.api.requestMessages(0)
                 } else {
                     throw new Error(
