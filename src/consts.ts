@@ -29,12 +29,6 @@ export const urlSlugs = {
     serverError: "/500"
 }
 
-export const backendUrl = "https://ya-praktikum.tech/api/v2"
-
-export const backendWebsocketUrl = "wss://ya-praktikum.tech/ws/chats"
-
-export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
-
 export const BlockEvents = {
     INIT: "init",
     STATE_SDU: "state:state-did-update",
@@ -44,12 +38,14 @@ export const BlockEvents = {
     FLOW_CDU: "flow:component-did-update"
 }
 
-export const pingInterval = 60000 // 1 минута
+export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
 
 export const globalEvents = {
-    sideChatClicked: "sideChatClicked",
-    PING_STATUS: "websocket:ping-status",
+    sideChatClicked: "component:sideChat-click",
+    messengerMessagesUpdate: "component:messenger-update-messages",
+    sideChatsUpdated: "api:chats-get",
 
+    PING_STATUS: "websocket:ping-status",
     OLD_MESSAGES: "websocket:received-old-messages",
     NEW_MESSAGE: "websocket:received-new-message"
 }

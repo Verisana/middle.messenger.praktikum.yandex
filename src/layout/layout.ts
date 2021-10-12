@@ -1,10 +1,11 @@
 import "./layout.css"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { Block } from "../components/block"
+import { Block, Props } from "../components/block"
+import { ILayoutProps } from "./types"
 
-export class Layout extends Block {
-    constructor(content: () => Block) {
+export class Layout<T extends Props> extends Block<ILayoutProps<T>> {
+    constructor(content: () => Block<T>) {
         super({
             props: {
                 Header: new Header(),
@@ -14,8 +15,8 @@ export class Layout extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, ILayoutProps<T>] {
+        return [
             /*html*/ `
             <div id="App">
                 {{{Header}}}
@@ -24,10 +25,12 @@ export class Layout extends Block {
             </div>
         `,
             this.props
-        )
+        ]
     }
 }
 
-export function layoutFactory(content: () => Block): () => Layout {
+export function layoutFactory<T extends Props>(
+    content: () => Block<T>
+): () => Layout<T> {
     return () => new Layout(content)
 }

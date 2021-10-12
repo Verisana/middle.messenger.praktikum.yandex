@@ -1,9 +1,9 @@
 import styles from "./submitForm.css"
 import { convertStylesToStrings } from "../../utils/utils"
-import { ISubmitFormParams } from "./types"
+import { ISubmitFormParams, ISubmitFormProps } from "./types"
 import { Block } from "../block"
 
-export class SubmitForm extends Block {
+export class SubmitForm extends Block<ISubmitFormProps> {
     constructor(params: ISubmitFormParams) {
         const { props, settings = {} } = params
         settings.isNoBorder =
@@ -28,12 +28,12 @@ export class SubmitForm extends Block {
             const errorText = content.querySelector("#form-authorization-error")
             errorText?.classList.add(styles["form__authorization-error_show"])
         } else {
-            throw new Error("Can not show error, because content is null")
+            console.warn("Can not show error, because content is null")
         }
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, ISubmitFormProps] {
+        return [
             /*html*/ `
             <form class="{{rootClass}}">
                 {{#if formHeaderText}}
@@ -55,6 +55,6 @@ export class SubmitForm extends Block {
             </form>
         `,
             this.props
-        )
+        ]
     }
 }

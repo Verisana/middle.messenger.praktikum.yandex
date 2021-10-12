@@ -1,50 +1,33 @@
 import usersController from "./users_controller"
-import { ChatsAPI, UserData, IChatsGetUsers, IChatsRequest } from "../api"
-import { IMessageProps } from "../components/message"
-import { ILayoutProps } from "../layout"
-import { ISideChatProps, SideChat } from "../modules/sideChat"
-import { ISideChatBarProps } from "../modules/sideChatBar"
+import {
+    ChatsAPI,
+    UserData,
+    IChatsGetUsers,
+    IChatsRequest,
+    IChatsResponse
+} from "../api"
+import { Layout } from "../layout"
 import { IMessengerPageProps } from "../pages/messenger"
 import { getSelectedSideChat } from "../pages/messenger/utils"
 import { routerFactory } from "../router"
 import { store } from "../store"
-import { constructSideChats } from "./utils"
+import { globalEventBus } from "../utils/event_bus"
+import { globalEvents } from "../consts"
 
 const router = routerFactory()
 
 class ChatsController {
-    private api: ChatsAPI
+    private api: typeof ChatsAPI
 
     constructor() {
-        this.api = new ChatsAPI()
+        this.api = ChatsAPI
     }
 
     async get(data?: IChatsRequest) {
         try {
             const response = await this.api.get(data)
             store.setChats(response.response)
-            let sideChats = constructSideChats()
-            const searchQuery = store.select("chatsSearchQuery") as
-                | string
-                | undefined
-
-            if (searchQuery !== undefined) {
-                sideChats = sideChats.filter((value) => {
-                    const props = value.props as ISideChatProps
-                    const messageProps = props.Message.props as IMessageProps
-                    return (
-                        props.chatTitle.includes(searchQuery) ||
-                        String(props.chatId).includes(searchQuery) ||
-                        messageProps.text.includes(searchQuery)
-                    )
-                })
-                store.setUndefined("chatsSearchQuery")
-            }
-
-            // Надо было, видимо, сделать правильное наследование типов, иначе
-            // теперь приходится any затыкать
-            const { page } = router as any
-            page.props.Content.props.SideChatBar.props.SideChats = sideChats
+            globalEventBus().emit(globalEvents.sideChatsUpdated)
         } catch (e) {
             console.log(e)
         }
@@ -52,35 +35,17 @@ class ChatsController {
 
     async create(title: string) {
         try {
-            const { chats } = store.data
-            if (chats !== undefined) {
-                const duplicate = chats.filter((chat) => {
-                    return chat.title === title
-                })
-                if (duplicate.length > 0) {
-                    alert("Нельзя создавать чаты с одинаковыми именами")
-                    return
-                }
-                await this.api.create(title)
-                await this.get()
-            }
+            await this.api.create(title)
+            await this.get()
         } catch (e) {
             console.log(e)
         }
     }
 
-    async delete(selected: SideChat) {
+    async delete(id: number) {
         try {
-            const props = selected.props as ISideChatProps
-            if (
-                // eslint-disable-next-line
-                confirm(
-                    `Вы действительно хотите удалить ${props.chatTitle} чат?`
-                )
-            ) {
-                await this.api.delete(props.chatId)
-                await this.get()
-            }
+            await this.api.delete(id)
+            await this.get()
         } catch (e) {
             console.log(e)
         }
@@ -88,13 +53,12 @@ class ChatsController {
 
     private async _modifyUsers(
         login: string,
-        selected?: SideChat,
+        selected?: IChatsResponse,
         isDelete: boolean = false
     ) {
         try {
             if (selected !== undefined) {
-                const sideChatProps = selected.props as ISideChatProps
-                const allUsers = await this.readUsers(sideChatProps.chatId)
+                const allUsers = await this.readUsers(Number(selected.id))
 
                 const duplicateUsers = allUsers.filter((value) => {
                     if (value.login === login) {
@@ -121,19 +85,19 @@ class ChatsController {
                 if (user !== undefined) {
                     if (isDelete) {
                         await this.api.deleteUsers({
-                            chatId: sideChatProps.chatId,
+                            chatId: Number(selected.id),
                             users: [Number(user.id)]
                         })
                         alert(
-                            `Пользователь ${user.login} удален из чата ${sideChatProps.chatTitle}`
+                            `Пользователь ${user.login} удален из чата ${selected.title}`
                         )
                     } else {
                         await this.api.addUsers({
-                            chatId: sideChatProps.chatId,
+                            chatId: Number(selected.id),
                             users: [Number(user.id)]
                         })
                         alert(
-                            `Пользователь ${user.login} добавлен в чат ${sideChatProps.chatTitle}`
+                            `Пользователь ${user.login} добавлен в чат ${selected.title}`
                         )
                     }
                 } else {
@@ -152,25 +116,23 @@ class ChatsController {
         }
     }
 
-    async addUsers(login: string, selected?: SideChat) {
+    async addUsers(login: string, selected?: IChatsResponse) {
         await this._modifyUsers(login, selected, false)
     }
 
-    async deleteUsers(login: string, selected?: SideChat) {
+    async deleteUsers(login: string, selected?: IChatsResponse) {
         await this._modifyUsers(login, selected, true)
     }
 
     async updateAvatar(formData: FormData) {
         try {
             const sidebarProps = (
-                (router.page.props as ILayoutProps).Content
-                    .props as IMessengerPageProps
-            ).SideChatBar.props as ISideChatBarProps
+                router.page as unknown as Layout<IMessengerPageProps>
+            ).props.Content.props.SideChatBar.props
 
             const selected = getSelectedSideChat(sidebarProps.SideChats)
             if (selected !== undefined) {
-                const sideChatProps = selected.props as ISideChatProps
-                formData.append("chatId", String(sideChatProps.chatId))
+                formData.append("chatId", String(selected.id))
                 await this.api.updateAvatar(formData)
                 await this.get()
             } else {
@@ -209,13 +171,12 @@ class ChatsController {
         }
     }
 
-    async showUsersInChat(selected?: SideChat): Promise<undefined> {
+    async showUsersInChat(selected?: IChatsResponse): Promise<undefined> {
         try {
             if (selected !== undefined) {
-                const sideChatProps = selected.props as ISideChatProps
-                const allUsers = await this.readUsers(sideChatProps.chatId)
+                const allUsers = await this.readUsers(Number(selected.id))
 
-                let info = `В чате ${sideChatProps.chatTitle} участвуют пользователи в количестве ${allUsers.length}:\n`
+                let info = `В чате ${selected.title} участвуют пользователи в количестве ${allUsers.length}:\n`
 
                 for (const user of allUsers) {
                     info += `${user.login}\n`

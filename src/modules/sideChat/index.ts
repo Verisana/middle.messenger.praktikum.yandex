@@ -1,2 +1,2 @@
 export { SideChat } from "./sideChat"
-export { ISideChatProps, ISideChatParams } from "./types"
+export { ISideChatProps } from "./types"

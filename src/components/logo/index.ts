@@ -1,2 +1,2 @@
 export { Logo } from "./logo"
-export { ILogoProps, ILogoParams } from "./types"
+export { ILogoProps } from "./types"

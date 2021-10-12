@@ -6,10 +6,11 @@ import { routerFactory } from "../../router"
 import { Logo } from "../logo"
 import { store } from "../../store"
 import { authController } from "../../controllers"
+import { IHeaderProps } from "./types"
 
 const router = routerFactory()
 
-export class Header extends Block {
+export class Header extends Block<IHeaderProps> {
     constructor() {
         const isLogged = store.select("user") !== undefined
 
@@ -26,7 +27,7 @@ export class Header extends Block {
                 SettingsButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.settings)]
+                            click: [() => router.go(urlSlugs.settings)]
                         },
                         rootClass: ["button__navbar"],
                         imgSrc: "settings_white_48dp.svg",
@@ -36,7 +37,7 @@ export class Header extends Block {
                 LogoutButton: new Button({
                     props: {
                         events: {
-                            click: [authController.logout.bind(authController)]
+                            click: [() => authController.logout()]
                         },
                         rootClass: ["button__navbar"],
                         imgSrc: "logout_white_48dp.svg",
@@ -48,8 +49,8 @@ export class Header extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, IHeaderProps] {
+        return [
             /*html*/ `
             <header>
                 <nav>
@@ -64,6 +65,6 @@ export class Header extends Block {
             </header>
         `,
             this.props
-        )
+        ]
     }
 }

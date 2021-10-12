@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../block"
+import { Props } from "../block"
 
 export interface IButtonProps extends Props {
     text?: string
@@ -6,8 +6,4 @@ export interface IButtonProps extends Props {
     type_?: string
     imgSrc?: string
     imgStyle?: string | string[]
-}
-
-export interface IButtonParams extends BlockParams {
-    props: IButtonProps
 }

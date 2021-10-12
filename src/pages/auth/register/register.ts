@@ -6,10 +6,11 @@ import { getRegisterInputs } from "../../../modules/inputs"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
 import { authController, submitControllerBuilder } from "../../../controllers"
+import { IRegisterPageProps } from "./types"
 
 const router = routerFactory()
 
-export class RegisterPage extends Block {
+export class RegisterPage extends Block<IRegisterPageProps> {
     constructor() {
         super({
             props: {
@@ -35,7 +36,7 @@ export class RegisterPage extends Block {
                 LoginButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.login)]
+                            click: [() => router.go(urlSlugs.login)]
                         },
                         text: "Уже есть аккаунт?"
                     }
@@ -44,8 +45,8 @@ export class RegisterPage extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, IRegisterPageProps] {
+        return [
             /*html*/ `
             <main>
                 {{{RegisterSubmitForm}}}
@@ -53,6 +54,6 @@ export class RegisterPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

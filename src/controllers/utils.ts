@@ -6,7 +6,10 @@ import { SideChat } from "../modules/sideChat"
 import { store } from "../store"
 import { isFormDataValid } from "../utils/validators"
 
-export function submitControllerBuilder(controllerMethod: Function) {
+export function submitControllerBuilder(
+    controllerMethod: Function,
+    isReset: boolean = true
+) {
     return async (event: Event) => {
         event.preventDefault()
         const form = event.target as HTMLFormElement
@@ -14,7 +17,9 @@ export function submitControllerBuilder(controllerMethod: Function) {
         if (isFormDataValid(form)) {
             const data = new FormData(form)
             await controllerMethod(data)
-            form.reset()
+            if (isReset) {
+                form.reset()
+            }
         }
     }
 }

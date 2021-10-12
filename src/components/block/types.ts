@@ -12,16 +12,16 @@ export type Props = {
     [key: string]: unknown
 }
 
-export type TemplateCreator = (props: Props) => string
+export type TemplateCreator<T> = (props: T) => string
 
-export type BlockParams = {
+export type BlockParams<T> = {
     events?: Events
     settings?: BlockSettings
     storeMappings?: StoreMappings
-    props: Props
+    props: T
 }
 
-export interface IMeta {
-    params: BlockParams
+export interface IMeta<T> {
+    params: BlockParams<T>
     id?: string
 }

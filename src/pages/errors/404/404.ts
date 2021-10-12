@@ -1,19 +1,19 @@
 import "./404.css"
-import { Block } from "../../../components/block"
+import { Block, Props } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
 
 const router = routerFactory()
 
-export class ErrorPage extends Block {
+export class ErrorPage extends Block<Props> {
     constructor() {
         super({
             props: {
                 HomeButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.home)]
+                            click: [() => router.go(urlSlugs.home)]
                         },
                         text: "Home"
                     }
@@ -22,8 +22,8 @@ export class ErrorPage extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <main>
                 <h1>
@@ -40,6 +40,6 @@ export class ErrorPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

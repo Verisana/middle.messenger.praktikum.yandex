@@ -1,6 +1,8 @@
 import { expect } from "chai"
 import { JSDOM } from "jsdom"
-import { Button, IButtonParams } from "."
+import { IButtonProps } from "./types"
+import { BlockParams } from "../block"
+import { Button } from "./button"
 
 describe("Test Button", () => {
     let dom: JSDOM
@@ -17,7 +19,7 @@ describe("Test Button", () => {
     })
 
     it("initialization", () => {
-        const params: IButtonParams = {
+        const params: BlockParams<IButtonProps> = {
             props: {
                 text: "Test",
                 type_: "text"
@@ -29,7 +31,7 @@ describe("Test Button", () => {
     })
 
     it("props update rerendering", () => {
-        const params: IButtonParams = {
+        const params: BlockParams<IButtonProps> = {
             props: {
                 text: "Test",
                 type_: "text"

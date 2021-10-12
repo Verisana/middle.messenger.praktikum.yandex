@@ -1,10 +1,10 @@
 import styles from "./inputField.css"
 import { convertStylesToStrings } from "../../utils/utils"
-import { IInputFieldParams } from "./types"
-import { Block } from "../block"
+import { IInputFieldProps } from "./types"
+import { Block, BlockParams, Props } from "../block"
 
-export class InputField extends Block {
-    constructor(params: IInputFieldParams) {
+export class InputField extends Block<IInputFieldProps> {
+    constructor(params: BlockParams<IInputFieldProps>) {
         const { props = {} } = params
         props.rootClass = convertStylesToStrings([styles], props.rootClass)
         props.type_ = props.type_ === undefined ? "text" : props.type_
@@ -15,8 +15,8 @@ export class InputField extends Block {
         super(params)
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <input
                 class="{{rootClass}}"
@@ -30,6 +30,6 @@ export class InputField extends Block {
             />
         `,
             this.props
-        )
+        ]
     }
 }

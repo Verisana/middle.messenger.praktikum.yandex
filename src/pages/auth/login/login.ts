@@ -7,21 +7,15 @@ import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
 import { authController, submitControllerBuilder } from "../../../controllers"
 import { ILoginPageProps } from "./types"
+import { appendEvent } from "../../../utils/utils"
 
 const router = routerFactory()
 
-export class LoginPage extends Block {
+export class LoginPage extends Block<ILoginPageProps> {
     constructor() {
         const props: ILoginPageProps = {
             LoginSubmitForm: new SubmitForm({
                 props: {
-                    events: {
-                        submit: [
-                            submitControllerBuilder(
-                                authController.login.bind(authController)
-                            )
-                        ]
-                    },
                     formHeaderText: "Введите для авторизации",
                     Inputs: getLoginInputs(),
                     SubmitButton: new Button({
@@ -37,21 +31,34 @@ export class LoginPage extends Block {
             RegisterButton: new Button({
                 props: {
                     events: {
-                        click: [router.go.bind(router, urlSlugs.register)]
+                        click: [() => router.go(urlSlugs.register)]
                     },
                     text: "Нет аккаунта?"
                 }
             })
         }
 
-        const params = {
-            props
-        }
-        super(params)
+        super({ props })
+        props.LoginSubmitForm.props.events = appendEvent(
+            "submit",
+            this.submitLogin.bind(this),
+            props.LoginSubmitForm.props.events
+        )
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    submitLogin(event: Event) {
+        const submitFunc = submitControllerBuilder(
+            authController.login.bind(authController)
+        )
+        try {
+            submitFunc(event)
+        } catch (e) {
+            this.props.LoginSubmitForm.showError()
+        }
+    }
+
+    render(): [string, ILoginPageProps] {
+        return [
             /*html*/ `
             <main>
                 {{{LoginSubmitForm}}}
@@ -59,6 +66,6 @@ export class LoginPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

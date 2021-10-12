@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../components/block"
+import { Props } from "../../components/block"
 import { Message } from "../../components/message"
 import { TimeInfo } from "../../components/timeInfo"
 
@@ -13,8 +13,4 @@ export interface ISideChatProps extends Props {
     chatDivClass?: string | string[]
     chatParagraphClass?: string | string[]
     selected?: boolean
-}
-
-export interface ISideChatParams extends BlockParams {
-    props: ISideChatProps
 }

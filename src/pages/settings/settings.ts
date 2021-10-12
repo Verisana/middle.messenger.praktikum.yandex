@@ -12,10 +12,11 @@ import {
 import { routerFactory } from "../../router"
 import { urlSlugs } from "../../consts"
 import { usersController, submitControllerBuilder } from "../../controllers"
+import { ISettingsPageProps } from "./types"
 
 const router = routerFactory()
 
-export class SettingsPage extends Block {
+export class SettingsPage extends Block<ISettingsPageProps> {
     constructor() {
         super({
             storeMappings: {
@@ -23,6 +24,7 @@ export class SettingsPage extends Block {
             },
             props: {
                 avatarStyle: convertStylesToStrings([layoutStyles], "avatar"),
+                avatarLink: "",
                 SettingsForm: new SubmitForm({
                     props: {
                         events: {
@@ -30,7 +32,8 @@ export class SettingsPage extends Block {
                                 submitControllerBuilder(
                                     usersController.updateProfile.bind(
                                         usersController
-                                    )
+                                    ),
+                                    false
                                 )
                             ]
                         },
@@ -79,6 +82,7 @@ export class SettingsPage extends Block {
                                 )
                             ]
                         },
+                        errorText: "Ошибка. Пароль не был изменен",
                         formHeaderText: "Изменить пароль",
                         Inputs: getPasswordInputs(),
                         SubmitButton: new Button({
@@ -92,7 +96,7 @@ export class SettingsPage extends Block {
                 HomeButton: new Button({
                     props: {
                         events: {
-                            click: [router.go.bind(router, urlSlugs.home)]
+                            click: [() => router.go(urlSlugs.home)]
                         },
                         text: "Вернуться к чатам"
                     }
@@ -101,8 +105,8 @@ export class SettingsPage extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, ISettingsPageProps] {
+        return [
             /*html*/ `
             <main>
                 <img class="{{avatarStyle}}" src={{avatarLink}} alt="Avatar place" />
@@ -113,6 +117,6 @@ export class SettingsPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

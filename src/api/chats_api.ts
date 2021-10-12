@@ -6,73 +6,45 @@ import {
     IChatsUsersModifyRequest
 } from "./types"
 
-export class ChatsAPI extends BaseAPI {
+class ChatsAPI extends BaseAPI {
     constructor() {
         super("/chats")
     }
 
     get(data?: IChatsRequest): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data,
-            withCredentials: true
-        }
-        return this.request.get("", options)
+        return this.request.get("", data)
     }
 
     create(title: string): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data: { title },
-            withCredentials: true
-        }
-        return this.request.post("", options)
+        return this.request.post("", { title })
     }
 
     delete(chatId: number): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data: { chatId },
-            withCredentials: true
-        }
-        return this.request.delete("", options)
+        return this.request.delete("", { chatId })
     }
 
     addUsers(data: IChatsUsersModifyRequest): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data,
-            withCredentials: true
-        }
-        return this.request.put("/users", options)
+        return this.request.put("/users", data)
     }
 
     deleteUsers(data: IChatsUsersModifyRequest): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data,
-            withCredentials: true
-        }
-        return this.request.delete("/users", options)
+        return this.request.delete("/users", data)
     }
 
     updateAvatar(data: FormData): Promise<XMLHttpRequest> {
         const options: IRequestOptions = {
-            data,
-            withCredentials: true,
             headers: {}
         }
-        return this.request.put("/avatar", options)
+        return this.request.put("/avatar", data, options)
     }
 
     getUsers(data: IChatsGetUsers): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data,
-            withCredentials: true
-        }
-        return this.request.get(`/${data.id}/users`, options)
+        return this.request.get(`/${data.id}/users`, data)
     }
 
     getToken(id: number): Promise<XMLHttpRequest> {
-        const options: IRequestOptions = {
-            data: { id },
-            withCredentials: true
-        }
-        return this.request.post(`/token/${id}`, options)
+        return this.request.post(`/token/${id}`, { id })
     }
 }
+
+export default new ChatsAPI()

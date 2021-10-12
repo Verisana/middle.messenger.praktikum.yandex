@@ -1,6 +1,6 @@
-export { AuthAPI } from "./auth_api"
-export { UsersAPI } from "./users_api"
-export { ChatsAPI } from "./chats_api"
+export { default as AuthAPI } from "./auth_api"
+export { default as UsersAPI } from "./users_api"
+export { default as ChatsAPI } from "./chats_api"
 export { MessagesAPI } from "./messages_api"
 
 export {

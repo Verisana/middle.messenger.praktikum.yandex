@@ -1,7 +1,7 @@
-import { Block } from "../../components/block"
+import { Block, BlockParams } from "../../components/block"
 import styles from "./messenger.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
-import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
+import { SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
 import {
     getAvatarInput,
@@ -9,7 +9,7 @@ import {
     getSearchInput
 } from "../../modules/inputs"
 import { Button } from "../../components/button"
-import { IMessengerPageParams } from "./types"
+import { IMessengerPageProps } from "./types"
 import {
     chatsController,
     messagesController,
@@ -18,11 +18,14 @@ import {
 import { SideChat } from "../../modules/sideChat"
 import { getSelectedSideChat } from "./utils"
 import { store } from "../../store"
-import { inputFieldNames } from "../../consts"
+import { globalEvents, inputFieldNames } from "../../consts"
+import { globalEventBus } from "../../utils/event_bus"
+import { constructMessages } from "../../controllers/utils"
+import { IChatsResponse } from "../../api"
 
-export class MessengerPage extends Block {
+export class MessengerPage extends Block<IMessengerPageProps> {
     constructor() {
-        const params: IMessengerPageParams = {
+        const params: BlockParams<IMessengerPageProps> = {
             props: {
                 ChatAvatarSubmit: new SubmitForm({
                     settings: {
@@ -121,8 +124,13 @@ export class MessengerPage extends Block {
             }
         }
         super(params)
-        const sideChatBarProps = params.props.SideChatBar
-            .props as ISideChatBarProps
+
+        globalEventBus().on(
+            globalEvents.messengerMessagesUpdate,
+            this.receiveMessagesFromStore.bind(this)
+        )
+
+        const sideChatBarProps = params.props.SideChatBar.props
 
         sideChatBarProps.ChatCreateButton.props.events = appendEvent(
             "click",
@@ -169,19 +177,42 @@ export class MessengerPage extends Block {
         )
     }
 
+    receiveMessagesFromStore() {
+        this.props.Messages = constructMessages()
+    }
+
     async createChatClicked() {
         const title = prompt("Введите заголовок нового чата", "")
         if (title === null || title === "") {
             alert("Нельзя создать чат без имени")
             return
         }
+        const { chats } = store.data
+        if (chats !== undefined) {
+            const duplicate = chats.filter((chat) => {
+                return chat.title === title
+            })
+            if (duplicate.length > 0) {
+                alert("Нельзя создавать чаты с одинаковыми именами")
+                return
+            }
+        }
         await chatsController.create(title)
     }
 
     async deleteChatClicked() {
-        const selected = store.select("selectedChat") as SideChat | undefined
+        const selected = store.select("selectedChat") as
+            | IChatsResponse
+            | undefined
         if (selected !== undefined) {
-            chatsController.delete(selected)
+            if (
+                // eslint-disable-next-line
+                confirm(
+                    `Вы действительно хотите удалить ${selected.title} чат?`
+                )
+            ) {
+                chatsController.delete(Number(selected.id))
+            }
         } else {
             alert("Для удаления нужно сначала выбрать чат")
         }
@@ -233,8 +264,8 @@ export class MessengerPage extends Block {
         await chatsController.get()
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, IMessengerPageProps] {
+        return [
             /*html*/ `
             <main class="{{rootClass}}">
                 {{{SideChatBar}}}
@@ -255,6 +286,6 @@ export class MessengerPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

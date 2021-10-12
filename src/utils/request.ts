@@ -1,4 +1,4 @@
-import { IRequestOptions } from "./types"
+import { IRequestOptions, RequestData } from "./types"
 import { queryString } from "./utils"
 
 export enum METHODS {
@@ -15,24 +15,47 @@ export class Request {
         this.url = url === undefined ? "" : url
     }
 
-    get(endpoint: string, options = {}) {
-        return this.request(endpoint, { ...options, method: METHODS.GET })
+    get(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, { ...options, method: METHODS.GET })
     }
 
-    post(endpoint: string, options = {}) {
-        return this.request(endpoint, { ...options, method: METHODS.POST })
+    post(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, {
+            ...options,
+            method: METHODS.POST
+        })
     }
 
-    put(endpoint: string, options = {}) {
-        return this.request(endpoint, { ...options, method: METHODS.PUT })
+    put(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, { ...options, method: METHODS.PUT })
     }
 
-    delete(endpoint: string, options = {}) {
-        return this.request(endpoint, { ...options, method: METHODS.DELETE })
+    delete(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, {
+            ...options,
+            method: METHODS.DELETE
+        })
     }
 
     async request(
         endpoint: string,
+        data: RequestData | FormData,
         options: IRequestOptions
     ): Promise<XMLHttpRequest> {
         const url = `${this.url}${endpoint}`
@@ -44,17 +67,18 @@ export class Request {
             if (!triesLeft) {
                 throw err
             }
-            return this.request(url, {
+            return this.request(url, data, {
                 ...options,
                 retries: triesLeft
             })
         }
 
-        return this.requestBase(url, options).catch(onError)
+        return this.requestBase(url, data, options).catch(onError)
     }
 
     private requestBase = (
         url: string,
+        data: RequestData | FormData,
         options: IRequestOptions
     ): Promise<XMLHttpRequest> => {
         const {
@@ -63,9 +87,8 @@ export class Request {
                 accept: "application/json"
             },
             method = METHODS.GET,
-            withCredentials = false,
+            withCredentials = true,
             responseType = "json",
-            data,
             timeout = 3000
         } = options
         return new Promise((resolve, reject) => {
@@ -91,7 +114,7 @@ export class Request {
             })
 
             xhr.onload = () => {
-                if (xhr.status >= 200 && xhr.status < 300) {
+                if (xhr.status >= 200 && xhr.status < 400) {
                     resolve(xhr)
                 } else {
                     reject(xhr)

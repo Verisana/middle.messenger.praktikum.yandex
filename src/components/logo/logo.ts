@@ -1,14 +1,14 @@
 import styles from "./logo.css"
-import { Block } from "../block"
-import { ILogoParams } from "./types"
+import { Block, BlockParams } from "../block"
+import { ILogoProps } from "./types"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { urlSlugs } from "../../consts"
 import { routerFactory } from "../../router"
 
 const router = routerFactory()
 
-export class Logo extends Block {
-    constructor(params: ILogoParams) {
+export class Logo extends Block<ILogoProps> {
+    constructor(params: BlockParams<ILogoProps>) {
         const { props } = params
         if (props.rootClass === undefined) {
             props.rootClass = convertStylesToStrings([styles], "logo")
@@ -21,20 +21,20 @@ export class Logo extends Block {
         }
         props.events = appendEvent(
             "click",
-            router.go.bind(router, urlSlugs.home),
+            () => router.go(urlSlugs.home),
             props.events
         )
         super(params)
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, ILogoProps] {
+        return [
             /*html*/ `
             <p class={{rootClass}}>
                 Random Voice Companion
             </p>
         `,
             this.props
-        )
+        ]
     }
 }

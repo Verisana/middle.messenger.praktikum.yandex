@@ -1,27 +1,26 @@
 import chatsController from "./chats_controller"
-import { MessagesAPI, UserData, ISocketMessageResponse } from "../api"
-import { ISideChatProps, SideChat } from "../modules/sideChat"
+import {
+    MessagesAPI,
+    UserData,
+    ISocketMessageResponse,
+    IChatsResponse
+} from "../api"
 import { store } from "../store"
-import { globalEvents, inputFieldNames, pingInterval } from "../consts"
+import { globalEvents, inputFieldNames } from "../consts"
 import { globalEventBus } from "../utils/event_bus"
-import { constructMessages } from "./utils"
-import { routerFactory } from "../router"
-import { ILayoutProps } from "../layout"
-import { IMessengerPageProps } from "../pages/messenger"
+import { pingInterval } from "./consts"
 
 enum PingStatus {
     DISCONNECTED,
     CONNECTED
 }
 
-const router = routerFactory()
-
 export class MessagesController {
     static EVENTS: {}
 
     private api?: MessagesAPI
 
-    private selected?: SideChat
+    private selected?: IChatsResponse
 
     constructor() {
         globalEventBus().on(globalEvents.PING_STATUS, (status: number) => {
@@ -41,10 +40,6 @@ export class MessagesController {
 
     onOldMessagesReceived(messages: ISocketMessageResponse[]) {
         store.setMessages(messages.reverse())
-        const messageComponents = constructMessages()
-        const messengerPageProps = (router.page.props as ILayoutProps).Content
-            .props as IMessengerPageProps
-        messengerPageProps.Messages = messageComponents
     }
 
     onNewMessageReceived(message: ISocketMessageResponse) {
@@ -57,10 +52,6 @@ export class MessagesController {
             messages = [message]
         }
         store.setMessages(messages)
-        const messageComponents = constructMessages()
-        const messengerPageProps = (router.page.props as ILayoutProps).Content
-            .props as IMessengerPageProps
-        messengerPageProps.Messages = messageComponents
     }
 
     onOpenHandler() {
@@ -95,7 +86,7 @@ export class MessagesController {
         console.log("Ошибка", event.message)
     }
 
-    async open(selected?: SideChat) {
+    async open(selected?: IChatsResponse) {
         this.close()
 
         // Используем this.selected, чтобы закешировать параметры последнего вызова
@@ -112,8 +103,7 @@ export class MessagesController {
         const user = store.select("user") as UserData | undefined
         if (user === undefined) throw new Error("User must be authorized")
 
-        const sideChatProps = this.selected.props as ISideChatProps
-        const token = await chatsController.getToken(sideChatProps.chatId)
+        const token = await chatsController.getToken(Number(this.selected.id))
 
         if (token === undefined) {
             console.log("Can not receive token. Connection has not been opened")
@@ -121,7 +111,7 @@ export class MessagesController {
         }
         this.api = new MessagesAPI(
             Number(user.id),
-            sideChatProps.chatId,
+            Number(this.selected.id),
             token,
             {
                 onOpen: this.onOpenHandler.bind(this),
@@ -147,11 +137,10 @@ export class MessagesController {
         try {
             if (this.api !== undefined) {
                 const selected = store.select("selectedChat") as
-                    | SideChat
+                    | IChatsResponse
                     | undefined
                 if (selected !== undefined) {
-                    const props = selected.props as ISideChatProps
-                    await chatsController.readUsers(props.chatId)
+                    await chatsController.readUsers(Number(selected.id))
                     this.api.requestMessages(0)
                 } else {
                     throw new Error(

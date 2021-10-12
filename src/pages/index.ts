@@ -1,12 +1,21 @@
-import { MessengerPage } from "./messenger"
+import { IMessengerPageProps, MessengerPage } from "./messenger"
 import { ErrorPage } from "./errors/404"
 import { ServerErrorPage } from "./errors/500"
-import { LoginPage } from "./auth/login"
-import { RegisterPage } from "./auth/register"
-import { SettingsPage } from "./settings"
-import { Block } from "../components/block"
+import { ILoginPageProps, LoginPage } from "./auth/login"
+import { IRegisterPageProps, RegisterPage } from "./auth/register"
+import { ISettingsPageProps, SettingsPage } from "./settings"
+import { Block, Props } from "../components/block"
 
-export const pages: Record<string, () => Block> = {
+export interface IPages {
+    login: () => Block<ILoginPageProps>
+    register: () => Block<IRegisterPageProps>
+    messenger: () => Block<IMessengerPageProps>
+    profileSettings: () => Block<ISettingsPageProps>
+    error: () => Block<Props>
+    serverError: () => Block<Props>
+}
+
+export const pages: IPages = {
     login: () => new LoginPage(),
     register: () => new RegisterPage(),
     messenger: () => new MessengerPage(),
