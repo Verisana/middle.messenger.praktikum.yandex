@@ -1,7 +1,7 @@
 import "./header.css"
 import { Button } from "../button"
 import { urlSlugs } from "../../consts"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 import { routerFactory } from "../../router"
 import { Logo } from "../logo"
 import { store } from "../../store"
@@ -48,8 +48,8 @@ export class Header extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <header>
                 <nav>
@@ -64,6 +64,6 @@ export class Header extends Block {
             </header>
         `,
             this.props
-        )
+        ]
     }
 }

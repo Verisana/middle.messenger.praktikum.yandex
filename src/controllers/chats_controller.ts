@@ -13,10 +13,10 @@ import { constructSideChats } from "./utils"
 const router = routerFactory()
 
 class ChatsController {
-    private api: ChatsAPI
+    private api: typeof ChatsAPI
 
     constructor() {
-        this.api = new ChatsAPI()
+        this.api = ChatsAPI
     }
 
     async get(data?: IChatsRequest) {

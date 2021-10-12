@@ -3,7 +3,7 @@ import layoutStyles from "../../layout/layout.css"
 import { convertStylesToStrings } from "../../utils/utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Button } from "../../components/button"
-import { Block } from "../../components/block"
+import { Block, Props } from "../../components/block"
 import {
     getAvatarInput,
     getPasswordInputs,
@@ -101,8 +101,8 @@ export class SettingsPage extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <main>
                 <img class="{{avatarStyle}}" src={{avatarLink}} alt="Avatar place" />
@@ -113,6 +113,6 @@ export class SettingsPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

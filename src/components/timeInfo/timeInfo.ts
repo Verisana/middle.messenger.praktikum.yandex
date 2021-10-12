@@ -1,5 +1,5 @@
 import styles from "./timeInfo.css"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 import { convertStylesToStrings } from "../../utils/utils"
 import { ITimeInfoParams } from "./types"
 
@@ -10,8 +10,8 @@ export class TimeInfo extends Block {
         super(params)
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <time class="{{rootClass}}" datetime={{timeMachine}}>
                 {{#if timeHuman}}
@@ -22,6 +22,6 @@ export class TimeInfo extends Block {
             </time>
         `,
             this.props
-        )
+        ]
     }
 }

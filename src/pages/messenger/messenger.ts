@@ -1,4 +1,4 @@
-import { Block } from "../../components/block"
+import { Block, Props } from "../../components/block"
 import styles from "./messenger.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
@@ -233,8 +233,8 @@ export class MessengerPage extends Block {
         await chatsController.get()
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <main class="{{rootClass}}">
                 {{{SideChatBar}}}
@@ -255,6 +255,6 @@ export class MessengerPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

@@ -1,5 +1,5 @@
 import "./404.css"
-import { Block } from "../../../components/block"
+import { Block, Props } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
@@ -22,8 +22,8 @@ export class ErrorPage extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <main>
                 <h1>
@@ -40,6 +40,6 @@ export class ErrorPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

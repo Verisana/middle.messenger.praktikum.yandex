@@ -6,10 +6,10 @@ import { store } from "../store"
 const router = routerFactory()
 
 class AuthController {
-    private api: AuthAPI
+    private api: typeof AuthAPI
 
     constructor() {
-        this.api = new AuthAPI()
+        this.api = AuthAPI
     }
 
     async login(formData: FormData) {
@@ -63,6 +63,7 @@ class AuthController {
             const response = await this.api.userRead()
             store.setUser(response.response)
         } catch (e) {
+            console.log(e)
             store.setUndefined("user")
         }
     }

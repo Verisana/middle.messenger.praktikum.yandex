@@ -1,7 +1,7 @@
 import styles from "./inputConstruct.css"
 import { convertStylesToStrings } from "../../utils/utils"
 import { IInputConstructParams } from "./types"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 
 export class InputConstruct extends Block {
     constructor(params: IInputConstructParams) {
@@ -27,8 +27,8 @@ export class InputConstruct extends Block {
         super(params)
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <div class="{{rootClass}}">
                 {{{InputField}}}
@@ -45,6 +45,6 @@ export class InputConstruct extends Block {
             </div>
         `,
             this.props
-        )
+        ]
     }
 }

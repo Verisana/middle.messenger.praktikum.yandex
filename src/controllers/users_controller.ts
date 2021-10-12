@@ -7,10 +7,10 @@ import {
 import { store } from "../store"
 
 class UsersController {
-    private api: UsersAPI
+    private api: typeof UsersAPI
 
     constructor() {
-        this.api = new UsersAPI()
+        this.api = UsersAPI
     }
 
     async updateProfile(formData: FormData) {

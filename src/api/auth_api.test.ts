@@ -1,7 +1,7 @@
 import sinon from "sinon"
 import { expect } from "chai"
 
-import { AuthAPI } from "./auth_api"
+import AuthAPI from "./auth_api"
 import { backendUrl } from "../consts"
 import { ILoginRequest, IRegisterRequest } from "."
 
@@ -26,7 +26,7 @@ describe("Test AuthAPI", () => {
     })
 
     it("login method", () => {
-        const api = new AuthAPI()
+        const api = AuthAPI
         const data: ILoginRequest = {
             login: "testLogin",
             password: "Sl3"
@@ -40,7 +40,7 @@ describe("Test AuthAPI", () => {
         expect(requests[0].url).to.eq(`${backendUrl}/auth/signin`)
     })
     it("register method", () => {
-        const api = new AuthAPI()
+        const api = AuthAPI
         const data: IRegisterRequest = {
             email: "test@fd.ru",
             first_name: "Тест",
@@ -58,7 +58,7 @@ describe("Test AuthAPI", () => {
         expect(requests[0].url).to.eq(`${backendUrl}/auth/signup`)
     })
     it("logout method", () => {
-        const api = new AuthAPI()
+        const api = AuthAPI
 
         api.logout()
 
@@ -67,7 +67,7 @@ describe("Test AuthAPI", () => {
         expect(requests[0].url).to.eq(`${backendUrl}/auth/logout`)
     })
     it("read user method", () => {
-        const api = new AuthAPI()
+        const api = AuthAPI
 
         api.userRead()
 

@@ -1,7 +1,7 @@
 import "./register.css"
 import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
-import { Block } from "../../../components/block"
+import { Block, Props } from "../../../components/block"
 import { getRegisterInputs } from "../../../modules/inputs"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
@@ -44,8 +44,8 @@ export class RegisterPage extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <main>
                 {{{RegisterSubmitForm}}}
@@ -53,6 +53,6 @@ export class RegisterPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

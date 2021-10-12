@@ -1,7 +1,7 @@
 import styles from "./submitForm.css"
 import { convertStylesToStrings } from "../../utils/utils"
 import { ISubmitFormParams } from "./types"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 
 export class SubmitForm extends Block {
     constructor(params: ISubmitFormParams) {
@@ -32,8 +32,8 @@ export class SubmitForm extends Block {
         }
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <form class="{{rootClass}}">
                 {{#if formHeaderText}}
@@ -55,6 +55,6 @@ export class SubmitForm extends Block {
             </form>
         `,
             this.props
-        )
+        ]
     }
 }

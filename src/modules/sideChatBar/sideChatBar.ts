@@ -1,6 +1,6 @@
 import styles from "./sideChatBar.css"
 import sideChatStyles from "../sideChat/sideChat.css"
-import { Block } from "../../components/block"
+import { Block, Props } from "../../components/block"
 import { convertStylesToStrings } from "../../utils/utils"
 import { ISideChatBarParams } from "./types"
 import { ISideChatProps, SideChat } from "../sideChat"
@@ -53,8 +53,8 @@ export class SideChatBar extends Block {
         }
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <div class="{{rootClass}}">
                 {{{SearchBar}}}
@@ -68,6 +68,6 @@ export class SideChatBar extends Block {
             </div>
         `,
             this.props
-        )
+        ]
     }
 }

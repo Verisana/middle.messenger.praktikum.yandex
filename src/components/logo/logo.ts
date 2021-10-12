@@ -1,5 +1,5 @@
 import styles from "./logo.css"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 import { ILogoParams } from "./types"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { urlSlugs } from "../../consts"
@@ -27,14 +27,14 @@ export class Logo extends Block {
         super(params)
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <p class={{rootClass}}>
                 Random Voice Companion
             </p>
         `,
             this.props
-        )
+        ]
     }
 }

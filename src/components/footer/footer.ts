@@ -1,6 +1,6 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 import { IFooterParams } from "./types"
 
 export class Footer extends Block {
@@ -14,8 +14,8 @@ export class Footer extends Block {
         super(params)
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <footer>
                 <div className={{contentClass}}>
@@ -26,6 +26,6 @@ export class Footer extends Block {
             </footer>
         `,
             this.props
-        )
+        ]
     }
 }

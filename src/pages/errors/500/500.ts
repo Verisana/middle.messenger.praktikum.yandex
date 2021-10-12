@@ -1,13 +1,13 @@
 import "./500.css"
-import { Block } from "../../../components/block"
+import { Block, Props } from "../../../components/block"
 
 export class ServerErrorPage extends Block {
     constructor() {
         super({ props: {} })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <main>
                 <h1>Ошибка 500</h1>
@@ -17,6 +17,6 @@ export class ServerErrorPage extends Block {
             </main>
         `,
             this.props
-        )
+        ]
     }
 }

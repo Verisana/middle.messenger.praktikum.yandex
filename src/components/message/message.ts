@@ -1,7 +1,7 @@
 import styles from "./message.css"
 import { convertStylesToStrings } from "../../utils/utils"
 import { IMessageParams, IMessageProps } from "./types"
-import { Block } from "../block"
+import { Block, Props } from "../block"
 
 export class Message extends Block {
     private _maxMessageLength?: number
@@ -29,13 +29,13 @@ export class Message extends Block {
         return text
     }
 
-    render(): HTMLElement {
+    render(): [string, Props] {
         const props = this.props as IMessageProps
         const propsCopy = {
             ...props,
             text: Message._sliceMessageText(props.text, this._maxMessageLength)
         }
-        return this._compile(
+        return [
             /*html*/ `
             <div
                 class="{{rootClass}}"
@@ -49,6 +49,6 @@ export class Message extends Block {
             </div>
         `,
             propsCopy
-        )
+        ]
     }
 }

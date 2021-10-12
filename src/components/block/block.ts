@@ -13,6 +13,8 @@ export abstract class Block {
 
     private _meta: IMeta
 
+    private _templateFunc: () => string
+
     props: Props
 
     eventBus: () => EventBus
@@ -38,6 +40,7 @@ export abstract class Block {
         this.eventBus = () => eventBus
         this._content = null
         this._registerEvents(eventBus)
+        this._templateFunc = this._compileTemplate()
         eventBus.emit(BlockEvents.INIT)
     }
 
@@ -131,7 +134,7 @@ export abstract class Block {
     }
 
     protected _render() {
-        const block = this.render()
+        const block = this._compile()
 
         if (this._meta.params.settings?.withInternalID) {
             block.dataset.blockId = this.props.__id
@@ -160,7 +163,7 @@ export abstract class Block {
         this.eventBus().emit(BlockEvents.FLOW_CDM)
     }
 
-    abstract render(): HTMLElement
+    abstract render(): [string, Props]
 
     _makePropsProxy(props: Props): Props {
         return new Proxy(props, {
@@ -213,11 +216,14 @@ export abstract class Block {
         })
     }
 
-    protected _compile(template: string, props: Props): HTMLElement {
-        const templateFunc = Handlebars.compile(template) as (
-            context?: Props
-        ) => string
-        return Block.compileToDom(templateFunc, props)
+    protected _compileTemplate(): () => string {
+        const [html] = this.render()
+        return Handlebars.compile(html) as () => string
+    }
+
+    protected _compile(): HTMLElement {
+        const props = this.render()[1]
+        return Block.compileToDom(this._templateFunc, props)
     }
 
     static fillComponentId(

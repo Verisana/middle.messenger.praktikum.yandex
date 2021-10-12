@@ -1,7 +1,7 @@
 import "./layout.css"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { Block } from "../components/block"
+import { Block, Props } from "../components/block"
 
 export class Layout extends Block {
     constructor(content: () => Block) {
@@ -14,8 +14,8 @@ export class Layout extends Block {
         })
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <div id="App">
                 {{{Header}}}
@@ -24,7 +24,7 @@ export class Layout extends Block {
             </div>
         `,
             this.props
-        )
+        ]
     }
 }
 

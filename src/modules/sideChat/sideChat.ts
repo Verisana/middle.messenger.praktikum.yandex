@@ -2,7 +2,7 @@ import styles from "./sideChat.css"
 import layoutStyles from "../../layout/layout.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { defaultAvatar, globalEvents } from "../../consts"
-import { Block } from "../../components/block"
+import { Block, Props } from "../../components/block"
 import { ISideChatParams, ISideChatProps } from "./types"
 import { globalEventBus } from "../../utils/event_bus"
 import { store } from "../../store"
@@ -66,8 +66,8 @@ export class SideChat extends Block {
         }
     }
 
-    render(): HTMLElement {
-        return this._compile(
+    render(): [string, Props] {
+        return [
             /*html*/ `
             <div
                 data-message-is-read="{{messageIsRead}}"
@@ -87,6 +87,6 @@ export class SideChat extends Block {
             </div>
         `,
             this.props
-        )
+        ]
     }
 }
