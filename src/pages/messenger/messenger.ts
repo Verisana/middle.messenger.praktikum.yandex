@@ -18,7 +18,9 @@ import {
 import { SideChat } from "../../modules/sideChat"
 import { getSelectedSideChat } from "./utils"
 import { store } from "../../store"
-import { inputFieldNames } from "../../consts"
+import { globalEvents, inputFieldNames } from "../../consts"
+import { globalEventBus } from "../../utils/event_bus"
+import { constructMessages } from "../../controllers/utils"
 
 export class MessengerPage extends Block<IMessengerPageProps> {
     constructor() {
@@ -121,6 +123,12 @@ export class MessengerPage extends Block<IMessengerPageProps> {
             }
         }
         super(params)
+
+        globalEventBus().on(
+            globalEvents.messengerMessagesUpdate,
+            this.receiveMessagesFromStore.bind(this)
+        )
+
         const sideChatBarProps = params.props.SideChatBar.props
 
         sideChatBarProps.ChatCreateButton.props.events = appendEvent(
@@ -166,6 +174,10 @@ export class MessengerPage extends Block<IMessengerPageProps> {
             ),
             params.props.SendMessage.props.events
         )
+    }
+
+    receiveMessagesFromStore() {
+        this.props.Messages = constructMessages()
     }
 
     async createChatClicked() {

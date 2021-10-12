@@ -42,6 +42,7 @@ export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
 
 export const globalEvents = {
     sideChatClicked: "component:sideChat-click",
+    messengerMessagesUpdate: "component:messenger-update-messages",
     sideChatsUpdated: "api:chats-get",
 
     PING_STATUS: "websocket:ping-status",

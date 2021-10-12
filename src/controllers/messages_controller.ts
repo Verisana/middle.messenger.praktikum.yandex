@@ -4,18 +4,12 @@ import { SideChat } from "../modules/sideChat"
 import { store } from "../store"
 import { globalEvents, inputFieldNames } from "../consts"
 import { globalEventBus } from "../utils/event_bus"
-import { constructMessages } from "./utils"
-import { routerFactory } from "../router"
-import { Layout } from "../layout"
-import { IMessengerPageProps } from "../pages/messenger"
 import { pingInterval } from "./consts"
 
 enum PingStatus {
     DISCONNECTED,
     CONNECTED
 }
-
-const router = routerFactory()
 
 export class MessagesController {
     static EVENTS: {}
@@ -42,11 +36,7 @@ export class MessagesController {
 
     onOldMessagesReceived(messages: ISocketMessageResponse[]) {
         store.setMessages(messages.reverse())
-        const messageComponents = constructMessages()
-        const messengerPageProps = (
-            router.page as unknown as Layout<IMessengerPageProps>
-        ).props.Content.props
-        messengerPageProps.Messages = messageComponents
+        globalEventBus().emit(globalEvents.messengerMessagesUpdate)
     }
 
     onNewMessageReceived(message: ISocketMessageResponse) {
@@ -59,11 +49,7 @@ export class MessagesController {
             messages = [message]
         }
         store.setMessages(messages)
-        const messageComponents = constructMessages()
-        const messengerPageProps = (
-            router.page as unknown as Layout<IMessengerPageProps>
-        ).props.Content.props
-        messengerPageProps.Messages = messageComponents
+        globalEventBus().emit(globalEvents.messengerMessagesUpdate)
     }
 
     onOpenHandler() {
