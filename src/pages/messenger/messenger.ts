@@ -1,4 +1,4 @@
-import { Block, Props } from "../../components/block"
+import { Block, BlockParams } from "../../components/block"
 import styles from "./messenger.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { ISideChatBarProps, SideChatBar } from "../../modules/sideChatBar"
@@ -9,7 +9,7 @@ import {
     getSearchInput
 } from "../../modules/inputs"
 import { Button } from "../../components/button"
-import { IMessengerPageParams } from "./types"
+import { IMessengerPageProps } from "./types"
 import {
     chatsController,
     messagesController,
@@ -20,9 +20,9 @@ import { getSelectedSideChat } from "./utils"
 import { store } from "../../store"
 import { inputFieldNames } from "../../consts"
 
-export class MessengerPage extends Block {
+export class MessengerPage extends Block<IMessengerPageProps> {
     constructor() {
-        const params: IMessengerPageParams = {
+        const params: BlockParams<IMessengerPageProps> = {
             props: {
                 ChatAvatarSubmit: new SubmitForm({
                     settings: {
@@ -251,7 +251,7 @@ export class MessengerPage extends Block {
         await chatsController.get()
     }
 
-    render(): [string, Props] {
+    render(): [string, IMessengerPageProps] {
         return [
             /*html*/ `
             <main class="{{rootClass}}">

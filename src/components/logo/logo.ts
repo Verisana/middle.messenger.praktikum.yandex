@@ -1,14 +1,14 @@
 import styles from "./logo.css"
-import { Block, Props } from "../block"
-import { ILogoParams } from "./types"
+import { Block, BlockParams } from "../block"
+import { ILogoProps } from "./types"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { urlSlugs } from "../../consts"
 import { routerFactory } from "../../router"
 
 const router = routerFactory()
 
-export class Logo extends Block {
-    constructor(params: ILogoParams) {
+export class Logo extends Block<ILogoProps> {
+    constructor(params: BlockParams<ILogoProps>) {
         const { props } = params
         if (props.rootClass === undefined) {
             props.rootClass = convertStylesToStrings([styles], "logo")
@@ -27,7 +27,7 @@ export class Logo extends Block {
         super(params)
     }
 
-    render(): [string, Props] {
+    render(): [string, ILogoProps] {
         return [
             /*html*/ `
             <p class={{rootClass}}>

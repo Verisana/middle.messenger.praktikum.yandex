@@ -6,7 +6,7 @@ import { globalEvents, inputFieldNames } from "../consts"
 import { globalEventBus } from "../utils/event_bus"
 import { constructMessages } from "./utils"
 import { routerFactory } from "../router"
-import { ILayoutProps } from "../layout"
+import { Layout } from "../layout"
 import { IMessengerPageProps } from "../pages/messenger"
 import { pingInterval } from "./consts"
 
@@ -43,8 +43,9 @@ export class MessagesController {
     onOldMessagesReceived(messages: ISocketMessageResponse[]) {
         store.setMessages(messages.reverse())
         const messageComponents = constructMessages()
-        const messengerPageProps = (router.page.props as ILayoutProps).Content
-            .props as IMessengerPageProps
+        const messengerPageProps = (
+            router.page as unknown as Layout<IMessengerPageProps>
+        ).props.Content.props as IMessengerPageProps
         messengerPageProps.Messages = messageComponents
     }
 
@@ -59,8 +60,9 @@ export class MessagesController {
         }
         store.setMessages(messages)
         const messageComponents = constructMessages()
-        const messengerPageProps = (router.page.props as ILayoutProps).Content
-            .props as IMessengerPageProps
+        const messengerPageProps = (
+            router.page as unknown as Layout<IMessengerPageProps>
+        ).props.Content.props
         messengerPageProps.Messages = messageComponents
     }
 

@@ -5,7 +5,8 @@ import { rootQuery } from "../consts"
 import { Router } from "./router"
 import { Route } from "./route"
 import { RedirectRoute } from "./redirect"
-import { Block } from "../components/block"
+import { Props } from "../components/block"
+import { Layout } from "../layout"
 
 const div = document.createElement("div")
 div.id = "App"
@@ -20,35 +21,35 @@ describe("Test Router", () => {
                 content: div,
                 render: () => "render",
                 leave: () => "leave"
-            } as unknown as Block
+            } as unknown as Layout<Props>
         },
         register: () => {
             return {
                 content: div,
                 render: () => "render",
                 leave: () => "leave"
-            } as unknown as Block
+            } as unknown as Layout<Props>
         },
         messenger: () => {
             return {
                 content: div,
                 render: () => "render",
                 leave: () => "leave"
-            } as unknown as Block
+            } as unknown as Layout<Props>
         },
         profileSettings: () => {
             return {
                 content: div,
                 render: () => "render",
                 leave: () => "leave"
-            } as unknown as Block
+            } as unknown as Layout<Props>
         },
         error: () => {
             return {
                 content: div,
                 render: () => "render",
                 leave: () => "leave"
-            } as unknown as Block
+            } as unknown as Layout<Props>
         }
     }
 
@@ -72,7 +73,7 @@ describe("Test Router", () => {
 
     it("use method", () => {
         router.use("/login", pages.login)
-        const route = router.routes[0] as Route
+        const route = router.routes[0] as Route<Props>
         expect(router.routes.length).to.be.equal(1)
         expect(route.pathname).to.be.equal("/login")
     })

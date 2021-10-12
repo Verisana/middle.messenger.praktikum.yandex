@@ -1,18 +1,19 @@
 import { RedirectRoute } from "./redirect"
-import { Block } from "../components/block"
+import { Props } from "../components/block"
 import { Route } from "./route"
 import { rootQuery } from "../consts"
+import { Layout } from "../layout"
 
 class Router {
     static __instance: Router
 
-    private _currentRoute: Route | null
+    private _currentRoute: Route<Props> | null
 
     private _rootQuery: string
 
-    private _errorRoute?: Route
+    private _errorRoute?: Route<Props>
 
-    routes: (Route | RedirectRoute)[]
+    routes: (Route<Props> | RedirectRoute)[]
 
     history: History
 
@@ -29,9 +30,11 @@ class Router {
         Router.__instance = this
     }
 
-    use(pathname: string, blockBuilder: () => Block) {
-        const route = new Route(pathname, blockBuilder, this._rootQuery)
+    use<T extends Props>(pathname: string, blockBuilder: () => Layout<T>) {
+        const route = new Route<T>(pathname, blockBuilder, this._rootQuery)
 
+        // Не знаю, как тут нормально проставить типы, поэтому поставлю заглушку
+        // @ts-expect-error
         this.routes.push(route)
 
         return this
@@ -39,10 +42,10 @@ class Router {
 
     useRedirect(
         pathname: string,
-        blockBuilders: Record<string, () => Block>,
+        blockBuilders: Record<string, () => Layout<Props>>,
         decisionFunction: () => string
     ) {
-        const routes: Record<string, Route> = {}
+        const routes: Record<string, Route<Props>> = {}
         for (const [redirectName, blockBuilder] of Object.entries(
             blockBuilders
         )) {
@@ -61,7 +64,7 @@ class Router {
         return this
     }
 
-    useError(pathname: string, blockBuilder: () => Block) {
+    useError(pathname: string, blockBuilder: () => Layout<Props>) {
         this._errorRoute = new Route(pathname, blockBuilder, this._rootQuery)
         return this
     }
@@ -82,7 +85,7 @@ class Router {
         this._onRoute(window.location.pathname)
     }
 
-    get page(): Block {
+    get page(): Layout<Props> {
         const route = this._currentRoute
         if (route !== null && route.page !== null) {
             return route.page
@@ -121,7 +124,7 @@ class Router {
         this.history.forward()
     }
 
-    private _getRoute(pathname: string): Route | undefined {
+    private _getRoute(pathname: string): Route<Props> | undefined {
         let foundRoute = this.routes.find((route) => {
             return route.match(pathname)
         })

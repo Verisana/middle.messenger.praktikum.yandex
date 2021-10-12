@@ -1,15 +1,16 @@
 import "./register.css"
 import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
-import { Block, Props } from "../../../components/block"
+import { Block } from "../../../components/block"
 import { getRegisterInputs } from "../../../modules/inputs"
 import { routerFactory } from "../../../router"
 import { urlSlugs } from "../../../consts"
 import { authController, submitControllerBuilder } from "../../../controllers"
+import { IRegisterPageProps } from "./types"
 
 const router = routerFactory()
 
-export class RegisterPage extends Block {
+export class RegisterPage extends Block<IRegisterPageProps> {
     constructor() {
         super({
             props: {
@@ -44,7 +45,7 @@ export class RegisterPage extends Block {
         })
     }
 
-    render(): [string, Props] {
+    render(): [string, IRegisterPageProps] {
         return [
             /*html*/ `
             <main>

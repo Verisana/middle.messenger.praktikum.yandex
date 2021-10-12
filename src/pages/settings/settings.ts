@@ -3,7 +3,7 @@ import layoutStyles from "../../layout/layout.css"
 import { convertStylesToStrings } from "../../utils/utils"
 import { SubmitForm } from "../../components/submitForm"
 import { Button } from "../../components/button"
-import { Block, Props } from "../../components/block"
+import { Block } from "../../components/block"
 import {
     getAvatarInput,
     getPasswordInputs,
@@ -12,10 +12,11 @@ import {
 import { routerFactory } from "../../router"
 import { urlSlugs } from "../../consts"
 import { usersController, submitControllerBuilder } from "../../controllers"
+import { ISettingsPageProps } from "./types"
 
 const router = routerFactory()
 
-export class SettingsPage extends Block {
+export class SettingsPage extends Block<ISettingsPageProps> {
     constructor() {
         super({
             storeMappings: {
@@ -23,6 +24,7 @@ export class SettingsPage extends Block {
             },
             props: {
                 avatarStyle: convertStylesToStrings([layoutStyles], "avatar"),
+                avatarLink: "",
                 SettingsForm: new SubmitForm({
                     props: {
                         events: {
@@ -101,7 +103,7 @@ export class SettingsPage extends Block {
         })
     }
 
-    render(): [string, Props] {
+    render(): [string, ISettingsPageProps] {
         return [
             /*html*/ `
             <main>

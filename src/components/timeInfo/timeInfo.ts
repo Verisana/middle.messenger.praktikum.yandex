@@ -1,16 +1,16 @@
 import styles from "./timeInfo.css"
-import { Block, Props } from "../block"
+import { Block, BlockParams } from "../block"
 import { convertStylesToStrings } from "../../utils/utils"
-import { ITimeInfoParams } from "./types"
+import { ITimeInfoProps } from "./types"
 
-export class TimeInfo extends Block {
-    constructor(params: ITimeInfoParams) {
+export class TimeInfo extends Block<ITimeInfoProps> {
+    constructor(params: BlockParams<ITimeInfoProps>) {
         const { props } = params
         props.rootClass = convertStylesToStrings([styles], props.rootClass)
         super(params)
     }
 
-    render(): [string, Props] {
+    render(): [string, ITimeInfoProps] {
         return [
             /*html*/ `
             <time class="{{rootClass}}" datetime={{timeMachine}}>

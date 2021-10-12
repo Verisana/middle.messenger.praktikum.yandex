@@ -1,9 +1,9 @@
 import styles from "./message.css"
 import { convertStylesToStrings } from "../../utils/utils"
 import { IMessageParams, IMessageProps } from "./types"
-import { Block, Props } from "../block"
+import { Block } from "../block"
 
-export class Message extends Block {
+export class Message extends Block<IMessageProps> {
     private _maxMessageLength?: number
 
     constructor(params: IMessageParams) {
@@ -29,7 +29,7 @@ export class Message extends Block {
         return text
     }
 
-    render(): [string, Props] {
+    render(): [string, IMessageProps] {
         const props = this.props as IMessageProps
         const propsCopy = {
             ...props,

@@ -1,2 +1,2 @@
 export { SideChatBar } from "./sideChatBar"
-export { ISideChatBarParams, ISideChatBarProps } from "./types"
+export { ISideChatBarProps } from "./types"

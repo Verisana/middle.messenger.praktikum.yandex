@@ -7,21 +7,22 @@ import { EventBus } from "../../utils/event_bus"
 import { set } from "../../utils/utils"
 import { store } from "../../store"
 import { BlockEvents } from "../../consts"
+import { TemplateCreator } from "."
 
-export abstract class Block {
+export abstract class Block<T extends Props> {
     private _content: HTMLElement | null
 
-    private _meta: IMeta
+    private _meta: IMeta<T>
 
-    private _templateFunc: () => string
+    private _templateFunc: TemplateCreator<T>
 
-    props: Props
+    props: T
 
     eventBus: () => EventBus
 
     storeMappings: StoreMappings
 
-    constructor(params: BlockParams) {
+    constructor(params: BlockParams<T>) {
         const eventBus = new EventBus()
         const { settings, props, storeMappings = {} } = params
         this._meta = {
@@ -163,15 +164,16 @@ export abstract class Block {
         this.eventBus().emit(BlockEvents.FLOW_CDM)
     }
 
-    abstract render(): [string, Props]
+    abstract render(): [string, T]
 
-    _makePropsProxy(props: Props): Props {
+    _makePropsProxy(props: T): T {
         return new Proxy(props, {
-            get: (target: Props, prop: string): unknown => {
+            get: (target: T, prop: string): unknown => {
                 const value = target[prop]
                 return typeof value === "function" ? value.bind(target) : value
             },
-            set: (target: Props, prop: string, value: unknown) => {
+            set: (target: T, prop: string, value: unknown) => {
+                // @ts-expect-error
                 target[prop] = value
                 this.eventBus().emit(BlockEvents.FLOW_CDU, target)
                 return true
@@ -216,18 +218,18 @@ export abstract class Block {
         })
     }
 
-    protected _compileTemplate(): () => string {
+    protected _compileTemplate(): TemplateCreator<T> {
         const [html] = this.render()
         return Handlebars.compile(html) as () => string
     }
 
     protected _compile(): HTMLElement {
         const props = this.render()[1]
-        return Block.compileToDom(this._templateFunc, props)
+        return this._compileToDom(this._templateFunc, props)
     }
 
-    static fillComponentId(
-        components: Record<string, Block>,
+    protected _fillComponentId(
+        components: Record<string, Block<T>>,
         key: string,
         value: unknown,
         context: Props,
@@ -254,21 +256,21 @@ export abstract class Block {
         }
     }
 
-    static compileToDom(
-        templateFunc: (context: Props) => string,
-        proxyContext: Props
+    protected _compileToDom(
+        templateFunc: TemplateCreator<T>,
+        proxyContext: T
     ): HTMLElement {
         const fragment = document.createElement("template")
-        const components: Record<string, Block> = {}
+        const components: Record<string, Block<T>> = {}
 
         // Создаем дубликат массива, чтобы не триггерить CDU, когда перезаписываем
         // в пропсах mock значения
-        const context: Props = {}
+        const context: T = { ...proxyContext }
 
         for (const [key, value] of Object.entries(proxyContext)) {
             if (Array.isArray(value)) {
                 for (const arrayValue of value) {
-                    Block.fillComponentId(
+                    this._fillComponentId(
                         components,
                         key,
                         arrayValue,
@@ -277,7 +279,7 @@ export abstract class Block {
                     )
                 }
             } else {
-                Block.fillComponentId(components, key, value, context, false)
+                this._fillComponentId(components, key, value, context, false)
             }
         }
         fragment.innerHTML = templateFunc(context)

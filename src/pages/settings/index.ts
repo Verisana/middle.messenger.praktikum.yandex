@@ -1,2 +1,2 @@
 export { SettingsPage } from "./settings"
-export { ISettingsPageParams, ISettingsPageProps } from "./types"
+export { ISettingsPageProps } from "./types"

@@ -1,8 +1,7 @@
 import usersController from "./users_controller"
 import { ChatsAPI, UserData, IChatsGetUsers, IChatsRequest } from "../api"
-import { ILayoutProps } from "../layout"
+import { Layout } from "../layout"
 import { ISideChatProps, SideChat } from "../modules/sideChat"
-import { ISideChatBarProps } from "../modules/sideChatBar"
 import { IMessengerPageProps } from "../pages/messenger"
 import { getSelectedSideChat } from "../pages/messenger/utils"
 import { routerFactory } from "../router"
@@ -124,9 +123,8 @@ class ChatsController {
     async updateAvatar(formData: FormData) {
         try {
             const sidebarProps = (
-                (router.page.props as ILayoutProps).Content
-                    .props as IMessengerPageProps
-            ).SideChatBar.props as ISideChatBarProps
+                router.page as unknown as Layout<IMessengerPageProps>
+            ).props.Content.props.SideChatBar.props
 
             const selected = getSelectedSideChat(sidebarProps.SideChats)
             if (selected !== undefined) {

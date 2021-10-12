@@ -1,6 +1,9 @@
-import { Block } from "../components/block"
+import { Block, Props } from "../components/block"
 
-export const render = (query: string, block: Block): Element => {
+export function render<T extends Props>(
+    query: string,
+    block: Block<T>
+): Element {
     const root = document.querySelector(query)
     if (root === null) throw new Error("Check your query")
 

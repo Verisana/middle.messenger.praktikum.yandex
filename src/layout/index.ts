@@ -1,2 +1,2 @@
 export { Layout, layoutFactory } from "./layout"
-export { ILayoutProps, ILayoutParams } from "./types"
+export { ILayoutProps } from "./types"

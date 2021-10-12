@@ -1,7 +1,7 @@
 import "./500.css"
 import { Block, Props } from "../../../components/block"
 
-export class ServerErrorPage extends Block {
+export class ServerErrorPage extends Block<Props> {
     constructor() {
         super({ props: {} })
     }

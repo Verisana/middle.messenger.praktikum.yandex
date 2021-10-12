@@ -1,15 +1,16 @@
 import "./header.css"
 import { Button } from "../button"
 import { urlSlugs } from "../../consts"
-import { Block, Props } from "../block"
+import { Block } from "../block"
 import { routerFactory } from "../../router"
 import { Logo } from "../logo"
 import { store } from "../../store"
 import { authController } from "../../controllers"
+import { IHeaderProps } from "./types"
 
 const router = routerFactory()
 
-export class Header extends Block {
+export class Header extends Block<IHeaderProps> {
     constructor() {
         const isLogged = store.select("user") !== undefined
 
@@ -48,7 +49,7 @@ export class Header extends Block {
         })
     }
 
-    render(): [string, Props] {
+    render(): [string, IHeaderProps] {
         return [
             /*html*/ `
             <header>

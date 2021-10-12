@@ -16,7 +16,6 @@ export interface ISubmitFormSettings extends BlockSettings {
     isNoBorder?: boolean
 }
 
-export interface ISubmitFormParams extends BlockParams {
-    props: ISubmitFormProps
+export interface ISubmitFormParams extends BlockParams<ISubmitFormProps> {
     settings?: ISubmitFormSettings
 }

@@ -1,20 +1,19 @@
 import styles from "./sideChatBar.css"
 import sideChatStyles from "../sideChat/sideChat.css"
-import { Block, Props } from "../../components/block"
+import { Block, BlockParams } from "../../components/block"
 import { convertStylesToStrings } from "../../utils/utils"
-import { ISideChatBarParams } from "./types"
+import { ISideChatBarProps } from "./types"
 import { ISideChatProps, SideChat } from "../sideChat"
 import { globalEventBus } from "../../utils/event_bus"
 import { messagesController } from "../../controllers"
 import { getSelectedSideChat } from "../../pages/messenger/utils"
 import { globalEvents } from "../../consts"
 import { store } from "../../store"
-import { ISideChatBarProps } from "."
 import { IMessageProps } from "../../components/message"
 import { constructSideChats } from "../../controllers/utils"
 
-export class SideChatBar extends Block {
-    constructor(params: ISideChatBarParams) {
+export class SideChatBar extends Block<ISideChatBarProps> {
+    constructor(params: BlockParams<ISideChatBarProps>) {
         const { props } = params
         props.rootClass = convertStylesToStrings(
             [styles],
@@ -82,7 +81,7 @@ export class SideChatBar extends Block {
         }
     }
 
-    render(): [string, Props] {
+    render(): [string, ISideChatBarProps] {
         return [
             /*html*/ `
             <div class="{{rootClass}}">

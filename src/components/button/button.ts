@@ -1,10 +1,10 @@
 import styles from "./button.css"
 import { convertStylesToStrings } from "../../utils/utils"
-import { IButtonParams } from "./types"
-import { Block, Props } from "../block"
+import { IButtonProps } from "./types"
+import { Block, BlockParams, Props } from "../block"
 
-export class Button extends Block {
-    constructor(params: IButtonParams) {
+export class Button extends Block<IButtonProps> {
+    constructor(params: BlockParams<IButtonProps>) {
         const { props } = params
         props.type_ = props.type_ === undefined ? "button" : props.type_
         props.rootClass = convertStylesToStrings(

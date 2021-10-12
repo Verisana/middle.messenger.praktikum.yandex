@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../block"
+import { Props } from "../block"
 import { InputField } from "../inputField"
 
 export interface IInputConstructProps extends Props {
@@ -11,8 +11,4 @@ export interface IInputConstructProps extends Props {
     }
     br?: boolean
     validationErrorText?: string
-}
-
-export interface IInputConstructParams extends BlockParams {
-    props: IInputConstructProps
 }

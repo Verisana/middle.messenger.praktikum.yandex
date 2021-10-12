@@ -1,11 +1,11 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
-import { Block, Props } from "../block"
-import { IFooterParams } from "./types"
+import { Block, BlockParams } from "../block"
+import { IFooterProps } from "./types"
 
-export class Footer extends Block {
+export class Footer extends Block<IFooterProps> {
     constructor() {
-        const params: IFooterParams = {
+        const params: BlockParams<IFooterProps> = {
             props: {
                 contentClass: layoutStyles.content
             }
@@ -14,7 +14,7 @@ export class Footer extends Block {
         super(params)
     }
 
-    render(): [string, Props] {
+    render(): [string, IFooterProps] {
         return [
             /*html*/ `
             <footer>

@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../../components/block"
+import { Props } from "../../components/block"
 import { Button } from "../../components/button"
 import { Message } from "../../components/message"
 import { SubmitForm } from "../../components/submitForm"
@@ -13,8 +13,4 @@ export interface IMessengerPageProps extends Props {
     AddPersonButton: Button
     rootClass?: string | string[]
     Messages?: Message[]
-}
-
-export interface IMessengerPageParams extends BlockParams {
-    props: IMessengerPageProps
 }

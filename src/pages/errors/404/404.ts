@@ -6,7 +6,7 @@ import { urlSlugs } from "../../../consts"
 
 const router = routerFactory()
 
-export class ErrorPage extends Block {
+export class ErrorPage extends Block<Props> {
     constructor() {
         super({
             props: {

@@ -2,8 +2,8 @@ import styles from "./sideChat.css"
 import layoutStyles from "../../layout/layout.css"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { defaultAvatar, globalEvents } from "../../consts"
-import { Block, Props } from "../../components/block"
-import { ISideChatParams, ISideChatProps } from "./types"
+import { Block, BlockParams } from "../../components/block"
+import { ISideChatProps } from "./types"
 import { globalEventBus } from "../../utils/event_bus"
 import { store } from "../../store"
 
@@ -27,8 +27,8 @@ export function isSelectedChat(
     )
 }
 
-export class SideChat extends Block {
-    constructor(params: ISideChatParams) {
+export class SideChat extends Block<ISideChatProps> {
+    constructor(params: BlockParams<ISideChatProps>) {
         const { props } = params
         const selected = store.select("selectedChat") as SideChat | undefined
 
@@ -66,7 +66,7 @@ export class SideChat extends Block {
         }
     }
 
-    render(): [string, Props] {
+    render(): [string, ISideChatProps] {
         return [
             /*html*/ `
             <div

@@ -1,7 +1,7 @@
 import "./login.css"
 import { SubmitForm } from "../../../components/submitForm"
 import { Button } from "../../../components/button"
-import { Block, Props } from "../../../components/block"
+import { Block } from "../../../components/block"
 import { getLoginInputs } from "../../../modules/inputs"
 import { urlSlugs } from "../../../consts"
 import { routerFactory } from "../../../router"
@@ -11,7 +11,7 @@ import { appendEvent } from "../../../utils/utils"
 
 const router = routerFactory()
 
-export class LoginPage extends Block {
+export class LoginPage extends Block<ILoginPageProps> {
     constructor() {
         const props: ILoginPageProps = {
             LoginSubmitForm: new SubmitForm({
@@ -61,7 +61,7 @@ export class LoginPage extends Block {
         }
     }
 
-    render(): [string, Props] {
+    render(): [string, ILoginPageProps] {
         return [
             /*html*/ `
             <main>

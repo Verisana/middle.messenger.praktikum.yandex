@@ -1,10 +1,6 @@
 import { Props, BlockParams, BlockSettings } from "../block"
 import { TimeInfo } from "../timeInfo"
 
-export interface IMessageSettings extends BlockSettings {
-    maxTextLength?: number
-}
-
 export interface IMessageProps extends Props {
     text: string
     senderName: string
@@ -13,7 +9,10 @@ export interface IMessageProps extends Props {
     Time?: TimeInfo
 }
 
-export interface IMessageParams extends BlockParams {
-    props: IMessageProps
+export interface IMessageSettings extends BlockSettings {
+    maxTextLength?: number
+}
+
+export interface IMessageParams extends BlockParams<IMessageProps> {
     settings?: IMessageSettings
 }
