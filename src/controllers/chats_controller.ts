@@ -9,6 +9,8 @@ import { getSelectedSideChat } from "../pages/messenger/utils"
 import { routerFactory } from "../router"
 import { store } from "../store"
 import { constructSideChats } from "./utils"
+import { globalEventBus } from "../utils/event_bus"
+import { globalEvents } from "../consts"
 
 const router = routerFactory()
 
@@ -23,28 +25,7 @@ class ChatsController {
         try {
             const response = await this.api.get(data)
             store.setChats(response.response)
-            let sideChats = constructSideChats()
-            const searchQuery = store.select("chatsSearchQuery") as
-                | string
-                | undefined
-
-            if (searchQuery !== undefined) {
-                sideChats = sideChats.filter((value) => {
-                    const props = value.props as ISideChatProps
-                    const messageProps = props.Message.props as IMessageProps
-                    return (
-                        props.chatTitle.includes(searchQuery) ||
-                        String(props.chatId).includes(searchQuery) ||
-                        messageProps.text.includes(searchQuery)
-                    )
-                })
-                store.setUndefined("chatsSearchQuery")
-            }
-
-            // Надо было, видимо, сделать правильное наследование типов, иначе
-            // теперь приходится any затыкать
-            const { page } = router as any
-            page.props.Content.props.SideChatBar.props.SideChats = sideChats
+            globalEventBus().emit(globalEvents.sideChatsUpdated)
         } catch (e) {
             console.log(e)
         }

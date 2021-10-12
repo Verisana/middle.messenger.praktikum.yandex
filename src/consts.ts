@@ -41,9 +41,10 @@ export const BlockEvents = {
 export const backendStaticUrl = "https://ya-praktikum.tech/api/v2/resources"
 
 export const globalEvents = {
-    sideChatClicked: "sideChatClicked",
-    PING_STATUS: "websocket:ping-status",
+    sideChatClicked: "component:sideChat-click",
+    sideChatsUpdated: "api:chats-get",
 
+    PING_STATUS: "websocket:ping-status",
     OLD_MESSAGES: "websocket:received-old-messages",
     NEW_MESSAGE: "websocket:received-new-message"
 }

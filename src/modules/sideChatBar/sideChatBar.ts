@@ -9,6 +9,9 @@ import { messagesController } from "../../controllers"
 import { getSelectedSideChat } from "../../pages/messenger/utils"
 import { globalEvents } from "../../consts"
 import { store } from "../../store"
+import { ISideChatBarProps } from "."
+import { IMessageProps } from "../../components/message"
+import { constructSideChats } from "../../controllers/utils"
 
 export class SideChatBar extends Block {
     constructor(params: ISideChatBarParams) {
@@ -23,6 +26,10 @@ export class SideChatBar extends Block {
             globalEvents.sideChatClicked,
             this.sideChatClick.bind(this)
         )
+        globalEventBus().on(
+            globalEvents.sideChatsUpdated,
+            this.sideChatUpdated.bind(this)
+        )
     }
 
     sideChatClick(id: number) {
@@ -30,6 +37,28 @@ export class SideChatBar extends Block {
         const selected = getSelectedSideChat(this.props.SideChats as SideChat[])
         store.setValue("selectedChat", selected)
         return messagesController.open(selected)
+    }
+
+    sideChatUpdated() {
+        let sideChats = constructSideChats()
+        const searchQuery = store.select("chatsSearchQuery") as
+            | string
+            | undefined
+
+        if (searchQuery !== undefined) {
+            sideChats = sideChats.filter((value) => {
+                const props = value.props as ISideChatProps
+                const messageProps = props.Message.props as IMessageProps
+                return (
+                    props.chatTitle.includes(searchQuery) ||
+                    String(props.chatId).includes(searchQuery) ||
+                    messageProps.text.includes(searchQuery)
+                )
+            })
+            store.setUndefined("chatsSearchQuery")
+        }
+
+        ;(this.props as ISideChatBarProps).SideChats = sideChats
     }
 
     selectSideChat(id: number) {
