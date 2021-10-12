@@ -2,12 +2,13 @@ import chatsController from "./chats_controller"
 import { MessagesAPI, UserData, ISocketMessageResponse } from "../api"
 import { ISideChatProps, SideChat } from "../modules/sideChat"
 import { store } from "../store"
-import { globalEvents, inputFieldNames, pingInterval } from "../consts"
+import { globalEvents, inputFieldNames } from "../consts"
 import { globalEventBus } from "../utils/event_bus"
 import { constructMessages } from "./utils"
 import { routerFactory } from "../router"
 import { ILayoutProps } from "../layout"
 import { IMessengerPageProps } from "../pages/messenger"
+import { pingInterval } from "./consts"
 
 enum PingStatus {
     DISCONNECTED,

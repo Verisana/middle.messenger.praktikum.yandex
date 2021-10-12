@@ -1,4 +1,4 @@
-import { backendWebsocketUrl } from "../consts"
+import { backendWebsocketUrl } from "./consts"
 import { IWebSocketSend } from "./types"
 
 export class MessagesAPI {

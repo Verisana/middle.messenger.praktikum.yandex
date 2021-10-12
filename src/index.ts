@@ -5,7 +5,6 @@ import { urlSlugs } from "./consts"
 import { layoutFactory } from "./layout"
 import { authController } from "./controllers"
 import { loginBlockBuilder, loginRedirectBuilder } from "./router/utils"
-import { store } from "./store"
 
 const router = routerFactory()
 

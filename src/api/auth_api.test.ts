@@ -2,8 +2,8 @@ import sinon from "sinon"
 import { expect } from "chai"
 
 import AuthAPI from "./auth_api"
-import { backendUrl } from "../consts"
-import { ILoginRequest, IRegisterRequest } from "."
+import { backendUrl } from "./consts"
+import { ILoginRequest, IRegisterRequest } from "./types"
 
 describe("Test AuthAPI", () => {
     const requests: sinon.SinonFakeXMLHttpRequest[] = []
