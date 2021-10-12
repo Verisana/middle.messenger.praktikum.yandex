@@ -2,6 +2,8 @@ import { backendWebsocketUrl } from "../consts"
 import { IWebSocketSend } from "./types"
 
 export class MessagesAPI {
+    static __instance: MessagesAPI
+
     protected socket: WebSocket
 
     constructor(
@@ -19,12 +21,18 @@ export class MessagesAPI {
             `${backendWebsocketUrl}/${userId}/${chatId}/${token}`
         )
 
+        if (MessagesAPI.__instance) {
+            return MessagesAPI.__instance
+        }
+
         this.socket.addEventListener("open", callback.onOpen)
         this.socket.addEventListener("close", callback.onClose)
         this.socket.addEventListener("message", callback.onMessage)
 
         // @ts-expect-error
         this.socket.addEventListener("error", callback.onError)
+
+        MessagesAPI.__instance = this
     }
 
     private _send(data: IWebSocketSend) {

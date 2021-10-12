@@ -1,7 +1,7 @@
 import { BaseAPI } from "./base_api"
 import { ILoginRequest, IRegisterRequest } from "./types"
 
-export class AuthAPI extends BaseAPI {
+class AuthAPI extends BaseAPI {
     constructor() {
         super("/auth")
     }
@@ -22,3 +22,5 @@ export class AuthAPI extends BaseAPI {
         return this.request.get("/user")
     }
 }
+
+export default new AuthAPI()

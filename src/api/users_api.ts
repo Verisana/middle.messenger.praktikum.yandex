@@ -2,7 +2,7 @@ import { IRequestOptions } from "../utils/types"
 import { BaseAPI } from "./base_api"
 import { IProfilePasswordUpdateRequest, IProfileUpdateRequest } from "./types"
 
-export class UsersAPI extends BaseAPI {
+class UsersAPI extends BaseAPI {
     constructor() {
         super("/user")
     }
@@ -28,3 +28,5 @@ export class UsersAPI extends BaseAPI {
         return this.request.post("/search", { login })
     }
 }
+
+export default new UsersAPI()

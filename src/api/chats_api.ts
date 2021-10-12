@@ -6,7 +6,7 @@ import {
     IChatsUsersModifyRequest
 } from "./types"
 
-export class ChatsAPI extends BaseAPI {
+class ChatsAPI extends BaseAPI {
     constructor() {
         super("/chats")
     }
@@ -46,3 +46,5 @@ export class ChatsAPI extends BaseAPI {
         return this.request.post(`/token/${id}`, { id })
     }
 }
+
+export default new ChatsAPI()
