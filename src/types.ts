@@ -1,5 +1,4 @@
 import { IChatsResponse, ISocketMessageResponse, UserData } from "./api"
-import { SideChat } from "./modules/sideChat"
 
 export interface IStoreData {
     user?: UserData
@@ -7,5 +6,5 @@ export interface IStoreData {
     messages?: ISocketMessageResponse[]
     chatsSearchQuery?: string
     usersInChat?: UserData[]
-    selectedChat?: SideChat
+    selectedChat?: IChatsResponse
 }

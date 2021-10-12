@@ -1,6 +1,10 @@
 import chatsController from "./chats_controller"
-import { MessagesAPI, UserData, ISocketMessageResponse } from "../api"
-import { SideChat } from "../modules/sideChat"
+import {
+    MessagesAPI,
+    UserData,
+    ISocketMessageResponse,
+    IChatsResponse
+} from "../api"
 import { store } from "../store"
 import { globalEvents, inputFieldNames } from "../consts"
 import { globalEventBus } from "../utils/event_bus"
@@ -16,7 +20,7 @@ export class MessagesController {
 
     private api?: MessagesAPI
 
-    private selected?: SideChat
+    private selected?: IChatsResponse
 
     constructor() {
         globalEventBus().on(globalEvents.PING_STATUS, (status: number) => {
@@ -82,7 +86,7 @@ export class MessagesController {
         console.log("Ошибка", event.message)
     }
 
-    async open(selected?: SideChat) {
+    async open(selected?: IChatsResponse) {
         this.close()
 
         // Используем this.selected, чтобы закешировать параметры последнего вызова
@@ -99,7 +103,7 @@ export class MessagesController {
         const user = store.select("user") as UserData | undefined
         if (user === undefined) throw new Error("User must be authorized")
 
-        const token = await chatsController.getToken(this.selected.props.chatId)
+        const token = await chatsController.getToken(Number(this.selected.id))
 
         if (token === undefined) {
             console.log("Can not receive token. Connection has not been opened")
@@ -107,7 +111,7 @@ export class MessagesController {
         }
         this.api = new MessagesAPI(
             Number(user.id),
-            this.selected.props.chatId,
+            Number(this.selected.id),
             token,
             {
                 onOpen: this.onOpenHandler.bind(this),
@@ -133,10 +137,10 @@ export class MessagesController {
         try {
             if (this.api !== undefined) {
                 const selected = store.select("selectedChat") as
-                    | SideChat
+                    | IChatsResponse
                     | undefined
                 if (selected !== undefined) {
-                    await chatsController.readUsers(selected.props.chatId)
+                    await chatsController.readUsers(Number(selected.id))
                     this.api.requestMessages(0)
                 } else {
                     throw new Error(

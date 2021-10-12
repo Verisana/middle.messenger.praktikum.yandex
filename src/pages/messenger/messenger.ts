@@ -21,6 +21,7 @@ import { store } from "../../store"
 import { globalEvents, inputFieldNames } from "../../consts"
 import { globalEventBus } from "../../utils/event_bus"
 import { constructMessages } from "../../controllers/utils"
+import { IChatsResponse } from "../../api"
 
 export class MessengerPage extends Block<IMessengerPageProps> {
     constructor() {
@@ -200,15 +201,17 @@ export class MessengerPage extends Block<IMessengerPageProps> {
     }
 
     async deleteChatClicked() {
-        const selected = store.select("selectedChat") as SideChat | undefined
+        const selected = store.select("selectedChat") as
+            | IChatsResponse
+            | undefined
         if (selected !== undefined) {
             if (
                 // eslint-disable-next-line
                 confirm(
-                    `Вы действительно хотите удалить ${selected.props.chatTitle} чат?`
+                    `Вы действительно хотите удалить ${selected.title} чат?`
                 )
             ) {
-                chatsController.delete(selected.props)
+                chatsController.delete(Number(selected.id))
             }
         } else {
             alert("Для удаления нужно сначала выбрать чат")

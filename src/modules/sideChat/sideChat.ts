@@ -6,6 +6,7 @@ import { Block, BlockParams } from "../../components/block"
 import { ISideChatProps } from "./types"
 import { globalEventBus } from "../../utils/event_bus"
 import { store } from "../../store"
+import { IChatsResponse } from "../../api"
 
 function sideChatClick(event: Event) {
     const { currentTarget } = event
@@ -18,16 +19,18 @@ function sideChatClick(event: Event) {
 }
 
 export function isSelectedChat(
-    selected: SideChat | undefined,
+    selected: IChatsResponse | undefined,
     props: ISideChatProps
 ): boolean {
-    return selected !== undefined && selected.props.chatId === props.chatId
+    return selected !== undefined && Number(selected.id) === props.chatId
 }
 
 export class SideChat extends Block<ISideChatProps> {
     constructor(params: BlockParams<ISideChatProps>) {
         const { props } = params
-        const selected = store.select("selectedChat") as SideChat | undefined
+        const selected = store.select("selectedChat") as
+            | IChatsResponse
+            | undefined
 
         props.rootClass = convertStylesToStrings(
             [styles],

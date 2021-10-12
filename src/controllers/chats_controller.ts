@@ -1,7 +1,12 @@
 import usersController from "./users_controller"
-import { ChatsAPI, UserData, IChatsGetUsers, IChatsRequest } from "../api"
+import {
+    ChatsAPI,
+    UserData,
+    IChatsGetUsers,
+    IChatsRequest,
+    IChatsResponse
+} from "../api"
 import { Layout } from "../layout"
-import { ISideChatProps, SideChat } from "../modules/sideChat"
 import { IMessengerPageProps } from "../pages/messenger"
 import { getSelectedSideChat } from "../pages/messenger/utils"
 import { routerFactory } from "../router"
@@ -37,9 +42,9 @@ class ChatsController {
         }
     }
 
-    async delete(props: ISideChatProps) {
+    async delete(id: number) {
         try {
-            await this.api.delete(props.chatId)
+            await this.api.delete(id)
             await this.get()
         } catch (e) {
             console.log(e)
@@ -48,12 +53,12 @@ class ChatsController {
 
     private async _modifyUsers(
         login: string,
-        selected?: SideChat,
+        selected?: IChatsResponse,
         isDelete: boolean = false
     ) {
         try {
             if (selected !== undefined) {
-                const allUsers = await this.readUsers(selected.props.chatId)
+                const allUsers = await this.readUsers(Number(selected.id))
 
                 const duplicateUsers = allUsers.filter((value) => {
                     if (value.login === login) {
@@ -80,19 +85,19 @@ class ChatsController {
                 if (user !== undefined) {
                     if (isDelete) {
                         await this.api.deleteUsers({
-                            chatId: selected.props.chatId,
+                            chatId: Number(selected.id),
                             users: [Number(user.id)]
                         })
                         alert(
-                            `Пользователь ${user.login} удален из чата ${selected.props.chatTitle}`
+                            `Пользователь ${user.login} удален из чата ${selected.title}`
                         )
                     } else {
                         await this.api.addUsers({
-                            chatId: selected.props.chatId,
+                            chatId: Number(selected.id),
                             users: [Number(user.id)]
                         })
                         alert(
-                            `Пользователь ${user.login} добавлен в чат ${selected.props.chatTitle}`
+                            `Пользователь ${user.login} добавлен в чат ${selected.title}`
                         )
                     }
                 } else {
@@ -111,11 +116,11 @@ class ChatsController {
         }
     }
 
-    async addUsers(login: string, selected?: SideChat) {
+    async addUsers(login: string, selected?: IChatsResponse) {
         await this._modifyUsers(login, selected, false)
     }
 
-    async deleteUsers(login: string, selected?: SideChat) {
+    async deleteUsers(login: string, selected?: IChatsResponse) {
         await this._modifyUsers(login, selected, true)
     }
 
@@ -127,7 +132,7 @@ class ChatsController {
 
             const selected = getSelectedSideChat(sidebarProps.SideChats)
             if (selected !== undefined) {
-                formData.append("chatId", String(selected.props.chatId))
+                formData.append("chatId", String(selected.id))
                 await this.api.updateAvatar(formData)
                 await this.get()
             } else {
@@ -166,12 +171,12 @@ class ChatsController {
         }
     }
 
-    async showUsersInChat(selected?: SideChat): Promise<undefined> {
+    async showUsersInChat(selected?: IChatsResponse): Promise<undefined> {
         try {
             if (selected !== undefined) {
-                const allUsers = await this.readUsers(selected.props.chatId)
+                const allUsers = await this.readUsers(Number(selected.id))
 
-                let info = `В чате ${selected.props.chatTitle} участвуют пользователи в количестве ${allUsers.length}:\n`
+                let info = `В чате ${selected.title} участвуют пользователи в количестве ${allUsers.length}:\n`
 
                 for (const user of allUsers) {
                     info += `${user.login}\n`
