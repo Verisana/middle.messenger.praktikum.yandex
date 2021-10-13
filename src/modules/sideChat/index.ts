@@ -1,2 +1,2 @@
-export { SideChat } from "./sideChat"
+export { SideChat, getSelectedSideChat } from "./sideChat"
 export { ISideChatProps } from "./types"

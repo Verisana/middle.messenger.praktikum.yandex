@@ -8,7 +8,7 @@ import {
 } from "../api"
 import { Layout } from "../layout"
 import { IMessengerPageProps } from "../pages/messenger"
-import { getSelectedSideChat } from "../pages/messenger/utils"
+import { getSelectedSideChat } from "../modules/sideChat"
 import { routerFactory } from "../router"
 import { store } from "../store"
 import { globalEventBus } from "../utils/event_bus"

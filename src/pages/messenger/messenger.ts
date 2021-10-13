@@ -15,8 +15,7 @@ import {
     messagesController,
     submitControllerBuilder
 } from "../../controllers"
-import { SideChat } from "../../modules/sideChat"
-import { getSelectedSideChat } from "./utils"
+import { SideChat, getSelectedSideChat } from "../../modules/sideChat"
 import { store } from "../../store"
 import { globalEvents, inputFieldNames } from "../../consts"
 import { globalEventBus } from "../../utils/event_bus"
