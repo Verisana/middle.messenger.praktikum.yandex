@@ -7,6 +7,7 @@ import { ISideChatProps } from "./types"
 import { globalEventBus } from "../../utils/event_bus"
 import { store } from "../../store"
 import { IChatsResponse } from "../../api"
+import { getSelectedSideChat } from "../../pages/messenger/utils"
 
 function sideChatClick(event: Event) {
     const { currentTarget } = event
@@ -62,7 +63,7 @@ export class SideChat extends Block<ISideChatProps> {
         super(params)
 
         if (isSelectedChat(selected, props)) {
-            store.setValue("selectedChat", this)
+            store.setValue("selectedChat", getSelectedSideChat([this]))
         }
     }
 
