@@ -229,7 +229,7 @@ export abstract class Block<T extends Props> {
     }
 
     protected _compile(): HTMLElement {
-        const props = this.render()[1]
+        const [, props] = this.render()
         return this._compileToDom(this._templateFunc, props)
     }
 
