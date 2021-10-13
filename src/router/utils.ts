@@ -1,4 +1,3 @@
-import { Block, Props } from "../components/block"
 import { urlSlugs } from "../consts"
 import { layoutFactory } from "../layout"
 import { pages } from "../pages"
@@ -11,11 +10,11 @@ export function loginRedirectBuilder(destination: string, slug?: string) {
     }
 }
 
-export function loginBlockBuilder<T extends Props>(
+export function loginBlockBuilder(
     destination: string,
     pageName: string,
     slug?: string,
-    page?: () => Block<T>
+    page?: () => any
 ) {
     const currentSlug = slug === undefined ? urlSlugs.login : slug
     const currentPage = page === undefined ? pages.login : page
@@ -23,9 +22,8 @@ export function loginBlockBuilder<T extends Props>(
     return {
         // Не знаю, как тут правильно типы проставить. Какие-то непонятные ошибки
 
+        [currentSlug]: layoutFactory(currentPage as any),
         // @ts-expect-error
-        [currentSlug]: layoutFactory<T>(currentPage),
-        // @ts-expect-error
-        [destination]: layoutFactory<Props>(pages[pageName])
+        [destination]: layoutFactory(pages[pageName])
     }
 }
