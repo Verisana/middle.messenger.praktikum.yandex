@@ -5,7 +5,6 @@ import { urlSlugs } from "./consts"
 import { layoutFactory } from "./layout"
 import { authController } from "./controllers"
 import { loginBlockBuilder, loginRedirectBuilder } from "./router/utils"
-import { IRegisterPageProps } from "./pages/auth/register"
 
 const router = routerFactory()
 
@@ -25,7 +24,7 @@ async function main() {
 
     router.useRedirect(
         urlSlugs.register,
-        loginBlockBuilder<IRegisterPageProps>(
+        loginBlockBuilder(
             urlSlugs.messenger,
             "messenger",
             urlSlugs.register,

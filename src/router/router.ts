@@ -30,11 +30,9 @@ class Router {
         Router.__instance = this
     }
 
-    use<T extends Props>(pathname: string, blockBuilder: () => Layout<T>) {
-        const route = new Route<T>(pathname, blockBuilder, this._rootQuery)
+    use(pathname: string, blockBuilder: () => any) {
+        const route = new Route(pathname, blockBuilder, this._rootQuery)
 
-        // Не знаю, как тут нормально проставить типы, поэтому поставлю заглушку
-        // @ts-expect-error
         this.routes.push(route)
 
         return this
