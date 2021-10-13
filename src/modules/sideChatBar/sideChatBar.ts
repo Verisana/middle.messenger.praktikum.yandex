@@ -5,7 +5,7 @@ import { convertStylesToStrings } from "../../utils/utils"
 import { ISideChatBarProps } from "./types"
 import { SideChat, getSelectedSideChat } from "../sideChat"
 import { globalEventBus } from "../../utils/event_bus"
-import { messagesController } from "../../controllers"
+import { chatsController, messagesController } from "../../controllers"
 import { globalEvents } from "../../consts"
 import { store } from "../../store"
 import { constructSideChats } from "../../controllers/utils"
@@ -29,11 +29,17 @@ export class SideChatBar extends Block<ISideChatBarProps> {
         )
     }
 
-    sideChatClick(id: number) {
+    async sideChatClick(id: number) {
         this.selectSideChat(id)
         const selected = getSelectedSideChat(this.props.SideChats as SideChat[])
+        if (selected === undefined) {
+            console.warn("Something is wrong. Chat must be selected")
+            return
+        }
         store.setValue("selectedChat", selected)
-        return messagesController.open(selected)
+        await chatsController.readUsers(Number(selected.id))
+        store.setMessages([])
+        messagesController.open(selected)
     }
 
     sideChatUpdated() {
