@@ -1,16 +1,15 @@
 import styles from "./message.css"
-import messageTemplate from "./message.hbs"
-import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
+import { convertStylesToStrings } from "../../utils/utils"
 import { IMessageParams, IMessageProps } from "./types"
 import { Block } from "../block"
 
-export class Message extends Block {
+export class Message extends Block<IMessageProps> {
     private _maxMessageLength?: number
 
     constructor(params: IMessageParams) {
         const { props, settings = {} } = params
 
-        props.rootClass = convertStyles2Strings(
+        props.rootClass = convertStylesToStrings(
             [styles],
             "message",
             props.rootClass
@@ -30,11 +29,28 @@ export class Message extends Block {
         return text
     }
 
-    render(): HTMLElement {
-        const props = this.props as IMessageProps
-        return compile2Dom(messageTemplate, {
-            ...props,
-            text: Message._sliceMessageText(props.text, this._maxMessageLength)
-        })
+    render(): [string, IMessageProps] {
+        const propsCopy = {
+            ...this.props,
+            text: Message._sliceMessageText(
+                this.props.text,
+                this._maxMessageLength
+            )
+        }
+        return [
+            /*html*/ `
+            <div
+                class="{{rootClass}}"
+                {{#if senderId}}data-sender-id={{senderId}}{{/if}}
+                data-sender-name={{senderName}}
+            >
+                <p>
+                    {{text}}
+                </p>
+                {{{Time}}}
+            </div>
+        `,
+            propsCopy
+        ]
     }
 }

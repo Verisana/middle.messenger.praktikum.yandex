@@ -8,13 +8,14 @@ export interface ISubmitFormProps extends Props {
     SubmitButton: Button
     formHeaderText?: string
     rootClass?: string | string[]
+    errorClass?: string | string[]
+    errorText?: string
 }
 
 export interface ISubmitFormSettings extends BlockSettings {
     isNoBorder?: boolean
 }
 
-export interface ISubmitFormParams extends BlockParams {
-    props: ISubmitFormProps
+export interface ISubmitFormParams extends BlockParams<ISubmitFormProps> {
     settings?: ISubmitFormSettings
 }

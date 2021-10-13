@@ -1,4 +1,4 @@
-import { BlockParams, Props } from "../block"
+import { Props } from "../block"
 
 export interface IInputFieldProps extends Props {
     type_?: string
@@ -7,8 +7,6 @@ export interface IInputFieldProps extends Props {
     pattern?: string
     placeholder?: string
     name?: string
-}
-
-export interface IInputFieldParams extends BlockParams {
-    props: IInputFieldProps
+    value?: string
+    accept?: string
 }

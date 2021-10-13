@@ -1,11 +1,5 @@
-import { BlockParams, Props } from "../block"
-import { Button } from "../button"
+import { Props } from "../block"
 
 export interface IFooterProps extends Props {
     contentClass: string
-    LinkButtons: Button[]
-}
-
-export interface IFooterParams extends BlockParams {
-    props: IFooterProps
 }

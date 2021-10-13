@@ -1,25 +1,31 @@
 import "./register.css"
-import registerTemplate from "./register.hbs"
-import { onSubmitMock, compile2Dom } from "../../../utils/utils"
-import { linkButtons } from "../../../router/tempButtons"
 import { SubmitForm } from "../../../components/submitForm"
-import { LoginPage } from "../login"
 import { Button } from "../../../components/button"
 import { Block } from "../../../components/block"
 import { getRegisterInputs } from "../../../modules/inputs"
+import { routerFactory } from "../../../router"
+import { urlSlugs } from "../../../consts"
+import { authController, submitControllerBuilder } from "../../../controllers"
+import { IRegisterPageProps } from "./types"
 
-export class RegisterPage extends Block {
+const router = routerFactory()
+
+export class RegisterPage extends Block<IRegisterPageProps> {
     constructor() {
         super({
             props: {
                 RegisterSubmitForm: new SubmitForm({
                     props: {
+                        events: {
+                            submit: [
+                                submitControllerBuilder(
+                                    authController.register.bind(authController)
+                                )
+                            ]
+                        },
                         formHeaderText: "Введите для регистрации",
                         Inputs: getRegisterInputs(),
                         SubmitButton: new Button({
-                            events: {
-                                submit: [onSubmitMock]
-                            },
                             props: {
                                 text: "Зарегистрироваться",
                                 type_: "submit"
@@ -27,15 +33,27 @@ export class RegisterPage extends Block {
                         })
                     }
                 }),
-                LoginButton: linkButtons.login(
-                    { text: "Уже есть аккаунт?" },
-                    () => new LoginPage()
-                )
+                LoginButton: new Button({
+                    props: {
+                        events: {
+                            click: [() => router.go(urlSlugs.login)]
+                        },
+                        text: "Уже есть аккаунт?"
+                    }
+                })
             }
         })
     }
 
-    render(): HTMLElement {
-        return compile2Dom(registerTemplate, this.props)
+    render(): [string, IRegisterPageProps] {
+        return [
+            /*html*/ `
+            <main>
+                {{{RegisterSubmitForm}}}
+                {{{LoginButton}}}
+            </main>
+        `,
+            this.props
+        ]
     }
 }

@@ -1,31 +1,31 @@
 import "./footer.css"
 import layoutStyles from "../../layout/layout.css"
-import footerTemplate from "./footer.hbs"
-import { linkButtons } from "../../router/tempButtons"
-import { pages } from "../../pages"
-import { Block } from "../block"
-import { Button } from "../button"
-import { IFooterParams } from "./types"
-import { compile2Dom } from "../../utils/utils"
+import { Block, BlockParams } from "../block"
+import { IFooterProps } from "./types"
 
-export class Footer extends Block {
+export class Footer extends Block<IFooterProps> {
     constructor() {
-        const routeButtons: Button[] = []
-        for (const [route, button] of Object.entries(linkButtons)) {
-            routeButtons.push(button({}, pages[route]))
-        }
-
-        const params: IFooterParams = {
+        const params: BlockParams<IFooterProps> = {
             props: {
-                contentClass: layoutStyles.content,
-                LinkButtons: routeButtons
+                contentClass: layoutStyles.content
             }
         }
 
         super(params)
     }
 
-    render(): HTMLElement {
-        return compile2Dom(footerTemplate, this.props)
+    render(): [string, IFooterProps] {
+        return [
+            /*html*/ `
+            <footer>
+                <div className={{contentClass}}>
+                    <p>
+                        © 2021. Random Voice Companion
+                    </p>
+                </div>
+            </footer>
+        `,
+            this.props
+        ]
     }
 }

@@ -1,25 +1,36 @@
 import "./layout.css"
-import layoutTemplate from "./layout.hbs"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { HomePage } from "../pages/home"
-import { compile2Dom } from "../utils/utils"
-import { Block } from "../components/block"
+import { Block, Props } from "../components/block"
+import { ILayoutProps } from "./types"
 
-class Layout extends Block {
-    constructor() {
+export class Layout<T extends Props> extends Block<ILayoutProps<T>> {
+    constructor(content: () => Block<T>) {
         super({
             props: {
                 Header: new Header(),
-                Content: new HomePage(),
+                Content: content(),
                 Footer: new Footer()
             }
         })
     }
 
-    render(): HTMLElement {
-        return compile2Dom(layoutTemplate, this.props)
+    render(): [string, ILayoutProps<T>] {
+        return [
+            /*html*/ `
+            <div id="App">
+                {{{Header}}}
+                {{{Content}}}
+                {{{Footer}}}
+            </div>
+        `,
+            this.props
+        ]
     }
 }
 
-export const layout = new Layout()
+export function layoutFactory<T extends Props>(
+    content: () => Block<T>
+): () => Layout<T> {
+    return () => new Layout(content)
+}

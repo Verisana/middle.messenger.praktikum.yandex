@@ -24,12 +24,16 @@ export class EventBus {
     }
 
     emit(event: string, ...args: unknown[]) {
-        if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`)
+        if (this.listeners[event]) {
+            this.listeners[event].forEach((listener) => {
+                listener(...args)
+            })
         }
-
-        this.listeners[event].forEach((listener) => {
-            listener(...args)
-        })
     }
+}
+
+const instance = new EventBus()
+
+export function globalEventBus() {
+    return instance
 }

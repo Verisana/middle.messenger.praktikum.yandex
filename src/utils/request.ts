@@ -1,3 +1,6 @@
+import { IRequestOptions, RequestData } from "./types"
+import { queryString } from "./utils"
+
 export enum METHODS {
     GET = "GET",
     POST = "POST",
@@ -5,46 +8,58 @@ export enum METHODS {
     DELETE = "DELETE"
 }
 
-export type ParamAble = Record<string, string | number | Array<string | number>>
-
-function queryStringify(data: ParamAble) {
-    const keys = Object.keys(data)
-    return keys.reduce((result, key, index) => {
-        return `${result}${key}=${data[key]}${
-            index < keys.length - 1 ? "&" : ""
-        }`
-    }, "?")
-}
-
-export interface IRequestOptions {
-    method?: string
-    retries?: number
-    data?: ParamAble
-    timeout?: number
-    headers?: Record<string, string>
-}
-
 export class Request {
-    get(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.GET })
+    url: string
+
+    constructor(url?: string) {
+        this.url = url === undefined ? "" : url
     }
 
-    post(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.POST })
+    get(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, { ...options, method: METHODS.GET })
     }
 
-    put(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.PUT })
+    post(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, {
+            ...options,
+            method: METHODS.POST
+        })
     }
 
-    delete(url: string, options = {}) {
-        return this.request(url, { ...options, method: METHODS.DELETE })
+    put(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, { ...options, method: METHODS.PUT })
+    }
+
+    delete(
+        endpoint: string,
+        data: RequestData | FormData = {},
+        options: IRequestOptions = {}
+    ) {
+        return this.request(endpoint, data, {
+            ...options,
+            method: METHODS.DELETE
+        })
     }
 
     async request(
-        url: string,
+        endpoint: string,
+        data: RequestData | FormData,
         options: IRequestOptions
     ): Promise<XMLHttpRequest> {
+        const url = `${this.url}${endpoint}`
+
         const { retries = 1 } = options
 
         const onError = (err: Error) => {
@@ -52,26 +67,30 @@ export class Request {
             if (!triesLeft) {
                 throw err
             }
-            return this.request(url, {
+            return this.request(url, data, {
                 ...options,
                 retries: triesLeft
             })
         }
 
-        return this.requestBase(url, options).catch(onError)
+        return this.requestBase(url, data, options).catch(onError)
     }
 
     private requestBase = (
         url: string,
+        data: RequestData | FormData,
         options: IRequestOptions
     ): Promise<XMLHttpRequest> => {
         const {
-            headers = { "content-type": "application/json" },
+            headers = {
+                "Content-Type": "application/json",
+                accept: "application/json"
+            },
             method = METHODS.GET,
-            data,
+            withCredentials = true,
+            responseType = "json",
             timeout = 3000
         } = options
-
         return new Promise((resolve, reject) => {
             if (!method) {
                 reject(new Error("No method provided"))
@@ -83,15 +102,19 @@ export class Request {
 
             xhr.open(
                 method,
-                isGet && !!data ? `${url}${queryStringify(data)}` : url
+                isGet && !!data ? `${url}?${queryString(data)}` : url
             )
+            xhr.withCredentials = withCredentials
+
+            // @ts-expect-error
+            xhr.responseType = responseType
 
             Object.keys(headers).forEach((key) => {
                 xhr.setRequestHeader(key, headers[key])
             })
 
             xhr.onload = () => {
-                if (xhr.status >= 200 && xhr.status < 300) {
+                if (xhr.status >= 200 && xhr.status < 400) {
                     resolve(xhr)
                 } else {
                     reject(xhr)
@@ -106,6 +129,8 @@ export class Request {
 
             if (isGet || !data) {
                 xhr.send()
+            } else if (data instanceof FormData) {
+                xhr.send(data)
             } else {
                 xhr.send(JSON.stringify(data))
             }

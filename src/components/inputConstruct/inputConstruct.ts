@@ -1,18 +1,17 @@
 import styles from "./inputConstruct.css"
-import inputConstructTemplate from "./inputConstruct.hbs"
-import { convertStyles2Strings, compile2Dom } from "../../utils/utils"
-import { IInputConstructParams } from "./types"
-import { Block } from "../block"
+import { convertStylesToStrings } from "../../utils/utils"
+import { IInputConstructProps } from "./types"
+import { Block, BlockParams } from "../block"
 
-export class InputConstruct extends Block {
-    constructor(params: IInputConstructParams) {
+export class InputConstruct extends Block<IInputConstructProps> {
+    constructor(params: BlockParams<IInputConstructProps>) {
         const { props } = params
-        props.barClass = convertStyles2Strings(
+        props.barClass = convertStylesToStrings(
             [styles],
             "input-construct__bar",
             props.barClass
         )
-        props.rootClass = convertStyles2Strings(
+        props.rootClass = convertStylesToStrings(
             [styles],
             "input-construct",
             props.rootClass
@@ -23,12 +22,29 @@ export class InputConstruct extends Block {
                 ? undefined
                 : {
                       text: props.label.text,
-                      class: convertStyles2Strings([styles], props.label.class)
+                      class: convertStylesToStrings([styles], props.label.class)
                   }
         super(params)
     }
 
-    render(): HTMLElement {
-        return compile2Dom(inputConstructTemplate, this.props)
+    render(): [string, IInputConstructProps] {
+        return [
+            /*html*/ `
+            <div class="{{rootClass}}">
+                {{{InputField}}}
+                <p>{{validationErrorText}}</p>
+                <span class="{{barClass}}"></span>
+                {{#if label.text}}
+                    <label class="{{label.class}}">
+                        {{label.text}}
+                    </label>
+                {{/if}}
+                {{#if br}}
+                    <br />
+                {{/if}}
+            </div>
+        `,
+            this.props
+        ]
     }
 }
