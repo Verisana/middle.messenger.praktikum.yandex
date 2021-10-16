@@ -7,15 +7,13 @@
   },
   "scripts": {
     "dev": "webpack serve --config webpack.dev.js",
-    "build": "npm run checks && webpack --config webpack.prod.js",
+    "build": "npm run lint && webpack --config webpack.prod.js",
     "test": "mocha 'src/**/*.test.ts'",
     "start": "ts-node src/server.ts",
     "lint:p": "prettier --write './src/**/*.{ts,test.ts,json}'",
     "lint:e": "eslint \"src/**/*.ts\" --fix",
     "lint:s": "stylelint \"src/**/*css\" --fix",
-    "lint": "npm-run-all lint:p lint:e lint:s",
-    "compile": "tsc",
-    "checks": "npm-run-all compile lint"
+    "lint": "npm-run-all lint:p lint:e lint:s"
   },
   "repository": {
     "type": "git",
@@ -36,6 +34,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^3.4.0",
+    "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.4.0",
     "husky": "^7.0.2",
     "jsdom-global": "3.0.2",

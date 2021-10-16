@@ -12,6 +12,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Production",
+      favicon: path.resolve(__dirname, "./static/favicon.png"),
       template: path.resolve(__dirname, "./static/index.html"), // шаблон
       filename: "index.html" // название выходного файла
     }),
@@ -25,6 +26,14 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.html$/i,
+        loader: "html-loader"
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource"
+      },
       {
         test: /\.tsx?$/,
         use: [
@@ -41,7 +50,12 @@ module.exports = {
         test: /\.css$/i,
         use: [
           "style-loader",
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            }
+          },
           {
             loader: "postcss-loader",
             options: {
