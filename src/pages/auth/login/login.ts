@@ -45,12 +45,12 @@ export class LoginPage extends Block<ILoginPageProps> {
     )
   }
 
-  submitLogin(event: Event) {
+  async submitLogin(event: Event) {
     const submitFunc = submitControllerBuilder(
       authController.login.bind(authController)
     )
     try {
-      submitFunc(event)
+      await submitFunc(event)
     } catch (e) {
       this.props.LoginSubmitForm.showError()
     }
