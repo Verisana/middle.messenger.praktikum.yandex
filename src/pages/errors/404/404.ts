@@ -1,4 +1,5 @@
 import "./404.css"
+import errorImage from "../../../../static/404_img.jpg"
 import { Block, Props } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { routerFactory } from "../../../router"
@@ -36,7 +37,7 @@ export class ErrorPage extends Block<Props> {
                     Можете вернуться к чатам и попробовать снова
                 </h3>
                 {{{HomeButton}}}
-                <img src="404_img.jpg" alt="Ah shit, here we go again." />
+                <img src="${errorImage}" alt="Ah shit, here we go again." />
             </main>
         `,
       this.props

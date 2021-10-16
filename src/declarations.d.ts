@@ -7,8 +7,14 @@ declare module "*.css" {
   export default styles
 }
 
-declare module "*.hbs" {
-  import { Template } from "handlebars"
+declare module "*.jpg" {
+  export default string
+}
 
-  export default Template<string>()
+declare module "*svg" {
+  export default string
+}
+
+declare module "*png" {
+  export default string
 }

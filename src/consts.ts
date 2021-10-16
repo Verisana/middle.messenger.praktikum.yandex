@@ -1,9 +1,9 @@
+export { default as defaultAvatar } from "../static/default-avatar.png"
+
 // В контакт листе на каком знаке обрубать сообщения
 export const maxMessageLength = 64
 
 export const rootQuery = "#App"
-
-export const defaultAvatar = "default-avatar.png"
 
 export const inputFieldNames = {
   firstName: "first_name",

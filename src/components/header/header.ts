@@ -1,4 +1,8 @@
 import "./header.css"
+import logoutIcon from "../../../static/logout_white_48dp.svg"
+import settingsIcon from "../../../static/settings_white_48dp.svg"
+import menuIcon from "../../../static/menu_white_48dp.svg"
+
 import { Button } from "../button"
 import { urlSlugs } from "../../consts"
 import { Block } from "../block"
@@ -20,7 +24,7 @@ export class Header extends Block<IHeaderProps> {
         MenuButton: new Button({
           props: {
             rootClass: ["button__navbar"],
-            imgSrc: "menu_white_48dp.svg",
+            imgSrc: menuIcon,
             imgStyle: ["button__image"]
           }
         }),
@@ -30,7 +34,7 @@ export class Header extends Block<IHeaderProps> {
               click: [() => router.go(urlSlugs.settings)]
             },
             rootClass: ["button__navbar"],
-            imgSrc: "settings_white_48dp.svg",
+            imgSrc: settingsIcon,
             imgStyle: ["button__image"]
           }
         }),
@@ -40,7 +44,7 @@ export class Header extends Block<IHeaderProps> {
               click: [() => authController.logout()]
             },
             rootClass: ["button__navbar"],
-            imgSrc: "logout_white_48dp.svg",
+            imgSrc: logoutIcon,
             imgStyle: ["button__image"]
           }
         }),

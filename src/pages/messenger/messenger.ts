@@ -1,5 +1,11 @@
 import { Block, BlockParams } from "../../components/block"
 import styles from "./messenger.css"
+import removePersonIcon from "../../../static/person_remove_white_48dp.svg"
+import showPersonsIcon from "../../../static/people_white_48dp.svg"
+import addPersonIcon from "../../../static/person_add_white_48dp.svg"
+import addChatIcon from "../../../static/add_white_48dp.svg"
+import removeChatIcon from "../../../static/remove_circle_white_48dp.svg"
+import searchIcon from "../../../static/search_white_48dp.svg"
 import { appendEvent, convertStylesToStrings } from "../../utils/utils"
 import { SideChatBar } from "../../modules/sideChatBar"
 import { SubmitForm } from "../../components/submitForm"
@@ -50,21 +56,21 @@ export class MessengerPage extends Block<IMessengerPageProps> {
         UsersButton: new Button({
           props: {
             rootClass: ["button__navbar"],
-            imgSrc: "people_white_48dp.svg",
+            imgSrc: showPersonsIcon,
             imgStyle: ["button__image"]
           }
         }),
         RemovePersonButton: new Button({
           props: {
             rootClass: ["button__navbar"],
-            imgSrc: "person_remove_white_48dp.svg",
+            imgSrc: removePersonIcon,
             imgStyle: ["button__image"]
           }
         }),
         AddPersonButton: new Button({
           props: {
             rootClass: ["button__navbar"],
-            imgSrc: "person_add_white_48dp.svg",
+            imgSrc: addPersonIcon,
             imgStyle: ["button__image"]
           }
         }),
@@ -75,14 +81,14 @@ export class MessengerPage extends Block<IMessengerPageProps> {
             ChatCreateButton: new Button({
               props: {
                 rootClass: ["button__navbar"],
-                imgSrc: "add_white_48dp.svg",
+                imgSrc: addChatIcon,
                 imgStyle: ["button__image"]
               }
             }),
             ChatDeleteButton: new Button({
               props: {
                 rootClass: ["button__navbar"],
-                imgSrc: "remove_circle_white_48dp.svg",
+                imgSrc: removeChatIcon,
                 imgStyle: ["button__image"]
               }
             }),
@@ -96,7 +102,7 @@ export class MessengerPage extends Block<IMessengerPageProps> {
                   props: {
                     type_: "submit",
                     rootClass: ["button__navbar"],
-                    imgSrc: "search_white_48dp.svg",
+                    imgSrc: searchIcon,
                     imgStyle: ["button__image"]
                   }
                 })
