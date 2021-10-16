@@ -46,6 +46,7 @@ class ChatsController {
     try {
       await this.api.delete(id)
       await this.get()
+      store.setMessages([])
     } catch (e) {
       console.log(e)
     }
