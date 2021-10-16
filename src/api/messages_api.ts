@@ -2,48 +2,48 @@ import { backendWebsocketUrl } from "./consts"
 import { IWebSocketSend } from "./types"
 
 export class MessagesAPI {
-    protected socket: WebSocket
+  protected socket: WebSocket
 
-    constructor(
-        userId: number,
-        chatId: number,
-        token: string,
-        callback: {
-            onOpen: () => void
-            onClose: (event: CloseEvent) => void
-            onError: (event: ErrorEvent) => void
-            onMessage: (event: MessageEvent) => void
-        }
-    ) {
-        this.socket = new WebSocket(
-            `${backendWebsocketUrl}/${userId}/${chatId}/${token}`
-        )
-
-        this.socket.addEventListener("open", callback.onOpen)
-        this.socket.addEventListener("close", callback.onClose)
-        this.socket.addEventListener("message", callback.onMessage)
-
-        // @ts-expect-error
-        this.socket.addEventListener("error", callback.onError)
+  constructor(
+    userId: number,
+    chatId: number,
+    token: string,
+    callback: {
+      onOpen: () => void
+      onClose: (event: CloseEvent) => void
+      onError: (event: ErrorEvent) => void
+      onMessage: (event: MessageEvent) => void
     }
+  ) {
+    this.socket = new WebSocket(
+      `${backendWebsocketUrl}/${userId}/${chatId}/${token}`
+    )
 
-    private _send(data: IWebSocketSend) {
-        return this.socket.send(JSON.stringify(data))
-    }
+    this.socket.addEventListener("open", callback.onOpen)
+    this.socket.addEventListener("close", callback.onClose)
+    this.socket.addEventListener("message", callback.onMessage)
 
-    sendMessage(content: string) {
-        return this._send({ content, type: "message" })
-    }
+    // @ts-expect-error
+    this.socket.addEventListener("error", callback.onError)
+  }
 
-    requestMessages(from: number) {
-        return this._send({ content: String(from), type: "get old" })
-    }
+  private _send(data: IWebSocketSend) {
+    return this.socket.send(JSON.stringify(data))
+  }
 
-    ping() {
-        return this._send({ content: "", type: "ping" })
-    }
+  sendMessage(content: string) {
+    return this._send({ content, type: "message" })
+  }
 
-    close() {
-        return this.socket.close()
-    }
+  requestMessages(from: number) {
+    return this._send({ content: String(from), type: "get old" })
+  }
+
+  ping() {
+    return this._send({ content: "", type: "ping" })
+  }
+
+  close() {
+    return this.socket.close()
+  }
 }

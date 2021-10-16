@@ -4,18 +4,18 @@ import { Button } from "../button"
 import { InputConstruct } from "../inputConstruct"
 
 export interface ISubmitFormProps extends Props {
-    Inputs: InputConstruct[]
-    SubmitButton: Button
-    formHeaderText?: string
-    rootClass?: string | string[]
-    errorClass?: string | string[]
-    errorText?: string
+  Inputs: InputConstruct[]
+  SubmitButton: Button
+  formHeaderText?: string
+  rootClass?: string | string[]
+  errorClass?: string | string[]
+  errorText?: string
 }
 
 export interface ISubmitFormSettings extends BlockSettings {
-    isNoBorder?: boolean
+  isNoBorder?: boolean
 }
 
 export interface ISubmitFormParams extends BlockParams<ISubmitFormProps> {
-    settings?: ISubmitFormSettings
+  settings?: ISubmitFormSettings
 }

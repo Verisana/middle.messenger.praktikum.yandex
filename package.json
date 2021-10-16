@@ -73,7 +73,7 @@
     },
     "prettier": {
         "trailingComma": "none",
-        "tabWidth": 4,
+        "tabWidth": 2,
         "semi": false,
         "singleQuote": false
     },

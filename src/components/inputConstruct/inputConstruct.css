@@ -1,44 +1,44 @@
 .input-construct {
-    position: relative;
-    margin-bottom: 10px;
+  position: relative;
+  margin-bottom: 10px;
 }
 
 /* LABEL ======================================= */
 label {
-    color: $input-text-color;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
+  color: $input-text-color;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
 }
 
 /* BOTTOM BARS ================================= */
 .input-construct__bar {
-    position: relative;
-    display: block;
-    width: 300px;
+  position: relative;
+  display: block;
+  width: 300px;
 }
 
 .input-construct__bar::before,
 .input-construct__bar::after {
-    content: "";
-    height: 2px;
-    width: 0;
-    bottom: 1px;
-    position: absolute;
-    background: $secondary-object-light-color;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: $secondary-object-light-color;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
 }
 
 .input-construct__bar::before {
-    left: 50%;
+  left: 50%;
 }
 
 .input-construct__bar::after {
-    right: 50%;
+  right: 50%;
 }

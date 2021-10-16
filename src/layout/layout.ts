@@ -5,32 +5,32 @@ import { Block, Props } from "../components/block"
 import { ILayoutProps } from "./types"
 
 export class Layout<T extends Props> extends Block<ILayoutProps<T>> {
-    constructor(content: () => Block<T>) {
-        super({
-            props: {
-                Header: new Header(),
-                Content: content(),
-                Footer: new Footer()
-            }
-        })
-    }
+  constructor(content: () => Block<T>) {
+    super({
+      props: {
+        Header: new Header(),
+        Content: content(),
+        Footer: new Footer()
+      }
+    })
+  }
 
-    render(): [string, ILayoutProps<T>] {
-        return [
-            /*html*/ `
+  render(): [string, ILayoutProps<T>] {
+    return [
+      /*html*/ `
             <div id="App">
                 {{{Header}}}
                 {{{Content}}}
                 {{{Footer}}}
             </div>
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }
 
 export function layoutFactory<T extends Props>(
-    content: () => Block<T>
+  content: () => Block<T>
 ): () => Layout<T> {
-    return () => new Layout(content)
+  return () => new Layout(content)
 }
