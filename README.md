@@ -14,6 +14,7 @@
 git clone https://github.com/Verisana/middle.messenger.praktikum.yandex.git
 cd middle.messenger.praktikum.yandex
 npm install
+cp .env.example .env
 ```
 
 ## Для старта
