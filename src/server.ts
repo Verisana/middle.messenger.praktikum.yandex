@@ -1,13 +1,7 @@
 import express from "express"
-import * as dotenv from "dotenv"
 import path from "path"
 
-dotenv.config()
-
-const PORT =
-  process.env.SERVER_PORT !== undefined ? process.env.SERVER_PORT : 3000
-
-// const __dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
+const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000
 
 const app = express()
 
