@@ -1,4 +1,5 @@
 import "./404.css"
+import errorImage from "../../../../static/404_img.jpg"
 import { Block, Props } from "../../../components/block"
 import { Button } from "../../../components/button"
 import { routerFactory } from "../../../router"
@@ -7,24 +8,24 @@ import { urlSlugs } from "../../../consts"
 const router = routerFactory()
 
 export class ErrorPage extends Block<Props> {
-    constructor() {
-        super({
-            props: {
-                HomeButton: new Button({
-                    props: {
-                        events: {
-                            click: [() => router.go(urlSlugs.home)]
-                        },
-                        text: "Home"
-                    }
-                })
-            }
+  constructor() {
+    super({
+      props: {
+        HomeButton: new Button({
+          props: {
+            events: {
+              click: [() => router.go(urlSlugs.home)]
+            },
+            text: "Home"
+          }
         })
-    }
+      }
+    })
+  }
 
-    render(): [string, Props] {
-        return [
-            /*html*/ `
+  render(): [string, Props] {
+    return [
+      /*html*/ `
             <main>
                 <h1>
                     Ошибка 404
@@ -36,10 +37,10 @@ export class ErrorPage extends Block<Props> {
                     Можете вернуться к чатам и попробовать снова
                 </h3>
                 {{{HomeButton}}}
-                <img src="404_img.jpg" alt="Ah shit, here we go again." />
+                <img src="${errorImage}" alt="Ah shit, here we go again." />
             </main>
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }

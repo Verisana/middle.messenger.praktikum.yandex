@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  messenger:
+    container_name: messenger
+    image: gr1902/messenger
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run start
+    ports:
+      - ${PORT:-3000}:${PORT:-3000}
+    restart: on-failure

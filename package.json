@@ -1,86 +1,97 @@
 {
-    "name": "messenger",
-    "version": "1.0.0",
-    "description": "Учебный проект мессенджера в Яндекс Практикуме",
-    "engines": {
-        "node": ">=14.17"
-    },
-    "scripts": {
-        "dev": "parcel static/index.html",
-        "build": "npm run compile && npm run lint && parcel build static/*",
-        "test": "mocha 'src/**/*.test.ts'",
-        "start": "ts-node src/server.ts",
-        "lint:p": "prettier --write './src/**/*.{ts,test.ts,json}'",
-        "lint:e": "eslint \"src/**/*.ts\" --fix",
-        "lint:s": "stylelint \"src/**/*css\" --fix",
-        "lint": "npm run lint:p && npm run lint:e && npm run lint:s",
-        "compile": "tsc"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Verisana/middle.messenger.praktikum.yandex.git"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.15.8",
-        "@babel/register": "^7.15.3",
-        "@types/chai": "^4.2.22",
-        "@types/jsdom": "^16.2.13",
-        "@types/mocha": "^9.0.0",
-        "@typescript-eslint/eslint-plugin": "^4.30.0",
-        "@typescript-eslint/parser": "^4.30.0",
-        "chai": "^4.3.4",
-        "eslint": "^7.32.0",
-        "eslint-config-airbnb-base": "^14.2.1",
-        "eslint-config-airbnb-typescript": "^14.0.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-import": "^2.24.2",
-        "eslint-plugin-prettier": "^3.4.0",
-        "jsdom-global": "3.0.2",
-        "mocha": "^9.1.1",
-        "parcel-bundler": "^1.12.5",
-        "parcel-plugin-handlebars-precompile-ts": "^1.0.0",
-        "parcel-plugin-static-files-copy": "^2.6.0",
-        "prettier": "^2.3.2",
-        "stylelint": "^13.13.1",
-        "stylelint-config-standard": "^22.0.0",
-        "ts-node": "^10.2.1",
-        "typescript": "^4.4.2"
-    },
-    "dependencies": {
-        "@fontsource/roboto": "^4.5.0",
-        "@parcel/logger": "^2.0.0-alpha.3",
-        "@types/express": "^4.17.13",
-        "@types/sinon": "^10.0.4",
-        "@types/sinon-chai": "^3.2.5",
-        "@types/uuid": "^8.3.1",
-        "autoprefixer": "^9.8.6",
-        "classnames": "^2.3.1",
-        "express": "^4.17.1",
-        "handlebars": "^4.7.7",
-        "ignore-styles": "^5.0.1",
-        "jsdom": "^14.1.0",
-        "postcss": "^8.3.6",
-        "postcss-advanced-variables": "^3.0.1",
-        "postcss-loader": "^6.1.1",
-        "postcss-modules": "^3.2.2",
-        "sanitize-html": "^2.5.1",
-        "sinon": "^11.1.2",
-        "sinon-chai": "^3.7.0",
-        "uuid": "^3.4.0"
-    },
-    "prettier": {
-        "trailingComma": "none",
-        "tabWidth": 4,
-        "semi": false,
-        "singleQuote": false
-    },
-    "mocha": {
-        "require": [
-            "ts-node/register",
-            "ignore-styles",
-            "jsdom-global/register"
-        ],
-        "reporter": "list",
-        "colors": true
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Учебный проект мессенджера в Яндекс Практикуме",
+  "engines": {
+    "node": ">=14.17"
+  },
+  "scripts": {
+    "dev": "webpack serve --config webpack.dev.js",
+    "build": "npm run test && npm run lint && webpack --config webpack.prod.js",
+    "test": "mocha 'src/**/*.test.ts'",
+    "start": "ts-node src/server.ts",
+    "lint:p": "prettier --write './src/**/*.{ts,test.ts,json}'",
+    "lint:e": "eslint \"src/**/*.ts\" --fix",
+    "lint:s": "stylelint \"src/**/*css\" --fix",
+    "lint": "npm-run-all lint:p lint:e lint:s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Verisana/middle.messenger.praktikum.yandex.git"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/jsdom": "^16.2.13",
+    "@types/mocha": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "chai": "^4.3.4",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.4.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.4.0",
+    "husky": "^7.0.2",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^18.0.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^9.1.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.3.9",
+    "postcss-loader": "^6.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.3.2",
+    "sinon": "^11.1.2",
+    "sinon-chai": "^3.7.0",
+    "style-loader": "^3.3.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.2",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.3.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@fontsource/roboto": "^4.5.0",
+    "@types/express": "^4.17.13",
+    "@types/sinon": "^10.0.4",
+    "@types/sinon-chai": "^3.2.5",
+    "@types/uuid": "^8.3.1",
+    "autoprefixer": "^9.8.6",
+    "classnames": "^2.3.1",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "postcss-advanced-variables": "^3.0.1",
+    "postcss-modules": "^3.2.2",
+    "sanitize-html": "^2.5.1",
+    "ts-node": "^10.3.0",
+    "uuid": "^3.4.0"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": false
+  },
+  "mocha": {
+    "require": [
+      "ts-node/register",
+      "ignore-styles",
+      "jsdom-global/register"
+    ],
+    "reporter": "list",
+    "colors": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all lint"
     }
+  }
 }

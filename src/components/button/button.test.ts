@@ -5,57 +5,56 @@ import { BlockParams } from "../block"
 import { Button } from "./button"
 
 describe("Test Button", () => {
-    let dom: JSDOM
+  let dom: JSDOM
 
-    beforeEach(() => {
-        dom = new JSDOM(`<html><body><div id="App"></div></body></html>`, {
-            url: "http://localhost:1234"
-        })
-
-        // @ts-expect-error
-        global.window = dom.window as DOMWindow
-
-        global.document = dom.window.document
+  beforeEach(() => {
+    dom = new JSDOM(`<html><body><div id="App"></div></body></html>`, {
+      url: "http://localhost:1234"
     })
 
-    it("initialization", () => {
-        const params: BlockParams<IButtonProps> = {
-            props: {
-                text: "Test",
-                type_: "text"
-            }
-        }
-        const button = new Button(params)
-        expect(button.props.text).to.be.equal(params.props.text)
-        expect(button.props.type_).to.be.equal(params.props.type_)
-    })
+    // @ts-expect-error
+    global.window = dom.window as DOMWindow
 
-    it("props update rerendering", () => {
-        const params: BlockParams<IButtonProps> = {
-            props: {
-                text: "Test",
-                type_: "text"
-            }
-        }
+    global.document = dom.window.document
+  })
 
-        const button = new Button(params)
-        const div = document.body.firstElementChild
-        if (div !== null && button.content !== null) {
-            div.appendChild(button.content)
-        } else {
-            throw new Error("You must find div in tests")
-        }
+  it("initialization", () => {
+    const params: BlockParams<IButtonProps> = {
+      props: {
+        text: "Test",
+        type_: "text"
+      }
+    }
+    const button = new Button(params)
+    expect(button.props.text).to.be.equal(params.props.text)
+    expect(button.props.type_).to.be.equal(params.props.type_)
+  })
 
-        // eslint-disable-next-line
-        expect(
-            button.content.textContent?.includes(params.props.text as string)
-        ).to.be.true
+  it("props update rerendering", () => {
+    const params: BlockParams<IButtonProps> = {
+      props: {
+        text: "Test",
+        type_: "text"
+      }
+    }
 
-        const textChanged = "Changed"
+    const button = new Button(params)
+    const div = document.body.firstElementChild
+    if (div !== null && button.content !== null) {
+      div.appendChild(button.content)
+    } else {
+      throw new Error("You must find div in tests")
+    }
 
-        button.props.text = textChanged
+    // eslint-disable-next-line
+    expect(button.content.textContent?.includes(params.props.text as string)).to
+      .be.true
 
-        // eslint-disable-next-line
-        expect(button.content.textContent?.includes(textChanged)).to.be.true
-    })
+    const textChanged = "Changed"
+
+    button.props.text = textChanged
+
+    // eslint-disable-next-line
+    expect(button.content.textContent?.includes(textChanged)).to.be.true
+  })
 })

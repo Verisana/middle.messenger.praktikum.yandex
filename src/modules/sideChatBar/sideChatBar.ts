@@ -11,82 +11,78 @@ import { store } from "../../store"
 import { constructSideChats } from "../../controllers/utils"
 
 export class SideChatBar extends Block<ISideChatBarProps> {
-    constructor(params: BlockParams<ISideChatBarProps>) {
-        const { props } = params
-        props.rootClass = convertStylesToStrings(
-            [styles],
-            "side-chat-bar",
-            props.rootClass
+  constructor(params: BlockParams<ISideChatBarProps>) {
+    const { props } = params
+    props.rootClass = convertStylesToStrings(
+      [styles],
+      "side-chat-bar",
+      props.rootClass
+    )
+    super(params)
+    globalEventBus().on(
+      globalEvents.sideChatClicked,
+      this.sideChatClick.bind(this)
+    )
+    globalEventBus().on(
+      globalEvents.sideChatsUpdated,
+      this.sideChatUpdated.bind(this)
+    )
+  }
+
+  async sideChatClick(id: number) {
+    this.selectSideChat(id)
+    const selected = getSelectedSideChat(this.props.SideChats as SideChat[])
+    if (selected === undefined) {
+      console.warn("Something is wrong. Chat must be selected")
+      return
+    }
+    store.setValue("selectedChat", selected)
+    await chatsController.readUsers(Number(selected.id))
+    store.setMessages([])
+    messagesController.open(selected)
+  }
+
+  sideChatUpdated() {
+    let sideChats = constructSideChats()
+    const searchQuery = store.select("chatsSearchQuery") as string | undefined
+
+    if (searchQuery !== undefined) {
+      sideChats = sideChats.filter((value) => {
+        const messageProps = value.props.Message.props
+        return (
+          value.props.chatTitle.includes(searchQuery) ||
+          String(value.props.chatId).includes(searchQuery) ||
+          messageProps.text.includes(searchQuery)
         )
-        super(params)
-        globalEventBus().on(
-            globalEvents.sideChatClicked,
-            this.sideChatClick.bind(this)
-        )
-        globalEventBus().on(
-            globalEvents.sideChatsUpdated,
-            this.sideChatUpdated.bind(this)
-        )
+      })
+      store.setValue("chatsSearchQuery", undefined)
     }
+    this.props.SideChats = sideChats
+  }
 
-    async sideChatClick(id: number) {
-        this.selectSideChat(id)
-        const selected = getSelectedSideChat(this.props.SideChats as SideChat[])
-        if (selected === undefined) {
-            console.warn("Something is wrong. Chat must be selected")
-            return
+  selectSideChat(id: number) {
+    const sideChats = this.props.SideChats as SideChat[]
+    const selectStyle = sideChatStyles["side-chat_select"]
+    for (const sideChat of sideChats) {
+      if (typeof sideChat.props.rootClass === "string") {
+        const currentStyles = new Set(sideChat.props.rootClass.split(" "))
+        if (sideChat.props.chatId !== id) {
+          sideChat.props.selected = false
+          currentStyles.delete(selectStyle)
+        } else {
+          sideChat.props.selected = true
+          currentStyles.add(selectStyle)
         }
-        store.setValue("selectedChat", selected)
-        await chatsController.readUsers(Number(selected.id))
-        store.setMessages([])
-        messagesController.open(selected)
+        sideChat.props.rootClass = Array.from(currentStyles).join(" ")
+      } else {
+        throw new Error("rootClass always must be string")
+      }
     }
+  }
 
-    sideChatUpdated() {
-        let sideChats = constructSideChats()
-        const searchQuery = store.select("chatsSearchQuery") as
-            | string
-            | undefined
-
-        if (searchQuery !== undefined) {
-            sideChats = sideChats.filter((value) => {
-                const messageProps = value.props.Message.props
-                return (
-                    value.props.chatTitle.includes(searchQuery) ||
-                    String(value.props.chatId).includes(searchQuery) ||
-                    messageProps.text.includes(searchQuery)
-                )
-            })
-            store.setValue("chatsSearchQuery", undefined)
-        }
-        this.props.SideChats = sideChats
-    }
-
-    selectSideChat(id: number) {
-        const sideChats = this.props.SideChats as SideChat[]
-        const selectStyle = sideChatStyles["side-chat_select"]
-        for (const sideChat of sideChats) {
-            if (typeof sideChat.props.rootClass === "string") {
-                const currentStyles = new Set(
-                    sideChat.props.rootClass.split(" ")
-                )
-                if (sideChat.props.chatId !== id) {
-                    sideChat.props.selected = false
-                    currentStyles.delete(selectStyle)
-                } else {
-                    sideChat.props.selected = true
-                    currentStyles.add(selectStyle)
-                }
-                sideChat.props.rootClass = Array.from(currentStyles).join(" ")
-            } else {
-                throw new Error("rootClass always must be string")
-            }
-        }
-    }
-
-    render(): [string, ISideChatBarProps] {
-        return [
-            /*html*/ `
+  render(): [string, ISideChatBarProps] {
+    return [
+      /*html*/ `
             <div class="{{rootClass}}">
                 {{{SearchBar}}}
                 <div>
@@ -98,7 +94,7 @@ export class SideChatBar extends Block<ISideChatBarProps> {
                 {{/each}}
             </div>
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }

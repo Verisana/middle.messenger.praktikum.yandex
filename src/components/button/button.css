@@ -1,33 +1,33 @@
 .button {
-    margin: 5px;
-    padding: 5px;
-    overflow: hidden;
-    border-width: 0;
-    border-radius: 2px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-    background-color: $secondary-object-dark-color;
-    color: $light-text-color;
-    transition: background-color 0.3s;
+  margin: 5px;
+  padding: 5px;
+  overflow: hidden;
+  border-width: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  background-color: $secondary-object-dark-color;
+  color: $light-text-color;
+  transition: background-color 0.3s;
 }
 
 .button:hover,
 .button:focus {
-    background-color: $secondary-object-light-color;
+  background-color: $secondary-object-light-color;
 }
 
 .button__navbar {
-    width: 40px;
-    height: 40px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+  width: 40px;
+  height: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .button__image {
-    width: 100%;
-    height: 100%;
-    margin: auto;
+  width: 100%;
+  height: 100%;
+  margin: auto;
 }
 
 .button__message-submit {
-    margin-left: auto;
+  margin-left: auto;
 }

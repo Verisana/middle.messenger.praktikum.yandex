@@ -1,6 +1,6 @@
 export { SubmitForm } from "./submitForm"
 export {
-    ISubmitFormParams,
-    ISubmitFormProps,
-    ISubmitFormSettings
+  ISubmitFormParams,
+  ISubmitFormProps,
+  ISubmitFormSettings
 } from "./types"

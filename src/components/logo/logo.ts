@@ -8,33 +8,33 @@ import { routerFactory } from "../../router"
 const router = routerFactory()
 
 export class Logo extends Block<ILogoProps> {
-    constructor(params: BlockParams<ILogoProps>) {
-        const { props } = params
-        if (props.rootClass === undefined) {
-            props.rootClass = convertStylesToStrings([styles], "logo")
-        } else {
-            props.rootClass = convertStylesToStrings(
-                [styles],
-                "logo",
-                props.rootClass
-            )
-        }
-        props.events = appendEvent(
-            "click",
-            () => router.go(urlSlugs.home),
-            props.events
-        )
-        super(params)
+  constructor(params: BlockParams<ILogoProps>) {
+    const { props } = params
+    if (props.rootClass === undefined) {
+      props.rootClass = convertStylesToStrings([styles], "logo")
+    } else {
+      props.rootClass = convertStylesToStrings(
+        [styles],
+        "logo",
+        props.rootClass
+      )
     }
+    props.events = appendEvent(
+      "click",
+      () => router.go(urlSlugs.home),
+      props.events
+    )
+    super(params)
+  }
 
-    render(): [string, ILogoProps] {
-        return [
-            /*html*/ `
+  render(): [string, ILogoProps] {
+    return [
+      /*html*/ `
             <p class={{rootClass}}>
                 Random Voice Companion
             </p>
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }

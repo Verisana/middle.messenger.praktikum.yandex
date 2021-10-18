@@ -4,19 +4,19 @@ import { Block, BlockParams } from "../block"
 import { IFooterProps } from "./types"
 
 export class Footer extends Block<IFooterProps> {
-    constructor() {
-        const params: BlockParams<IFooterProps> = {
-            props: {
-                contentClass: layoutStyles.content
-            }
-        }
-
-        super(params)
+  constructor() {
+    const params: BlockParams<IFooterProps> = {
+      props: {
+        contentClass: layoutStyles.content
+      }
     }
 
-    render(): [string, IFooterProps] {
-        return [
-            /*html*/ `
+    super(params)
+  }
+
+  render(): [string, IFooterProps] {
+    return [
+      /*html*/ `
             <footer>
                 <div className={{contentClass}}>
                     <p>
@@ -25,7 +25,7 @@ export class Footer extends Block<IFooterProps> {
                 </div>
             </footer>
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }

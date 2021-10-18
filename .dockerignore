@@ -1,0 +1,6 @@
+.cache/
+.git/
+dist/
+node_modules/
+sensitive/
+.vscode

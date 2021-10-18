@@ -16,7 +16,12 @@
 git clone https://github.com/Verisana/middle.messenger.praktikum.yandex.git
 cd middle.messenger.praktikum.yandex
 npm install
+cp .env.example .env
 ```
+
+Либо же установить `Docker` и запустить контейнер командой `docker-compose up --build`
+
+Страница должна стать доступной по адресу: `http://127.0.0.1:3000/`
 
 ## Для старта
 
@@ -30,5 +35,3 @@ npm install
 ## Уточнения
 
 1. [Макет проекта в Figma](https://www.figma.com/file/tZvytX2jR7z7Izp4tqxaqH/Praktikum-Messenger?node-id=3%3A18)
-2. Код получился немного запутанным с этими событиями, пропсами и навешиванием логики в контроллеры
-3. Верстку не успел доделать. Завершу окончательно к 4 спринту. Сейчас просто поставил кнопки, поля, чтобы они работали

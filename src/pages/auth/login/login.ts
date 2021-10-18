@@ -12,60 +12,59 @@ import { appendEvent } from "../../../utils/utils"
 const router = routerFactory()
 
 export class LoginPage extends Block<ILoginPageProps> {
-    constructor() {
-        const props: ILoginPageProps = {
-            LoginSubmitForm: new SubmitForm({
-                props: {
-                    formHeaderText: "Введите для авторизации",
-                    Inputs: getLoginInputs(),
-                    SubmitButton: new Button({
-                        props: {
-                            text: "Войти",
-                            type_: "submit"
-                        }
-                    }),
-                    errorText:
-                        "Неправильно введены логин или пароль. Попробуйте еще раз"
-                }
-            }),
-            RegisterButton: new Button({
-                props: {
-                    events: {
-                        click: [() => router.go(urlSlugs.register)]
-                    },
-                    text: "Нет аккаунта?"
-                }
-            })
+  constructor() {
+    const props: ILoginPageProps = {
+      LoginSubmitForm: new SubmitForm({
+        props: {
+          formHeaderText: "Введите для авторизации",
+          Inputs: getLoginInputs(),
+          SubmitButton: new Button({
+            props: {
+              text: "Войти",
+              type_: "submit"
+            }
+          }),
+          errorText: "Неправильно введены логин или пароль. Попробуйте еще раз"
         }
-
-        super({ props })
-        props.LoginSubmitForm.props.events = appendEvent(
-            "submit",
-            this.submitLogin.bind(this),
-            props.LoginSubmitForm.props.events
-        )
+      }),
+      RegisterButton: new Button({
+        props: {
+          events: {
+            click: [() => router.go(urlSlugs.register)]
+          },
+          text: "Нет аккаунта?"
+        }
+      })
     }
 
-    submitLogin(event: Event) {
-        const submitFunc = submitControllerBuilder(
-            authController.login.bind(authController)
-        )
-        try {
-            submitFunc(event)
-        } catch (e) {
-            this.props.LoginSubmitForm.showError()
-        }
-    }
+    super({ props })
+    props.LoginSubmitForm.props.events = appendEvent(
+      "submit",
+      this.submitLogin.bind(this),
+      props.LoginSubmitForm.props.events
+    )
+  }
 
-    render(): [string, ILoginPageProps] {
-        return [
-            /*html*/ `
+  async submitLogin(event: Event) {
+    const submitFunc = submitControllerBuilder(
+      authController.login.bind(authController)
+    )
+    try {
+      await submitFunc(event)
+    } catch (e) {
+      this.props.LoginSubmitForm.showError()
+    }
+  }
+
+  render(): [string, ILoginPageProps] {
+    return [
+      /*html*/ `
             <main>
                 {{{LoginSubmitForm}}}
                 {{{RegisterButton}}}
             </main>
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }

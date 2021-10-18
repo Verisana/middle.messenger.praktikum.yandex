@@ -1,6 +1,6 @@
 footer {
-    background-color: $footer-background-color;
-    margin-top: auto;
-    padding-bottom: 15px;
-    padding-top: 5px;
+  background-color: $footer-background-color;
+  margin-top: auto;
+  padding-bottom: 15px;
+  padding-top: 5px;
 }

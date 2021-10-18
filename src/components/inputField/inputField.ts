@@ -4,20 +4,20 @@ import { IInputFieldProps } from "./types"
 import { Block, BlockParams, Props } from "../block"
 
 export class InputField extends Block<IInputFieldProps> {
-    constructor(params: BlockParams<IInputFieldProps>) {
-        const { props = {} } = params
-        props.rootClass = convertStylesToStrings([styles], props.rootClass)
-        props.type_ = props.type_ === undefined ? "text" : props.type_
-        props.required = props.required === undefined ? false : props.required
-        props.placeholder =
-            props.placeholder === undefined ? " " : props.placeholder
+  constructor(params: BlockParams<IInputFieldProps>) {
+    const { props = {} } = params
+    props.rootClass = convertStylesToStrings([styles], props.rootClass)
+    props.type_ = props.type_ === undefined ? "text" : props.type_
+    props.required = props.required === undefined ? false : props.required
+    props.placeholder =
+      props.placeholder === undefined ? " " : props.placeholder
 
-        super(params)
-    }
+    super(params)
+  }
 
-    render(): [string, Props] {
-        return [
-            /*html*/ `
+  render(): [string, Props] {
+    return [
+      /*html*/ `
             <input
                 class="{{rootClass}}"
                 type="{{type_}}"
@@ -29,7 +29,7 @@ export class InputField extends Block<IInputFieldProps> {
                 {{#if accept}}accept="{{accept}}"{{/if}}
             />
         `,
-            this.props
-        ]
-    }
+      this.props
+    ]
+  }
 }

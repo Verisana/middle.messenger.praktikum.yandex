@@ -1,8 +1,8 @@
 .logo {
-    margin: auto;
-    font-weight: 900;
+  margin: auto;
+  font-weight: 900;
 }
 
 .logo:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
