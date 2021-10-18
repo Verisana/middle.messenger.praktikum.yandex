@@ -3,7 +3,7 @@ import { Footer } from "../components/footer"
 import { Header } from "../components/header"
 
 export interface ILayoutProps<T extends Props> extends Props {
-    Content: Block<T>
-    Header?: Header
-    Footer?: Footer
+  Content: Block<T>
+  Header?: Header
+  Footer?: Footer
 }

@@ -2,7 +2,7 @@
     "extends": "stylelint-config-standard",
     "rules": {
         "color-hex-case": "lower",
-        "indentation": 4,
+        "indentation": 2,
         "no-missing-end-of-source-newline": false,
         "no-empty-source": null
     },

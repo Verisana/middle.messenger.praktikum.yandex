@@ -1,62 +1,62 @@
 input {
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: $input-width;
-    border: none;
-    border-bottom: 1px solid $input-text-color;
-    background: transparent;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: $input-width;
+  border: none;
+  border-bottom: 1px solid $input-text-color;
+  background: transparent;
 }
 
 input:focus {
-    outline: 1px solid $input-text-color;
-    border: 0;
+  outline: 1px solid $input-text-color;
+  border: 0;
 }
 
 /* active state */
 input:focus ~ label {
-    top: -20px;
-    font-size: 14px;
-    color: $secondary-object-light-color;
+  top: -20px;
+  font-size: 14px;
+  color: $secondary-object-light-color;
 }
 
 input ~ p {
-    display: none;
+  display: none;
 }
 
 input:not(:placeholder-shown):invalid ~ p {
-    display: block;
-    color: $primary-error;
-    text-align: left;
-    margin: 5px 0 0 0;
-    padding: 0;
-    width: $input-width;
-    font-size: smaller;
+  display: block;
+  color: $primary-error;
+  text-align: left;
+  margin: 5px 0 0 0;
+  padding: 0;
+  width: $input-width;
+  font-size: smaller;
 }
 
 input:not(:placeholder-shown) ~ label {
-    display: none;
+  display: none;
 }
 
 input:not(:placeholder-shown):valid ~ label {
-    color: $secondary-object-light-color;
+  color: $secondary-object-light-color;
 }
 
 input:not(:placeholder-shown):valid {
-    border-color: $primary-object-color;
+  border-color: $primary-object-color;
 }
 
 input:not(:placeholder-shown):invalid ~ label {
-    color: $primary-error;
+  color: $primary-error;
 }
 
 input:not(:placeholder-shown):invalid {
-    outline: 1px solid $primary-error;
-    border: 0;
+  outline: 1px solid $primary-error;
+  border: 0;
 }
 
 /* active state */
 input:focus ~ .bar::before,
 input:focus ~ .bar::after {
-    width: 50%;
+  width: 50%;
 }

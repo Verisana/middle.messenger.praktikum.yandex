@@ -9,50 +9,50 @@ import { loginBlockBuilder, loginRedirectBuilder } from "./router/utils"
 const router = routerFactory()
 
 async function main() {
-    await authController.userRead()
-    router.useRedirect(
-        urlSlugs.home,
-        loginBlockBuilder(urlSlugs.messenger, "messenger"),
-        loginRedirectBuilder(urlSlugs.messenger)
-    )
+  await authController.userRead()
+  router.useRedirect(
+    urlSlugs.home,
+    loginBlockBuilder(urlSlugs.messenger, "messenger"),
+    loginRedirectBuilder(urlSlugs.messenger)
+  )
 
-    router.useRedirect(
-        urlSlugs.login,
-        loginBlockBuilder(urlSlugs.messenger, "messenger"),
-        loginRedirectBuilder(urlSlugs.messenger)
-    )
+  router.useRedirect(
+    urlSlugs.login,
+    loginBlockBuilder(urlSlugs.messenger, "messenger"),
+    loginRedirectBuilder(urlSlugs.messenger)
+  )
 
-    router.useRedirect(
-        urlSlugs.register,
-        loginBlockBuilder(
-            urlSlugs.messenger,
-            "messenger",
-            urlSlugs.register,
-            pages.register
-        ) as any,
-        loginRedirectBuilder(urlSlugs.messenger, urlSlugs.register)
-    )
+  router.useRedirect(
+    urlSlugs.register,
+    loginBlockBuilder(
+      urlSlugs.messenger,
+      "messenger",
+      urlSlugs.register,
+      pages.register
+    ) as any,
+    loginRedirectBuilder(urlSlugs.messenger, urlSlugs.register)
+  )
 
-    router.useRedirect(
-        urlSlugs.settings,
-        loginBlockBuilder(urlSlugs.settings, "profileSettings"),
-        loginRedirectBuilder(urlSlugs.settings)
-    )
+  router.useRedirect(
+    urlSlugs.settings,
+    loginBlockBuilder(urlSlugs.settings, "profileSettings"),
+    loginRedirectBuilder(urlSlugs.settings)
+  )
 
-    router.useRedirect(
-        urlSlugs.messenger,
-        loginBlockBuilder(urlSlugs.messenger, "messenger"),
-        loginRedirectBuilder(urlSlugs.messenger)
-    )
+  router.useRedirect(
+    urlSlugs.messenger,
+    loginBlockBuilder(urlSlugs.messenger, "messenger"),
+    loginRedirectBuilder(urlSlugs.messenger)
+  )
 
-    router.use(urlSlugs.serverError, layoutFactory(pages.serverError))
-    router.useError(urlSlugs.error, layoutFactory(pages.error))
+  router.use(urlSlugs.serverError, layoutFactory(pages.serverError))
+  router.useError(urlSlugs.error, layoutFactory(pages.error))
 
-    router.start()
+  router.start()
 }
 
 main()
-    .then(() => {})
-    .catch((error) => {
-        console.error(error)
-    })
+  .then(() => {})
+  .catch((error) => {
+    console.error(error)
+  })

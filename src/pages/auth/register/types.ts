@@ -3,6 +3,6 @@ import { Button } from "../../../components/button"
 import { SubmitForm } from "../../../components/submitForm"
 
 export interface IRegisterPageProps extends Props {
-    RegisterSubmitForm: SubmitForm
-    LoginButton: Button
+  RegisterSubmitForm: SubmitForm
+  LoginButton: Button
 }

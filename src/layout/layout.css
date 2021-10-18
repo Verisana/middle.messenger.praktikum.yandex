@@ -1,42 +1,42 @@
 body {
-    font-family: "Roboto", sans-serif;
-    background-color: $main-background-color;
-    text-align: center;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  font-family: "Roboto", sans-serif;
+  background-color: $main-background-color;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .content {
-    max-width: $content-max-width;
-    margin: auto;
+  max-width: $content-max-width;
+  margin: auto;
 }
 
 main {
-    max-width: $content-max-width;
-    margin: auto;
-    margin-bottom: 10px;
+  max-width: $content-max-width;
+  margin: auto;
+  margin-bottom: 10px;
 }
 
 img {
-    max-width: $content-max-width;
-    height: inherit;
-    width: inherit;
-    margin: 5px;
-    border-radius: 15px;
+  max-width: $content-max-width;
+  height: inherit;
+  width: inherit;
+  margin: 5px;
+  border-radius: 15px;
 }
 
 .avatar {
-    height: 100px;
-    width: 100px;
-    border-radius: 50px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
 }
 
 .avatar_small {
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
-    margin-top: auto;
-    margin-bottom: auto;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  margin-top: auto;
+  margin-bottom: auto;
 }

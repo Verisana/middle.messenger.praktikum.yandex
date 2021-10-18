@@ -1,11 +1,11 @@
 header {
-    background-color: $primary-object-color;
-    color: $light-text-color;
+  background-color: $primary-object-color;
+  color: $light-text-color;
 }
 
 nav {
-    max-width: 1140px;
-    margin: auto;
-    display: flex;
-    min-height: 70px;
+  max-width: 1140px;
+  margin: auto;
+  display: flex;
+  min-height: 70px;
 }
