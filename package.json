@@ -62,7 +62,6 @@
     "@types/uuid": "^8.3.1",
     "autoprefixer": "^9.8.6",
     "classnames": "^2.3.1",
-    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
     "ignore-styles": "^5.0.1",
