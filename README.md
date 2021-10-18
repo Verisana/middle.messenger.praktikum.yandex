@@ -1,8 +1,10 @@
 # Random Voice Chat
 
-[Pull request из `sprint_3`](https://github.com/Verisana/middle.messenger.praktikum.yandex/pull/11)
+[Pull request из `sprint_4`](https://github.com/Verisana/middle.messenger.praktikum.yandex/pull/16)
 
 [Сайт на Netlify](https://pedantic-bhaskara-cd46dc.netlify.app/)
+
+[Сайт на Heroku](https://kak-praktikum-messenger.herokuapp.com/messenger)
 
 ## Установка
 
